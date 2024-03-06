@@ -1,11 +1,10 @@
 class Llvm < Formula
   desc "Next-gen compiler infrastructure"
   homepage "https://llvm.org/"
-  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.6/llvm-project-17.0.6.src.tar.xz"
-  sha256 "58a8818c60e6627064f312dbf46c02d9949956558340938b71cf731ad8bc0813"
+  url "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.3/llvm-project-18.1.3.src.tar.xz"
+  sha256 "2929f62d69dec0379e529eb632c40e15191e36f3bd58c2cb2df0413a0dc48651"
   # The LLVM Project is under the Apache License v2.0 with LLVM Exceptions
   license "Apache-2.0" => { with: "LLVM-exception" }
-  revision 1
   head "https://github.com/llvm/llvm-project.git", branch: "main"
 
   livecheck do
@@ -50,14 +49,6 @@ class Llvm < Formula
   # Fails at building LLDB
   fails_with gcc: "5"
 
-  # Fix arm64 misoptimisation in some cases.
-  # https://github.com/Homebrew/homebrew-core/issues/158957
-  # Remove with LLVM 18.
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/23704400c86976aaa4f421f56928484a270ac79c/llvm/17.x-arm64-opt.patch"
-    sha256 "0e312207fd9474bd26f4a283ee23d94b334d3ec8732086d30bce95f7c8dc2201"
-  end
-
   def python3
     "python3.12"
   end
@@ -72,7 +63,6 @@ class Llvm < Formula
       clang
       clang-tools-extra
       lld
-      lldb
       mlir
       polly
     ]
@@ -82,10 +72,15 @@ class Llvm < Formula
       libcxxabi
       libunwind
     ]
-    if OS.mac?
-      runtimes << "openmp"
-    else
-      projects << "openmp"
+
+    unless versioned_formula?
+      projects << "lldb"
+
+      if OS.mac?
+        runtimes << "openmp"
+      else
+        projects << "openmp"
+      end
     end
 
     python_versions = Formula.names
@@ -118,7 +113,7 @@ class Llvm < Formula
       -DLLVM_INCLUDE_DOCS=OFF
       -DLLVM_INCLUDE_TESTS=OFF
       -DLLVM_INSTALL_UTILS=ON
-      -DLLVM_ENABLE_Z3_SOLVER=ON
+      -DLLVM_ENABLE_Z3_SOLVER=#{versioned_formula? ? "OFF" : "ON"}
       -DLLVM_OPTIMIZED_TABLEGEN=ON
       -DLLVM_TARGETS_TO_BUILD=all
       -DLLDB_USE_SYSTEM_DEBUGSERVER=ON
@@ -127,6 +122,7 @@ class Llvm < Formula
       -DLLDB_ENABLE_LZMA=ON
       -DLLDB_PYTHON_RELATIVE_PATH=libexec/#{site_packages}
       -DLIBOMP_INSTALL_ALIASES=OFF
+      -DLIBCXX_INSTALL_MODULES=ON
       -DCLANG_PYTHON_BINDINGS_VERSIONS=#{python_versions.join(";")}
       -DLLVM_CREATE_XCODE_TOOLCHAIN=OFF
       -DCLANG_FORCE_MATCHING_LIBCLANG_SOVERSION=OFF
@@ -145,12 +141,16 @@ class Llvm < Formula
         args << "-DFFI_LIBRARY_DIR=#{macos_sdk}/usr/lib"
       end
 
+      libcxx_install_libdir = lib/"c++"
+      libcxx_rpaths = [loader_path, rpath(source: libcxx_install_libdir)]
+
       args << "-DLLVM_BUILD_LLVM_C_DYLIB=ON"
       args << "-DLLVM_ENABLE_LIBCXX=ON"
-      args << "-DLIBCXX_INSTALL_LIBRARY_DIR=#{lib}/c++"
-      args << "-DLIBCXXABI_INSTALL_LIBRARY_DIR=#{lib}/c++"
+      args << "-DLIBCXX_PSTL_CPU_BACKEND=libdispatch"
+      args << "-DLIBCXX_INSTALL_LIBRARY_DIR=#{libcxx_install_libdir}"
+      args << "-DLIBCXXABI_INSTALL_LIBRARY_DIR=#{libcxx_install_libdir}"
       args << "-DDEFAULT_SYSROOT=#{macos_sdk}" if macos_sdk
-      runtimes_cmake_args << "-DCMAKE_INSTALL_RPATH=#{loader_path}"
+      runtimes_cmake_args << "-DCMAKE_INSTALL_RPATH=#{libcxx_rpaths.join("|")}"
 
       # Disable builds for OSes not supported by the CLT SDK.
       clt_sdk_support_flags = %w[I WATCH TV].map { |os| "-DCOMPILER_RT_ENABLE_#{os}OS=OFF" }
@@ -195,9 +195,9 @@ class Llvm < Formula
       builtins_cmake_args << "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
     end
 
-    # Skip the PGO build on HEAD installs or non-bottle source builds
+    # Skip the PGO build on HEAD installs, non-bottle source builds, or versioned formulae.
     # Catalina and earlier requires too many hacks to build with PGO.
-    pgo_build = build.stable? && build.bottle? && OS.mac? && (MacOS.version > :catalina)
+    pgo_build = build.stable? && build.bottle? && OS.mac? && (MacOS.version > :catalina) && !versioned_formula?
     lto_build = pgo_build && OS.mac?
 
     if ENV.cflags.present?
@@ -329,8 +329,9 @@ class Llvm < Formula
 
         # We run some `check-*` targets to increase profiling
         # coverage. These do not need to succeed.
+        # NOTE: If using `Unix Makefiles` generator, `-k 0` needs to replaced with `--keep-going`.
         begin
-          system "cmake", "--build", ".", "--target", "check-clang", "check-llvm", "--", "--keep-going"
+          system "cmake", "--build", ".", "--target", "check-clang", "check-llvm", "--", "-k", "0"
         rescue BuildError
           nil
         end
@@ -346,8 +347,9 @@ class Llvm < Formula
                         *std_cmake_args
 
         # This build is for profiling, so it is safe to ignore errors.
+        # NOTE: If using `Unix Makefiles` generator, `-k 0` needs to replaced with `--keep-going`.
         begin
-          system "cmake", "--build", ".", "--", "--keep-going"
+          system "cmake", "--build", ".", "--", "-k", "0"
         rescue BuildError
           nil
         end
@@ -460,33 +462,6 @@ class Llvm < Formula
     assert_equal "-lLLVM-#{soversion}", shell_output("#{bin}/llvm-config --libs").chomp
     assert_equal (lib/shared_library("libLLVM-#{soversion}")).to_s,
                  shell_output("#{bin}/llvm-config --libfiles").chomp
-
-    (testpath/"omptest.c").write <<~EOS
-      #include <stdlib.h>
-      #include <stdio.h>
-      #include <omp.h>
-      int main() {
-          #pragma omp parallel num_threads(4)
-          {
-            printf("Hello from thread %d, nthreads %d\\n", omp_get_thread_num(), omp_get_num_threads());
-          }
-          return EXIT_SUCCESS;
-      }
-    EOS
-
-    system "#{bin}/clang", "-L#{lib}", "-fopenmp", "-nobuiltininc",
-                           "-I#{lib}/clang/#{llvm_version_major}/include",
-                           "omptest.c", "-o", "omptest"
-    testresult = shell_output("./omptest")
-
-    sorted_testresult = testresult.split("\n").sort.join("\n")
-    expected_result = <<~EOS
-      Hello from thread 0, nthreads 4
-      Hello from thread 1, nthreads 4
-      Hello from thread 2, nthreads 4
-      Hello from thread 3, nthreads 4
-    EOS
-    assert_equal expected_result.strip, sorted_testresult.strip
 
     (testpath/"test.c").write <<~EOS
       #include <stdio.h>
@@ -667,17 +642,6 @@ class Llvm < Formula
     assert_equal "int main() { printf(\"Hello world!\"); }\n",
       shell_output("#{bin}/clang-format -style=google clangformattest.c")
 
-    # Test static analyzer
-    (testpath/"unreachable.c").write <<~EOS
-      unsigned int func(unsigned int a) {
-        unsigned int *z = 0;
-        if ((a & 1) && ((a & 1) ^1))
-          return *z; // unreachable
-        return 0;
-      }
-    EOS
-    system bin/"clang", "--analyze", "-Xanalyzer", "-analyzer-constraints=z3", "unreachable.c"
-
     # This will fail if the clang bindings cannot find `libclang`.
     with_env(PYTHONPATH: prefix/Language::Python.site_packages(python3)) do
       system python3, "-c", <<~EOS
@@ -686,15 +650,55 @@ class Llvm < Formula
       EOS
     end
 
-    # Check that lldb can use Python
-    lldb_script_interpreter_info = JSON.parse(shell_output("#{bin}/lldb --print-script-interpreter-info"))
-    assert_equal "python", lldb_script_interpreter_info["language"]
-    python_test_cmd = "import pathlib, sys; print(pathlib.Path(sys.prefix).resolve())"
-    assert_match shell_output("#{python3} -c '#{python_test_cmd}'"),
-                 pipe_output("#{bin}/lldb", <<~EOS)
-                   script
-                   #{python_test_cmd}
-                 EOS
+    unless versioned_formula?
+      (testpath/"omptest.c").write <<~EOS
+        #include <stdlib.h>
+        #include <stdio.h>
+        #include <omp.h>
+        int main() {
+            #pragma omp parallel num_threads(4)
+            {
+              printf("Hello from thread %d, nthreads %d\\n", omp_get_thread_num(), omp_get_num_threads());
+            }
+            return EXIT_SUCCESS;
+        }
+      EOS
+
+      system "#{bin}/clang", "-L#{lib}", "-fopenmp", "-nobuiltininc",
+                             "-I#{lib}/clang/#{llvm_version_major}/include",
+                             "omptest.c", "-o", "omptest"
+      testresult = shell_output("./omptest")
+
+      sorted_testresult = testresult.split("\n").sort.join("\n")
+      expected_result = <<~EOS
+        Hello from thread 0, nthreads 4
+        Hello from thread 1, nthreads 4
+        Hello from thread 2, nthreads 4
+        Hello from thread 3, nthreads 4
+      EOS
+      assert_equal expected_result.strip, sorted_testresult.strip
+
+      # Test static analyzer
+      (testpath/"unreachable.c").write <<~EOS
+        unsigned int func(unsigned int a) {
+          unsigned int *z = 0;
+          if ((a & 1) && ((a & 1) ^1))
+            return *z; // unreachable
+          return 0;
+        }
+      EOS
+      system bin/"clang", "--analyze", "-Xanalyzer", "-analyzer-constraints=z3", "unreachable.c"
+
+      # Check that lldb can use Python
+      lldb_script_interpreter_info = JSON.parse(shell_output("#{bin}/lldb --print-script-interpreter-info"))
+      assert_equal "python", lldb_script_interpreter_info["language"]
+      python_test_cmd = "import pathlib, sys; print(pathlib.Path(sys.prefix).resolve())"
+      assert_match shell_output("#{python3} -c '#{python_test_cmd}'"),
+                   pipe_output("#{bin}/lldb", <<~EOS)
+                     script
+                     #{python_test_cmd}
+                   EOS
+    end
 
     # Ensure LLVM did not regress output of `llvm-config --system-libs` which for a time
     # was known to output incorrect linker flags; e.g., `-llibxml2.tbd` instead of `-lxml2`.
