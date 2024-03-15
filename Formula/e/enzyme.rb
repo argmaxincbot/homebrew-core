@@ -4,6 +4,7 @@ class Enzyme < Formula
   url "https://github.com/EnzymeAD/Enzyme/archive/refs/tags/v0.0.104.tar.gz", using: :homebrew_curl
   sha256 "82c2bbd95acecaa9c295bed6e6a82710515771834d57bd123c3c3e19e93f2238"
   license "Apache-2.0" => { with: "LLVM-exception" }
+  revision 1
   head "https://github.com/EnzymeAD/Enzyme.git", branch: "main"
 
   bottle do
@@ -17,7 +18,7 @@ class Enzyme < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "llvm"
+  depends_on "llvm@17"
 
   fails_with gcc: "5"
 
