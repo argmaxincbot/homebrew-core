@@ -118,6 +118,7 @@ class Qt < Formula
     depends_on "systemd"
     depends_on "wayland"
     depends_on "xcb-util"
+    depends_on "xcb-util-cursor"
     depends_on "xcb-util-image"
     depends_on "xcb-util-keysyms"
     depends_on "xcb-util-renderutil"
@@ -217,6 +218,8 @@ class Qt < Formula
       # `___builtin_available` to ensure compatibility.
       config_args << "-skip" << "qtwebengine" if DevelopmentTools.clang_build_version <= 1200
     else
+      cmake_args << "-DQT_FEATURE_xcb=ON"
+
       # Explicitly specify QT_BUILD_INTERNALS_RELOCATABLE_INSTALL_PREFIX so
       # that cmake does not think $HOMEBREW_PREFIX/lib is the install prefix.
       cmake_args << "-DQT_BUILD_INTERNALS_RELOCATABLE_INSTALL_PREFIX=#{prefix}"
