@@ -21,7 +21,6 @@ class ApachePulsar < Formula
   depends_on "maven" => :build
   depends_on "pkg-config" => :build
   depends_on "protobuf" => :build
-  depends_on arch: :x86_64 # https://github.com/apache/pulsar/issues/16639
   depends_on "openjdk@17"
 
   def install
