@@ -4,6 +4,7 @@ class Chapel < Formula
   url "https://github.com/chapel-lang/chapel/releases/download/2.0.0/chapel-2.0.0.tar.gz"
   sha256 "b5387e9d37b214328f422961e2249f2687453c2702b2633b7d6a678e544b9a02"
   license "Apache-2.0"
+  revision 1
   head "https://github.com/chapel-lang/chapel.git", branch: "main"
 
   bottle do
@@ -18,7 +19,7 @@ class Chapel < Formula
 
   depends_on "cmake"
   depends_on "gmp"
-  depends_on "llvm"
+  depends_on "llvm@17"
   depends_on "python@3.11"
 
   # LLVM is built with gcc11 and we will fail on linux with gcc version 5.xx
