@@ -4,6 +4,7 @@ class Cppinsights < Formula
   url "https://github.com/andreasfertig/cppinsights/archive/refs/tags/v_17.0.tar.gz"
   sha256 "2dd6bcfcdba65c0ed2e1f04ef79d57285186871ad8bd481d63269f3115276216"
   license "MIT"
+  revision 1
 
   bottle do
     sha256 cellar: :any,                 arm64_sonoma:   "96323129186a6544a116c838c12b1f3553afed284acc34f9dab10be492c67931"
