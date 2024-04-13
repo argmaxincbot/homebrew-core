@@ -1436,6 +1436,7 @@ opensearch
 openshift-cli
 opentelemetry-cpp
 opentofu
+openttd
 openvdb
 openvpn
 operator-sdk
