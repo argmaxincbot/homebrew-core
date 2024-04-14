@@ -5,7 +5,7 @@ class Collectd < Formula
   revision 7
 
   stable do
-    url "https://collectd.org/files/collectd-5.12.0.tar.bz2"
+    url "https://storage.googleapis.com/collectd-tarballs/collectd-5.12.0.tar.bz2"
     sha256 "5bae043042c19c31f77eb8464e56a01a5454e0b39fa07cf7ad0f1bfc9c3a09d6"
 
     # Fix -flat_namespace being used on Big Sur and later.
