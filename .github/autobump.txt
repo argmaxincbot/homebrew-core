@@ -2068,6 +2068,7 @@ webtorrent-cli
 weechat
 werf
 wgcf
+whisper-cpp
 whistle
 whois
 wildfly-as
