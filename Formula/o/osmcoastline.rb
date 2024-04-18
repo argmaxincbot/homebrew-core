@@ -4,7 +4,7 @@ class Osmcoastline < Formula
   url "https://github.com/osmcode/osmcoastline/archive/refs/tags/v2.4.0.tar.gz"
   sha256 "2c1a28313ed19d6e2fb1cb01cde8f4f44ece378393993b0059f447c5fce11f50"
   license "GPL-3.0-or-later"
-  revision 4
+  revision 5
 
   bottle do
     sha256 cellar: :any,                 arm64_sonoma:   "7129acb1c9d8790b0fd50e7a6fca0cb9933d03f6ea56ca9ea455bf68a4d7959a"
@@ -35,9 +35,22 @@ class Osmcoastline < Formula
   end
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     protozero = Formula["libosmium"].opt_libexec/"include"
-    system "cmake", ".", "-DPROTOZERO_INCLUDE_DIR=#{protozero}", *std_cmake_args
-    system "make", "install"
+    args = %W[
+      -DPROTOZERO_INCLUDE_DIR=#{protozero}
+    ]
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
