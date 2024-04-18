@@ -2,7 +2,7 @@ class Mapnik < Formula
   desc "Toolkit for developing mapping applications"
   homepage "https://mapnik.org/"
   license "LGPL-2.1-or-later"
-  revision 26
+  revision 27
   head "https://github.com/mapnik/mapnik.git", branch: "master"
 
   # TODO: Try switching to CMake build on next release as it works better with
@@ -60,6 +60,15 @@ class Mapnik < Formula
   uses_from_macos "zlib"
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     boost = Formula["boost"]
     harfbuzz = Formula["harfbuzz"]
     icu = Formula["icu4c"]
