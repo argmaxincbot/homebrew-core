@@ -4,7 +4,7 @@ class SpatialiteGui < Formula
   url "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-2.1.0-beta1.tar.gz"
   sha256 "ba48d96df18cebc3ff23f69797207ae1582cce62f4596b69bae300ca3c23db33"
   license "GPL-3.0-or-later"
-  revision 4
+  revision 5
 
   livecheck do
     url "https://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/"
@@ -46,6 +46,15 @@ class SpatialiteGui < Formula
   uses_from_macos "zlib"
 
   def install
+    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
+    # libunwind due to it being present in a library search path.
+    if DevelopmentTools.clang_build_version >= 1500
+      recursive_dependencies
+        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
+        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
+        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
+    end
+
     # Link flags for sqlite don't seem to get passed to make, which
     # causes builds to fatally error out on linking.
     # https://github.com/Homebrew/homebrew/issues/44003
