@@ -6,6 +6,11 @@ class D2 < Formula
   license "MPL-2.0"
   head "https://github.com/terrastruct/d2.git", branch: "master"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fbd9bfe4a6edddd9a1f6560203f9b9f050994da561b88691d825ce7409ae02fa"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "a9deefb9dc0fa2e121ee0497396178df3f6976b255660669cb6ad3b142b7fce9"
