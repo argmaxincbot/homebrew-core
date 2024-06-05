@@ -18,6 +18,18 @@ class WhisperkitCli < Formula
   uses_from_macos "swift"
 
   def install
+    # Extract the version from the URL
+    version = stable.url.match(/v([0-9]+\.[0-9]+\.[0-9]+)/)[1]
+    ohai "Building whisperkit-cli version #{version}"
+
+    # Replace the placeholder in the source code with the version from tag url
+    inreplace "Sources/WhisperKitCLI/WhisperKitCLI.swift", "let VERSION: String = \"development\"", "let VERSION: String = \"#{version}\"" do |s|
+      unless s.gsub!("let VERSION: String = \"development\"", "let VERSION: String = \"#{version}\"")
+        raise "inreplace failed"
+      end
+    end
+
+    # Build the Swift package
     system "swift", "build", "-c", "release", "--product", "whisperkit-cli", "--disable-sandbox"
     bin.install ".build/release/whisperkit-cli"
   end
