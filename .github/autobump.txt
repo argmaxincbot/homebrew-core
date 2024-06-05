@@ -1549,6 +1549,7 @@ msgpack-cxx
 msmtp
 mtbl
 mtoc
+mtools
 mu
 muffet
 mujs
@@ -1705,6 +1706,8 @@ openrtsp
 opensc
 opensearch
 openshift-cli
+openssl@3
+openssl@3.0
 opentelemetry-cpp
 opentofu
 openttd
