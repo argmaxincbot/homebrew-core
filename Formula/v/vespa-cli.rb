@@ -1,8 +1,8 @@
 class VespaCli < Formula
   desc "Command-line tool for Vespa.ai"
   homepage "https://vespa.ai"
-  url "https://github.com/vespa-engine/vespa/archive/refs/tags/v8.350.38.tar.gz"
-  sha256 "8080db18dd7dc083468b80bbc89ef76457257b6f7d0a88e89879435c42cc972f"
+  url "https://github.com/vespa-engine/vespa/archive/refs/tags/v8.371.16.tar.gz"
+  sha256 "be8322777eaab8b8499854210deb7d8c8ab88af1c0ac7aef00584d681b23abf3"
   license "Apache-2.0"
 
   livecheck do
@@ -12,13 +12,13 @@ class VespaCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8010a465b52717e47cba5d3f9f7940391f9b9e69a4668eb9676f317784754f83"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "bf27d02aa7cf68b6029da118aa3ea52921b661439792f1501e26838b72500da9"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2cd38827b60cf090652dd60d72c5c9686d9074737e96de95466f6251b8de241f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "4a588be412d37a5fd53503545422335f33e53b836c442bc1240126c5c4b49e80"
-    sha256 cellar: :any_skip_relocation, ventura:        "647097627cbc101006421662d825de1e9c4947ae6f9a507afc07b76458f27302"
-    sha256 cellar: :any_skip_relocation, monterey:       "aab8ab921b69eff713ec9a60c9ee09e4d52c2ba30d591ddc15ee6b3bd2ad8e67"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d1cdbcc67f8a72bd5bfa14fcd2c8ae279697fab200bdab78587805d475a71d82"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e1c3af3646a5f7359ac090803da00df570e3d010fb64a63aa6d3554ffba14103"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "97c782ad6ce3951649342c94af8bd603fb7a4a171ee8054fb6cde29fd1e05d96"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "9fde33ab756a826d4f80f9941826c5f78d2d642d6afd59962ce3087d0f993f79"
+    sha256 cellar: :any_skip_relocation, sonoma:         "2d2e9e8e298434532e71e198c17a5dec675c586bb81b75c2bba87f79b72fe34b"
+    sha256 cellar: :any_skip_relocation, ventura:        "958f41a829d49bfd8a39080941cd2b5b6f42f6fc4c459be12c5bf6bb343d32d7"
+    sha256 cellar: :any_skip_relocation, monterey:       "0d43886d8e80e02da413860f0415c5a72c61d80ea7f571139cdc35b8ad22384e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c78c21433f8e0a951558ada0244fba7878c6e00088c6745e7eb32d244a2c0d99"
   end
 
   depends_on "go" => :build

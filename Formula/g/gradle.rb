@@ -1,8 +1,8 @@
 class Gradle < Formula
   desc "Open-source build automation tool based on the Groovy and Kotlin DSL"
   homepage "https://www.gradle.org/"
-  url "https://services.gradle.org/distributions/gradle-8.8-all.zip"
-  sha256 "f8b4f4772d302c8ff580bc40d0f56e715de69b163546944f787c87abf209c961"
+  url "https://services.gradle.org/distributions/gradle-8.9-all.zip"
+  sha256 "258e722ec21e955201e31447b0aed14201765a3bfbae296a46cf60b70e66db70"
   license "Apache-2.0"
 
   livecheck do
@@ -11,24 +11,22 @@ class Gradle < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "efcdc5e35e4c84992247cca63dc6e4cfa9fb560e3887c2e4caafa62d7cad045c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "efcdc5e35e4c84992247cca63dc6e4cfa9fb560e3887c2e4caafa62d7cad045c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "efcdc5e35e4c84992247cca63dc6e4cfa9fb560e3887c2e4caafa62d7cad045c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "bd2537fef2d3504b1b195131abbfbf302a4d4bf2e86984249dd4e8dcc2c2d1a5"
-    sha256 cellar: :any_skip_relocation, ventura:        "bd2537fef2d3504b1b195131abbfbf302a4d4bf2e86984249dd4e8dcc2c2d1a5"
-    sha256 cellar: :any_skip_relocation, monterey:       "bd2537fef2d3504b1b195131abbfbf302a4d4bf2e86984249dd4e8dcc2c2d1a5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "834067560a7903b2bbd9c686b4830e736157ddbcedeb655a19fb565e735c42de"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "f78128a5cdaa11381e561e1bf5fd8f04cd8fd238991d70d553d5cf8ad1cec211"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f78128a5cdaa11381e561e1bf5fd8f04cd8fd238991d70d553d5cf8ad1cec211"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "f78128a5cdaa11381e561e1bf5fd8f04cd8fd238991d70d553d5cf8ad1cec211"
+    sha256 cellar: :any_skip_relocation, sonoma:         "4dd21d10e34f21932d5b14807923231000d1d7057465b0fc7573ec9c65039ab3"
+    sha256 cellar: :any_skip_relocation, ventura:        "4dd21d10e34f21932d5b14807923231000d1d7057465b0fc7573ec9c65039ab3"
+    sha256 cellar: :any_skip_relocation, monterey:       "4dd21d10e34f21932d5b14807923231000d1d7057465b0fc7573ec9c65039ab3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cb55499539a68e56ce0de580deed54841832109784eeed6298ef63f65b048479"
   end
 
-  # no java 22 support for gradle 8.7
   # https://github.com/gradle/gradle/blob/master/platforms/documentation/docs/src/docs/userguide/releases/compatibility.adoc
-  depends_on "openjdk@21"
+  depends_on "openjdk"
 
   def install
     rm_f Dir["bin/*.bat"]
     libexec.install %w[bin docs lib src]
-    env = Language::Java.overridable_java_home_env("21")
+    env = Language::Java.overridable_java_home_env
     (bin/"gradle").write_env_script libexec/"bin/gradle", env
   end
 

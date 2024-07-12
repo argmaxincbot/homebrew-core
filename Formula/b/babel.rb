@@ -4,25 +4,25 @@ require "json"
 class Babel < Formula
   desc "Compiler for writing next generation JavaScript"
   homepage "https://babeljs.io/"
-  url "https://registry.npmjs.org/@babel/core/-/core-7.24.6.tgz"
-  sha256 "ccfe39da16c5ed3385ef1b46451392e3235a9bc81fd1a5c95c37bb7703d1a5d4"
+  url "https://registry.npmjs.org/@babel/core/-/core-7.24.8.tgz"
+  sha256 "345ef64b74e9114e98296b8ac835490d1bfa648849cb9c3e6c62e7c9804cb790"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "c17ab8dcf4b45bf79a059a6b08ff037dbb38441ee8a1195027e00daae94a5a2f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fa47a909fb648a87ae50ffb9991cd3e15f2b459e69232bcfb99a2235f2a8e419"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c3d2cc46229f48790b8949bc376968f7f06d50d77e39716617b15f5384028a37"
-    sha256 cellar: :any_skip_relocation, sonoma:         "5cf76bba3e2cc82219173dc2b56303820caea2e710c535e5874eea84cfa79dbc"
-    sha256 cellar: :any_skip_relocation, ventura:        "88c7cfe17535fdcf7435831a3533e76924f426b1012538dd8c51ef33827a38a8"
-    sha256 cellar: :any_skip_relocation, monterey:       "712c5b04f42aff1362e873fd0ad599897134ab048e9fc90ea9e09a76ebc1fe69"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4d8d0aa959bbb7f2e3626b3e91df5f24b85385105769514781b62198083f413c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a52251dd5c1478e11f349827c3d6f08d3303586729a47b1f10aea129134cbd11"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a52251dd5c1478e11f349827c3d6f08d3303586729a47b1f10aea129134cbd11"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a52251dd5c1478e11f349827c3d6f08d3303586729a47b1f10aea129134cbd11"
+    sha256 cellar: :any_skip_relocation, sonoma:         "a52251dd5c1478e11f349827c3d6f08d3303586729a47b1f10aea129134cbd11"
+    sha256 cellar: :any_skip_relocation, ventura:        "a52251dd5c1478e11f349827c3d6f08d3303586729a47b1f10aea129134cbd11"
+    sha256 cellar: :any_skip_relocation, monterey:       "a52251dd5c1478e11f349827c3d6f08d3303586729a47b1f10aea129134cbd11"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "72a45f3f3a9af0629b432d275b8971f02f37c01048906cf7fd6d6e32f355fac0"
   end
 
   depends_on "node"
 
   resource "babel-cli" do
-    url "https://registry.npmjs.org/@babel/cli/-/cli-7.24.6.tgz"
-    sha256 "a42ecfc6075deff074365dbd56d2378b15ec6715180451bcc00036ca6a96592d"
+    url "https://registry.npmjs.org/@babel/cli/-/cli-7.24.8.tgz"
+    sha256 "989e83a3bc6786ae13b6f7dee71c4cfc1c7abbbaa2afb915c3f8ef4041dc2434"
   end
 
   def install

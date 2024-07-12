@@ -1,9 +1,9 @@
 class Basex < Formula
   desc "Light-weight XML database and XPath/XQuery processor"
   homepage "https://basex.org"
-  url "https://files.basex.org/releases/10.7/BaseX107.zip"
-  version "10.7"
-  sha256 "26bef7528c897e1b572e762038f87e8ea29cdd766cf9633025a3b99ee0fe566c"
+  url "https://files.basex.org/releases/11.1/BaseX111.zip"
+  version "11.1"
+  sha256 "5a5ea4337c62598890a5067cfeaca8b5faecfd2be3be743400739e466b3f228d"
   license "BSD-3-Clause"
 
   livecheck do
@@ -12,7 +12,13 @@ class Basex < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "932422309af72014640130059125d0868fd24a8e31db181e47aa4ee12cdb0989"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "acd3742c6638ef39af472d1fca7c90fa9c9cb4eadde2fd53c865ee8f334f7704"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "acd3742c6638ef39af472d1fca7c90fa9c9cb4eadde2fd53c865ee8f334f7704"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "acd3742c6638ef39af472d1fca7c90fa9c9cb4eadde2fd53c865ee8f334f7704"
+    sha256 cellar: :any_skip_relocation, sonoma:         "acd3742c6638ef39af472d1fca7c90fa9c9cb4eadde2fd53c865ee8f334f7704"
+    sha256 cellar: :any_skip_relocation, ventura:        "acd3742c6638ef39af472d1fca7c90fa9c9cb4eadde2fd53c865ee8f334f7704"
+    sha256 cellar: :any_skip_relocation, monterey:       "acd3742c6638ef39af472d1fca7c90fa9c9cb4eadde2fd53c865ee8f334f7704"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5f4cb5dfea1cf00f66a2b84c65223f846c60eef054dd6a332470d893374276dc"
   end
 
   depends_on "openjdk"

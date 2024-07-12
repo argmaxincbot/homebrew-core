@@ -2,9 +2,9 @@ class PhpAT82 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
   # Should only be updated if the new version is announced on the homepage, https://www.php.net/
-  url "https://www.php.net/distributions/php-8.2.19.tar.xz"
-  mirror "https://fossies.org/linux/www/php-8.2.19.tar.xz"
-  sha256 "aecd63f3ebea6768997f5c4fccd98acbf897762ed5fc25300e846197a9485c13"
+  url "https://www.php.net/distributions/php-8.2.21.tar.xz"
+  mirror "https://fossies.org/linux/www/php-8.2.21.tar.xz"
+  sha256 "8cc44d51bb2506399ec176f70fe110f0c9e1f7d852a5303a2cd1403402199707"
   license "PHP-3.01"
 
   livecheck do
@@ -13,13 +13,13 @@ class PhpAT82 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "0ba198bed7e40ec2ffbc57fb96cc14f0f28d45a26c75b12d0e2b347c4a3170d6"
-    sha256 arm64_ventura:  "3fdde5bb13e51e90cb16b985b9a68c7110b720698be6ada10f1784efd44fe55c"
-    sha256 arm64_monterey: "63e5de31811125fe296cfc9d4265a933ee27b22da62173397ce3ff6004e4720d"
-    sha256 sonoma:         "cf4110f2630a0663f7404720613741ee84b51124a6bbf8b22a390b556824a0bf"
-    sha256 ventura:        "d8565aa2279999e97e1a7c8fcac575b28c44170f562e735c266df3af3f81b748"
-    sha256 monterey:       "c66b6f4037d33bd7d20f1c9b62151f8688601343842a2c18c001e8d2a0ebf639"
-    sha256 x86_64_linux:   "28fac3f01493de30c4e7293c569af3114bdf2eafac14b6870936208f7712e63d"
+    sha256 arm64_sonoma:   "2a3e3089aa10590714b7a966133ef1b76fa34ae00a4fb04e8407666295b9dbd3"
+    sha256 arm64_ventura:  "a1e9b80d82d1b042dd4d2b0988a040c4028c6e92a7f5b602d008dded9b4b4dbc"
+    sha256 arm64_monterey: "35fcf2a95fa3517edcc7fe9ad12a5bfa86c8f4ad30f55a083db4b0bd7c3c40a4"
+    sha256 sonoma:         "755fc4dad2f9cd2aa1e7995597b9e0183da92d7dde970021d587406017d81a1f"
+    sha256 ventura:        "2ab4c05124e1c1df9a007ff8d908d748cea10a0e03bdce1641d69177c74aab9f"
+    sha256 monterey:       "624dc80c422b7dbf43d264d830a9266ac5f9d09d0053acb8a3ec23b74888725a"
+    sha256 x86_64_linux:   "febbc712643fdc14b09f4be3510da73a46b95c1d25d545bef8325c59d2d302b3"
   end
 
   keg_only :versioned_formula

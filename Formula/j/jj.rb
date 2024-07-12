@@ -1,20 +1,19 @@
 class Jj < Formula
   desc "Git-compatible distributed version control system"
   homepage "https://github.com/martinvonz/jj"
-  url "https://github.com/martinvonz/jj/archive/refs/tags/v0.17.1.tar.gz"
-  sha256 "653e1190a82a39dae733487a11aa641ba62a36ae1e221c21844f822575961919"
+  url "https://github.com/martinvonz/jj/archive/refs/tags/v0.19.0.tar.gz"
+  sha256 "d0b9db21894e65ec80fd7999f99023f1e65d15fa16b4ec76881247d9cd56dc55"
   license "Apache-2.0"
-  revision 1
   head "https://github.com/martinvonz/jj.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "16329c5d23a092be27d3474caa53bf33ce5296b507934c8caf748545a5a96aad"
-    sha256 cellar: :any,                 arm64_ventura:  "b3f7ee611537e7eb2b0deb125d8c987e5c4279bc1d180fb7579754914a228206"
-    sha256 cellar: :any,                 arm64_monterey: "b12036b9c17a4e91dcef83a7ab59322260fe0345de7b7168dd211727b951e469"
-    sha256 cellar: :any,                 sonoma:         "6c1f28f16da5b536348d990705b7414b1077e5f0647fae1ba5e3cfc5d0187933"
-    sha256 cellar: :any,                 ventura:        "d7b6b29e30c2c0437133e2e912115fe92dc0c72f6f6cc62e8df6c47a9232879e"
-    sha256 cellar: :any,                 monterey:       "084bcdbe290f0c7d241e74dc0c01c3c2d5d10d879d28b41942be5ecabe3c0b00"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "179c23906a88e097a9b8365d642e9cc5ade157d18263630577671d1f668335c3"
+    sha256 cellar: :any,                 arm64_sonoma:   "e9840ad0d07db532b0c6bfea0b8294cb133fd288b43dc4f4ce7ee56cfd5fe2d3"
+    sha256 cellar: :any,                 arm64_ventura:  "021ee3e29a247ca68c15db0adad621405976ed98139f13c01698594dce36ce74"
+    sha256 cellar: :any,                 arm64_monterey: "ff6e426aa0e5d2323796c89e004df6d14332453ae3d87739fc6d74fe897b335c"
+    sha256 cellar: :any,                 sonoma:         "ad719df2af8a19ae8c41cac84d1e0ef491ad04ddcb58d4d0d037e25bc9cd41e5"
+    sha256 cellar: :any,                 ventura:        "d970bba97e8eca1647c31430d281bb328f7bad8bf529dcdd8de23f5db90fa244"
+    sha256 cellar: :any,                 monterey:       "1dc0314c65a1190c0fcc70366e5debec0052b02c041b29e904205684929eac69"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "298c4c602e6914b399ac9c7b9ef26a0ebd1b0c04b93764d7cfd81e3d183adcbb"
   end
 
   depends_on "pkg-config" => :build

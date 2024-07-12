@@ -1,18 +1,18 @@
 class Certifi < Formula
   desc "Mozilla CA bundle for Python"
   homepage "https://github.com/certifi/python-certifi"
-  url "https://files.pythonhosted.org/packages/71/da/e94e26401b62acd6d91df2b52954aceb7f561743aa5ccc32152886c76c96/certifi-2024.2.2.tar.gz"
-  sha256 "0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f"
+  url "https://files.pythonhosted.org/packages/c2/02/a95f2b11e207f68bc64d7aae9666fed2e2b3f307748d5123dffb72a1bbea/certifi-2024.7.4.tar.gz"
+  sha256 "5a1e7645bc0ec61a09e26c36f6106dd4cf40c6db3a1fb6352b0244e7fb057c7b"
   license "MPL-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b9fe35ba7ec714a11ee069f140a5dc362204741d3e11f06319d13b90284e85c9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d005dd12d5b75c44e43b8273ac6e6fb0f618ad7744dfa754c8746092e21cc51e"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8428b22a89a1b10243e7d516f030afda91a8475aa58ded7b668f0c522a37d5db"
-    sha256 cellar: :any_skip_relocation, sonoma:         "2f36084a1caff922b19b4d7540e8e8be0419b31331fae048c0b7496b256c49c9"
-    sha256 cellar: :any_skip_relocation, ventura:        "911c140acf37d3d5808dc4e059990a6955d8281fd8599733eed60b28054c371e"
-    sha256 cellar: :any_skip_relocation, monterey:       "09f1aae317be7e27b2650b14dae4588070f8de1c4ecc03856ec238bf28e77ad0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5b8318f59c242ea8f1ee24380e4d5192f6f6939086a53641cceb9eb15642214c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4106d660c4417641c4384ee68ab6c4146da998c22da4798ff94b03acd9ea31b4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4106d660c4417641c4384ee68ab6c4146da998c22da4798ff94b03acd9ea31b4"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "4106d660c4417641c4384ee68ab6c4146da998c22da4798ff94b03acd9ea31b4"
+    sha256 cellar: :any_skip_relocation, sonoma:         "eecaf796430a3551f53fbe900e1455236af45d3996940288788293cda464dd92"
+    sha256 cellar: :any_skip_relocation, ventura:        "eecaf796430a3551f53fbe900e1455236af45d3996940288788293cda464dd92"
+    sha256 cellar: :any_skip_relocation, monterey:       "a33c294eb85e0ec0aadffe848e9b2be405c676a8435c50c7f9ddb5891ab633b7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4106d660c4417641c4384ee68ab6c4146da998c22da4798ff94b03acd9ea31b4"
   end
 
   depends_on "python@3.11" => [:build, :test]
