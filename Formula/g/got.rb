@@ -1,8 +1,8 @@
 class Got < Formula
   desc "Version control system"
   homepage "https://gameoftrees.org/"
-  url "https://gameoftrees.org/releases/portable/got-portable-0.101.tar.gz"
-  sha256 "25064182c731a0cbf80e48bbeecf2d628e2be41046f84aec0d89d8e7f6a6dcc0"
+  url "https://gameoftrees.org/releases/portable/got-portable-0.103.tar.gz"
+  sha256 "32405e93f353a54fabca5492e5a6c5425f159b7a614450909299c8dc83492878"
   license "ISC"
 
   livecheck do
@@ -11,20 +11,22 @@ class Got < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "a58b0c45b9587c0cc312e02b729b838ee49f743a126d070e2d211bb0fda5c06a"
-    sha256 arm64_ventura:  "61c398885d3e8c96160462a3e309782c140c848802bcbf605f49d331ce604dab"
-    sha256 arm64_monterey: "29dccd4a4efa0a3117f6645f731e6586881b7c93b115fb0d7661fb3e856f71b1"
-    sha256 sonoma:         "a02b4331e36399f3535134b3cef5f67a3f3735e65dbabded6229d7fa7833ff5c"
-    sha256 ventura:        "37b7a21513219e26ff182d593e4f198a64952117be3e6a7fd636dd9a7d0c7eca"
-    sha256 monterey:       "c877ab51ccbd712d8801fbcb0bcc8dc59155f5821e39577c720763e7a4d3d1b2"
-    sha256 x86_64_linux:   "7092ddb235700573fcd2f88072d9cbe18f701630da96681f8094c098e27c542e"
+    sha256 arm64_sequoia:  "10cd292dd447dd1788394a4afa33c5a799ea6d45cb5259becb5b076e624e06c8"
+    sha256 arm64_sonoma:   "2d57a6e01b060cc3d615c2bba8c8defe8faafb40d753501771d2de618e1ee1f9"
+    sha256 arm64_ventura:  "498038b2805604bb2319933aa665ae25bbbaee1b6ace3e408647a23a428f5875"
+    sha256 arm64_monterey: "ddc3d1f88477970346a92010dd04d65a5baab84636f5bc64c8e570f168a9e743"
+    sha256 sonoma:         "881158d7a46c9be26475c42127561d2b6e597854b0da28a74d2e613feabaf90c"
+    sha256 ventura:        "ab0175367f95b06f483fa3e7b474ec54512241a7eb89156b5b91464d96fe05df"
+    sha256 monterey:       "1e833cc4b0e71054ca4ed93956810d539868b3aa305a0d0c57fa2c5420684e05"
+    sha256 x86_64_linux:   "21e2439c16f7860ace934aa1aa336063598a238db6ad8ac6504540810468f93b"
   end
 
   depends_on "bison" => :build
   depends_on "pkg-config" => :build
   depends_on "libevent"
-  depends_on "libressl"
+  depends_on "libretls"
   depends_on "ncurses"
+  depends_on "openssl@3"
 
   uses_from_macos "zlib"
 
@@ -35,10 +37,9 @@ class Got < Formula
   end
 
   def install
-    inreplace "configure", %r{\$\{HOMEBREW_PREFIX?\}/opt/openssl@\d+(\.\d+)?}, Formula["libressl"].opt_prefix
-    system "./configure", "--disable-silent-rules",
-                          "--with-libtls=#{Formula["libressl"].opt_prefix}",
-                          *std_configure_args
+    ENV["LIBTLS_CFLAGS"] = "-I#{Formula["libretls"].opt_include}"
+    ENV["LIBTLS_LIBS"] = "-L#{Formula["libretls"].opt_lib} -ltls"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 

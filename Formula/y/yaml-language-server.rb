@@ -1,5 +1,3 @@
-require "language/node"
-
 class YamlLanguageServer < Formula
   desc "Language Server for Yaml Files"
   homepage "https://github.com/redhat-developer/yaml-language-server"
@@ -8,6 +6,7 @@ class YamlLanguageServer < Formula
   license "MIT"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e30f07eca51ae70cfe072524e2b9fcab31530959016c76be39dcfe2c25003a04"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "103e85d99f2823ce773ec29c4776b9d75ea2136b7e3b7937c74067ad81043d57"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "103e85d99f2823ce773ec29c4776b9d75ea2136b7e3b7937c74067ad81043d57"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "103e85d99f2823ce773ec29c4776b9d75ea2136b7e3b7937c74067ad81043d57"
@@ -20,7 +19,7 @@ class YamlLanguageServer < Formula
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 
@@ -39,7 +38,7 @@ class YamlLanguageServer < Formula
       }
     JSON
 
-    Open3.popen3("#{bin}/yaml-language-server", "--stdio") do |stdin, stdout|
+    Open3.popen3(bin/"yaml-language-server", "--stdio") do |stdin, stdout|
       stdin.write "Content-Length: #{json.size}\r\n\r\n#{json}"
       sleep 3
       assert_match(/^Content-Length: \d+/i, stdout.readline)

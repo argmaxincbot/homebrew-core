@@ -1,8 +1,8 @@
 class I2p < Formula
   desc "Anonymous overlay network - a network within a network"
   homepage "https://geti2p.net"
-  url "https://github.com/i2p/i2p.i2p/releases/download/i2p-2.5.2/i2psource_2.5.2.tar.bz2"
-  sha256 "f23d0746d72a55cccbd17f40762e491ae1b42cdf55d7e73404d213a84985ca73"
+  url "https://github.com/i2p/i2p.i2p/releases/download/i2p-2.7.0/i2psource_2.7.0.tar.bz2"
+  sha256 "54eebdb1cfdbe6aeb1f60e897c68c6b2921c36ce921350d45d21773256c99874"
   license :cannot_represent
 
   livecheck do
@@ -11,13 +11,12 @@ class I2p < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7117134b8cffd8e6ef58bc8d393b7cd9c7068c5bf743a56234967f9e49384c72"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "36d51ccab1f4e612bf307cfd76366b1976a829f70785b8057ec946d0b9a3327a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "fc5918119e3d9091012fb8a2189f8e6e0a56f0d5ceb9ae2c8fc81d1d176f6f28"
-    sha256 cellar: :any_skip_relocation, sonoma:         "180129f82a926308e8e6889c4b043b9b638bdb9e400407db87638203930c28d8"
-    sha256 cellar: :any_skip_relocation, ventura:        "08c2622583d0f88a5d208465828457c1a3c8e9fe1b84056cf1ed62d89140b7b1"
-    sha256 cellar: :any_skip_relocation, monterey:       "bedd4389f7e24fab95bd2c77259a25e55c5896a20d8f770837902cf55af5b306"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4badf064f3fec7b9bbc6c08d0a037a79b4d9dfef6c2afb79f83aeb5a4dc6fe19"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "343b650514b2a3256bcbaeda5a89f4e869d201460cb62daf724d76b173e345b3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "57db7082ff0f054a016877f123ee9bca2a2f1351e51e98979f23875b5bb767ea"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a394ee6a32b5bb05261f0ee7a41b61e12a5eeeb34fcc033b650df197bffca15d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a85e7c921aa09030fd3058a358d67b591183fa3616a985255a7f3f7015bbf882"
+    sha256 cellar: :any_skip_relocation, ventura:       "4561da032d1b0fb02e77434304a6accd15db7946698e30700e2638e545135ae7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6c3f813ed31c1ca74d9936d39c62ef573c1c96e6802ee8bae3c6292eab8ef7ea"
   end
 
   depends_on "ant" => :build
@@ -34,7 +33,7 @@ class I2p < Formula
 
     # Replace vendored copy of java-service-wrapper with brewed version.
     rm libexec/"lib/wrapper.jar"
-    rm_rf libexec/"lib/wrapper"
+    rm_r(libexec/"lib/wrapper")
     jsw_libexec = Formula["java-service-wrapper"].opt_libexec
     ln_s jsw_libexec/"lib/wrapper.jar", libexec/"lib"
     ln_s jsw_libexec/"lib/#{shared_library("libwrapper")}", libexec/"lib"

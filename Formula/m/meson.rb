@@ -1,19 +1,13 @@
 class Meson < Formula
   desc "Fast and user friendly build system"
   homepage "https://mesonbuild.com/"
-  url "https://github.com/mesonbuild/meson/releases/download/1.5.0/meson-1.5.0.tar.gz"
-  sha256 "45d7b8653c1e5139df35b33be2dd5b2d040c5b2c6129f9a7c890d507e33312b8"
+  url "https://github.com/mesonbuild/meson/releases/download/1.5.2/meson-1.5.2.tar.gz"
+  sha256 "f955e09ab0d71ef180ae85df65991d58ed8430323de7d77a37e11c9ea630910b"
   license "Apache-2.0"
   head "https://github.com/mesonbuild/meson.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4e7fe0a4e6ae2f009bd1c7c648b8c7715e9ed021e96b471bd28109b36095eac4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4e7fe0a4e6ae2f009bd1c7c648b8c7715e9ed021e96b471bd28109b36095eac4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4e7fe0a4e6ae2f009bd1c7c648b8c7715e9ed021e96b471bd28109b36095eac4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "04682d921a967d0d36f0d056a44e6cb2e9888e83b4d15f727a90fcd65a79f40b"
-    sha256 cellar: :any_skip_relocation, ventura:        "04682d921a967d0d36f0d056a44e6cb2e9888e83b4d15f727a90fcd65a79f40b"
-    sha256 cellar: :any_skip_relocation, monterey:       "04682d921a967d0d36f0d056a44e6cb2e9888e83b4d15f727a90fcd65a79f40b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "25a373c667fb817cbbbe23f2fd1301069409903cfca7c15a9c20f75c16283810"
+    sha256 cellar: :any_skip_relocation, all: "46e1bb718943bb802ca3947191ef98b3f9c51e39be47a87f825060741f45e44e"
   end
 
   depends_on "ninja"
@@ -31,18 +25,26 @@ class Meson < Formula
     # Make the bottles uniform. This also ensures meson checks `HOMEBREW_PREFIX`
     # for fulfilling dependencies rather than just `/usr/local`.
     mesonbuild = prefix/Language::Python.site_packages(python3)/"mesonbuild"
-    inreplace_files = %w[
+    usr_local_files = %w[
       coredata.py
+      options.py
       dependencies/boost.py
       dependencies/cuda.py
       dependencies/qt.py
       scripts/python_info.py
       utils/universal.py
+      compilers/mixins/apple.py
     ].map { |f| mesonbuild/f }
-    inreplace_files << (bash_completion/"meson")
+    usr_local_files << (bash_completion/"meson")
 
     # Passing `build.stable?` ensures a failed `inreplace` won't fail HEAD installs.
-    inreplace inreplace_files, "/usr/local", HOMEBREW_PREFIX, build.stable?
+    inreplace usr_local_files, "/usr/local", HOMEBREW_PREFIX, audit_result: build.stable?
+
+    opt_homebrew_files = %w[dependencies/boost.py compilers/mixins/apple.py].map { |f| mesonbuild/f }
+    inreplace opt_homebrew_files, "/opt/homebrew", HOMEBREW_PREFIX, audit_result: build.stable?
+
+    # Ensure meson uses our `var` directory.
+    inreplace mesonbuild/"options.py", "'/var/local", "'#{var}", audit_result: build.stable?
   end
 
   test do

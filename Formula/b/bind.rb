@@ -8,8 +8,8 @@ class Bind < Formula
   # "version_scheme" because someone upgraded to 9.15.0, and required a
   # downgrade.
 
-  url "https://downloads.isc.org/isc/bind9/9.18.27/bind-9.18.27.tar.xz"
-  sha256 "ea3f3d8cfa2f6ae78c8722751d008f54bc17a3aed2be3f7399eb7bf5f4cda8f1"
+  url "https://downloads.isc.org/isc/bind9/9.20.2/bind-9.20.2.tar.xz"
+  sha256 "a31dba2aaa1b371902dd0474eb3963f47b7ffed2bd9ece7da4834e23210d6067"
   license "MPL-2.0"
   version_scheme 1
   head "https://gitlab.isc.org/isc-projects/bind9.git", branch: "main"
@@ -22,23 +22,31 @@ class Bind < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "8c02f8532bef58ced2ccf0786104152c1c188b9e60276551ce5ebd4d6ea3ac39"
-    sha256 arm64_ventura:  "860a251e16395909b87544254670300636b9e148dbeb24ddf0b03f50452c4680"
-    sha256 arm64_monterey: "b4f9f604699761ffcfb211b0cfc992712358e872db2880f68f365785131134fd"
-    sha256 sonoma:         "8f00c260cb14f5ebb5994c3b3e3d134b6434782f2b36cb58c35bbbe415ff4976"
-    sha256 ventura:        "2ef3c4dc6ebc29c723e234e86b12ff687a34547874f77c1bf4ba75d743009304"
-    sha256 monterey:       "131da16a3461905a43f6f2bd1563bde5383f5a7780c1bd2dbe37d1134c443a03"
-    sha256 x86_64_linux:   "fd06d75b34091bc2456f1eb3742c84a1b8bea2c9edc1e1539e173c278e8d48c5"
+    sha256 arm64_sequoia: "f99dc01b13988ee07cf117cf7ac97aeddfcde46a1675eb4f3bcfb8161d5b776e"
+    sha256 arm64_sonoma:  "f63b9bc23f213919ba7d374ee389ff8393c88018b3c524a0eb9782cbaec04cd6"
+    sha256 arm64_ventura: "d54700c178c370cec24c2aa2ec01608afd69b860846f8fcb6e9295c2fdba0213"
+    sha256 sonoma:        "b4b427e5fb88aa60e0b655c1b2d6c997449ee0ef1db7e338ae6f58af43dfbc49"
+    sha256 ventura:       "94d19809ddd3a4cc1d335a10d038ba8725a8b0781d95c874fdacda183d5e6258"
+    sha256 x86_64_linux:  "72cb706ac5f101d3e57594637179a95617482d0a652dfcf9478bf9ac8acdb741"
   end
 
   depends_on "pkg-config" => :build
+
+  depends_on "jemalloc"
   depends_on "json-c"
   depends_on "libidn2"
   depends_on "libnghttp2"
   depends_on "libuv"
   depends_on "openssl@3"
+  depends_on "readline"
+  depends_on "userspace-rcu"
 
   uses_from_macos "libxml2"
+  uses_from_macos "zlib"
+
+  on_linux do
+    depends_on "libcap"
+  end
 
   def install
     args = [
@@ -50,7 +58,6 @@ class Bind < Formula
       "--with-openssl=#{Formula["openssl@3"].opt_prefix}",
       "--without-lmdb",
     ]
-    args << "--disable-linux-caps" if OS.linux?
     system "./configure", *args
 
     system "make"

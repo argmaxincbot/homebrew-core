@@ -1,8 +1,8 @@
 class Juju < Formula
   desc "DevOps management tool"
   homepage "https://juju.is/"
-  url "https://launchpad.net/juju/3.5/3.5.2/+download/juju-core_3.5.2.tar.gz"
-  sha256 "c20dfa9a455ba10aa8b0273076d9c0c882fa8c5add86ca9b1d37a4816e73e3f7"
+  url "https://launchpad.net/juju/3.5/3.5.4/+download/juju-core_3.5.4.tar.gz"
+  sha256 "58eb899bb4453c5beb07aae0c27f038d55496d0f026a37aa1e5c5dcf50f73a56"
   license "AGPL-3.0-only"
   version_scheme 1
   head "https://github.com/juju/juju.git", branch: "develop"
@@ -16,13 +16,12 @@ class Juju < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "decd88c58882123093ec859d6f92a5faaa7443c67aacfa814797dff9361107b1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1ce8bdd99191d274076e356916fc419d4d31f6d86489529caa65bc2a0b5f238"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "afb5e89a3acd481ae82f7c863213b65891b2fce3c336e1d0010ade66ce1e4a67"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6127cc31318c764ea031451cddb6939f5fad96fee8aeec1a25a9da59dcd57727"
-    sha256 cellar: :any_skip_relocation, ventura:        "3bdb31ea8351da47dcfee5cfd65c60a63c6168354bd92c12deec1750b975d36b"
-    sha256 cellar: :any_skip_relocation, monterey:       "e52b90c96d6f6351a04f8643bef0957841a18e2d450e5104b541f7e2dcb6f7ce"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dbbaca4501c5e9b1372d1b9f30e80a6142a3a9f79b64093555970811c4917fc0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d03348f3ea3a032b5da3f88d083930b46d1287e781784c27fc3df0344bd97922"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3dfcb9ee2ac2ef4dc88073955f8a814a299d5b35b4257f4a66ce77b328eb8b98"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a1f3c2bc55bc47f6713b8b615f8aab0b9a7e20e6fa1f5b52d1cdaadca20d5da5"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1d83493c3517be39bee1c9fd0b57563dc29190bc3c2cc0801b88f42646c3724a"
+    sha256 cellar: :any_skip_relocation, ventura:       "44c549e451bf9377f3d01c1c9d6850f04f489567fa9905b54a3a7c6bac46fcea"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0ee9b9154d2c4c3aea9836167ec07f2ffb49de6f74497122d78b807cde38680f"
   end
 
   depends_on "go" => :build
@@ -36,7 +35,7 @@ class Juju < Formula
   end
 
   test do
-    system "#{bin}/juju", "version"
+    system bin/"juju", "version"
     assert_match "No controllers registered", shell_output("#{bin}/juju list-users 2>&1", 1)
     assert_match "No controllers registered", shell_output("#{bin}/juju-metadata list-images 2>&1", 2)
   end

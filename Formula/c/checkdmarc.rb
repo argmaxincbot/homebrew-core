@@ -3,20 +3,14 @@ class Checkdmarc < Formula
 
   desc "Command-line parser for SPF and DMARC DNS records"
   homepage "https://domainaware.github.io/checkdmarc/"
-  url "https://files.pythonhosted.org/packages/df/06/e61a492a70a2126ac62fea72694aa0ce6f645cbe44ea513d9a68e2df822b/checkdmarc-5.3.1.tar.gz"
-  sha256 "1d71e7fa611fa8faa36fad09416b5e2c3265d026d3b5209c051f4e292565e332"
+  url "https://files.pythonhosted.org/packages/b4/f3/0e4108ec0939ed21524e8fb2638725cca48ae750a837b09d3f6695092419/checkdmarc-5.5.0.tar.gz"
+  sha256 "d775f566f8fdd584adb9a26e792cfe1565cdf6bd50c54fe7b6d8443ce6db68cf"
   license "Apache-2.0"
-  revision 3
   head "https://github.com/domainaware/checkdmarc.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "735f6a321f9a8082ba49f69591e350912b4a15391c5786f253b1f0e1e6f1e8a3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "735f6a321f9a8082ba49f69591e350912b4a15391c5786f253b1f0e1e6f1e8a3"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "735f6a321f9a8082ba49f69591e350912b4a15391c5786f253b1f0e1e6f1e8a3"
-    sha256 cellar: :any_skip_relocation, sonoma:         "735f6a321f9a8082ba49f69591e350912b4a15391c5786f253b1f0e1e6f1e8a3"
-    sha256 cellar: :any_skip_relocation, ventura:        "735f6a321f9a8082ba49f69591e350912b4a15391c5786f253b1f0e1e6f1e8a3"
-    sha256 cellar: :any_skip_relocation, monterey:       "735f6a321f9a8082ba49f69591e350912b4a15391c5786f253b1f0e1e6f1e8a3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "62f1715c1970a80f4797e6a7da9c35a68576f074abdcbce1f85dbb112961119c"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "e3963ad634d0e88bc668307a2b60d85dea32d07a2850589eb3c836375770fe23"
   end
 
   depends_on "certifi"
@@ -44,8 +38,8 @@ class Checkdmarc < Formula
   end
 
   resource "publicsuffixlist" do
-    url "https://files.pythonhosted.org/packages/af/57/3ea928fac754715161b13560582e5c46e9914880d211e9caf3fda91ef930/publicsuffixlist-0.10.1.20240616.tar.gz"
-    sha256 "7d598406bf689ac09e440b1a3d4674ef2d629ff6f1ec97861c83f0ac1c46a58f"
+    url "https://files.pythonhosted.org/packages/71/10/dc631ba57b47dbf61d5190302a767a2197854c838ddb251737ee13760ff0/publicsuffixlist-1.0.2.20240814.tar.gz"
+    sha256 "dccebfc980f6adff5be82a62e2ab14320c6498a339ef6519bf35548253edcb4a"
   end
 
   resource "pyleri" do

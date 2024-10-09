@@ -1,21 +1,19 @@
 class Gawk < Formula
   desc "GNU awk utility"
   homepage "https://www.gnu.org/software/gawk/"
-  url "https://ftp.gnu.org/gnu/gawk/gawk-5.3.0.tar.xz"
-  mirror "https://ftpmirror.gnu.org/gawk/gawk-5.3.0.tar.xz"
-  sha256 "ca9c16d3d11d0ff8c69d79dc0b47267e1329a69b39b799895604ed447d3ca90b"
+  url "https://ftp.gnu.org/gnu/gawk/gawk-5.3.1.tar.xz"
+  mirror "https://ftpmirror.gnu.org/gawk/gawk-5.3.1.tar.xz"
+  sha256 "694db764812a6236423d4ff40ceb7b6c4c441301b72ad502bb5c27e00cd56f78"
   license "GPL-3.0-or-later"
   head "https://git.savannah.gnu.org/git/gawk.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 arm64_sonoma:   "499846eee5d2c6b3be6fd9b7c6097728f935453741b9f148890fc05dfa46da77"
-    sha256 arm64_ventura:  "8f10baab1fd634eba3b7f84edd353d9f978de2b11d20e76cb4294eb6fc963934"
-    sha256 arm64_monterey: "f9885785f17b99fe4fdd3ed0df6c18835cd0d65d5cfa6f46b4eb193856a36495"
-    sha256 sonoma:         "2b93e1aec7726e3276bcd4826b3f258c2bdad143ffcf6d36ea7b2b317fa3175e"
-    sha256 ventura:        "d024c72187389da9f92ce7264dd199ab624fb0b25a210ce612705b5f8a1b9af5"
-    sha256 monterey:       "1171dc2bb9c744ee48d96a379be108b80550daff5ed472512c16f73349ef9e50"
-    sha256 x86_64_linux:   "a9c75546a0a9e37feed5cbe1512c3d1ff31f27349c5e63ed1934a60b2f25f576"
+    sha256 arm64_sequoia: "e569d99fb1824b0d14f1b895f34dec152c508155a7c5df851221eeb23e860544"
+    sha256 arm64_sonoma:  "0325a0e84e37ea644f401028f83c77543043a71c9b399f06196d8e54b3053363"
+    sha256 arm64_ventura: "c8c30a7f85b8cd20113553af345316cea62fcb3c3f138b624b4dba985aad7275"
+    sha256 sonoma:        "60b126aaed8aa96bad8d7a0f487331c6abbfabcbeeddb503fefc5c95526c2547"
+    sha256 ventura:       "83b3a81e89196364ceadf92485d06a5184b37529b5627b4fbe6ae87594be5181"
+    sha256 x86_64_linux:  "4fbe2760d1ce897fdf6726b2af2ecdaebbaa25d348e93e2dd2b4c270da71cee5"
   end
 
   depends_on "gmp"
@@ -55,7 +53,7 @@ class Gawk < Formula
     (bin/"awk").unlink if OS.mac?
     (libexec/"gnubin").install_symlink bin/"gawk" => "awk"
     (libexec/"gnuman/man1").install_symlink man1/"gawk.1" => "awk.1"
-    libexec.install_symlink "gnuman" => "man"
+    (libexec/"gnubin").install_symlink "../gnuman" => "man"
   end
 
   def caveats

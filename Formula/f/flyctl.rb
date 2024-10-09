@@ -2,8 +2,8 @@ class Flyctl < Formula
   desc "Command-line tools for fly.io services"
   homepage "https://fly.io"
   url "https://github.com/superfly/flyctl.git",
-      tag:      "v0.2.88",
-      revision: "f04c9c13e27f9e24d625bb2a4d64b0d5c8f94a2c"
+      tag:      "v0.3.17",
+      revision: "59f367265774ee9a31924e39a7e45efd845d36b7"
   license "Apache-2.0"
   head "https://github.com/superfly/flyctl.git", branch: "master"
 
@@ -18,13 +18,12 @@ class Flyctl < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8ed13b127c2290b7f26bec7cf94ebfd676febb7e78adad4d8bc7e3bfa0cca59c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "8ed13b127c2290b7f26bec7cf94ebfd676febb7e78adad4d8bc7e3bfa0cca59c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "8ed13b127c2290b7f26bec7cf94ebfd676febb7e78adad4d8bc7e3bfa0cca59c"
-    sha256 cellar: :any_skip_relocation, sonoma:         "884696cc6abf896a23c43773f59b57d83ae94bca66134d7bf3915ccd745b46b2"
-    sha256 cellar: :any_skip_relocation, ventura:        "884696cc6abf896a23c43773f59b57d83ae94bca66134d7bf3915ccd745b46b2"
-    sha256 cellar: :any_skip_relocation, monterey:       "884696cc6abf896a23c43773f59b57d83ae94bca66134d7bf3915ccd745b46b2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8dc975ad13bb26d2b7d5a910c89e8da075de478a04a6ea3f583dfe5b44137196"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f8c96415b3b6a84c16cc82bafe88874f0d5f72ffca3ba7c92068a0a914c099d6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f8c96415b3b6a84c16cc82bafe88874f0d5f72ffca3ba7c92068a0a914c099d6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f8c96415b3b6a84c16cc82bafe88874f0d5f72ffca3ba7c92068a0a914c099d6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "32378b0c46d3aeddf010e9495759c02d2b1e47b0a8bacffd32709faae0b2e4d8"
+    sha256 cellar: :any_skip_relocation, ventura:       "32378b0c46d3aeddf010e9495759c02d2b1e47b0a8bacffd32709faae0b2e4d8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8a6a14e28c2f983a6f54789ec833e61c7006b760896ece35ad3db8ef5914c90b"
   end
 
   depends_on "go" => :build

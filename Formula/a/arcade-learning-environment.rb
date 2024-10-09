@@ -3,19 +3,18 @@ class ArcadeLearningEnvironment < Formula
 
   desc "Platform for AI research"
   homepage "https://github.com/Farama-Foundation/Arcade-Learning-Environment"
-  url "https://github.com/Farama-Foundation/Arcade-Learning-Environment/archive/refs/tags/v0.9.0.tar.gz"
-  sha256 "7625ffbb9eb6c0efc6716f34b93bc8339f2396ea5e31191a251cb31bdd363f80"
+  url "https://github.com/Farama-Foundation/Arcade-Learning-Environment/archive/refs/tags/v0.10.1.tar.gz"
+  sha256 "7e0473de29b63f59054f8a165a968cf5a168bd9c07444d377a1f70401d268894"
   license "GPL-2.0-only"
   head "https://github.com/Farama-Foundation/Arcade-Learning-Environment.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "8e0f83738408c077a71d7114a36506355351993db387ce0838e7c9234f7ac9d5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "65f363115487158523e1f5948012ca96e20261a3477e2b89c52e07c191e23090"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7e92cd5c757cd8e5e8b75c18024f5e30fcb1658d997e6caa6845a31360700552"
-    sha256 cellar: :any_skip_relocation, sonoma:         "153d0362a36c03f246e6a36b1fb187ed60e61184622345c7621236f78c74d207"
-    sha256 cellar: :any_skip_relocation, ventura:        "a737e03e4405e7891b84c1a0b411bed53e0f3910e7e4adb522aaa0f69f4cf06d"
-    sha256 cellar: :any_skip_relocation, monterey:       "33501d45df657c5275e0cdb8d61d433cdbf59b668fb6311ad89e097fd8071196"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "87f844a97941f0bd336d1101df9444784b5ee030b3fca920398e9da694e83224"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a69ba3f3965d52884eb1950417efcf0a5d19a8db48d11aedd12af59fe92e8c8a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0696c90decbb6dfba17039e5468ec72c4a4cd7b70b0949907420c0ef35760627"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "38cd6881049eaf3df3b4e17c76b0af82ef47a8bf4c5bc0f9a41dcddeb183afd4"
+    sha256 cellar: :any_skip_relocation, sonoma:        "39f422f6998769392d97cbe6bbbc4af38c9e860d7643c7dc684e0ab4e6bd8818"
+    sha256 cellar: :any_skip_relocation, ventura:       "32f6fa20cd2fd7bbadb84681eef5c665aafd5a070f40044d5211dcb34490087c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0f2cf58da8b8b441eca30c9f193af76d08137e52926d1c3444a4f8820c8376a2"
   end
 
   depends_on "cmake" => :build
@@ -34,13 +33,6 @@ class ArcadeLearningEnvironment < Formula
   resource "roms" do
     url "https://gist.githubusercontent.com/jjshoots/61b22aefce4456920ba99f2c36906eda/raw/00046ac3403768bfe45857610a3d333b8e35e026/Roms.tar.gz.b64"
     sha256 "02ca777c16476a72fa36680a2ba78f24c3ac31b2155033549a5f37a0653117de"
-  end
-
-  # Allow building with system pybind11
-  # https://github.com/Farama-Foundation/Arcade-Learning-Environment/pull/528
-  patch do
-    url "https://github.com/Farama-Foundation/Arcade-Learning-Environment/commit/52b326151972d7df663c6afe44d0b699a531739d.patch?full_index=1"
-    sha256 "4322db4e4578e08ae9882cee260b7bc4f3477869bcd9295f3f4f3e6c56b29026"
   end
 
   def python3

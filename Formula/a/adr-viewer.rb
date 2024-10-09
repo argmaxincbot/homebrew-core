@@ -9,6 +9,7 @@ class AdrViewer < Formula
   revision 1
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "6dc5296cf3878d3e868c20beeab22c9b194e9b12f2e95dbfcc16a42f6403a004"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5318d78eabe31c1b114ca32615317b488f6d586c2bcef64af8fc420cd7fbe58e"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "c61f5cedde30afad943d4e11fed05a6bcd8eef1b8e8aa5b2e68e8810ad185fc5"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "fba7ede4d8f7dbdccd2712460e79fe364e54c4d5c45c58d364094f1958dcd1f6"
@@ -75,11 +76,11 @@ class AdrViewer < Formula
       ## Context
       We need to record the architectural decisions made on this project.
       ## Decision
-      We will use Architecture Decision Records, as [described by Michael Nygard](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions).
+      We will use Architecture Decision Records, as [described by Michael Nygard](https://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions).
       ## Consequences
       See Michael Nygard's article, linked above. For a lightweight ADR toolset, see Nat Pryce's [adr-tools](https://github.com/npryce/adr-tools).
     EOS
-    system "#{bin}/adr-viewer", "--adr-path", adr_dir, "--output", "index.html"
+    system bin/"adr-viewer", "--adr-path", adr_dir, "--output", "index.html"
     assert_predicate testpath/"index.html", :exist?
   end
 end

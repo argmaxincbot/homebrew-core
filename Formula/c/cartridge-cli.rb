@@ -7,6 +7,7 @@ class CartridgeCli < Formula
   license "BSD-2-Clause"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "c347030987d8638b17325dedf3ecd8a8271de8f1333aa086f7cfb0777c0ff8ae"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bec51f07e6312f149f7d4dfadbbb9475de7dba2cae02d65f3ad4c5cc07b4305b"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "6a7b997d1e63a70c5c0105897c6d0299d7df81b3b90d2a4b8c80966950a86bb4"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "8933d2dccd2dfaeaa4e7082fe7df22bef8c8a8937187e7985ce5a6d367ad7d9c"
@@ -30,7 +31,7 @@ class CartridgeCli < Formula
 
   test do
     project_path = Pathname("test-project")
-    project_path.rmtree if project_path.exist?
+    rm_r(project_path) if project_path.exist?
     system bin/"cartridge", "create", "--name", project_path
     assert_predicate project_path, :exist?
     assert_predicate project_path.join("init.lua"), :exist?

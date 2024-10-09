@@ -1,8 +1,8 @@
 class Wartremover < Formula
   desc "Flexible Scala code linting tool"
   homepage "https://github.com/wartremover/wartremover"
-  url "https://github.com/wartremover/wartremover/archive/refs/tags/v3.1.7.tar.gz"
-  sha256 "44e316f66db6fd7c27d3e068d7db3c5d3b9709fc5ecff26cc9e95ff58f67d1b5"
+  url "https://github.com/wartremover/wartremover/archive/refs/tags/v3.2.2.tar.gz"
+  sha256 "a03936289dc47141e15fd455b06a41b209bc75d86b34d2d6d8dcf5707b5d7ab7"
   license "Apache-2.0"
   head "https://github.com/wartremover/wartremover.git", branch: "master"
 
@@ -12,13 +12,7 @@ class Wartremover < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b94038cde8b7d5343838a841af6415111f4ce3672d70b68c84acc23ab9a363a7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b94038cde8b7d5343838a841af6415111f4ce3672d70b68c84acc23ab9a363a7"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b94038cde8b7d5343838a841af6415111f4ce3672d70b68c84acc23ab9a363a7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b94038cde8b7d5343838a841af6415111f4ce3672d70b68c84acc23ab9a363a7"
-    sha256 cellar: :any_skip_relocation, ventura:        "b94038cde8b7d5343838a841af6415111f4ce3672d70b68c84acc23ab9a363a7"
-    sha256 cellar: :any_skip_relocation, monterey:       "b94038cde8b7d5343838a841af6415111f4ce3672d70b68c84acc23ab9a363a7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9e77cf2555174e7f5f06be5a444f94a7b33c6ea23358b0faea66d972f91b1565"
+    sha256 cellar: :any_skip_relocation, all: "fd928e9c280cd22eae8e92cbdc73361b86ecfd036b1b184fbf553bac3e87f576"
   end
 
   depends_on "sbt" => :build

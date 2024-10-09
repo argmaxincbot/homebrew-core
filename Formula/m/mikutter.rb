@@ -12,6 +12,7 @@ class Mikutter < Formula
   end
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "5dfe5d2f6dd4fd03d99c9ef6fe3802bac9eead82654de2ecd75b568e860844e2"
     sha256 cellar: :any,                 arm64_sonoma:   "874e909394bbcd628880b9ecb1c24bbdcd742f4e9bf70b0124ffc9406a03a530"
     sha256 cellar: :any,                 arm64_ventura:  "3fc62fdf24d802bed6844898757ea6c3ad41199bce35d7695cfcfc18dff2129f"
     sha256 cellar: :any,                 arm64_monterey: "4699f159d4c7e93dd620bbf19cbd3a24d3a98be7aeffa1931463c3ec61cbd980"
@@ -21,14 +22,25 @@ class Mikutter < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "2fb63d053caabda978ef73ca377addc05ae0d51b8eccb4c9b8ac1daef02d8e8a"
   end
 
+  depends_on "at-spi2-core"
+  depends_on "cairo"
+  depends_on "fontconfig"
+  depends_on "freetype"
+  depends_on "gdk-pixbuf"
+  depends_on "glib"
   depends_on "gobject-introspection"
   depends_on "gtk+3"
+  depends_on "harfbuzz"
+  depends_on "pango"
   depends_on "ruby"
 
+  uses_from_macos "libffi"
   uses_from_macos "libxml2" # for nokogiri
   uses_from_macos "libxslt" # for nokogiri
+  uses_from_macos "zlib"
 
   on_macos do
+    depends_on "gettext"
     depends_on "terminal-notifier"
   end
 
@@ -268,7 +280,7 @@ class Mikutter < Formula
     system "bundle", "install",
            "--local", "--path=#{lib}/mikutter/vendor"
 
-    rm_rf "vendor"
+    rm_r("vendor")
     (lib/"mikutter").install "plugin"
     libexec.install Dir["*"]
 

@@ -2,8 +2,8 @@ class Wasmtime < Formula
   desc "Standalone JIT-style runtime for WebAssembly, using Cranelift"
   homepage "https://wasmtime.dev/"
   url "https://github.com/bytecodealliance/wasmtime.git",
-      tag:      "v22.0.0",
-      revision: "761f044efbb6d7465b88d723619168919b30ce0b"
+      tag:      "v25.0.1",
+      revision: "b4cb894c918de4e0437ae7ce9768f30670da6780"
   license "Apache-2.0" => { with: "LLVM-exception" }
   head "https://github.com/bytecodealliance/wasmtime.git", branch: "main"
 
@@ -13,26 +13,23 @@ class Wasmtime < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "c92902c385af2761b20f919e48b74d85b11855c2df8545e204eb91fb50b57f57"
-    sha256 cellar: :any,                 arm64_ventura:  "02bcf0f3dcf6b756d140a62f5cac5ed60b61458ff9845ebcabe994833b3c1564"
-    sha256 cellar: :any,                 arm64_monterey: "f51c97037bb29045284e4502937910673ef746bfc239538cc03ae7b66853e068"
-    sha256 cellar: :any,                 sonoma:         "0ca0afea0715aa9979ada6325a62dcb8a6c67ca5b1a017da299e5aeafa55e8d2"
-    sha256 cellar: :any,                 ventura:        "4dda43179f51a356ec8e2a8788cf03cc9e07712cf22a2d43faea0290bd84fd98"
-    sha256 cellar: :any,                 monterey:       "1160a3787f53975676680cf0b0a370f939a8cc011a8cced0dac42e94829d1735"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4ee42709d076a9597707215384ade62d3fb49243b3053453ebbabafe8850c256"
+    sha256 cellar: :any,                 arm64_sequoia: "9664522c709536aa9aec43bf24cb99fc499fba4f0feb23ff8db13b06050a595a"
+    sha256 cellar: :any,                 arm64_sonoma:  "0dda3d0f4f9ce51641c86e59eb8ddaa971c9e77679421331f105be955f769624"
+    sha256 cellar: :any,                 arm64_ventura: "1a936ca5448e4cb0b6aecd2e398ac80c1dbd00c80d8ab9e0298b7dca8c96c206"
+    sha256 cellar: :any,                 sonoma:        "7bbfa2429afe73caaf7ab798e90106fb5ea083fd1897ec0b928951d202fc75ca"
+    sha256 cellar: :any,                 ventura:       "92b08c0b365d582b86c9707bc86fd3af4e9189c45f92198ac841037088595f44"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a96199e35548d697b59a05a9d53e5c81d4475d1baeac53ece1682a09190473ce"
   end
 
   depends_on "cmake" => :build
   depends_on "rust" => :build
 
   def install
-    system "cargo", "install", *std_cargo_args
+    system "cargo", "install", *std_cargo_args, "--profile=fastest-runtime"
 
-    cd "crates/c-api" do
-      system "cmake", "-S", ".", "-B", "build", *std_cmake_args
-      system "cmake", "--build", "build"
-      system "cmake", "--install", "build"
-    end
+    system "cmake", "-S", "crates/c-api", "-B", "build", "-DWASMTIME_FASTEST_RUNTIME=ON", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do

@@ -15,6 +15,7 @@ class SpiceGtk < Formula
 
   bottle do
     rebuild 1
+    sha256 arm64_sequoia:  "9b710c6b06c09f3b4c64937c7499df490e00294ab41e330657dd7025f0040abf"
     sha256 arm64_sonoma:   "9882ec3f69fc197c1ac475ad3422950df499d9b80a7c9bc624817d95506a0fe2"
     sha256 arm64_ventura:  "42600de9d33cc9d1c2e32eccf80cfa14f771457c3c39080d97ff3b611899dff8"
     sha256 arm64_monterey: "82ab9fac4205428b48ea403708e85e19a9a42fd6c64a114a949e773e94367bf2"
@@ -42,7 +43,10 @@ class SpiceGtk < Formula
   depends_on "gtk+3"
   depends_on "jpeg-turbo"
   depends_on "json-glib"
+  depends_on "libepoxy"
+  depends_on "libsoup"
   depends_on "libusb"
+  depends_on "libx11"
   depends_on "lz4"
   depends_on "openssl@3"
   depends_on "opus"
@@ -51,6 +55,18 @@ class SpiceGtk < Formula
   depends_on "pixman"
   depends_on "spice-protocol"
   depends_on "usbredir"
+
+  uses_from_macos "zlib"
+
+  on_macos do
+    depends_on "gobject-introspection"
+    depends_on "harfbuzz"
+  end
+
+  on_linux do
+    depends_on "libva"
+    depends_on "wayland"
+  end
 
   resource "pyparsing" do
     url "https://files.pythonhosted.org/packages/46/3a/31fd28064d016a2182584d579e033ec95b809d8e220e74c4af6f0f2e8842/pyparsing-3.1.2.tar.gz"

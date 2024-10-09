@@ -1,19 +1,18 @@
 class Cyme < Formula
   desc "List system USB buses and devices"
   homepage "https://github.com/tuna-f1sh/cyme"
-  url "https://github.com/tuna-f1sh/cyme/archive/refs/tags/v1.7.0.tar.gz"
-  sha256 "63ca7c5f473cbefb1fd07ba9b4f9693268d80560a778a001d82fab68bbd1552a"
+  url "https://github.com/tuna-f1sh/cyme/archive/refs/tags/v1.8.4.tar.gz"
+  sha256 "f9136c5794c4d199ee3d7745b82e901de4a15e4626f3bb4c9269e67c6e31885a"
   license "GPL-3.0-or-later"
   head "https://github.com/tuna-f1sh/cyme.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "d5cf046552b32dff79f461d8415c5e205b1b0e3dd93c63abbf8d303160970936"
-    sha256 cellar: :any,                 arm64_ventura:  "b6b22e43e3b5ac97daec01c399942bb41b34e012399e7a33ffae16386df6b9c7"
-    sha256 cellar: :any,                 arm64_monterey: "216eb8147e12a0e3e1992d45ad1fbc30a94fe42eb4cf2e8319892ee6be01fa4f"
-    sha256 cellar: :any,                 sonoma:         "9153dba15249d55ddc18cf9c382f05a0c0a4a24429c1cc4a2ac4c1aa9f00f423"
-    sha256 cellar: :any,                 ventura:        "0445cf8da3b262f2214fbe2d7cab8f8b54027b2ee0b414998681a6416d14fe40"
-    sha256 cellar: :any,                 monterey:       "61137e187437c924cdec10198b120f3c8d7ce7e621e88558237162cc774f0f11"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7b0b0d24f40ebaa7b6c6cf4804e9e84d45e89bf7b9128a9376ed5ac6dd804019"
+    sha256 cellar: :any,                 arm64_sequoia: "e18bd476d149849dca9e3d43b4a3c1eeb8c3560fee4def60208cb5fe8f070e77"
+    sha256 cellar: :any,                 arm64_sonoma:  "381e8ccf170104d9deef6fa283e347108bfd59c1d871d4fd7193c59ddfc60ce8"
+    sha256 cellar: :any,                 arm64_ventura: "540c3d6636ea6edbc92985328198b6046414d7e7efb68f1810e6bb333b3f6791"
+    sha256 cellar: :any,                 sonoma:        "08ebe554f70c67aeca385a4852da1ca76e31d24080831d0f9332974fa0bd090c"
+    sha256 cellar: :any,                 ventura:       "b60b15d2d2146619e340ea784adad284dff72f1bf03e45a13f16bbc8c2d891a9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5ecce228a0159f178bf7502e97a25397bfe8e468f103e8ee7881fd461c0ff22c"
   end
 
   depends_on "rust" => :build

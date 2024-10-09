@@ -7,6 +7,7 @@ class CrunchyCli < Formula
   head "https://github.com/crunchy-labs/crunchy-cli.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "a1e9883dac18b6296214f9145e6ff940b68cdb9fba356cb1437081956a92f0d7"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "eff25dab580ce0fab83a7bd145c4135f60bc7a33ea7dc2beff2ff1dcec221238"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "ab6f53c667b82494a40e421fcc8f708e2443e19903991e2352acc4412911ae4c"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "26658e2958c936ebb325748349492bab65d7c85c3d7e8b26f6e954661dbfb299"
@@ -15,6 +16,8 @@ class CrunchyCli < Formula
     sha256 cellar: :any_skip_relocation, monterey:       "2da874bb0fa697266a2575eae4f75602575f9e3a6137719dd535ec5fd72c28a2"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "2bfb8108c92d7926879b6c3067632692db81b020f9d52166f17e788a6b64b391"
   end
+
+  deprecate! date: "2024-07-16", because: :repo_archived
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build

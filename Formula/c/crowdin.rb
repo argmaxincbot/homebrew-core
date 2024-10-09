@@ -1,8 +1,8 @@
 class Crowdin < Formula
   desc "Command-line tool that allows to manage your resources with crowdin.com"
   homepage "https://support.crowdin.com/cli-tool/"
-  url "https://github.com/crowdin/crowdin-cli/releases/download/4.0.0/crowdin-cli.zip"
-  sha256 "ecac905279763bfada40b70fe55b0c097df4f38327e8715fc6326692c0245817"
+  url "https://github.com/crowdin/crowdin-cli/releases/download/4.2.0/crowdin-cli.zip"
+  sha256 "d79f336e0630e053ffbd056c4acf6db7d55c8ac056a519ff0f839188cdb83d86"
   license "MIT"
 
   livecheck do
@@ -11,13 +11,7 @@ class Crowdin < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "1b19b41212f20f9c517123e7741ec126a5c45fa683ae0677c758283c77a0874d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1b19b41212f20f9c517123e7741ec126a5c45fa683ae0677c758283c77a0874d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1b19b41212f20f9c517123e7741ec126a5c45fa683ae0677c758283c77a0874d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "1b19b41212f20f9c517123e7741ec126a5c45fa683ae0677c758283c77a0874d"
-    sha256 cellar: :any_skip_relocation, ventura:        "1b19b41212f20f9c517123e7741ec126a5c45fa683ae0677c758283c77a0874d"
-    sha256 cellar: :any_skip_relocation, monterey:       "1b19b41212f20f9c517123e7741ec126a5c45fa683ae0677c758283c77a0874d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "767084eb6bf6d0fe6e748df225bb2fa7e29ad890e8d86d75d8b716fdc0d14916"
+    sha256 cellar: :any_skip_relocation, all: "cd8d4dc9622b3f89b4abaa5c717a3e183468f5d193426121ed80ac78fe365617"
   end
 
   depends_on "openjdk"

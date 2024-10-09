@@ -1,19 +1,20 @@
 class GoogleBenchmark < Formula
   desc "C++ microbenchmark support library"
   homepage "https://github.com/google/benchmark"
-  url "https://github.com/google/benchmark/archive/refs/tags/v1.8.4.tar.gz"
-  sha256 "3e7059b6b11fb1bbe28e33e02519398ca94c1818874ebed18e504dc6f709be45"
+  url "https://github.com/google/benchmark/archive/refs/tags/v1.9.0.tar.gz"
+  sha256 "35a77f46cc782b16fac8d3b107fbfbb37dcd645f7c28eee19f3b8e0758b48994"
   license "Apache-2.0"
   head "https://github.com/google/benchmark.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "96f66edd70bd4fd5b743b3cb47481c55a0fa6119048566d304f4f4b76f4e3cfb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "70025180f4eefd615cd18012febe749208f4113ea925789dc10ef902adc03dc6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "c489b8fce7399e3b8e429df45f9c119c405669a86ec10ba1689984732bb8de80"
-    sha256 cellar: :any_skip_relocation, sonoma:         "89b959b99ccb917145e426fc38c79f474a48799f86a875a8da3da0edb898250e"
-    sha256 cellar: :any_skip_relocation, ventura:        "f49d6f70f17ac2f192674ab9136713bc4be13280fef264cedb47d3e58f25e730"
-    sha256 cellar: :any_skip_relocation, monterey:       "2b9200561f16267c54323837a819a9f9c384d8a2318c7caf51b6b6d602b4b816"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "32cf9bc19a5623a51c97a2bbb200bdb11fb5d444b5d9247b7c1a68225a2855ca"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "9658171a134ae6831708b71822209758d02d2a327f971fa5ebffd99df1ea4150"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0f46c9be01075480e76f7a6dfbe4efd44e81be125d0b3128e059e41cc47ef37a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "db90320b93d1add0184a40b89a56dc2506bcf2a2e7e55d6a965fa26f319e4867"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "635245e327d4675ab5ee6774a782fb1ce3e4d6615e1eb0b10d6320798df3f4e3"
+    sha256 cellar: :any_skip_relocation, sonoma:         "c8e7cafccef35ebddf6d89d12d5c02f3caeeb9d1287a12c18dff7d961472e940"
+    sha256 cellar: :any_skip_relocation, ventura:        "8cd9f07a6d9a4b88162d60e765860f2a9b5ca18f7e394c58408c7c1d5d05752b"
+    sha256 cellar: :any_skip_relocation, monterey:       "26903c86cf00cb8e6e743a27e4dfe9ea534453818a81305b85fb1b515d44bfb4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "812f668c5be5c47bf2c327c589714b139780343d7ac1184903a7681f21b642e2"
   end
 
   depends_on "cmake" => :build

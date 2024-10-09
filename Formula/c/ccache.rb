@@ -1,19 +1,21 @@
 class Ccache < Formula
   desc "Object-file caching compiler wrapper"
   homepage "https://ccache.dev/"
-  url "https://github.com/ccache/ccache/releases/download/v4.10.1/ccache-4.10.1.tar.xz"
-  sha256 "3a43442ce3916ea48bb6ccf6f850891cbff01d1feddff7cd4bbd49c5cf1188f6"
+  url "https://github.com/ccache/ccache/releases/download/v4.10.2/ccache-4.10.2.tar.xz"
+  sha256 "c0b85ddfc1a3e77b105ec9ada2d24aad617fa0b447c6a94d55890972810f0f5a"
   license "GPL-3.0-or-later"
+  revision 1
   head "https://github.com/ccache/ccache.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "430b224f19756fc5d226cf68ce209b4450738b47127a05a3089e255f59721b74"
-    sha256 cellar: :any,                 arm64_ventura:  "27f66da31f0b7c0874a0a5c736f3427ba5576279a5548f5c701ea634f8a66c62"
-    sha256 cellar: :any,                 arm64_monterey: "9625bf6777aba2d25a406ef62fdbb7b8f70cbeb7c47bfdea7054c5dd3c24cd21"
-    sha256 cellar: :any,                 sonoma:         "2e97103e91c45076427780d4d3f00b2c4aa127292ae5fb4cb79487d47da007e5"
-    sha256 cellar: :any,                 ventura:        "b927910be81371b99234bc6035ea750b1b7a661bb5f001c12bb3d95e7ed47119"
-    sha256 cellar: :any,                 monterey:       "65662794d7d69a1db73d53a37dcb55d3945b6afcdf2d65af6cf72811cbfc4722"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "29bd86ce0666b328b52a5f3c4e4c982041aac5f8e3cb6efe3fb4da750f4f4561"
+    sha256 cellar: :any,                 arm64_sequoia:  "f89e12a721fd48ed3dcfcc3eff8287ba0c1998dda77dab5a29da49611f24d473"
+    sha256 cellar: :any,                 arm64_sonoma:   "99a4fa919beefde392d18a2584582573c1da1846a235dd1cb263143ff6d1b7cb"
+    sha256 cellar: :any,                 arm64_ventura:  "64ddf5e321d706fc72217b93e1006fce74bd0455d44fbbf1be19d03f9dcd9655"
+    sha256 cellar: :any,                 arm64_monterey: "b5e4df60ea8300de0ab06b6c3b59369b8ace64a1da2da40805209b4d1b3dfe87"
+    sha256 cellar: :any,                 sonoma:         "06b08542eecffb366c3c92547b4dc74727378346ee05485753e3a2ce5a25b1c4"
+    sha256 cellar: :any,                 ventura:        "ca55f014f52d722b07f810b676c8e676982d890fe0c19720c5b0802214fa47f2"
+    sha256 cellar: :any,                 monterey:       "888607766d5d61abd954078cb35bfca250a70b9b1af98f7927fe3336569de616"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "953cd675e8cbb8359f6dbc6436017dbb58c71ee14ee2764946f833d9a8015225"
   end
 
   depends_on "asciidoctor" => :build
@@ -90,6 +92,6 @@ class Ccache < Formula
   test do
     ENV.prepend_path "PATH", opt_libexec
     assert_equal "#{opt_libexec}/gcc", shell_output("which gcc").chomp
-    system "#{bin}/ccache", "-s"
+    system bin/"ccache", "-s"
   end
 end

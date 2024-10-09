@@ -1,18 +1,17 @@
 class Mihomo < Formula
   desc "Another rule-based tunnel in Go, formerly known as ClashMeta"
   homepage "https://wiki.metacubex.one"
-  url "https://github.com/MetaCubeX/mihomo/archive/refs/tags/v1.18.6.tar.gz"
-  sha256 "b8f343a02e873d632fb488537f7d1bd2c63af1654075143678570ba848a45df5"
+  url "https://github.com/MetaCubeX/mihomo/archive/refs/tags/v1.18.9.tar.gz"
+  sha256 "8f64a5585b7bbbd65b83552a6cdc7a443fd47b2594f5a3ff72f02c8382d5e8da"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "32c1ebec20f8eb5d0b4fab8b1a019bdd8743579d80283c0e344a95f8bf6a5a0e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4e25de246a15c25e75cf1f3d0646c6e9e5fe7c18e10dd9d930c35bd2781b4201"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "ecdb0f0f92d8fa74a45665382264f308780a5f1cbef3fc2fba42151099dec69e"
-    sha256 cellar: :any_skip_relocation, sonoma:         "b9513c6afff2c43183ca8f00abd8863116f6f70b9b1a2aca9594823056ad1683"
-    sha256 cellar: :any_skip_relocation, ventura:        "e8707e123a01506eb558503a591f800eda4255deee59e6a35e634b783e5beb60"
-    sha256 cellar: :any_skip_relocation, monterey:       "648517f1571dc2028edcae260f41e135ef7516a61cb83a3f9d0b4bf154e0c658"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "d2a5504d1dcbd0e1e8a16ca6f03f5240ba86917640ca4d57af5d5132bf88dfbb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6c657329510466d730e838ffc3f9daf68e1f32e9102fa30250f365e4b8db128c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2dc10f90922f0c4c7afd2caea42da71a7667372328b0e19c6835ac7fa6ee7c5e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6bc92aaf66aa32b114d43fb98a4858c6d6333c08420bb11d04a037bf2b4120e1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "36bc2bf53f0196020b8cb502505aeac881f12f7d7726c29c1fa70aa7cb5d264e"
+    sha256 cellar: :any_skip_relocation, ventura:       "5e7bb34bafa2aebe48c9a9afced9ea0dc4a5d9113b67884873e153530f37ac4d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2c3dad291f425e00c7cc811c894a96b757d5167bbfd39e0e0d0a09ed3e7db69c"
   end
 
   depends_on "go" => :build

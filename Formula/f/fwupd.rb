@@ -3,44 +3,49 @@ class Fwupd < Formula
 
   desc "Firmware update daemon"
   homepage "https://github.com/fwupd/fwupd"
-  url "https://github.com/fwupd/fwupd/releases/download/1.9.21/fwupd-1.9.21.tar.xz"
-  sha256 "a0b56ed11f0ae8045b465535d468b14a230535a30d4a703ff9113fc5dd236ba4"
+  url "https://github.com/fwupd/fwupd/releases/download/2.0.0/fwupd-2.0.0.tar.xz"
+  sha256 "60a62b850e2c3a818f3178cb1de0f632b1e04c6ab07c02483af398940713548a"
   license "LGPL-2.1-or-later"
   head "https://github.com/fwupd/fwupd.git", branch: "main"
 
   bottle do
-    sha256 arm64_sonoma:   "3b71c06edc83018a6760a66a3c02cbf946e967819c1affeb461805311e738cd3"
-    sha256 arm64_ventura:  "edb6db918af662fb570dd70d82908992e978cb1862713c4a2008ba116debae7d"
-    sha256 arm64_monterey: "5e41ab94167e7c01f76127ab420188fc0bec5e59ff12fbe427140424444ba674"
-    sha256 sonoma:         "0a2020c31f76ca66dd0d5a090ccf1842108f149b2d2ac7b21ad3d499d953d67f"
-    sha256 ventura:        "c086112e206a2de65f7ea9f40f172f177ac6fda3b16a311b26dd5f18b269ccbc"
-    sha256 monterey:       "bf720d6b9efc49fbbbee5211a2643ba19fd88cdc70151211dbe85f961571b543"
-    sha256 x86_64_linux:   "abc3fb36f5a9003397cd36998f1e26a267b28b7938e0e29fca73ac9ba8ae26a0"
+    sha256 arm64_sequoia: "fed0cf431e6dca495a2257061ccd5c0ab212c458fb006c0410d5a056752159c0"
+    sha256 arm64_sonoma:  "d893e48a58bf493132b7633c758e44159c44686ed57869a09e24f013d3f1a009"
+    sha256 arm64_ventura: "73adaf9d75b4184f8315afc341f0f72d2b620ebcf804218f24a2bad2c4307e40"
+    sha256 sonoma:        "9ba5fa0c05d0780f4bfd7e7e633bd850d2237fe9452dd30441bd5e5964ee61c0"
+    sha256 ventura:       "3da4d235721deac49543a3297e7e05aceaff8d0caf6990fad046488a3e64ae75"
+    sha256 x86_64_linux:  "b47413186119a04504022b58651fcad83e5c6bf10c4b3775e869552bfaba777f"
   end
 
+  depends_on "gettext" => :build
   depends_on "gi-docgen" => :build
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkg-config" => [:build, :test]
   depends_on "python@3.12" => :build
   depends_on "vala" => :build
+
   depends_on "gcab"
-  depends_on "gettext"
   depends_on "glib"
   depends_on "gnutls"
   depends_on "json-glib"
   depends_on "libarchive"
   depends_on "libcbor"
-  depends_on "libgusb"
   depends_on "libjcat"
+  depends_on "libusb"
   depends_on "libxmlb"
   depends_on "protobuf-c"
   depends_on "sqlite"
+  depends_on "usb.ids"
   depends_on "xz"
 
   uses_from_macos "curl"
   uses_from_macos "zlib"
+
+  on_macos do
+    depends_on "gettext"
+  end
 
   resource "jinja2" do
     url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
@@ -76,6 +81,7 @@ class Fwupd < Formula
                     # these two are needed for https://github.com/fwupd/fwupd/pull/6147
                     "-Dplugin_logitech_scribe=disabled",
                     "-Dplugin_logitech_tap=disabled",
+                    "-Dvendor_ids_dir=#{Formula["usb.ids"].opt_share}/misc/usb.ids",
                     *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
@@ -91,25 +97,12 @@ class Fwupd < Formula
         return 0;
       }
     EOS
-    gettext = Formula["gettext"]
-    glib = Formula["glib"]
-    flags = %W[
-      -I#{glib.opt_include}/glib-2.0
-      -I#{glib.opt_lib}/glib-2.0/include
-      -I#{include}/fwupd-1
-      -L#{gettext.opt_lib}
-      -L#{glib.opt_lib}
-      -L#{lib}
-      -lgio-2.0
-      -lglib-2.0
-      -lgobject-2.0
-      -lfwupd
-    ]
-    flags << "-lintl" if OS.mac?
-    system ENV.cc, "test.c", "-o", "test", *flags
+
+    pkg_config_flags = shell_output("pkg-config --cflags --libs fwupd").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *pkg_config_flags
     system "./test"
 
     # this is a lame test, but fwupdtool requires root access to do anything much interesting
-    system "#{bin}/fwupdtool", "-h"
+    system bin/"fwupdtool", "-h"
   end
 end

@@ -2,19 +2,18 @@ class Eksctl < Formula
   desc "Simple command-line tool for creating clusters on Amazon EKS"
   homepage "https://eksctl.io"
   url "https://github.com/eksctl-io/eksctl.git",
-      tag:      "0.186.0",
-      revision: "c66758141cb63f44d22181bdcc57908c0629a640"
+      tag:      "0.191.0",
+      revision: "c736924d65ae9805e35a3505a960cb3c97c14f49"
   license "Apache-2.0"
   head "https://github.com/eksctl-io/eksctl.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "806ce2676653fc05fd87a757da637b9d481a4ced555d2cd35c635fd2e6549ea6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "54adaeb78570b2925f614e619f5c3bb9ea1752f929deba897c9427ec3ee02330"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3d7f8a363976f003cef89630b37d76c6c021ca446170b25440bffb6d3d8c8bf1"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a1c131e0fda122a284be8aacf4dfb4bc65065a350611467bf88912fe5e4743cb"
-    sha256 cellar: :any_skip_relocation, ventura:        "0dc6f46d1e240e53199a2217b012692f801ddedb68468184cee90d87a41d3e9e"
-    sha256 cellar: :any_skip_relocation, monterey:       "5e305fe524b9d2663ec1f55fdf49cb02ec73767c8cf4a2300d94bc0180ec5f28"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ee433e98d549de9df8cf357411f1f0fd62c9a5dd0fa1cbb368c9377f0e567583"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "eadd95b2ed448a68bbb7e93ab80d592e73381548839173c28da3f4590783fefa"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "14b63c7f7aa5d27c79aab593485022889f4868dc3ab354be6229a22e06e594ba"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "90230cf93977c3b00a6cc075cfa7b0e203a96f2ddd68574ddb411cfe02526fac"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7442e32879e1f6a85daee7cf915075fd59670536c1249d82378902da4f2102be"
+    sha256 cellar: :any_skip_relocation, ventura:       "78578c1242244a2a16e5cded9ec78f04ba6434bce6134169b942536873192707"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0ab340e7a36d3889d3ef2cd267419266b43f676e94f57facaccd8e523627d628"
   end
 
   depends_on "counterfeiter" => :build

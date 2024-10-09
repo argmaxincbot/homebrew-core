@@ -1,19 +1,18 @@
 class Libproxy < Formula
   desc "Library that provides automatic proxy configuration management"
   homepage "https://libproxy.github.io/libproxy/"
-  url "https://github.com/libproxy/libproxy/archive/refs/tags/0.5.7.tar.gz"
-  sha256 "ca64b28a014cffde43f4052ec78b25a8a0f1aa4d78da721c605d64b1591e78dd"
+  url "https://github.com/libproxy/libproxy/archive/refs/tags/0.5.9.tar.gz"
+  sha256 "a1976c3ac4affedc17e6d40cf78c9d8eca6751520ea3cbbec1a8850f7ded1565"
   license "LGPL-2.1-or-later"
   head "https://github.com/libproxy/libproxy.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "b8330070a5e67629f94ce78ed2ea9a84fcbc5fb3516519b770593faf8c018ab7"
-    sha256 cellar: :any, arm64_ventura:  "24435db5959aa7030a256f5a67922dee9c2ef43941b11e840a4775ed53af0a29"
-    sha256 cellar: :any, arm64_monterey: "9afc1a1ebb74d35e51acfdf58ea81ce74feb67b681e0d233a366c4b0b7fa1944"
-    sha256 cellar: :any, sonoma:         "c8804ddb7bb74cc4aff3f01502037828cd6feb13a796b822b64980006d2f3c26"
-    sha256 cellar: :any, ventura:        "61609789916820fff179eeaf4b6e0e2b4fc9093a4ccdb2adf1b1650e051836ed"
-    sha256 cellar: :any, monterey:       "d059725a935d953883006a83053743355abd3dd9ffa9bd179fc4615f98b26d0b"
-    sha256               x86_64_linux:   "ddd70a1cd59f21f5b91aaf022f13e4fb744a19b82d7b752ebb2aef03e408f809"
+    sha256 cellar: :any, arm64_sequoia: "ea05222062747c5eb6ad1c2b6702f15fc17449dab974454882a7730ab71a57fe"
+    sha256 cellar: :any, arm64_sonoma:  "98cbc8687ff557d1c3846bee65cbd2bf1bb28c12ab11fcf5a508364147e623d8"
+    sha256 cellar: :any, arm64_ventura: "3b1fadfe0d664fba4cb8490bf6b60d6c60fba021ecbdf2392baa3883c7802be8"
+    sha256 cellar: :any, sonoma:        "33bcfa11bc19106a39baec8b02ea502d5dc8b33d3337e2d59f8b10027f1d6ad5"
+    sha256 cellar: :any, ventura:       "e1c5deed45524a740381a8cfb7298b8e2cce31574addda6143546b07517a2535"
+    sha256               x86_64_linux:  "c49f1a448cfc3917e90a0d189b88bfaee1573c717d119f944d13abd8047c7e3a"
   end
 
   depends_on "gobject-introspection" => :build

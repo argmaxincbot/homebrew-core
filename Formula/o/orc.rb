@@ -1,8 +1,8 @@
 class Orc < Formula
   desc "Oil Runtime Compiler (ORC)"
   homepage "https://gstreamer.freedesktop.org/projects/orc.html"
-  url "https://gstreamer.freedesktop.org/src/orc/orc-0.4.38.tar.xz"
-  sha256 "a55a98d4772567aa3faed8fb84d540c3db77eaba16d3e2e10b044fbc9228668d"
+  url "https://gstreamer.freedesktop.org/src/orc/orc-0.4.40.tar.xz"
+  sha256 "3fc2bee78dfb7c41fd9605061fc69138db7df007eae2f669a1f56e8bacef74ab"
   license all_of: ["BSD-2-Clause", "BSD-3-Clause"]
 
   livecheck do
@@ -11,13 +11,14 @@ class Orc < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "f9c3e051ab78d57cffae42c21f35b82b50132f0cd5aab50f32a7d0210553412a"
-    sha256 cellar: :any,                 arm64_ventura:  "52a3e7788102b70454ba01d13a7f4da5575f8e2c489f7f800617cc96f2832289"
-    sha256 cellar: :any,                 arm64_monterey: "121ff1300164f39ae6b84545cdb6570126ed4d6d206cd327a54768e827d25ac1"
-    sha256 cellar: :any,                 sonoma:         "5155a4e287d38d4946475c404e0a2270ac19af2a264e02fb814a0a9be16af1d8"
-    sha256 cellar: :any,                 ventura:        "29b9bf04749277477e2f662e86fd111df994fcc4c7472aeb27c3c8cc2950dc5c"
-    sha256 cellar: :any,                 monterey:       "6d49cc922b27489cfa47be23734b3532a944d3559f0e6b4ad03ac41fab856f23"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "afaeb3a4e9482cf3ebd176f75bf9e7527ff9ad9d9773bd07a846b69e96120ed5"
+    sha256 cellar: :any,                 arm64_sequoia:  "90d8de016969328e2eb572eb108829b849cda780cefdb98b44704d5c8df456b9"
+    sha256 cellar: :any,                 arm64_sonoma:   "1c01024d793b7feae787a50c02e779a2337a82c084c8752cd6d06f8f97d66a6b"
+    sha256 cellar: :any,                 arm64_ventura:  "f1cb98a80bbce3c51266b084be2c0175193486e98eadc0ae2320289e07f86697"
+    sha256 cellar: :any,                 arm64_monterey: "6cf3477904bb788dae6bc48425c320c9b5734247842ebe055cb7e625ffb0c73a"
+    sha256 cellar: :any,                 sonoma:         "59c5af370c421275f0b6aadf7f9d485593a2444a78bc370a9161e98dc1b8c933"
+    sha256 cellar: :any,                 ventura:        "017b065a46f040be148fe0f090c429a6b368df32b3f70d71d7504c9bec7df8b0"
+    sha256 cellar: :any,                 monterey:       "6f514f984e8a37cfdb16c94368bd9a108e42cbeadcdbee3331cce47e8c1ffe32"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6b34751604d245a523fe1b243562bb0b5428ca45d1ce6d6101fcf5fdf92d3584"
   end
 
   depends_on "meson" => :build

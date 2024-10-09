@@ -1,20 +1,19 @@
 class Cffi < Formula
   desc "C Foreign Function Interface for Python"
   homepage "https://cffi.readthedocs.io/en/latest/"
-  url "https://files.pythonhosted.org/packages/68/ce/95b0bae7968c65473e1298efb042e10cafc7bafc14d9e4f154008241c91d/cffi-1.16.0.tar.gz"
-  sha256 "bcb3ef43e58665bbda2fb198698fcae6776483e0c4a631aa5647806c25e02cc0"
+  url "https://files.pythonhosted.org/packages/fc/97/c783634659c2920c3fc70419e3af40972dbaf758daa229a7d6ea6135c90d/cffi-1.17.1.tar.gz"
+  sha256 "1c39c6016c32bc48dd54561950ebd6836e1670f2ae46128f67cf49e789c52824"
   license "MIT"
-  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2ffe080b9d696ac03d1229276be008dea6f403d395b3c2b3ca9bffa78e50e2f8"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4e33d746c4e8ee49df366aae6c6c8f3f58fe917bc3b7d4363d9b684ac8e7a0db"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "1496498ac52787b4ef0bcb1293febd7ba5cad07a4b4ab2c088c9e67ae1085d69"
-    sha256 cellar: :any_skip_relocation, sonoma:         "825ca5c9bf25ca28db6cd0d7ddb088cb66aa86dc69f85e24775e2ed526ebd9ac"
-    sha256 cellar: :any_skip_relocation, ventura:        "0bd893c328706682088abca867d52c40b8a9e162e65c5f067647cf3fe4171821"
-    sha256 cellar: :any_skip_relocation, monterey:       "fc90dcf157fd659a2b41970f945754c21eb98647ee83259f2e64bbc3bd41e1cd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "75989e551855be635a6ee550fd5ef2f02738ed44fee5eef0393e688e5489d007"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "3af401e70845a3ddab668051310f9bbc002d60c60bacc4833c8b86fc5a350c74"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0e9efdb077ac820c6da89abffc9bec1b1ca2cefe9e02e8789add2ab1aaaef044"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2eaa19099eb9e95e0986c43c3c8474341f7396109d933a3a96db018de0de9258"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "0b47208d70f0014528a91ab01ecd77f980a4c4a7c93be9298d98dfa06ca5f5c5"
+    sha256 cellar: :any_skip_relocation, sonoma:         "fce5151feb5271e6248a26425c3acdf8bfbc26bb08d305820c8a7d8461200822"
+    sha256 cellar: :any_skip_relocation, ventura:        "a0529e6b2049317924717646ba6c7a6cf92908a614b695632c6cbfd6a088cf1c"
+    sha256 cellar: :any_skip_relocation, monterey:       "c73ad8cf6404d12ef051b77a1acb68ce34c16ed2d06412e26cb14036e8dfc1bf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4fcbba8d42933c05b028cace85d7e6a20b9f99e16c83bd453c10ae16702cdda0"
   end
 
   depends_on "python@3.11" => [:build, :test]

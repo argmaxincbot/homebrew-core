@@ -7,6 +7,7 @@ class Pqiv < Formula
   head "https://github.com/phillipberndt/pqiv.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "52daef568d283ab8bbe5ea752d5b70756fb9a628ad9384c963966b00d1c62585"
     sha256 cellar: :any,                 arm64_sonoma:   "e6f3087028f4d04ca7347ebb3148ce7929c4a57800ff39fe68551cfa63ad9203"
     sha256 cellar: :any,                 arm64_ventura:  "53e710b8e390c8c337300c6e19a4bd733cf633f338b109c00660d09e12c99c9a"
     sha256 cellar: :any,                 arm64_monterey: "3ae1a16b54299b2dd3da5a4acf2d6281ebedff149b10465f5c740fe7701498a6"
@@ -17,19 +18,32 @@ class Pqiv < Formula
   end
 
   depends_on "pkg-config" => :build
+
+  depends_on "cairo"
+  depends_on "gdk-pixbuf"
+  depends_on "glib"
   depends_on "gtk+3"
   depends_on "imagemagick"
   depends_on "libarchive"
   depends_on "libspectre"
+  depends_on "pango"
   depends_on "poppler"
   depends_on "webp"
 
+  on_macos do
+    depends_on "at-spi2-core"
+    depends_on "gettext"
+    depends_on "harfbuzz"
+  end
+
   on_linux do
     depends_on "libtiff"
+    depends_on "libx11"
   end
 
   def install
-    system "./configure", "--prefix=#{prefix}"
+    args = *std_configure_args.reject { |s| s["--disable-debug"]|| s["--disable-dependency-tracking"] }
+    system "./configure", *args
     system "make", "install"
   end
 

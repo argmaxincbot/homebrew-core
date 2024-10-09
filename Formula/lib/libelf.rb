@@ -1,6 +1,7 @@
 class Libelf < Formula
   desc "ELF object file access library"
-  homepage "https://web.archive.org/web/20181111033959/www.mr511.de/software/english.html"
+  # Original upstream is gone https://web.archive.org/web/20181111033959/www.mr511.de/software/english.html
+  homepage "https://fossies.org/linux/misc/old/libelf-0.8.13.tar.gz/"
   url "https://www.mirrorservice.org/sites/ftp.netbsd.org/pub/pkgsrc/distfiles/libelf-0.8.13.tar.gz"
   mirror "https://fossies.org/linux/misc/old/libelf-0.8.13.tar.gz"
   sha256 "591a9b4ec81c1f2042a97aa60564e0cb79d041c52faa7416acb38bc95bd2c76d"
@@ -8,6 +9,7 @@ class Libelf < Formula
   revision 1
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "4f4135950b4b898f046e748266d309126a4c87e0e86a19d476192f9619660819"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b5db356e6f8dc983b40424a17c9b73bfcbb442d08a6db8e952744b55aa53bb6e"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "839fa934a24ba7bff4bd8ed5d8e3440cd70db7027fa2b79201c32469d0947877"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "3987585b99efe287bfe353b420ba423057e6bfb3a27d543f5f0bfe13f76ef42f"

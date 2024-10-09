@@ -1,18 +1,17 @@
 class Tgui < Formula
   desc "GUI library for use with sfml"
   homepage "https://tgui.eu"
-  url "https://github.com/texus/TGUI/archive/refs/tags/v1.3.0.tar.gz"
-  sha256 "641067026656518479ac8e7e1551fc0673836dfdb82c31b03474c27eb3bf0b05"
+  url "https://github.com/texus/TGUI/archive/refs/tags/v1.6.0.tar.gz"
+  sha256 "f405bc87174d8a781810c83223e07c048742b1ec7d0fd16bd32833e116654490"
   license "Zlib"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "e839f1b5b9945f0cd2737ea93e624fb0fc8f8308edf843719fe923d6d8407082"
-    sha256 cellar: :any,                 arm64_ventura:  "98d5e03611ff45bf440c7c12fcdbc61b93e08c4048932129e997491968d631c4"
-    sha256 cellar: :any,                 arm64_monterey: "0d78d86653592784e30142a35538ee6dade97db3da361e2b2352cca20f49aab9"
-    sha256 cellar: :any,                 sonoma:         "27b8e682819b001faf77a266e39e7dfc8d87f4728d2e761e8bdab86f4372e4e2"
-    sha256 cellar: :any,                 ventura:        "b9bea58c715494b1cd62aca8ca705f0e4d51a6b0c395d0ba407f014af456270b"
-    sha256 cellar: :any,                 monterey:       "109dce3263f806ea1129b04c8c08870a7d652d123cf2f25d8b7054b1d6cf79af"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6e6230a051dcb356576ce2c233168e67d13337326242af20a2d4d77d102f5c64"
+    sha256 cellar: :any,                 arm64_sequoia: "331c410afae43834b90cd3bb839372a0703a1ba2519828694d93e6e4173719ea"
+    sha256 cellar: :any,                 arm64_sonoma:  "d1f06fe4bc9dd7c1d44dd1e5c77a9a61962913d7bf873d9c727ad1b16936e1ad"
+    sha256 cellar: :any,                 arm64_ventura: "9bc3f9072df6bf1b2c7e72daedeaa82619eb7b4068b9232344362b30a6169e1c"
+    sha256 cellar: :any,                 sonoma:        "4e93e653944bfafd353bc668bdec36e3d58d52e21220a5020a8547c7be970bd1"
+    sha256 cellar: :any,                 ventura:       "5b8921bc9dab21a3ba1ec678d6944abd23bf599c9bf70d6280f744d71a8930e3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e82936a0501104e046783f83bfc8664a4896a6e5a3a338fbc0ec9aee0b523cfd"
   end
 
   depends_on "cmake" => :build

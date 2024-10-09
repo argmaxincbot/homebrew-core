@@ -1,12 +1,13 @@
 class Pandocomatic < Formula
   desc "Automate the use of pandoc"
   homepage "https://heerdebeer.org/Software/markdown/pandocomatic/"
-  url "https://github.com/htdebeer/pandocomatic/archive/refs/tags/1.1.1.tar.gz"
-  sha256 "fb3b77f01cb52927163965fd911f9b59a04f133896b3a15d9aa1b56704a0d6e8"
+  url "https://github.com/htdebeer/pandocomatic/archive/refs/tags/1.1.3.tar.gz"
+  sha256 "5bbc608b6f12690c18818f1d4934d82d11a5df0a3a0864b60ace48482982af6a"
   license "GPL-3.0-or-later"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "4fce20eede304438d055535ccbbbaf811df1b1f3c294aa5844c7dfde5cdf0d38"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "4b5303fc2c4da3be01510620566f4e9efde3adf52315956df75c884a1c920a0f"
   end
 
   depends_on "pandoc"
@@ -18,8 +19,8 @@ class Pandocomatic < Formula
   end
 
   resource "paru" do
-    url "https://rubygems.org/gems/paru-1.1.0.gem"
-    sha256 "0c7406a398d9b356043a4a1bfee81f33947d056bb114e9dfb6a5e2c68806fe57"
+    url "https://rubygems.org/gems/paru-1.3.gem"
+    sha256 "e031d4f008bd2aa298c5ca7a9d2270b4b2d2c3a5ceb3c39ca5a2afcba020ad17"
   end
 
   def install
@@ -45,7 +46,7 @@ class Pandocomatic < Formula
       <p>A package manager for humans. Cats should take a look at
       Tigerbrew.</p>
     EOS
-    system "#{bin}/pandocomatic", "-i", "test.md", "-o", "test.html"
+    system bin/"pandocomatic", "-i", "test.md", "-o", "test.html"
     assert_equal expected_html, (testpath/"test.html").read
   end
 end

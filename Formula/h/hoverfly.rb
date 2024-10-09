@@ -1,19 +1,20 @@
 class Hoverfly < Formula
   desc "API simulations for development and testing"
   homepage "https://hoverfly.io/"
-  url "https://github.com/SpectoLabs/hoverfly/archive/refs/tags/v1.10.0.tar.gz"
-  sha256 "0bf9dd06f272d33aaeec5da70f4a65d6367e3f894082865423f56cc73ad9c0a2"
+  url "https://github.com/SpectoLabs/hoverfly/archive/refs/tags/v1.10.4.tar.gz"
+  sha256 "7d88ad51fd268bed01078b5fa154a2003df7ad130d6438f3b3c299d73695568d"
   license "Apache-2.0"
   head "https://github.com/SpectoLabs/hoverfly.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a995cc926d215673d0327ad59f825e9ec3523fc88347d487ccb8765f82fc02a6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3e929757a50642d31d2b470619a0206c1396cfd3945b724bb0152bd21502b2c5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4f4de4004c1ac5b6a5856118c066455bf847f0921863b3d29dde52fa5ed05e84"
-    sha256 cellar: :any_skip_relocation, sonoma:         "f715177d954d92d9ab8921f25e5c6737cc84417c553fa3351fc9df040d7f8786"
-    sha256 cellar: :any_skip_relocation, ventura:        "ac255bab68ee2134575913c5fb571bdedb5071c701af025adcf7dc2d8ea3ea20"
-    sha256 cellar: :any_skip_relocation, monterey:       "30f0df697864ca50a502414e65d8dca019e55ad186c5c8ab8c5ecbffef37ad4f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "3ba693a3606d8cd1a1a27344018ec7557f009b2bf1fd1e61828be2a6c7d0cbb7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "c4a58e524e76b21ffbf6f7cec7c511d369683066080dca97e05428038a172025"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5c3af4256bb0bebe0674fe50df4c445352bb0cd4cdcf35a4946c675cbdf69173"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "5c3af4256bb0bebe0674fe50df4c445352bb0cd4cdcf35a4946c675cbdf69173"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "5c3af4256bb0bebe0674fe50df4c445352bb0cd4cdcf35a4946c675cbdf69173"
+    sha256 cellar: :any_skip_relocation, sonoma:         "351cd9832c0a22d47f746bf1628eef8460f615b054d6c19f5367e4ea7fcc4b9c"
+    sha256 cellar: :any_skip_relocation, ventura:        "351cd9832c0a22d47f746bf1628eef8460f615b054d6c19f5367e4ea7fcc4b9c"
+    sha256 cellar: :any_skip_relocation, monterey:       "351cd9832c0a22d47f746bf1628eef8460f615b054d6c19f5367e4ea7fcc4b9c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "387092bd2d2d8aa68f8c8b556d1cbec0bf3d7265c1625c9bf8f8c77bf42d378c"
   end
 
   depends_on "go" => :build

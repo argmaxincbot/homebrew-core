@@ -17,6 +17,7 @@ class Bagit < Formula
 
   bottle do
     rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "c54cb02dabb9f973b0267732047c4abb9814348b49a050d615dad5cbae308f56"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2ac616d791db078c99f2a91e28f4eb215fd66627b9a9851dca31a922c1671c4d"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "90df11c3427ddb75f74a1e4f8fa8e8deaa6fa0b4aa8dbc81c77b584cd53f967c"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "2bd392766f572fd2218bb6d06c9109c258d509b05b679c1f5860d302ade534b4"
@@ -40,7 +41,7 @@ class Bagit < Formula
   end
 
   test do
-    system "#{bin}/bagit.py", "--source-organization", "Library of Congress", testpath.to_s
+    system bin/"bagit.py", "--source-organization", "Library of Congress", testpath.to_s
     assert_predicate testpath/"bag-info.txt", :exist?
     assert_predicate testpath/"bagit.txt", :exist?
     assert_match "Bag-Software-Agent: bagit.py", File.read("bag-info.txt")

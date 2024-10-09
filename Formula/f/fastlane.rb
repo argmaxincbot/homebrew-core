@@ -1,8 +1,8 @@
 class Fastlane < Formula
   desc "Easiest way to build and release mobile apps"
   homepage "https://fastlane.tools"
-  url "https://github.com/fastlane/fastlane/archive/refs/tags/2.221.1.tar.gz"
-  sha256 "4fbf3bfc417575be21fa62fc970471af6ac3b096278bde4260a2031be643ae28"
+  url "https://github.com/fastlane/fastlane/archive/refs/tags/2.224.0.tar.gz"
+  sha256 "148b0327bdedd4e48c492224fd58182abcb904b690607420b70d4747d2979186"
   license "MIT"
   head "https://github.com/fastlane/fastlane.git", branch: "master"
 
@@ -12,13 +12,12 @@ class Fastlane < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "089eba4be43de20b0d9ff037d9e27489e4108af7b4a53e040261736c847e4965"
-    sha256 cellar: :any,                 arm64_ventura:  "50b1a8bfef15559018731f6a29bb101ad231290c0cd5dac28567ea61c627ac85"
-    sha256 cellar: :any,                 arm64_monterey: "0fe1a96c1e5e35cede176985563ca6e356e55228976f13d9edea7d8e192d005c"
-    sha256 cellar: :any,                 sonoma:         "b7bd0cb7d4f4a5a154368dd043435bf8f58bf679e251170d3e3a4bbe7c0bf5b2"
-    sha256 cellar: :any,                 ventura:        "3c87f112676a546969495b75d9ad97db148ccefd43cee29e26598979cf035ac3"
-    sha256 cellar: :any,                 monterey:       "dd491b4f988f40427a05c0f181b7fe87140044c8d099097e815c0f1835cf9df4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8aeccb5c13d06f23482c219540d63db4f36fdf7d6fc34d11c193f5c8e7fec5be"
+    sha256 cellar: :any,                 arm64_sequoia: "c9236475a08366f0e20ae97f6fdf41c29c39900c80f23bd0f59fe40327e5d366"
+    sha256 cellar: :any,                 arm64_sonoma:  "c66acf552133be876be8803043761659ad584705a908895deddffa20f0c75b85"
+    sha256 cellar: :any,                 arm64_ventura: "4da2bb10b8b82b531e831e7bfb74d2334564e1d167822e8a61ddb7ffa692d4de"
+    sha256 cellar: :any,                 sonoma:        "c2112d276dc8944fefa9dba94bcadabcb2d86490feb6cb3708bc466295fd83d3"
+    sha256 cellar: :any,                 ventura:       "3bd574ef303421acf9c9315ffeec107e21623fa4f67d703911df11b8e56ddb83"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "da8f5ad6da01f2fe575de1f649cd93301ae1c09be862c4943221d7598fa6ee09"
   end
 
   depends_on "ruby"
@@ -42,7 +41,7 @@ class Fastlane < Formula
 
     # Remove vendored pre-built binary
     terminal_notifier_dir = libexec.glob("gems/terminal-notifier-*/vendor/terminal-notifier").first
-    (terminal_notifier_dir/"terminal-notifier.app").rmtree
+    rm_r(terminal_notifier_dir/"terminal-notifier.app")
 
     if OS.mac?
       ln_sf(

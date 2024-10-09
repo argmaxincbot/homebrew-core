@@ -1,33 +1,32 @@
 class Evince < Formula
   desc "GNOME document viewer"
-  homepage "https://wiki.gnome.org/Apps/Evince"
-  url "https://download.gnome.org/sources/evince/46/evince-46.3.tar.xz"
-  sha256 "bc0d1d41b9d7ffc762e99d2abfafacbf745182f0b31d86db5eec8c67f5f3006b"
+  homepage "https://apps.gnome.org/Evince/"
+  url "https://download.gnome.org/sources/evince/46/evince-46.3.1.tar.xz"
+  sha256 "945c20a6f23839b0d5332729171458e90680da8264e99c6f9f41c219c7eeee7c"
   license "GPL-2.0-or-later"
+  revision 1
 
   bottle do
-    sha256 arm64_sonoma:   "fd325d001f0a26ede51f1169cd1d69f62189e22ca772ccf5949bf742702ee5eb"
-    sha256 arm64_ventura:  "4d2cf11142d80118155c6316be3d58a992a4d73c0345209e82a049a17fe5634d"
-    sha256 arm64_monterey: "8d230caaaa8ac63110bbdb04ea34656a1296cc3bb6d4873f7ef460e7dcaeec98"
-    sha256 sonoma:         "ba35131ca8404a18efb242555db8937e2c6e6ad6bdc6990717e2c174b177e8d2"
-    sha256 ventura:        "37dd9fab3bcc8986dc1e65b65a458197ff2d1d0f27e6a19a5c3f2271bf87ac72"
-    sha256 monterey:       "ebf12efd418ada6fd8f791e706dc3d8501cf91cca5e621ac54ec59ecc75066ce"
-    sha256 x86_64_linux:   "0fd0af71e2fe9b040ac804c68b6f1129b34d68803fb114a2d272dab2b34842d0"
+    sha256 arm64_sequoia: "187802b2b1cc63ac443b9cffa900357c13e485ca2ee3d81970201594a5b19e3c"
+    sha256 arm64_sonoma:  "09a6b41784e63e2f35595fd42d1f758cc2ac7be587de787a264b4d7d916acae5"
+    sha256 arm64_ventura: "40a136500823af6de06b4f58f6c967bf2805afe2b83d94bc7925744258eb7c5f"
+    sha256 sonoma:        "bc0c4395ecd99384e26ba2a63cdd27445b4cf0a069c15a95d1af1f92beb966ff"
+    sha256 ventura:       "61ed6db368b8d760df540b2b5f5e0ac8b983d7e0b5cd98dc3d34d4f9629937d9"
+    sha256 x86_64_linux:  "7f1f11b14ac0c6534b3f957e431b70e1dc7067c590370b342656bfe2d3551cec"
   end
 
   depends_on "desktop-file-utils" => :build # for update-desktop-database
-  depends_on "gettext" => :build # for msgfmt
   depends_on "gobject-introspection" => :build
   depends_on "itstool" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
+
   depends_on "adwaita-icon-theme"
   depends_on "at-spi2-core"
   depends_on "cairo"
   depends_on "djvulibre"
   depends_on "gdk-pixbuf"
-  depends_on "gettext"
   depends_on "glib"
   depends_on "gspell"
   depends_on "gtk+3"
@@ -44,20 +43,31 @@ class Evince < Formula
   uses_from_macos "libxml2"
   uses_from_macos "zlib"
 
+  on_macos do
+    depends_on "gettext"
+  end
+
+  on_linux do
+    depends_on "gettext" => :build # for msgfmt
+  end
+
   def install
     ENV["DESTDIR"] = "/"
-    system "meson", "setup", "build", "-Dnautilus=false",
-                                      "-Dcomics=enabled",
-                                      "-Ddjvu=enabled",
-                                      "-Dpdf=enabled",
-                                      "-Dps=enabled",
-                                      "-Dtiff=enabled",
-                                      "-Dxps=enabled",
-                                      "-Dgtk_doc=false",
-                                      "-Dintrospection=true",
-                                      "-Ddbus=false",
-                                      "-Dgspell=enabled",
-                                      *std_meson_args
+
+    args = %w[
+      -Dnautilus=false
+      -Dcomics=enabled
+      -Ddjvu=enabled
+      -Dpdf=enabled
+      -Dps=enabled
+      -Dtiff=enabled
+      -Dxps=enabled
+      -Dgtk_doc=false
+      -Dintrospection=true
+      -Ddbus=false
+      -Dgspell=enabled
+    ]
+    system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
   end

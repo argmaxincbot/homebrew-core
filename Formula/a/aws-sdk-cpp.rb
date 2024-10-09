@@ -2,8 +2,8 @@ class AwsSdkCpp < Formula
   desc "AWS SDK for C++"
   homepage "https://github.com/aws/aws-sdk-cpp"
   url "https://github.com/aws/aws-sdk-cpp.git",
-      tag:      "1.11.345",
-      revision: "8d8e82ede537b8de94f95ddea44e78f845f4980c"
+      tag:      "1.11.420",
+      revision: "2cde9b1786bdbb3182faa93ce28d6e44ac2fe7e0"
   license "Apache-2.0"
   head "https://github.com/aws/aws-sdk-cpp.git", branch: "main"
 
@@ -12,13 +12,12 @@ class AwsSdkCpp < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9af54c3abd28a0bfaae213293036ac3fffeee224df4364e4ec91fac9bea4ed0a"
-    sha256 cellar: :any,                 arm64_ventura:  "0b88ad1613da040536da8295dc20c40926d25064a5d1318cc0749ee80682990f"
-    sha256 cellar: :any,                 arm64_monterey: "1fe6e9055b4196899f38925c9b4dabef4f3e54a8c209929f6ef42d1e2d80b1b2"
-    sha256 cellar: :any,                 sonoma:         "53db07e1485c69e50fe5a8d9613d12f00ea63d7823fcacd4b30b9c6e1bba965a"
-    sha256 cellar: :any,                 ventura:        "f72eec8a2d018f12d0e4b89cb015214ab1e76ac5bcf952702338eba91f7cac73"
-    sha256 cellar: :any,                 monterey:       "9a31c2fdb2af047c5c2cc75e6b8cb97c4266a7f8db4b70ccb124fd2c427df47a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "38dc50693937f382d924cdabc29fad982038c29b955f05c0430a1eb7248b4c3f"
+    sha256 cellar: :any,                 arm64_sequoia: "0f8cb17ed2035e8544940fcc4e760e3f5d34934670a7607d899489d25c08e68f"
+    sha256 cellar: :any,                 arm64_sonoma:  "98dd61af5dc947d0abdfe209e4f6d5c0cfd71714769fb085d1624558c6992c47"
+    sha256 cellar: :any,                 arm64_ventura: "f9b9abfbf0718d0561e64f2f491133b0498755a07b608552eafe75d4ee00d2e8"
+    sha256 cellar: :any,                 sonoma:        "bdac7c5f8f12203d318d2947659b209912421e6c0b810d948bafac4a883620dc"
+    sha256 cellar: :any,                 ventura:       "60ac1626a8bddeb232ea49ef8a64af3959b4835ffb96de48a52b0a3cb7758182"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dbc93a135866b616d5e896f2a14342ba65fcf9b2ebe76440682b856bd2a81830"
   end
 
   depends_on "cmake" => :build

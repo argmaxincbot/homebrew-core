@@ -3,19 +3,19 @@ class GitCola < Formula
 
   desc "Highly caffeinated git GUI"
   homepage "https://git-cola.github.io/"
-  url "https://files.pythonhosted.org/packages/6b/34/fd3f893a2b58c8c51b22a3ea411d6f7040ba4816311b2befdfcc515e18b1/git-cola-4.8.0.tar.gz"
-  sha256 "86971d6f386a70e1e7d35e8c2f57cd586cb81986ec8ca099cb93412142bbfbf0"
+  url "https://files.pythonhosted.org/packages/f0/9b/81c8279f27c52aabfcf92206c9b5124b36f55d14558d9126e97fb1c7a6da/git-cola-4.8.2.tar.gz"
+  sha256 "4c5aa770035e7e6a321f4e3aa8a12b3ae75f6c4b4a5d978d86e70e30b3b6b84d"
   license "GPL-2.0-or-later"
   head "https://github.com/git-cola/git-cola.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6aef417eb7419252c60d477676d3140851f293a57ed336d1295c48fd22afa793"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6aef417eb7419252c60d477676d3140851f293a57ed336d1295c48fd22afa793"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6aef417eb7419252c60d477676d3140851f293a57ed336d1295c48fd22afa793"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0c79cc0fc38f430ee823a6c90f2edd3e88250eed6a675b1ef79213de746a36da"
-    sha256 cellar: :any_skip_relocation, ventura:        "0c79cc0fc38f430ee823a6c90f2edd3e88250eed6a675b1ef79213de746a36da"
-    sha256 cellar: :any_skip_relocation, monterey:       "0c79cc0fc38f430ee823a6c90f2edd3e88250eed6a675b1ef79213de746a36da"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c4ab3043d96fab95baecb8d5f93410400515a3a34ee1d80c9827ffe3966a008a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a043f0d42fc6d0921c9522dfc3761ebf9822ae8195ef9b17ada1d59599314556"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a043f0d42fc6d0921c9522dfc3761ebf9822ae8195ef9b17ada1d59599314556"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "a043f0d42fc6d0921c9522dfc3761ebf9822ae8195ef9b17ada1d59599314556"
+    sha256 cellar: :any_skip_relocation, sonoma:         "35e52afa7ad537fbfe58d1cee10bc871ef5331ba6543c2d342eb6705ded79b53"
+    sha256 cellar: :any_skip_relocation, ventura:        "35e52afa7ad537fbfe58d1cee10bc871ef5331ba6543c2d342eb6705ded79b53"
+    sha256 cellar: :any_skip_relocation, monterey:       "35e52afa7ad537fbfe58d1cee10bc871ef5331ba6543c2d342eb6705ded79b53"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "11d32dba3a590c2357b401b2a0a6747e02f33e7b832325fb891b807918e7ba1a"
   end
 
   depends_on "pyqt"

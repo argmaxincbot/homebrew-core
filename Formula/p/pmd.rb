@@ -1,18 +1,12 @@
 class Pmd < Formula
   desc "Source code analyzer for Java, JavaScript, and more"
   homepage "https://pmd.github.io"
-  url "https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.3.0/pmd-dist-7.3.0-bin.zip"
-  sha256 "7e56043b5db83b288804c97d48a46db37bba22861b63eadd8e69f72c74bfb0a8"
+  url "https://github.com/pmd/pmd/releases/download/pmd_releases%2F7.6.0/pmd-dist-7.6.0-bin.zip"
+  sha256 "e07f7a9c3607d643509a96d7f5f891961e98ea88b6eba85d120d08f0c08c985e"
   license "BSD-4-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0290c9f34fa86abfd312be6935d27a5468c52057a930883951c6d57afdca7c19"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "0290c9f34fa86abfd312be6935d27a5468c52057a930883951c6d57afdca7c19"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "0290c9f34fa86abfd312be6935d27a5468c52057a930883951c6d57afdca7c19"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0290c9f34fa86abfd312be6935d27a5468c52057a930883951c6d57afdca7c19"
-    sha256 cellar: :any_skip_relocation, ventura:        "0290c9f34fa86abfd312be6935d27a5468c52057a930883951c6d57afdca7c19"
-    sha256 cellar: :any_skip_relocation, monterey:       "0290c9f34fa86abfd312be6935d27a5468c52057a930883951c6d57afdca7c19"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dcbdf8c85f31d48aa328593d91cde433d72a5766ab46e5e72f512c5059fda9ed"
+    sha256 cellar: :any_skip_relocation, all: "343a4834a424a2b7b182fa4c3b711e951098e272295ebc81dd62fa179a34c4e4"
   end
 
   depends_on "openjdk"

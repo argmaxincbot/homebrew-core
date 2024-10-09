@@ -1,18 +1,17 @@
 class GitWorkspace < Formula
   desc "Sync personal and work git repositories from multiple providers"
   homepage "https://github.com/orf/git-workspace"
-  url "https://github.com/orf/git-workspace/archive/refs/tags/v1.4.0.tar.gz"
-  sha256 "fb66b03f4068950ba2fac73b445a964b2b941137f9b31f5db9f4fba1a73d3d4d"
+  url "https://github.com/orf/git-workspace/archive/refs/tags/v1.6.0.tar.gz"
+  sha256 "c99e821710b45d2c2639c1abea45ad9f2d63d3b5b81e19e1fd29604dca05e5e2"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "cdc40292261367e43efac7c65c58247c660b86cb6595c1e1fbe87b14b8545fb9"
-    sha256 cellar: :any,                 arm64_ventura:  "e8ed90e4eb662292f10163db48f4ef25aa70bc3a4b82a03b96b89ccd486f5013"
-    sha256 cellar: :any,                 arm64_monterey: "66fd4cd3620dd1df2e6a9bf651564d259f7c23905e8840dc234aabf413c1a5c5"
-    sha256 cellar: :any,                 sonoma:         "a563a1d8c3a123f233385e37fbe9069473e0647abcf00dd72ea82a9981f1fd2f"
-    sha256 cellar: :any,                 ventura:        "55f0f1a536630d5c7e77d0ceb992a036d5c256c8585ef1181a9b5639d82256fe"
-    sha256 cellar: :any,                 monterey:       "3965dc4c9d752cea518b063a113fdd16a41f74f93f4a413f7e8758567121d9f9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ba758eb783b257fb2bf928c55ef65877cb0d222687ded4913d3ec85b1afe759b"
+    sha256 cellar: :any,                 arm64_sequoia: "e8748befe2d9116fdb60da448121643e9bb49401f9a1e7833343b4ef6fe5d5e3"
+    sha256 cellar: :any,                 arm64_sonoma:  "772d39bc35073c662e160ea86d20d153bdd689f360ad7538bd524fddedaa24ee"
+    sha256 cellar: :any,                 arm64_ventura: "6e918ed11da60bb72542f68d82e950a54db29f50674de061ec6de5c76267f456"
+    sha256 cellar: :any,                 sonoma:        "300b87932cafbc4e4f4bf4576b08cb6aaa89c89fb0cca029f0c55dbb146e05e1"
+    sha256 cellar: :any,                 ventura:       "30846356f2db9395c0bb3f4bd07679a0df35d07e8d04e19a76a17b6fc5111d03"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "54272b0971fea5d5d82b27831cad8d4f109ea9db91031ddeb20c47885dfa293a"
   end
 
   depends_on "pkg-config" => :build
@@ -28,7 +27,7 @@ class GitWorkspace < Formula
   test do
     ENV["GIT_WORKSPACE"] = Pathname.pwd
     ENV["GITHUB_TOKEN"] = "foo"
-    system "#{bin}/git-workspace", "add", "github", "foo"
+    system bin/"git-workspace", "add", "github", "foo"
     assert_match "provider = \"github\"", File.read("workspace.toml")
     output = shell_output("#{bin}/git-workspace update 2>&1", 1)
     assert_match "Error fetching repositories from Github user/org foo", output

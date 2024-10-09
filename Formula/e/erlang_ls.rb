@@ -1,18 +1,17 @@
 class ErlangLs < Formula
   desc "Erlang Language Server"
   homepage "https://erlang-ls.github.io/"
-  url "https://github.com/erlang-ls/erlang_ls/archive/refs/tags/0.52.0.tar.gz"
-  sha256 "8c9028cc65985746abc8736703381c04f0922116ef8cc7711bee09953432d968"
+  url "https://github.com/erlang-ls/erlang_ls/archive/refs/tags/1.0.0.tar.gz"
+  sha256 "c2667d98de0e3e9782acdbe916c7f9e3df3c5d5f2d06c170f5185cc79ad9c19f"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bfe87d824cde6cf16b8f5cbf1a42231bcc6e372857e5b4c76633da319f42a0b3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "26c849a25c59140975a92ecf66c93b1ef4c992e4c28b24f543cdd8a67fc70d0a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2c6bf7e219d2257764f730c449740df177e3199a81905bc90db041b0c16137ad"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0bb7dd3df411c3c1c0caa939799f3f478e1713298377bf3ddc14242b271d4c2c"
-    sha256 cellar: :any_skip_relocation, ventura:        "3afd0511e67087ca326caddc9201f3601ac421064f7996963ee2908729caeb42"
-    sha256 cellar: :any_skip_relocation, monterey:       "96555d73088bc734d656a4c5f8688ea27d2b19a48f19176952aba028cf36257a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "221ac9e5a40d613351cbfe50493670f09750d609368ddff6dcec09cc50c2cf70"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "43e21fe78982c59857f7a093337e413fbb42f7d8bbecc6cd63c1dcbdbfc60f75"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "df079c84a2f39b241607aae37bfe93abf40d44fa0f727534c4d2def606c6bf79"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "abc37823c126a4b5b0e3687a83980557e91b302c32a5aaf406a4cf2d64f5c664"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5a2cc9ef198d883020c7940d01a9b688c4c778704948eac2e38874c269b37fbe"
+    sha256 cellar: :any_skip_relocation, ventura:       "94e80f17f7c07c63bf507a1fa38544f77719ad3ed54ee2905f4e3849d9c24526"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eac5c81faa78bab6f8cd767f1cf32c22e7c4cc3ab5e4492a8a3102088a3767b4"
   end
 
   depends_on "erlang"
@@ -23,7 +22,7 @@ class ErlangLs < Formula
   end
 
   test do
-    output = pipe_output("#{bin}/erlang_ls", nil, 1)
+    output = pipe_output(bin/"erlang_ls", nil, 1)
     assert_match "Content-Length", output
   end
 end

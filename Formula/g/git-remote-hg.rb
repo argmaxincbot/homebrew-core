@@ -5,12 +5,13 @@ class GitRemoteHg < Formula
   homepage "https://github.com/felipec/git-remote-hg"
   url "https://github.com/felipec/git-remote-hg/archive/refs/tags/v0.6.tar.gz"
   sha256 "1d49ffda290c8a307d32191655bdd85015e0e2f68bb2d64cddea04d8ae50a4bf"
-  license "GPL-2.0"
+  license "GPL-2.0-only"
   revision 2
   head "https://github.com/felipec/git-remote-hg.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "99779563fc8ad0f066f1531ec560061311e53479eeba3a79f920ba0675bf0a9e"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "62aaad29bee197840f65142bd9d7206a9c432dece29bf17197a4055fc4976295"
   end
 
   depends_on "asciidoctor" => :build

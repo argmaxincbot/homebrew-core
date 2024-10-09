@@ -1,12 +1,9 @@
 class PnpmAT8 < Formula
-  require "language/node"
-
   desc "Fast, disk space efficient package manager"
   homepage "https://pnpm.io/"
-  url "https://registry.npmjs.org/pnpm/-/pnpm-8.15.8.tgz"
-  sha256 "691fe176eea9a8a80df20e4976f3dfb44a04841ceb885638fe2a26174f81e65e"
+  url "https://registry.npmjs.org/pnpm/-/pnpm-8.15.9.tgz"
+  sha256 "daa27a0b541bc635323ff96c2ded995467ff9fe6d69ff67021558aa9ad9dcc36"
   license "MIT"
-  revision 1
 
   livecheck do
     url "https://registry.npmjs.org/pnpm/latest-8"
@@ -14,13 +11,15 @@ class PnpmAT8 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "6e5f78f2649e82f81a52b64155c981710d582aa8ce3431e9acdc029e6b338bf5"
-    sha256 cellar: :any,                 arm64_ventura:  "6e5f78f2649e82f81a52b64155c981710d582aa8ce3431e9acdc029e6b338bf5"
-    sha256 cellar: :any,                 arm64_monterey: "6e5f78f2649e82f81a52b64155c981710d582aa8ce3431e9acdc029e6b338bf5"
-    sha256 cellar: :any,                 sonoma:         "02606673fcfd5d5a8bcfcfeac8fd4fa53e778fab5d71044cfdc4f7efe6b947a4"
-    sha256 cellar: :any,                 ventura:        "02606673fcfd5d5a8bcfcfeac8fd4fa53e778fab5d71044cfdc4f7efe6b947a4"
-    sha256 cellar: :any,                 monterey:       "02606673fcfd5d5a8bcfcfeac8fd4fa53e778fab5d71044cfdc4f7efe6b947a4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8dd87bf2b969e693605590e9689a126d6653418541b5a70bd4b283717b1e3d83"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia:  "d27023c0a4cd4905688132e77e2729c06816516b1e35d9c73fcc4f70aedb05bf"
+    sha256 cellar: :any,                 arm64_sonoma:   "d27023c0a4cd4905688132e77e2729c06816516b1e35d9c73fcc4f70aedb05bf"
+    sha256 cellar: :any,                 arm64_ventura:  "d27023c0a4cd4905688132e77e2729c06816516b1e35d9c73fcc4f70aedb05bf"
+    sha256 cellar: :any,                 arm64_monterey: "d27023c0a4cd4905688132e77e2729c06816516b1e35d9c73fcc4f70aedb05bf"
+    sha256 cellar: :any,                 sonoma:         "b0146e361c9446d60b53583e83ca15eb49843b7d7056db3eced35b1c7066fc8c"
+    sha256 cellar: :any,                 ventura:        "b0146e361c9446d60b53583e83ca15eb49843b7d7056db3eced35b1c7066fc8c"
+    sha256 cellar: :any,                 monterey:       "b0146e361c9446d60b53583e83ca15eb49843b7d7056db3eced35b1c7066fc8c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7814ebe5944979026566edb11fa7466d282b4e7ec4fcfa6778c1a9cefdf02948"
   end
 
   keg_only :versioned_formula
@@ -30,16 +29,15 @@ class PnpmAT8 < Formula
   depends_on "node" => [:build, :test]
 
   def install
-    libexec.install buildpath.glob("*")
-    bin.install_symlink "#{libexec}/bin/pnpm.cjs" => "pnpm@8"
-    bin.install_symlink "#{libexec}/bin/pnpx.cjs" => "pnpx@8"
-    bin.install_symlink "#{libexec}/bin/pnpm.cjs" => "pnpm"
-    bin.install_symlink "#{libexec}/bin/pnpx.cjs" => "pnpx"
+    system "npm", "install", *std_npm_args
+    bin.install_symlink libexec.glob("bin/*")
+    bin.install_symlink bin/"pnpm" => "pnpm@8"
+    bin.install_symlink bin/"pnpx" => "pnpx@8"
 
     generate_completions_from_executable(bin/"pnpm", "completion")
 
     # remove non-native architecture pre-built binaries
-    (libexec/"dist").glob("reflink.*.node").each do |f|
+    (libexec/"lib/node_modules/pnpm/dist").glob("reflink.*.node").each do |f|
       next if f.arch == Hardware::CPU.arch
 
       rm f
@@ -54,7 +52,7 @@ class PnpmAT8 < Formula
   end
 
   test do
-    system "#{bin}/pnpm", "init"
+    system bin/"pnpm", "init"
     assert_predicate testpath/"package.json", :exist?, "package.json must exist"
   end
 end

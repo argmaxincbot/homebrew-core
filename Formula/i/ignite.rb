@@ -1,18 +1,17 @@
 class Ignite < Formula
   desc "Build, launch, and maintain any crypto application with Ignite CLI"
   homepage "https://github.com/ignite/cli"
-  url "https://github.com/ignite/cli/archive/refs/tags/v28.4.0.tar.gz"
-  sha256 "cbd4a26bd4889ad10a6f7161ca7e5c4e9cc037105d8f31e691d8a9ed394c4ed8"
+  url "https://github.com/ignite/cli/archive/refs/tags/v28.5.3.tar.gz"
+  sha256 "4ef44890f75b969829560910ffe16450541413d5604bd1b87e4544b2dc5037ea"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7f9fb56a4dadc569917e8d095a752397b6a2f13856d143cb60680fbc96f794a9"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "94aaac8d8c0ec0e7efae22ec552846cacd12bceb573e373511c60ff5d5c80b68"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "b578a5ce70ce4c4d6a1e38c33b44837f0b9dfd32d48aebfe24300388e50badde"
-    sha256 cellar: :any_skip_relocation, sonoma:         "dd8c26801e540a46d7def4a5527145646d48f131a1087a6312e4c0f3ca38502c"
-    sha256 cellar: :any_skip_relocation, ventura:        "2e9c848bcaa459da22d78cbce718052ec3890111d770813657385dd76a0b80b3"
-    sha256 cellar: :any_skip_relocation, monterey:       "5da05279a26e366a3f278e290719b5cc3f35d067e0b4c942ad8551d0260abe35"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "774391f595478ef18f87ec764818f93e1a1e3d1c43ab721f980594d98004467d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b3dc5a49aeecf795471a46a6e086076f6a0ba5356eeec9ec4af30f5e1231232b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1fea7bd32ea7b7f09457b2950e8b4ad4d06f4bd7b9a719739624b6d3bd47e215"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "bae4d0d86be09c2dd0fdebe9b770579d88c36fc5b6a4c82909d30829a4ae50e2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c6ee772822f34c41e34aefae650f2def5e37906195a712aa59e6f8decb8dcd63"
+    sha256 cellar: :any_skip_relocation, ventura:       "abf5f9a6ed59dec4cf6a429cee37d55981d7ae7b439999774d2dce5167106a68"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a821731ad42e4866bafa3648ab3ad13a692fd8e0bc2d537ec16a505316166042"
   end
 
   depends_on "go"

@@ -1,23 +1,24 @@
 class Smartdns < Formula
   desc "Rule-based DNS server for fast IP resolution, DoT/DoQ/DoH/DoH3 supported"
   homepage "https://github.com/mokeyish/smartdns-rs"
-  url "https://github.com/mokeyish/smartdns-rs/archive/refs/tags/v0.8.5.tar.gz"
-  sha256 "799b78fa37e50095b37ec09416a529f3f980dc8e02d0b5caef03193841531bb5"
+  url "https://github.com/mokeyish/smartdns-rs/archive/refs/tags/v0.8.7.tar.gz"
+  sha256 "ac40d99ae81b56d1a6823c2032e00ccece531160cdd8a1c4918625d11875ad26"
   license "GPL-3.0-only"
   head "https://github.com/mokeyish/smartdns-rs.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ec6df1f9d69a2079e79dec0a3a8618eeba12864d7a88c214f89d765f7a2912f1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f316a8109eded1479e9e45f44e4f993075d151dfe4ab14d58a2fc298c0e8820a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "29d8d79cdf278a71654fdc3dffeaea87c1f628cc05c88d38d46b95593a23b41b"
-    sha256 cellar: :any_skip_relocation, sonoma:         "3e5dec1f06de5cc4ca22dea3ec2814141074744d04e76722c83886999bafe02b"
-    sha256 cellar: :any_skip_relocation, ventura:        "b428a2487a4b2c25c8f8871e4507835bf539ce19b40563bb9de2de95a66ae2ee"
-    sha256 cellar: :any_skip_relocation, monterey:       "74c40d61ad899969020af7c0814fd20c8887ba8d6cf88c151ff34516e53f0218"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "27da466cf5fb88461f38a6e132e14b34e297c312a00572860f7001f1fe877a40"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c4345d2aeda6e22f7094c19dd7e70991ab2780ecf29a25beb0c7872379f4d6f3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bc3bdc930ce66ab7ccf651edebbbc96bee5d5b2388b6726e7e7a45a985a65b03"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "23138d4afecb99e116ff825ed003ebe6aadd3af2db6350aedcbae024226722be"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3f87fdd551ca26287b878acef6442d790cc12993d7179784fad912034d3f2224"
+    sha256 cellar: :any_skip_relocation, ventura:       "b0a5ce653f6f4014ab975fa8331b5ec7d0b33eeefce788d2ca493cd70d87b8ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fc81a10b94e0c9d949ea16e6432127092f6e8c5aa84b986620ee8a0af2f0181c"
   end
 
   depends_on "just" => :build
   depends_on "rust" => :build
+
+  uses_from_macos "llvm" # for libclang
 
   on_linux do
     depends_on "openssl@3" =>  :build # cargo patch

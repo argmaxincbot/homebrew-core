@@ -1,8 +1,8 @@
 class Geoserver < Formula
   desc "Java server to share and edit geospatial data"
   homepage "https://geoserver.org/"
-  url "https://downloads.sourceforge.net/project/geoserver/GeoServer/2.25.2/geoserver-2.25.2-bin.zip"
-  sha256 "b485dad47102053809d57880a3f863a3601f6e2c87c88b1ec1f66efe4e75de21"
+  url "https://downloads.sourceforge.net/project/geoserver/GeoServer/2.26.0/geoserver-2.26.0-bin.zip"
+  sha256 "59e22d2f48f9d315985c81661f81058478f1bfd5ebeab1b460ef2b7b58d49cd3"
   license "GPL-2.0-or-later"
 
   # GeoServer releases contain a large number of files for each version, so the
@@ -15,7 +15,7 @@ class Geoserver < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "dd32b569b16fe4797665a12fa8ae3ef5b0e31fc4e3ea3f240b62b70bea0d59cc"
+    sha256 cellar: :any_skip_relocation, all: "ac76eb5e46240f47772594f634fd889fac707309d877a2e973e3d29f0f53fb47"
   end
 
   def install
@@ -38,6 +38,6 @@ class Geoserver < Formula
   end
 
   test do
-    assert_match "geoserver path", shell_output("#{bin}/geoserver")
+    assert_match "geoserver path", shell_output(bin/"geoserver")
   end
 end

@@ -18,6 +18,7 @@ class YoutubeDl < Formula
 
   bottle do
     rebuild 4
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "3240c7f280872dae967c4d0e63bd5ffc0415b134b3ebda8e5b057b139060059f"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "86ad6daf8ba59b37855706201030abfdfa6a334d66ee80ee6351212baa1fccaa"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "0f0777822da37695c41651a1745fda40a3bda17b7d252b682c74eaa8591023b5"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "9e1ac5fa2ec5d0dc609a2a52b5862da268bcd2731609aa114491b787105701f1"
@@ -43,7 +44,7 @@ class YoutubeDl < Formula
     if build.head?
       system "make", "PREFIX=#{prefix}", "MANDIR=#{man}", "PYTHON=#{python3}", "install"
       fish_completion.install prefix/"etc/fish/completions/youtube-dl.fish"
-      (prefix/"etc/fish").rmtree
+      rm_r(prefix/"etc/fish")
     else
       virtualenv_install_with_resources
       # Handle "ERROR: Unable to extract uploader id" until new release
@@ -68,8 +69,8 @@ class YoutubeDl < Formula
 
   test do
     # commit history of homebrew-core repo
-    system "#{bin}/youtube-dl", "--simulate", "https://www.youtube.com/watch?v=pOtd1cbOP7k"
+    system bin/"youtube-dl", "--simulate", "https://www.youtube.com/watch?v=pOtd1cbOP7k"
     # homebrew playlist
-    system "#{bin}/youtube-dl", "--simulate", "--yes-playlist", "https://www.youtube.com/watch?v=pOtd1cbOP7k&list=PLMsZ739TZDoLj9u_nob8jBKSC-mZb0Nhj"
+    system bin/"youtube-dl", "--simulate", "--yes-playlist", "https://www.youtube.com/watch?v=pOtd1cbOP7k&list=PLMsZ739TZDoLj9u_nob8jBKSC-mZb0Nhj"
   end
 end

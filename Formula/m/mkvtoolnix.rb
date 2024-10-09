@@ -1,9 +1,9 @@
 class Mkvtoolnix < Formula
   desc "Matroska media files manipulation tools"
   homepage "https://mkvtoolnix.download/"
-  url "https://mkvtoolnix.download/sources/mkvtoolnix-85.0.tar.xz"
-  mirror "https://fossies.org/linux/misc/mkvtoolnix-85.0.tar.xz"
-  sha256 "702442c80706c7c770ac04f7b4eed7a57e9e03ead6c5e6e90b9655dd84c8d829"
+  url "https://mkvtoolnix.download/sources/mkvtoolnix-87.0.tar.xz"
+  mirror "https://fossies.org/linux/misc/mkvtoolnix-87.0.tar.xz"
+  sha256 "01cdfcbe01d9a771da4d475ed44d882a97695d08b6939684cebf56231bdee820"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -12,13 +12,13 @@ class Mkvtoolnix < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "ded9d414d86eaaf8b7a146d15cbf3b1bf4322a1ac1eac0ae0b91dd3365e17404"
-    sha256 cellar: :any, arm64_ventura:  "641821e1ac280a7966d31874b85913124c4fe2999d8f75b946991b81c15f6428"
-    sha256 cellar: :any, arm64_monterey: "882d12d27b5738c333ed4c57b09c07c8eda1fbd2afc5bcbc3498a1cc4a6720ec"
-    sha256 cellar: :any, sonoma:         "e6cbc1baad712026dea9af683e8b8db08ff9df73001dca96b08a3a4df7623205"
-    sha256 cellar: :any, ventura:        "28e8a3d7ab3e7a7389e996be809f761246ec0fce974caf0efa13d7ce33df47e8"
-    sha256 cellar: :any, monterey:       "6b48a0b9fb8a93ba89fd35f017b09111c170f826f76c29e7d227f8609ade7ff4"
-    sha256               x86_64_linux:   "ab4cac9226131f7ae641668b9667dbbf10f06401e0ed05928063dca8429d8fc1"
+    sha256 cellar: :any, arm64_sonoma:   "126ad3b6bc4f63e1c3426c59140c23ac56a8ea3305aee7e43fb1e88c303a4c4e"
+    sha256 cellar: :any, arm64_ventura:  "933d841ea4b7613436e2f6340d17331168fa267532062f063ed4f5a248462df1"
+    sha256 cellar: :any, arm64_monterey: "3bc009dc66d7e16ccdad989823bbc2e8d90b8bb16d31d93ee6d648326eada8c1"
+    sha256 cellar: :any, sonoma:         "0aaae4a02e0add729100916f00fa9718c8fcf9f0b420056527c80eb674166a3c"
+    sha256 cellar: :any, ventura:        "6ed8c7620429cccb7c3c8b321920fc09e3e23b30b1e3acc2207d05956e2a1d56"
+    sha256 cellar: :any, monterey:       "d0af3ab6e462fdff3f74db37ac06f11ed4663a16dfa366d50af7a78fcb61c1be"
+    sha256               x86_64_linux:   "06aa9eddcb5206281a1e7075b42112b1db84196265cb45292c3d46dba44e4b45"
   end
 
   head do
@@ -87,8 +87,8 @@ class Mkvtoolnix < Formula
       Homebrew
     EOS
 
-    system "#{bin}/mkvmerge", "-o", mkv_path, sub_path
-    system "#{bin}/mkvinfo", mkv_path
-    system "#{bin}/mkvextract", "tracks", mkv_path, "0:#{sub_path}"
+    system bin/"mkvmerge", "-o", mkv_path, sub_path
+    system bin/"mkvinfo", mkv_path
+    system bin/"mkvextract", "tracks", mkv_path, "0:#{sub_path}"
   end
 end

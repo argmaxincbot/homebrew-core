@@ -1,18 +1,19 @@
 class Pivit < Formula
   desc "Sign and verify data using hardware (Yubikey) backed x509 certificates (PIV)"
   homepage "https://github.com/cashapp/pivit"
-  url "https://github.com/cashapp/pivit/archive/refs/tags/v0.7.0.tar.gz"
-  sha256 "aa4668180c6b533fc027cc6e06e09c122edc17a87d4ba87cf9e56a50fef0ebce"
+  url "https://github.com/cashapp/pivit/archive/refs/tags/v0.9.1.tar.gz"
+  sha256 "717b4ffa8d74e1bb0d7f2f6248bc1b599f1d2f26535cf87d8d362b056527dbbe"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9eeea547bd12d775c069be6bb92dcfd2f1d80f62e631aeedb1c56b145ad6b02f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "01cc3770325264967e888b5813b49acef716da349dbce54b7ab14ec58f203c63"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "da11b94d5b336c2b3bcab0f2d9962c3347df5e9c987b8d4f9cb8507fcbd301b5"
-    sha256 cellar: :any_skip_relocation, sonoma:         "10839d87733ef335a06d9ce4e652fe7a60c3343dfba22bb0f32c8dd5c4dc91b7"
-    sha256 cellar: :any_skip_relocation, ventura:        "04ab2d75412d539b86e27a343be253fae054ce1751aec1d3385e609dbb72583f"
-    sha256 cellar: :any_skip_relocation, monterey:       "d831473137e56b2e29db1edf2eade34b993fb43b0f8e7af28821105132ae22dc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a7891391fcbad7fac0050bf686f365fb5cb1c011ca89a25c63f1daf7b5b08559"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "b25623984260c936d7273f3a364c96c68ab7641e64da7f2b417fa5c9dcbb55c3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "5ae035fe7572033ac646c7def4bb127b88cf43ec0b5396f66ca90b20c062accb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "1c3d2c932012082cb53c0c9fe0f623e766873aafc218b9e134f20a59e00f14b1"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "310d4a4a653caf261a9e90a1c5b7b43d5a27fc0c40732e796a2955313ad829f1"
+    sha256 cellar: :any_skip_relocation, sonoma:         "b446e7bb2ad55eacb7b6d782b589f2e53781d4b8db4d5fef07df2ad3238c77ce"
+    sha256 cellar: :any_skip_relocation, ventura:        "8bb6f0c211e41618b84df3d06e662daf61db730f8687a62450326a01f7f56bb1"
+    sha256 cellar: :any_skip_relocation, monterey:       "7e3bfac9227e169a051bdeaeb331abc24ea62aff5e1a9b284d9994b16d8fe839"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7054a630abfaccfd742ea105a4122d390e19a5c866a3ff98d173e51793e379b9"
   end
 
   depends_on "go" => :build

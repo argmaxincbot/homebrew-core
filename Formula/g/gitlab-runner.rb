@@ -2,8 +2,8 @@ class GitlabRunner < Formula
   desc "Official GitLab CI runner"
   homepage "https://gitlab.com/gitlab-org/gitlab-runner"
   url "https://gitlab.com/gitlab-org/gitlab-runner.git",
-      tag:      "v17.1.0",
-      revision: "fe451d5a3074a4027e281a3a2eb49a1b55465a9f"
+      tag:      "v17.4.0",
+      revision: "b92ee59097e3701a887e0fc2983f5477fb164a60"
   license "MIT"
   head "https://gitlab.com/gitlab-org/gitlab-runner.git", branch: "main"
 
@@ -13,13 +13,12 @@ class GitlabRunner < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4ffa2d6a85c297f37fba84f4c6221016649efbb78eb521b7e6acff30af22458b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "07238a3e9c13875326fcbcb07afb0ef07303a2910f65dd59e8246b64643c2e0d"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "07cb729d2ef3884dd6c3430f5b5e169c7745ba92c6588ec0a336c86a54109883"
-    sha256 cellar: :any_skip_relocation, sonoma:         "1ffaaead8864f0fe6175b2b1af34a2858b787c556885fb77669edd41872224e4"
-    sha256 cellar: :any_skip_relocation, ventura:        "9a0c0d41b474d64f16a2676b82394728967fabfc8e1ba77f034acf23e10ecb39"
-    sha256 cellar: :any_skip_relocation, monterey:       "7399f2e7fba13583c73cca23b7ee72f56cd2716bfdd0588708306ee67ab87c24"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4cab2495a6d7bab2da934d8f54fb8aa82cf7319b5d821a7027213753f9d037db"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a31ee0ee3eb427e55428b8b58c2a153be563313579a796f575e0ec6e72007c3a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a31ee0ee3eb427e55428b8b58c2a153be563313579a796f575e0ec6e72007c3a"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a31ee0ee3eb427e55428b8b58c2a153be563313579a796f575e0ec6e72007c3a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e9c111084a6128dd45a780095b27dcefb1bc72264c8547f2fc52dba42d2bfec9"
+    sha256 cellar: :any_skip_relocation, ventura:       "e9c111084a6128dd45a780095b27dcefb1bc72264c8547f2fc52dba42d2bfec9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dd0c750ce5f49812071358527f402a5137cfe2bddcb4d50602df9b5a01d224d4"
   end
 
   depends_on "go" => :build

@@ -1,10 +1,10 @@
 class Kubefirst < Formula
   desc "GitOps Infrastructure & Application Delivery Platform for kubernetes"
   homepage "https://kubefirst.io/"
-  url "https://github.com/kubefirst/kubefirst/archive/refs/tags/v2.4.11.tar.gz"
-  sha256 "d144345b19af1451a0f8576f75106c117e462083653db56c9f1f53bbcd08380b"
+  url "https://github.com/konstructio/kubefirst/archive/refs/tags/v2.6.1.tar.gz"
+  sha256 "f7337e9772e529ae53aa1e2c3343f455a167c4f8478b91e8ae1c11a375b8ea80"
   license "MIT"
-  head "https://github.com/kubefirst/kubefirst.git", branch: "main"
+  head "https://github.com/konstructio/kubefirst.git", branch: "main"
 
   # Upstream appears to use GitHub releases to indicate that a version is
   # released, so it's necessary to check release versions instead of tags.
@@ -14,19 +14,20 @@ class Kubefirst < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "fbb97688376902560d559e0c2c1043e9366b5d52e8dba265b5bf49f73c349512"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "46709bbf136f822d803e7922ae75c7b08aaab751ec63aba26a8e0dc2b4fc8a92"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "232713d72f829ca45eddb0ca5bfd939d01c21adfd59dc520520a05f1733cbb13"
-    sha256 cellar: :any_skip_relocation, sonoma:         "9a720c45c91ee80a881032aca2bab6a78081f980a3ea9a762baf7a4315ed57a0"
-    sha256 cellar: :any_skip_relocation, ventura:        "12c8b1468b441149b89af6371d3d6f833cc203e6417ff13683babd5c2abeb866"
-    sha256 cellar: :any_skip_relocation, monterey:       "2f91d6e0b131a3b2bd68b500562a68390f9451a040e0a516d562ed1077bc6b7b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "34e9ed348fcc60d79c0f930b618689a50408411bf27eb8582b907dc29fb42ca5"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "cc228ca3c80971b79e9a65237119f95a108b4ea4c0eabaf268589a9ad00359b5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d49204aecfabf77ddd45a79308652645607b163e70dd0356dbfaa6017ed0c589"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a244fad1fed8b5591a0af8c0e85f22fba883e86738b52361aad7e6f9ba134aba"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "68b6350842bcfc0e3fb5b1aa9ce9be3d81cdb5a82c4e5b51ac5545b917923974"
+    sha256 cellar: :any_skip_relocation, sonoma:         "edb28db20f6ad0fca0f2deb2bc4d8d3bd470e4c73f2556700a0696c36c8fc811"
+    sha256 cellar: :any_skip_relocation, ventura:        "2b6de82f8f9cebc0f1d57ef8554ca33df91763c5f8106546e30328a7d06962f4"
+    sha256 cellar: :any_skip_relocation, monterey:       "81148eb33417d6379573baddcc743d993f6a6a7945fbbacbb1b6ff3ae7beeee7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "21762a02134c7af0ded267fce260d909b127dd8c0a0745c5c5a814fe24bc07c9"
   end
 
   depends_on "go" => :build
 
   def install
-    ldflags = "-s -w -X github.com/kubefirst/runtime/configs.K1Version=v#{version}"
+    ldflags = "-s -w -X github.com/konstructio/kubefirst-api/configs.K1Version=v#{version}"
     system "go", "build", *std_go_args(ldflags:)
   end
 

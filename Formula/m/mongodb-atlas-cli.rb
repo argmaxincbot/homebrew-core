@@ -1,8 +1,8 @@
 class MongodbAtlasCli < Formula
   desc "Atlas CLI enables you to manage your MongoDB Atlas"
   homepage "https://www.mongodb.com/docs/atlas/cli/stable/"
-  url "https://github.com/mongodb/mongodb-atlas-cli/archive/refs/tags/atlascli/v1.25.0.tar.gz"
-  sha256 "ab9378bf2ee276c30b9221c4fd4e7b1c95358abdb7f27c6b9743ac2406619f18"
+  url "https://github.com/mongodb/mongodb-atlas-cli/archive/refs/tags/atlascli/v1.29.0.tar.gz"
+  sha256 "46b97645555da9f88ebec17b2857a6bc802048da518d9c964000945da546b132"
   license "Apache-2.0"
   head "https://github.com/mongodb/mongodb-atlas-cli.git", branch: "master"
 
@@ -12,18 +12,18 @@ class MongodbAtlasCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2268b939259333bffb06cd76963091aa4e7d4640587ca2b7b7cb40fce768308a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "5fe6d8e224b94fe18f729b71f1276053b7c33cbe5871580ef6f2e252bd70adc7"
-    sha256 cellar: :any_skip_relocation, sonoma:        "314f103a1a341e67f9910fd6e0903996084f479c6147678be64608e03ab65c80"
-    sha256 cellar: :any_skip_relocation, ventura:       "5652801cf8785128f10763235b13f9bda72def3825a6b05f229ffd9c321b862e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0ac364b3933960fae5d35a57cb897effd51a8ce9f658f6b7ee7a7da8ee15028c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8eeddbe492fe37a3fe76a0de519084ba28379f7cbf2db4b70c6b914f7d4bb42b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "26895f0af324a17d96716769d53c119526146f0025d8b0e43a105c2dd460e85e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "24c541de097595609f0802853754da65e0d07a148adc1c1f3eb45d926dfda559"
+    sha256 cellar: :any_skip_relocation, sonoma:        "913e2959dbba93fa87f85e080868c48e6f9cec4e7c3380ccf81aca17ed3621af"
+    sha256 cellar: :any_skip_relocation, ventura:       "91a419c06f416a3fcf33a9f2836becf1d79d3ed5e27400194bd512ab49820a01"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "73bbaf657a2d4d7ca94de04c41d095d96ab2dfecd3ac5d292ae27095f4f56fd7"
   end
 
   depends_on "go" => :build
   depends_on "mongosh"
-  depends_on "podman"
 
-  conflicts_with "nim", because: "both install `atlas` executable"
+  conflicts_with "atlas", "nim", because: "both install `atlas` executable"
 
   def install
     ENV["ATLAS_VERSION"] = version.to_s

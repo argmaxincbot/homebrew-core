@@ -1,8 +1,8 @@
 class Mapserver < Formula
   desc "Publish spatial data and interactive mapping apps to the web"
   homepage "https://mapserver.org/"
-  url "https://download.osgeo.org/mapserver/mapserver-8.2.0.tar.gz"
-  sha256 "26ec2d951ca502483586bf7849dc99b8b378cd4764e47bf0555a3f12fa3d9053"
+  url "https://download.osgeo.org/mapserver/mapserver-8.2.2.tar.gz"
+  sha256 "47d8ee4bd12ddd2f04b24aa84c6e58f8e6990bcd5c150ba42e22f30ad30568e4"
   license "MIT"
 
   livecheck do
@@ -11,13 +11,14 @@ class Mapserver < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "9e18afbe412d4dcf4e8fc559e52efcaa248fe90342a12b78e636175959f18ef0"
-    sha256 cellar: :any,                 arm64_ventura:  "a882c78762debea42f7a044508bb41bd8db14562c056480422dcd816c1c7464b"
-    sha256 cellar: :any,                 arm64_monterey: "390500cf99ba5aac784e122e7f00440067c1380ca0b9c9c1bf399ed7da7861aa"
-    sha256 cellar: :any,                 sonoma:         "fcd5d5af6d55b983a913bcf285a776929d613cdbaff0b22e63d91e554e7f8dd2"
-    sha256 cellar: :any,                 ventura:        "606e7e774c64bc76e8457bf2871aaa42826070dee36e45ef5fc4c7fb9639c07d"
-    sha256 cellar: :any,                 monterey:       "e1292b5e53a659b2e8a23aecf1167e7306a1de0951bdfbf69dfe553ba5ce19f1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c6a357774a6fbdf4a4095d2913a6d4d282d0a1c53853687077b93b7c058ce079"
+    sha256 cellar: :any,                 arm64_sequoia:  "08fa6d2e815968e98cc2ea69cf5d67c4617b9ad269448fe66fd0c61353658628"
+    sha256 cellar: :any,                 arm64_sonoma:   "8156feda4d5a44c24733ed153337f2cde96f78fd9ffaf2a3e498b23fddb7e2e9"
+    sha256 cellar: :any,                 arm64_ventura:  "6a21a6a818fba2a07bb000dc9727d89da2ae6bc6ed2e2eef50a7c63667871589"
+    sha256 cellar: :any,                 arm64_monterey: "a70bac0f70e22ba880f809f7a9c3d904e1dd4b09eb568e58a997b96b5e92cf0d"
+    sha256 cellar: :any,                 sonoma:         "2da3d1923df6bb88a6aac67eabd2a3a619e28ab94895e7efdc4e4db9290f6bc3"
+    sha256 cellar: :any,                 ventura:        "e695ab2bb013dbad84505f69c172bc0b606f4b17a916175d3df8193ff1248f82"
+    sha256 cellar: :any,                 monterey:       "c9884acce9f4b57ab5371b2a47f173bc16f0e795086c2473a47d993fadbe1de2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "2bde7262a28bd5f3a466f948dc6ac9fbdd8bd310ad4b5eac9d722282a3cea0d9"
   end
 
   depends_on "cmake" => :build

@@ -7,6 +7,7 @@ class Uncrustify < Formula
   head "https://github.com/uncrustify/uncrustify.git", branch: "master"
 
   bottle do
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "bd6c01e2ea7eb4cb327cf01fe9dd248d60f37846545927453c333cda5554f67d"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "bffdfbf17b6eb0c781fa7141fb02e92b0a601cd4ceac35cc356d9cdd26dc2636"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "4c16c1efe048bee421a9d20ca62ddcb1a133f6ae48d5461e714607f6b9280a2d"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "b24f7b0cb08ca53782bc8882cac2272c8eb9609d2079c7d8ecc01babae05583f"
@@ -19,15 +20,11 @@ class Uncrustify < Formula
   depends_on "cmake" => :build
   uses_from_macos "python" => :build
 
-  fails_with gcc: "5"
-
   def install
-    ENV.cxx11
+    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
 
-    mkdir "build" do
-      system "cmake", "..", *std_cmake_args
-      system "make", "install"
-    end
     doc.install (buildpath/"documentation").children
   end
 
@@ -36,6 +33,7 @@ class Uncrustify < Formula
       #include <stdio.h>
       int main(void) {return 0;}
     EOS
+
     expected = <<~EOS
       #include <stdio.h>
       int main(void) {
@@ -43,7 +41,7 @@ class Uncrustify < Formula
       }
     EOS
 
-    system "#{bin}/uncrustify", "-c", "#{doc}/htdocs/default.cfg", "t.c"
-    assert_equal expected, File.read("#{testpath}/t.c.uncrustify")
+    system bin/"uncrustify", "-c", doc/"htdocs/default.cfg", "t.c"
+    assert_equal expected, (testpath/"t.c.uncrustify").read
   end
 end

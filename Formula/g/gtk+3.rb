@@ -1,8 +1,8 @@
 class Gtkx3 < Formula
   desc "Toolkit for creating graphical user interfaces"
   homepage "https://gtk.org/"
-  url "https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.42.tar.xz"
-  sha256 "50f89f615092d4dd01bbd759719f8bd380e5f149f6fd78a94725e2de112377e2"
+  url "https://download.gnome.org/sources/gtk+/3.24/gtk+-3.24.43.tar.xz"
+  sha256 "7e04f0648515034b806b74ae5d774d87cffb1a2a96c468cb5be476d51bf2f3c7"
   license "LGPL-2.0-or-later"
 
   livecheck do
@@ -11,13 +11,14 @@ class Gtkx3 < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "e5db61aca4d851ab88f00239034de40e01115282de7b19d5bbf4039deb2c6429"
-    sha256 arm64_ventura:  "fd836a2153391ed5a69163d02a7667be0e8251f086ae14a95beb329a523cdd06"
-    sha256 arm64_monterey: "d28d0de552e9df8cd3c5b6a0df48e181a5e67479fafb23c7f22b970b8a8616b7"
-    sha256 sonoma:         "42160a8913ea4742142f25b18b4cd9eb1ee77db2fcadad0d4da5a88420e8a2a1"
-    sha256 ventura:        "b84eda3518b0932370d87a645c0f8062e10c1acbabc4eb8df4827054ba163014"
-    sha256 monterey:       "9da93fcafe9a82be35a8434e66989b5070d35c1409651b3cbc8dff521e8de02c"
-    sha256 x86_64_linux:   "329a9bdeafe08240c36517a6a2471a7ebccb71b6cc0839c60fac7eec4e23f471"
+    sha256 arm64_sequoia:  "abbf588f64811f61c3e36cedabbc6d3cbe1187124e15c34362dd73b7fc9fb3ce"
+    sha256 arm64_sonoma:   "b3981b071d6b1214820c5be272256d1058a5f7db57fccb70da713516e2bad714"
+    sha256 arm64_ventura:  "b28221d07db5b16ce517acde4a9bdf2527f1c7f95e98a203278655f1149063d4"
+    sha256 arm64_monterey: "a026a7b6e8b6004a4090552abfb8eb458571773edcab0f3c71fd2cdb7eca0c3f"
+    sha256 sonoma:         "29584c089bc640848b755eabac8ece8cbc230e969423f612d87848e40e28d84e"
+    sha256 ventura:        "9bf9fe10db6c816825cc6e3f2a139201520f727755e539cf0a62907712571429"
+    sha256 monterey:       "3096c62e650b6807fbf37495da07f5113b91f82be3a627ae75c4684167c35d5e"
+    sha256 x86_64_linux:   "880cff997f0d940867b79dee4f87f22c8fa03adc377c2f793f85c72818a8cad6"
   end
 
   depends_on "docbook" => :build
@@ -27,21 +28,38 @@ class Gtkx3 < Formula
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => [:build, :test]
+
   depends_on "at-spi2-core"
+  depends_on "cairo"
+  depends_on "fribidi"
   depends_on "gdk-pixbuf"
   depends_on "glib"
   depends_on "gsettings-desktop-schemas"
+  depends_on "harfbuzz"
   depends_on "hicolor-icon-theme"
   depends_on "libepoxy"
   depends_on "pango"
 
   uses_from_macos "libxslt" => :build # for xsltproc
 
+  on_macos do
+    depends_on "gettext"
+  end
+
   on_linux do
     depends_on "cmake" => :build
-    depends_on "cairo"
+
+    depends_on "fontconfig"
     depends_on "iso-codes"
+    depends_on "libx11"
+    depends_on "libxdamage"
+    depends_on "libxext"
+    depends_on "libxfixes"
+    depends_on "libxi"
+    depends_on "libxinerama"
     depends_on "libxkbcommon"
+    depends_on "libxrandr"
+    depends_on "wayland"
     depends_on "wayland-protocols"
     depends_on "xorgproto"
   end
@@ -75,7 +93,7 @@ class Gtkx3 < Formula
   def post_install
     system "#{Formula["glib"].opt_bin}/glib-compile-schemas", "#{HOMEBREW_PREFIX}/share/glib-2.0/schemas"
     system bin/"gtk3-update-icon-cache", "-f", "-t", "#{HOMEBREW_PREFIX}/share/icons/hicolor"
-    system "#{bin}/gtk-query-immodules-3.0 > #{HOMEBREW_PREFIX}/lib/gtk-3.0/3.0.0/immodules.cache"
+    system bin/"gtk-query-immodules-3.0 > #{HOMEBREW_PREFIX}/lib/gtk-3.0/3.0.0/immodules.cache"
   end
 
   test do
@@ -87,6 +105,7 @@ class Gtkx3 < Formula
         return 0;
       }
     EOS
+
     flags = shell_output("pkg-config --cflags --libs gtk+-3.0").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"

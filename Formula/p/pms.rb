@@ -7,6 +7,7 @@ class Pms < Formula
   revision 1
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "24de40d237ca53721190a990da548b37b777fa60e7599c9c0c0dcf289333bbeb"
     sha256 cellar: :any,                 arm64_sonoma:   "2992d520cbc631a4764f7387d6f37efbb9dc5d75a387993217fb83204fa17a50"
     sha256 cellar: :any,                 arm64_ventura:  "b5b477e377dcf2b781a503e8eb00673d7218e43d788fa56b70b960fad91c26f9"
     sha256 cellar: :any,                 arm64_monterey: "5928678a604a80ee70d57b581b408890b4137d3c16f6123e3e455b636c36c14d"
@@ -23,17 +24,19 @@ class Pms < Formula
   end
 
   depends_on "pkg-config" => :build
+
   depends_on "gettext"
   depends_on "glib"
 
+  uses_from_macos "ncurses"
+
   def install
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
+    system "./configure", *std_configure_args
     system "make", "install"
   end
 
   test do
-    assert_match(/Practical Music Search v#{version}/,
-                 shell_output("#{bin}/pms -?", 4))
+    output = shell_output("#{bin}/pms -?", 4)
+    assert_match "Practical Music Search v#{version}", output
   end
 end

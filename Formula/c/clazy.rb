@@ -4,6 +4,7 @@ class Clazy < Formula
   url "https://download.kde.org/stable/clazy/1.12/src/clazy-1.12.tar.xz"
   sha256 "611749141d07ce1e006f8a1253f9b2dbd5b7b44d2d5322d471d62430ec2849ac"
   license "LGPL-2.0-or-later"
+  revision 1
   head "https://invent.kde.org/sdk/clazy.git", branch: "master"
 
   livecheck do
@@ -12,21 +13,18 @@ class Clazy < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "80dc170c7ddac95d9965a56a6c4692222d39f6163177427aace94c9021caa9d8"
-    sha256 cellar: :any,                 arm64_ventura:  "00bb1c34c4834dccf37b8a482ebb330877a7c389b44bb3639d3bb758008610bb"
-    sha256 cellar: :any,                 arm64_monterey: "c82c91308487e7ac63bcdf0873723b4aa67fc5d01f1701f6e24ef3bf560c5c38"
-    sha256 cellar: :any,                 sonoma:         "02191ae7a0ad0299d036b8302fcf8b58a6b97fa5054f185a9181fae5e933822a"
-    sha256 cellar: :any,                 ventura:        "882362cce46ab78383f72b2aefe4e18df5f867760f1bae674fc1c7f40b05f83e"
-    sha256 cellar: :any,                 monterey:       "eed61eae5ed8a521181fb4d99ce75fc15b8d3de0fff387df7500fe4d96bc9de8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a4e28a3724c3444ce21c5f7fe53fc68e87ac3508c9d44236c36026a0cf8bc863"
+    sha256 cellar: :any,                 arm64_sequoia: "4c414da467a6431fa3fcb801a9782193e4bc33c79e5c46ce89225d59ad89f0cd"
+    sha256 cellar: :any,                 arm64_sonoma:  "de510c93eac7168ae31e41ddf5c016a143ca82cfd303155dc00869ea58a777d6"
+    sha256 cellar: :any,                 arm64_ventura: "48c9b07863a47b5d5e53a97ccaf6e1ae5dfa19c9ee484a800cf342fd43b9967f"
+    sha256 cellar: :any,                 sonoma:        "c1ea2d9d4092095114db97f32bb67c008c865e0724366724305d13272d495e5b"
+    sha256 cellar: :any,                 ventura:       "2795771a1d25fd000c81613aedf48ffaf9a394fa30e2e4ff140d83b85e69076f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "60afe9ee7a03dbee90248110fd343c0c3a4be1192e86050562d76ff0add050d4"
   end
 
-  depends_on "cmake"   => [:build, :test]
-  depends_on "qt"      => :test
+  depends_on "cmake" => [:build, :test]
+  depends_on "qt" => :test
   depends_on "coreutils"
-  # TODO: Backport patch for LLVM 18 support
-  # https://github.com/KDE/clazy/commit/be6ec9a3f3e1e4cb7168845008fd4d0593877b64
-  depends_on "llvm@17"
+  depends_on "llvm@18"
 
   uses_from_macos "libxml2"
   uses_from_macos "ncurses"
@@ -35,7 +33,6 @@ class Clazy < Formula
   fails_with gcc: "5" # C++17
 
   def install
-    ENV.append "CXXFLAGS", "-std=gnu++17" # Fix `std::regex` support detection.
     system "cmake", "-S", ".", "-B", "build", "-DCLAZY_LINK_CLANG_DYLIB=ON", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"

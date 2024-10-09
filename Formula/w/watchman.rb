@@ -1,23 +1,19 @@
 class Watchman < Formula
   desc "Watch files and take action when they change"
   homepage "https://github.com/facebook/watchman"
-  url "https://github.com/facebook/watchman/archive/refs/tags/v2024.07.08.00.tar.gz"
-  sha256 "140f5ce335cd2639945e45e778f5203581add5fc30e64a166ee37140fe8970e4"
+  url "https://github.com/facebook/watchman/archive/refs/tags/v2024.10.07.00.tar.gz"
+  sha256 "cb38539b9bdf49351e21115124760c07f0585a5bc5577aac74551fd5879ad85b"
   license "MIT"
   head "https://github.com/facebook/watchman.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "3ade44c790eb49178789ce23506ade13564194b7ff0a0dd03d4c6b2cb03501c4"
-    sha256 cellar: :any,                 arm64_ventura:  "12b550ae38d82fe6dfe2580f648e3a4aa7acc0cd0015f11debb758eba0e4fa3d"
-    sha256 cellar: :any,                 arm64_monterey: "f0eb354ee7b6fd7f4bf62a63ff64915bb0bcbef69c1d633c230e4fb9a080007d"
-    sha256 cellar: :any,                 sonoma:         "1fa07b70d9673549687c4d3d542655a660b727d02ec6bdf9195b98867182447b"
-    sha256 cellar: :any,                 ventura:        "4370738864cf96d1d03b23847c2d89f4cb5ede1c3885b2c136ccdd47cca17816"
-    sha256 cellar: :any,                 monterey:       "0c95c2baae9dd51e6e68b7a7c72061640925ea7fce7fca8c2eee84828132fcd3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "54388aaebced4de7927f7c7c3ba45b319842ee4e8494cb8ffd76f0df091c89fd"
+    sha256 cellar: :any,                 arm64_sequoia: "55bb8f0795e579827b84323e1f11de9027f89849138b3a80c740a57b63257309"
+    sha256 cellar: :any,                 arm64_sonoma:  "810fd1ed2b8277a523d26a10e65c5dcad712741665faf1e0575c48661fce383b"
+    sha256 cellar: :any,                 arm64_ventura: "e54d432f7df59fabe7982379ad039d4107994a9954843549f006c4594011445f"
+    sha256 cellar: :any,                 sonoma:        "e7c735d108d0e29a2238fdd51a834681350a36fbff54816ddb2c2aaac60fbf9a"
+    sha256 cellar: :any,                 ventura:       "1d9d747014d852953ae8d075aea03e586cdd761e773c938668ecc5a0d452b4a2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "20d643946bf29859941567c4675347003d2c4dc93feec27ddcfbffed883683c3"
   end
-
-  # https://github.com/facebook/watchman/issues/963
-  pour_bottle? only_if: :default_prefix
 
   depends_on "cmake" => :build
   depends_on "cpptoml" => :build
@@ -25,7 +21,6 @@ class Watchman < Formula
   depends_on "pkg-config" => :build
   depends_on "python-setuptools" => :build
   depends_on "rust" => :build
-  depends_on "boost"
   depends_on "edencommon"
   depends_on "fb303"
   depends_on "fbthrift"
@@ -39,32 +34,30 @@ class Watchman < Formula
   depends_on "python@3.12"
 
   on_linux do
+    depends_on "boost"
     depends_on "libunwind"
   end
 
   fails_with gcc: "5"
 
   def install
-    # Fix "Process terminated due to timeout" by allowing a longer timeout.
-    inreplace "CMakeLists.txt",
-              /gtest_discover_tests\((.*)\)/,
-              "gtest_discover_tests(\\1 DISCOVERY_TIMEOUT 60)"
-
-    args = %W[
-      -DENABLE_EDEN_SUPPORT=ON
-      -DPython3_EXECUTABLE=#{which("python3.12")}
-      -DWATCHMAN_VERSION_OVERRIDE=#{version}
-      -DWATCHMAN_BUILDINFO_OVERRIDE=#{tap&.user || "Homebrew"}
-      -DWATCHMAN_STATE_DIR=#{var}/run/watchman
-    ]
-    # Avoid overlinking with libsodium and mvfst
-    args << "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-dead_strip_dylibs" if OS.mac?
-
     # NOTE: Setting `BUILD_SHARED_LIBS=ON` will generate DSOs for Eden libraries.
     #       These libraries are not part of any install targets and have the wrong
     #       RPATHs configured, so will need to be installed and relocated manually
     #       if they are built as shared libraries. They're not used by any other
     #       formulae, so let's link them statically instead. This is done by default.
+    #
+    # Use the upstream default for WATCHMAN_STATE_DIR by unsetting it.
+    args = %W[
+      -DENABLE_EDEN_SUPPORT=ON
+      -DPython3_EXECUTABLE=#{which("python3.12")}
+      -DWATCHMAN_VERSION_OVERRIDE=#{version}
+      -DWATCHMAN_BUILDINFO_OVERRIDE=#{tap&.user || "Homebrew"}
+      -DWATCHMAN_STATE_DIR=
+    ]
+    # Avoid overlinking with libsodium and mvfst
+    args << "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-dead_strip_dylibs" if OS.mac?
+
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
@@ -72,13 +65,7 @@ class Watchman < Formula
     path = Pathname.new(File.join(prefix, HOMEBREW_PREFIX))
     bin.install (path/"bin").children
     lib.install (path/"lib").children
-    path.rmtree
-  end
-
-  def post_install
-    (var/"run/watchman").mkpath
-    # Don't make me world-writeable! This admits symlink attacks that makes upstream dislike usage of `/tmp`.
-    chmod 03775, var/"run/watchman"
+    rm_r(path)
   end
 
   test do

@@ -1,8 +1,8 @@
 class CypherShell < Formula
   desc "Command-line shell where you can execute Cypher against Neo4j"
   homepage "https://neo4j.com"
-  url "https://dist.neo4j.org/cypher-shell/cypher-shell-5.21.0.zip"
-  sha256 "98120a168bf67c6040429d0abab44371c588577680508edcd741a70c2ceca8a6"
+  url "https://dist.neo4j.org/cypher-shell/cypher-shell-5.24.1.zip"
+  sha256 "f4107315c72a0c566964565553d7edfacda2992351ff9d005157933f7567422a"
   license "GPL-3.0-only"
   version_scheme 1
 
@@ -12,25 +12,18 @@ class CypherShell < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "6ea8ebd096009958e00f8fb414415269f99c485f1707ca084a1ac4291ef18c37"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "6ea8ebd096009958e00f8fb414415269f99c485f1707ca084a1ac4291ef18c37"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6ea8ebd096009958e00f8fb414415269f99c485f1707ca084a1ac4291ef18c37"
-    sha256 cellar: :any_skip_relocation, sonoma:         "6ea8ebd096009958e00f8fb414415269f99c485f1707ca084a1ac4291ef18c37"
-    sha256 cellar: :any_skip_relocation, ventura:        "6ea8ebd096009958e00f8fb414415269f99c485f1707ca084a1ac4291ef18c37"
-    sha256 cellar: :any_skip_relocation, monterey:       "6ea8ebd096009958e00f8fb414415269f99c485f1707ca084a1ac4291ef18c37"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b00df5fc90076b5d584167114f8d9ea33cd59568cb8584a321707900ba3367ff"
+    sha256 cellar: :any_skip_relocation, all: "ee2a13db31389e26f076de68d535a089fe9d822b07853125a38a6acc9cc47831"
   end
 
-  depends_on "openjdk"
-
-  conflicts_with "neo4j", because: "both install `cypher-shell` binaries"
+  depends_on "openjdk@21"
 
   def install
     libexec.install Dir["*"]
-    (bin/"cypher-shell").write_env_script libexec/"bin/cypher-shell", Language::Java.overridable_java_home_env
+    (bin/"cypher-shell").write_env_script libexec/"bin/cypher-shell", Language::Java.overridable_java_home_env("21")
   end
 
   test do
+    refute_match "unsupported version of the Java runtime", shell_output("#{bin}/cypher-shell -h 2>&1", 1)
     # The connection will fail and print the name of the host
     assert_match "doesntexist", shell_output("#{bin}/cypher-shell -a bolt://doesntexist 2>&1", 1)
   end

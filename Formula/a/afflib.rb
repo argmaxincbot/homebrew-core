@@ -11,6 +11,7 @@ class Afflib < Formula
 
   bottle do
     rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia:  "20ba271eae6ec7f44e4be0b019f2106c41b54f2f8b4ed6ee538b5df2931e7316"
     sha256 cellar: :any,                 arm64_sonoma:   "645ea2880c23e3613925a61a769d6df03d272f14d398ed5b38250e1ff17178ef"
     sha256 cellar: :any,                 arm64_ventura:  "39944f02e04efff99d4ba079e10d0e396dfb6025a7129591be8bd69fe194174f"
     sha256 cellar: :any,                 arm64_monterey: "feb3ea9b5e4778eec142cf4d229d49cfc727d9579c5b432fbb3cbce28ce4bce1"
@@ -24,11 +25,14 @@ class Afflib < Formula
   depends_on "automake" => :build
   depends_on "libtool" => :build
   depends_on "pkg-config" => :build
+
   depends_on "openssl@3"
   depends_on "python@3.12"
+  depends_on "readline"
 
   uses_from_macos "curl"
   uses_from_macos "expat"
+  uses_from_macos "zlib"
 
   # Backport commits for regenerated pyaff.c to fix build with Python 3.12.
   # Remove in the next release.
@@ -63,11 +67,13 @@ class Afflib < Formula
     # As a side effect, we need to imitate the Makefile and provide paths to headers/libraries.
     ENV.append_to_cflags "-I#{include}"
     ENV.append "LDFLAGS", "-L#{lib}"
+
     system python3, "-m", "pip", "install", *std_pip_args(build_isolation: true), "./pyaff"
   end
 
   test do
-    system "#{bin}/affcat", "-v"
+    system bin/"affcat", "-v"
+
     system python3, "-c", "import pyaff"
   end
 end

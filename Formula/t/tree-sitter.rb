@@ -1,8 +1,8 @@
 class TreeSitter < Formula
   desc "Parser generator tool and incremental parsing library"
   homepage "https://tree-sitter.github.io/"
-  url "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.22.6.tar.gz"
-  sha256 "e2b687f74358ab6404730b7fb1a1ced7ddb3780202d37595ecd7b20a8f41861f"
+  url "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.24.2.tar.gz"
+  sha256 "199da041ac7ef62bccdda9b7bec28aafa073f7eea2677680aa7992d503c9cc64"
   license "MIT"
   head "https://github.com/tree-sitter/tree-sitter.git", branch: "master"
 
@@ -12,13 +12,12 @@ class TreeSitter < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "acb1a8659cd284d8a72e1fa75e43fc319b649e5a9b935519dafe1d88a4fbfb0a"
-    sha256 cellar: :any,                 arm64_ventura:  "1f1136ed859849e34a77202ec68651b9b5500dd36c71f97fde4e1f417da0684f"
-    sha256 cellar: :any,                 arm64_monterey: "fb43e5d840613e4780d2ec0703a887a12b5595e97d3783bf1b7cd8bb006e1d39"
-    sha256 cellar: :any,                 sonoma:         "ff7a983bcb1e831ff7ef0a1e1b7be2f94bed539ba1353913a45d72b9efef75dc"
-    sha256 cellar: :any,                 ventura:        "fa5f06dd43c5f8ccd4ced678db9177fc32bda8f21c605cb021b95adc6033cc34"
-    sha256 cellar: :any,                 monterey:       "591fb80b98afd85dacba85564a10dca6407121dca170b6a761ecee9b3672d6b1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c5c20737bc92564aba096a2695446ea3017d1ae79f993715653aba5f098793ea"
+    sha256 cellar: :any,                 arm64_sequoia: "a29607b02124a130359052f904bb9b861dd3e0ab7a532f6e8a96ad039c52b409"
+    sha256 cellar: :any,                 arm64_sonoma:  "34a7222112fc9f5be9463986819a9f08f3dbc53df7a611efc66e9b58a8f51dc4"
+    sha256 cellar: :any,                 arm64_ventura: "14139ccdec5b8b66c45e4757554765d92d0d2ce226485c09fc3a955bdab9a3e1"
+    sha256 cellar: :any,                 sonoma:        "bc993d44222fbd385a13ce99e6925884ed5e1891393b43c2d1fca6a8ea89bb8f"
+    sha256 cellar: :any,                 ventura:       "a49b6a6866e4f63b6d043f2e60d503515b87ae84e453c89223f7559f320bdfa4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8e9b977061c80baf583b0b5caf342a7b8422b86259569a6279d8afb2abecd0ce"
   end
 
   depends_on "rust" => :build
@@ -60,7 +59,7 @@ class TreeSitter < Formula
       ---
       (source_file)
     EOS
-    system "#{bin}/tree-sitter", "test"
+    system bin/"tree-sitter", "test"
 
     (testpath/"test_program.c").write <<~EOS
       #include <stdio.h>

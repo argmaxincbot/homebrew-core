@@ -1,21 +1,19 @@
-require "language/node"
-
 class Zrok < Formula
   desc "Geo-scale, next-generation sharing platform built on top of OpenZiti"
   homepage "https://zrok.io"
-  url "https://github.com/openziti/zrok/archive/refs/tags/v0.4.34.tar.gz"
-  sha256 "7ba4c46809f39876723cf4647e9665c78df0b4382c3b629db848d07d803862a8"
-  license "Apache-2.0"
+  url "https://github.com/openziti/zrok/archive/refs/tags/v0.4.41.tar.gz"
+  sha256 "aa7adb3cc25ea192afadbb8e7e99d51e5ae2244c1abab62068d313fac5865291"
+  # The main license is Apache-2.0. ACKNOWLEDGEMENTS.md lists licenses for parts of code
+  license all_of: ["Apache-2.0", "BSD-3-Clause", "MIT"]
   head "https://github.com/openziti/zrok.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e8dd2dea77d514bd4b3b27fa7cd974c9cc4797b761039c9faa2e9e972f85d9fd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "f76b2b53c333fd2751f808e56ae4befe84afca79d9e0dd41defab663fdf1cc2a"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "6a097c2bfe72612c1ed1f46f1eb91bf12d41ac5c6afb267c1250f4bff0507855"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8e45a80a642336e059a44c446a06bf9f476708e27487f8b96d9d1fdeba01c6a5"
-    sha256 cellar: :any_skip_relocation, ventura:        "6d06e948ca48df0eceb70ca7ad396120f60a0f08874959eeb12c8c02ea8067a2"
-    sha256 cellar: :any_skip_relocation, monterey:       "9536b1ba040a5d8a84b1cd23ae21fac9132ad7f4f0d18fee24e8575f781484b5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bedee4d7897019635df0169b66b8c159fa65ba68e1d1dc29c64c4497ba73f7e0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d27e13cb498f612bcff87682c9755b71fe5254013a2f1a205d7b1ad537a85e79"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "13ce271557bc9e12a740eeed2d3593b3610aca95627e76efaafebd74d5271f3b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c190bafd3076f34eb132b639675dfa75b5e64c315317c0a11ce21a5de4163888"
+    sha256 cellar: :any_skip_relocation, sonoma:        "69fc5ace4e39c11836309803bc51d95f7585557f899c72760d1f066da0217856"
+    sha256 cellar: :any_skip_relocation, ventura:       "9283cde532a46bbc8503c6f14ea869ea46afc6a736010f8ea02125f60cf93969"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9135827cce30646269f8aa52f8d58fc3c1c0a7c1cd63041e09c80911b91086bd"
   end
 
   depends_on "go" => :build
@@ -23,7 +21,7 @@ class Zrok < Formula
 
   def install
     cd buildpath/"ui" do
-      system "npm", "install", *Language::Node.local_npm_install_args
+      system "npm", "install", *std_npm_args(prefix: false)
       system "npm", "run", "build"
     end
 

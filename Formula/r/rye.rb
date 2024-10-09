@@ -1,18 +1,17 @@
 class Rye < Formula
   desc "Experimental Package Management Solution for Python"
   homepage "https://rye-up.com/"
-  url "https://github.com/astral-sh/rye/archive/refs/tags/0.36.0.tar.gz"
-  sha256 "9f369a89e6ee770ab542b00acb2a188dfac105924a9387636ce472d4e8a72c9c"
+  url "https://github.com/astral-sh/rye/archive/refs/tags/0.41.0.tar.gz"
+  sha256 "d3a73f7ce2b837dff7fd81928f12cfd1a2d701efc810b5f0d902ae10ca4354b6"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ceea16e82431f2a3a09fcb8c37a92cf6be936d6f3cd58574fe0d3d0142b22260"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "93bd3958efae3c425ef8a7e4c04d804a2182f9ea5b00530767a39879bfa193f6"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9d112fb9384cdc92b4ccf71709f29d8b2290f26fc74bc66948bff159b3dbcd85"
-    sha256 cellar: :any_skip_relocation, sonoma:         "a34810b23dd5ffcf99ff69e82861efbdf692bb90d749361959ba9e313f19c85d"
-    sha256 cellar: :any_skip_relocation, ventura:        "bf7bfd02c5a5b3a1053f78c6a5ace01421ed4daca1441034e513ddb793b3a6f1"
-    sha256 cellar: :any_skip_relocation, monterey:       "eea0aed1211262ca7563b3221430372c077bb8554072950cebe2d2f0c84deeb4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "5a488a4dd95b4e29a08d6aecec9d2f3b1bd39b95fc1c79c6d138604cfc8a95a7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ac78e0e5c036bf46a8ffa4deebf7ccc87b0f8c22998bb2a23047d3c0d4272d85"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c8155ef2512db6c362e73e7a884674119f8294551343150c938f9631c99049b1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e2890ad2a437df14750bbb65e7407f6d04b054f3dc1a3deac7a33223917a46d5"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0a49389f2221123d72419e00e7ee6516b07416d4daa7b0c91b5747fadfb740ec"
+    sha256 cellar: :any_skip_relocation, ventura:       "4db58aae4410a0c841b599684acce0f77682b79fd88bc79a3697a6e1b1a53123"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4154afc1517d204c0ea739d61cb8ae498d0b7500a7c4cd7200a4a25d08a14ba5"
   end
 
   depends_on "rust" => :build

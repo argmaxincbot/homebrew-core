@@ -1,8 +1,8 @@
 class Pdnsrec < Formula
   desc "Non-authoritative/recursing DNS server"
   homepage "https://www.powerdns.com/powerdns-recursor"
-  url "https://downloads.powerdns.com/releases/pdns-recursor-5.1.0.tar.bz2"
-  sha256 "25e1614022f77e81f0b359b0b72b9ae4761ab96681f01f30168f90fa2bbbe152"
+  url "https://downloads.powerdns.com/releases/pdns-recursor-5.1.2.tar.bz2"
+  sha256 "b3a37ebb20285ab9acbbb0e1370e623bb398ed3087f0e678f23ffa3b0063983d"
   license "GPL-2.0-only" => { with: "openvpn-openssl-exception" }
 
   livecheck do
@@ -11,13 +11,12 @@ class Pdnsrec < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:   "4d524e15a8e52e1150f83af94ad873c60aeb9676c451bcf43f303039b4c259fa"
-    sha256 arm64_ventura:  "674225511a9c8a8f63eef4d5958e73efedb58f461d9ccd6795395d714d6d8304"
-    sha256 arm64_monterey: "98be3e34869e136b91dc59c9d65620897b72e31d8af0ef4082f152f2292695df"
-    sha256 sonoma:         "45fae88f41172f274e89d2ce7c5fe677fba2f5e782c187c58aaef24943474f04"
-    sha256 ventura:        "3d61429b0e04cdbf2f28566dc40cd8c49c744325e63002b899f492c83ae6b811"
-    sha256 monterey:       "3b240b12ba0d77a3f50c74995168e9ef0b2a7d4ed18dab2de91d6fef4167037d"
-    sha256 x86_64_linux:   "7b2bade10736724718840aa11bbe66cdbf9bced1a96c6af8e8024cda714307e7"
+    sha256 arm64_sequoia: "a1af5a80bbcf3aa120b90ec0d375939a4b2f869def8ded6b5daec4ee55da434d"
+    sha256 arm64_sonoma:  "2bc68e0fa028d5b34c89df967fe7cbbe7f55d8a91b3a2f9160639c35046f8e40"
+    sha256 arm64_ventura: "5932d71b150cb46183bb20a081003fe44b68f6d5a70e42c20326212a883c9e3c"
+    sha256 sonoma:        "67e8cf1f617ddf19ec598b760e80c37f589438f05f30952a0c691b05eea5ed62"
+    sha256 ventura:       "76dca78bedf780a7bfe16ce53ba5418b2664d1ead1dee13663bc9a5012a17c85"
+    sha256 x86_64_linux:  "e5c9f7c571a9c47ab19c5b819d79fbcf7da8c8da57594ebf8d3e4d4f9e504f7a"
   end
 
   depends_on "pkg-config" => :build

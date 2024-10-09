@@ -1,21 +1,23 @@
 class Vitess < Formula
   desc "Database clustering system for horizontal scaling of MySQL"
   homepage "https://vitess.io"
-  url "https://github.com/vitessio/vitess/archive/refs/tags/v20.0.0.tar.gz"
-  sha256 "b59a5fb4a865c195e21f9d1f56306e6fb32b02dd9aa71752e9c690bc8dd37ab6"
+  url "https://github.com/vitessio/vitess/archive/refs/tags/v20.0.2.tar.gz"
+  sha256 "64a56c3c7eb9466ae87ccc6eea9a56732c45564ac16efb05e3c4e4885ffea94d"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e5233bca9cd51f452b12dedcab569ebdf3f719c22982f94368119df3c3a0138a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "49035c314d823719dc87f7b467d1460192c2741b3d89c349e92e024a8dcf626c"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "135584e53ef71c561a35cd3d43c60a06c576ba454df6a002c1a40bba16403322"
-    sha256 cellar: :any_skip_relocation, sonoma:         "ae04b763d2264e1583f776488d25da22cdc5c3b0e0a8e2b14ab8bd128fab7091"
-    sha256 cellar: :any_skip_relocation, ventura:        "8c596f72ec03b8d211ca8f5adb6551eaf5bc1326bc692f6a915ae72a343c7d9b"
-    sha256 cellar: :any_skip_relocation, monterey:       "71544b2661fd1dff8ea87e4059e58835e8c703f93d0bc49c900232a183f1e929"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6395da5655292083dd3bb1e2b40936c18f5133cbe3241ca5300ee3b0e2ac1acc"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "e12f16ab66ecb5050e6cba2d1c7aa1c5f5a96bb452ac38fa72eb1a05604995f1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "30ba606e9be4b209ce827534020d48913f8480a5d2624e0b6be1b0350174ac4e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "eaeeb1346074a8298f6cbe7276019785149988aa429c62793609dc61dcaa60c9"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "8ad57b8f34f78d1bf2d0eb00f3f3ee9d53f38d9e32a90a18ec6d7f7de1082916"
+    sha256 cellar: :any_skip_relocation, sonoma:         "9caad1c737e80cdcac44718a5a66f8c3a2567eda7db37f0666d774687919af72"
+    sha256 cellar: :any_skip_relocation, ventura:        "d40d954db36101dea8e525b7a2f63c4c4a6ec96e66cd9581126282e941b8def1"
+    sha256 cellar: :any_skip_relocation, monterey:       "7dc0343d05d64c3bf72bc779530f7b9eedf1f7841ebd756ff326881ec6b16e75"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4a4d1b8105de7f48ab3df1f117ba42655208052dad83e2fcd6abac5e05d08eda"
   end
 
-  depends_on "go" => :build
+  # use "go" again after https://github.com/vitessio/vitess/issues/16015 is fixed and released
+  depends_on "go@1.22" => :build
   depends_on "etcd"
 
   def install
@@ -71,7 +73,7 @@ class Vitess < Formula
                          "--cells_to_watch", cell,
                          "--port", port.to_s
     end
-    sleep 3
+    sleep 8
 
     output = shell_output("curl -s localhost:#{port}/debug/health")
     assert_equal "ok", output

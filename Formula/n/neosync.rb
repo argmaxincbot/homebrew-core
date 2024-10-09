@@ -1,19 +1,18 @@
 class Neosync < Formula
   desc "CLI for interfacing with Neosync"
   homepage "https://www.neosync.dev/"
-  url "https://github.com/nucleuscloud/neosync/archive/refs/tags/v0.4.44.tar.gz"
-  sha256 "606d8d3b3fd8313b62b6dfad44ace26c0a2d7a983ac7517284ccd17f787ee235"
+  url "https://github.com/nucleuscloud/neosync/archive/refs/tags/v0.4.76.tar.gz"
+  sha256 "bf83b35af9e27eba0e1bb9e0830f2541cb2f53bf8cd9296b695165e4e4649aae"
   license "MIT"
   head "https://github.com/nucleuscloud/neosync.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "66ec2188bce7607673f29c5a7f72bcea35f8030bbd93288ebaf341db5a8c2c46"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "d16c3387203daac41de8fecadd0220d037ceb0c645f1a350683a527bfa093ec1"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "9a7334041d90955a739e1a61b2063ffea65cc6e725b8ad47fb4112e548ae508f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cefee08f98edd89c0debcbacdf2ca4b0422b29ceeb916a2dc1bb339fe72eae97"
-    sha256 cellar: :any_skip_relocation, ventura:        "3c66e1503d45c69f7ee8175a0dc5014e34c801fd02365d2fa8019b94ccb49795"
-    sha256 cellar: :any_skip_relocation, monterey:       "0be317973ebe6f158af9dfb64d7d4b1fcf6cea8f30c00f087454b5390496d2dc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e5c45a7a16685a35964b335bdf38c74dd2f231e00303dc5cf39d206609a03c7e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "902e0c84bd1fb5371467725c7bdd01a6a9f00ffab4ae2d0b05e7b1f06a0cf16d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "055fb8fb3009ae7e158a75e804302e9bc9113b1c6e42bef12fdf12266cf83920"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e7155a40ed4e4550e81617198876ab241baea898cc0e8b57d7c26963f60f51d9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d8a238515d3b274f5b6ca101d75ae7aa9f30fd6ca69472fd621d0bb8306b65da"
+    sha256 cellar: :any_skip_relocation, ventura:       "f5f9ec8c5f928df3d9166dfc462d5c4408ffa4a807c9c09a62e24ddeac3c3da4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f12d77ac32dbfc7a152f7606b00ee91dbca08fbc0001548e38dde2418984303e"
   end
 
   depends_on "go" => :build

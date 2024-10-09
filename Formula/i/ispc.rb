@@ -4,6 +4,7 @@ class Ispc < Formula
   url "https://github.com/ispc/ispc/archive/refs/tags/v1.24.0.tar.gz"
   sha256 "a45ec5402d8a3b23d752125a083fa031becf093b8304ccec55b1c2f37b5479c3"
   license "BSD-3-Clause"
+  revision 1
 
   # Upstream sometimes creates releases that use a stable tag (e.g., `v1.2.3`)
   # but are labeled as "pre-release" on GitHub, so it's necessary to use the
@@ -14,20 +15,19 @@ class Ispc < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "54fa5a0a549861e1de159999de691426f573c126adc7a0d69bf9fcd294180cce"
-    sha256 cellar: :any,                 arm64_ventura:  "7c55ec8a529fb34cf8f085433586363b222a0ba6afb225fa94c266b21183d91e"
-    sha256 cellar: :any,                 arm64_monterey: "26c15e7e84c676fdf79f818f38c5a95296a6ecc4b958bfae06bc637e9846e83d"
-    sha256 cellar: :any,                 sonoma:         "237a797a7178f652c1137947c31e16216e8befaec98c40d19943fe6cee2b2dc7"
-    sha256 cellar: :any,                 ventura:        "9bc5d7902ca0a355a502afa39a63812b654f3643e8f15189cf9825f378070e39"
-    sha256 cellar: :any,                 monterey:       "7ca251d052ec6bbb9b0eee31a8d65008dfe8cd2caa6ae0fa5a73e88017d4d1a6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e0292ec3a7d8efc0efdcf854ac28f44b0cfbe82f22c58d93d8afc5876f9670ff"
+    sha256 cellar: :any,                 arm64_sequoia: "d650f99ada33e330e23eaac7f517fabef65976ed7ee5b92cfca56e5208f7a2fb"
+    sha256 cellar: :any,                 arm64_sonoma:  "c7a0754f38ea0957194c08777b6f3e4735e99ab10de1485f4f668ef32ae6e2fc"
+    sha256 cellar: :any,                 arm64_ventura: "d490a9505d3fdcff68e78b98208818716f6a5d38982f7a65fd634094c4bd2bda"
+    sha256 cellar: :any,                 sonoma:        "80a689f14d9c006eb0301b64cccd6a5e7d23c84bce4637ae0c6d29fc66abec2d"
+    sha256 cellar: :any,                 ventura:       "a23c36580e65097630847b2c9ee3ca2815a5eddda847f3def225fbf4738f832b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dcd08c7b19eef4617e2c0c7cffa482deb8ad588bb46e2b1bc1852c146b041256"
   end
 
   depends_on "bison" => :build
   depends_on "cmake" => :build
   depends_on "flex" => :build
   depends_on "python@3.12" => :build
-  depends_on "llvm@17"
+  depends_on "llvm@18"
 
   on_linux do
     depends_on "tbb"

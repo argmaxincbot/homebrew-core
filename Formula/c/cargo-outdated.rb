@@ -9,23 +9,34 @@ class CargoOutdated < Formula
   url "https://static.crates.io/crates/cargo-outdated/cargo-outdated-0.15.0.crate"
   sha256 "0641d14a828fe7dcf73e6df54d31ce19d4def4654d6fa8ec709961e561658a4d"
   license "MIT"
+  revision 1
   head "https://github.com/kbknapp/cargo-outdated.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "2a64cfa869ebf18a5b503eb18e9fff3a5bfbe03ff140c13632ab474a9f4aec52"
-    sha256 cellar: :any,                 arm64_ventura:  "97f5a8cd382904cbadf6cebb05aa4724f1a4ea2e33c1de7dc49e1d5e3779b645"
-    sha256 cellar: :any,                 arm64_monterey: "66c5b1160d69b285925f22908da23f5c16e012d02c2886b47dbb2e4e296fbaa2"
-    sha256 cellar: :any,                 sonoma:         "6b79a061b01990586e093d97fac5dc62a14d2d15c6eb70b45935d6ccfacf3de6"
-    sha256 cellar: :any,                 ventura:        "6bd512544a6d9822d3a049df30d68300f462af2df0d1476822623d3857f2280b"
-    sha256 cellar: :any,                 monterey:       "5a05df06ef26ab97b72391a7bd91bf06afe8b016944c691557d0063b76971492"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7543eddf05cf16cdf8c4f938e19509b9a1d160fae615f0e7aa8603397e8d5740"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia:  "86b57b5f303ed5b7244fa35577ab22e976c93d156c98cab15fce93fa8ac3bed3"
+    sha256 cellar: :any,                 arm64_sonoma:   "bd1d9196b5442029200c34d51c23175f61c899ac4e9cc95ebbe7ff4f3641d177"
+    sha256 cellar: :any,                 arm64_ventura:  "d75a6a4ab730f471c3cebea7e2993f09454e14d9faf2162175a02bdbb1424339"
+    sha256 cellar: :any,                 arm64_monterey: "9cc2cc42be17e9f3c89c8389f4df8191e2d4eb60f9036ca79ab2e70c67bb1e51"
+    sha256 cellar: :any,                 sonoma:         "1fbf19e465ae01e3de9156a71da3a9c31a958bc81793ca981688ccee6e03b1e8"
+    sha256 cellar: :any,                 ventura:        "66736cba56267d3a8fa366e8caa54b4f327864561a984d74592a4f7cdff9997e"
+    sha256 cellar: :any,                 monterey:       "393cc224deb953a44ec760626f335df0e5fac89aac7e1a74defb7c572c27bc91"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0bb39e0bca108a5dfb5b579d31d17986faa32ea3b7d8ae486a21199de3e591b0"
   end
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  depends_on "rustup-init" => :test
-  depends_on "libgit2"
+  depends_on "rustup" => :test
+  depends_on "libgit2@1.7"
   depends_on "openssl@3"
+
+  uses_from_macos "zlib"
+
+  # rust 1.80 build patch, upstream pr ref, https://github.com/kbknapp/cargo-outdated/pull/397
+  patch do
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/c17b2163d305f02e8b63639bfa50fc98a74cf72b/cargo-outdated/rust-1.80.patch"
+    sha256 "6e014843621fa897952ea0ff35c44693156109db60e344190157a7805ace60c5"
+  end
 
   def install
     ENV["LIBGIT2_NO_VENDOR"] = "1"
@@ -45,10 +56,9 @@ class CargoOutdated < Formula
   test do
     # Show that we can use a different toolchain than the one provided by the `rust` formula.
     # https://github.com/Homebrew/homebrew-core/pull/134074#pullrequestreview-1484979359
-    ENV["RUSTUP_INIT_SKIP_PATH_CHECK"] = "yes"
-    rustup_init = Formula["rustup-init"].bin/"rustup-init"
-    system rustup_init, "-y", "--profile", "minimal", "--default-toolchain", "beta", "--no-modify-path"
-    ENV.prepend_path "PATH", HOMEBREW_CACHE/"cargo_cache/bin"
+    ENV.prepend_path "PATH", Formula["rustup"].bin
+    system "rustup", "default", "beta"
+    system "rustup", "set", "profile", "minimal"
 
     crate = testpath/"demo-crate"
     mkdir crate do
@@ -72,7 +82,7 @@ class CargoOutdated < Formula
     end
 
     [
-      Formula["libgit2"].opt_lib/shared_library("libgit2"),
+      Formula["libgit2@1.7"].opt_lib/shared_library("libgit2"),
       Formula["openssl@3"].opt_lib/shared_library("libssl"),
       Formula["openssl@3"].opt_lib/shared_library("libcrypto"),
     ].each do |library|

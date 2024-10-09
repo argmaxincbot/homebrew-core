@@ -1,8 +1,8 @@
 class FleetCli < Formula
   desc "Manage large fleets of Kubernetes clusters"
   homepage "https://github.com/rancher/fleet"
-  url "https://github.com/rancher/fleet/archive/refs/tags/v0.9.5.tar.gz"
-  sha256 "6aaebcf7d52594c527083f4bdc74fadfc2fb881c0afa6b334b238712ed6b71c4"
+  url "https://github.com/rancher/fleet/archive/refs/tags/v0.10.3.tar.gz"
+  sha256 "95e8d4c6adefd672474227e819403b31b4030c00c29296f37fa5591af5d455b2"
   license "Apache-2.0"
   head "https://github.com/rancher/fleet.git", branch: "master"
 
@@ -12,13 +12,12 @@ class FleetCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "9a1a3c29f89bd6d9ad361c033daae11b20da74dbb492b5217e00c07ec5c86bd3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b1b67784293fd371cbd83fe43f8cdd57a689ffd59bc410612b0341908755bb95"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "a8fd96b41ebcf7410f32664b7b84cfb645660e7a82fa548b27a4e6175657b52f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8702aab177fd94bbbc022a783aa7b73a8c19d95fea3d2b9d854212876acfd26e"
-    sha256 cellar: :any_skip_relocation, ventura:        "75010bfe1746e2f02af50c77879ccc0e04b6c081a8ee24470b842b5a28d20638"
-    sha256 cellar: :any_skip_relocation, monterey:       "520adde85b87393e4e64994230efe928ce6e2a5853a8db74f925ddb745375fec"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "0dc1db05313c20faa06ff4f4b52602df99ab8eb99574a2a2fad756806fa2fc39"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f446733bdca37000feddf78d7c2d68e29d87fbd157b9985e597c87fa7a814b40"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7534a8c103c40baa5df60dc6c1d5bf754fe2cef76e337b121a2237d0cd9e44c8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "0dc9960d36426c43b238590c78c64320631ecd2be8a9fa1f1a9549e58fd89e32"
+    sha256 cellar: :any_skip_relocation, sonoma:        "501b486f0e939a53e2753635e757347128f3cc4c0aaa821feb3922bae467d60c"
+    sha256 cellar: :any_skip_relocation, ventura:       "20b4f719cf98d9e15ddc359ff1b5f7da536108d706a1e11eda7679ffb6d1918f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b52b2b44d7b34040c1dfb5e5f328c478bf880f1e1eb84e9ac139113c7050da8d"
   end
 
   depends_on "go" => :build

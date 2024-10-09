@@ -3,18 +3,17 @@ class Dxpy < Formula
 
   desc "DNAnexus toolkit utilities and platform API bindings for Python"
   homepage "https://github.com/dnanexus/dx-toolkit"
-  url "https://files.pythonhosted.org/packages/31/1e/1829a6f87458a719d471c1bf49d73c024240da81b4993a153008a2d43768/dxpy-0.379.0.tar.gz"
-  sha256 "09cf1e418be0fc91dd23ee916e83eacd1f5f3baa8972484f713e1cd4ed081ff1"
+  url "https://files.pythonhosted.org/packages/fc/22/74984b062b32a812e86db7c9c6ae1057452557b1a5964ef8f3cc4cb80beb/dxpy-0.383.1.tar.gz"
+  sha256 "377af4014a5f27efd6fe9478d0fa9c30ced245947fbd2e2e5713c8a37db598b0"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "e3e0266f8c0ed37c8459d56f7522bf115d00fdc752b90d4b448505b9658e4a41"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "fd10fd0a2deb13ea5f034c6f2c164e766b7ed24194b4d55ecf8b22bc41224efa"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e7b0109233db252471e0a93be88199120fadd99f09395149193b540cdd30af59"
-    sha256 cellar: :any_skip_relocation, sonoma:         "055eb4188d5525eaaa75480e18126c624db5849c4b02febf12ebe1b7ce1bc614"
-    sha256 cellar: :any_skip_relocation, ventura:        "d6785cd2db1ebb47960bffae3d63c673760031dc42f35bad48af4f2b4e81d532"
-    sha256 cellar: :any_skip_relocation, monterey:       "774d32251fd7b0dfdec7de1256f6d706d3d1612a95e85512001a12fa83f15879"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ba506e01fd876f26989e479140008b7bd922f218144fd57c63a5e54355a14e47"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9eebd284f9542ed0f50ab74654d66975033c17d16174be4d10a599f3688e29f0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "18de10c7e7e81d561d0c954cce65e57fd0a0643b18616a7ea272203ffea960be"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e0bae965a77df14276fa90d48f346658a508cd7fe6e1f5f9e160ac5d8d75dc11"
+    sha256 cellar: :any_skip_relocation, sonoma:        "20553d5c4decd346b93e3bf62fe3310f688842eb0a14cf6639dca3ed420fdddd"
+    sha256 cellar: :any_skip_relocation, ventura:       "736f5a6f35b8a7af98e15082a3239b94bd056cf540fb73de6ea4a12354931ec2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bc9340f0b9506c02f67f675f90fd69e274281f62da53a0ff8cdbf6a1f78c23e4"
   end
 
   depends_on "certifi"
@@ -28,8 +27,8 @@ class Dxpy < Formula
   end
 
   resource "argcomplete" do
-    url "https://files.pythonhosted.org/packages/db/ca/45176b8362eb06b68f946c2bf1184b92fc98d739a3f8c790999a257db91f/argcomplete-3.4.0.tar.gz"
-    sha256 "c2abcdfe1be8ace47ba777d4fce319eb13bf8ad9dace8d085dcad6eded88057f"
+    url "https://files.pythonhosted.org/packages/75/33/a3d23a2e9ac78f9eaf1fce7490fee430d43ca7d42c65adabbb36a2b28ff6/argcomplete-3.5.0.tar.gz"
+    sha256 "4349400469dccfb7950bb60334a680c58d88699bff6159df61251878dc6bf74b"
   end
 
   resource "psutil" do

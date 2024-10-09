@@ -1,19 +1,18 @@
 class Deno < Formula
   desc "Secure runtime for JavaScript and TypeScript"
   homepage "https://deno.com/"
-  url "https://github.com/denoland/deno/releases/download/v1.45.1/deno_src.tar.gz"
-  sha256 "c7afe55abf28eabca681c7986e61cf284ed9a0fa9f9355a04e6fe40979d8790c"
+  url "https://github.com/denoland/deno/releases/download/v1.46.3/deno_src.tar.gz"
+  sha256 "218b9afbbef30d959bb5d33233cd5f4b9d9a93d7adf2ee589b260d6227a86868"
   license "MIT"
   head "https://github.com/denoland/deno.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "a6a1050f103e1ed643c1ae24ed0b591fb449744bc9be63ea29fda47ecd1ed9f7"
-    sha256 cellar: :any,                 arm64_ventura:  "72a6f4eb0687a06dff718037f44ba977afc5c0e5de9cdc830c1382e145eaa080"
-    sha256 cellar: :any,                 arm64_monterey: "16804213fd24e153b553a131a09e68046b973f0143b5351e69d0bc73d9d44e4c"
-    sha256 cellar: :any,                 sonoma:         "cef64e1876112067b68e0fcea270d6d8f9dd7110623b619a5665244439983e7d"
-    sha256 cellar: :any,                 ventura:        "258f56beadab88f4acabdf5097a423560db5aade787fa16f0dd7e3f7deaa4d67"
-    sha256 cellar: :any,                 monterey:       "87ba011a3c92f582f7a1e7cfad5ba7329824248716b653e7c65c42677fd9531d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "8a5d356099d6d574e3f7216b102d9e4f2231b18ce8f80b488418d5d7c075264a"
+    sha256 cellar: :any,                 arm64_sequoia: "26527320fe72f0b8540520463ceba7712f4a08c94ca02500c09624fed4dfd78e"
+    sha256 cellar: :any,                 arm64_sonoma:  "ba9c1ec4d5f8fd6cd1fb771150466aeb45ab42a6ff1a8a7ce863b285ebe770a5"
+    sha256 cellar: :any,                 arm64_ventura: "38f9b7a3c3957e7e40582e5b02aa31e8533e1c52dd3038b36e53c6232d1b75ce"
+    sha256 cellar: :any,                 sonoma:        "23f44398ff5a5ea9c89a8816ddb53d21b7d64fe587e6f787c9463d2ec3cf8655"
+    sha256 cellar: :any,                 ventura:       "381bc1ad4d9e7acdb6a75a7317912d649acc6c77f5dc762d35d37450395e6faa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4393dbe99c95329b1fc93f5f909f2ac2dd74228a5d58df7d61dd97fe15d73232"
   end
 
   depends_on "cmake" => :build
@@ -21,16 +20,13 @@ class Deno < Formula
   depends_on "ninja" => :build
   depends_on "protobuf" => :build
   depends_on "rust" => :build
+  depends_on xcode: ["15.0", :build] # v8 12.9+ uses linker flags introduced in xcode 15
   depends_on "sqlite" # needs `sqlite3_unlock_notify`
 
   uses_from_macos "python" => :build, since: :catalina
   uses_from_macos "libffi"
   uses_from_macos "xz"
   uses_from_macos "zlib"
-
-  on_macos do
-    depends_on xcode: ["10.0", :build] # required by v8 7.9+
-  end
 
   on_linux do
     depends_on "pkg-config" => :build
@@ -44,22 +40,29 @@ class Deno < Formula
   # TODO: Remove this and `v8` resource when https://github.com/denoland/rusty_v8/issues/1065 is resolved
   # VERSION=#{version} && curl -s https://raw.githubusercontent.com/denoland/deno/v$VERSION/Cargo.lock | grep -C 1 'name = "v8"'
   resource "rusty_v8" do
-    url "https://static.crates.io/crates/v8/v8-0.97.0.crate"
-    sha256 "5ecc402c55b363c29901bdd0613c68213b01c5b2a3ee362d5e985cb74901b472"
+    url "https://static.crates.io/crates/v8/v8-0.105.0.crate"
+    sha256 "692624c4fd58ff50aa6d690c159df18e7881c13970005b9b2bff77dc425fd370"
   end
 
   # Find the v8 version from the last commit message at:
   # https://github.com/denoland/rusty_v8/commits/v#{rusty_v8_version}/v8
   # Then, use the corresponding tag found in https://github.com/denoland/v8/tags
   resource "v8" do
-    url "https://github.com/denoland/v8/archive/refs/tags/12.7.224.12-denoland-f14e70e46f3c575a9095.tar.gz"
-    sha256 "06baf9c3d733b95526a0fec5a9f1438bb2105218280bf0c20f1a20a5a0e7e8d7"
+    url "https://github.com/denoland/v8/archive/refs/tags/12.9.202.5-denoland-ad56209288783b8d23d5.tar.gz"
+    sha256 "977ea8ddd92971496a1438f70690307981eacf87f707dc0342988d433f74e70e"
   end
 
   # VERSION=#{version} && curl -s https://raw.githubusercontent.com/denoland/deno/v$VERSION/Cargo.lock | grep -C 1 'name = "deno_core"'
   resource "deno_core" do
-    url "https://github.com/denoland/deno_core/archive/refs/tags/0.293.0.tar.gz"
-    sha256 "975a84cd886f0674aa2a88fb9250957a132eda9f76b7f024b62831c425ae166b"
+    url "https://github.com/denoland/deno_core/archive/refs/tags/0.307.0.tar.gz"
+    sha256 "c3a54a85354ed6bb2c3aa5c885e7b3a36dc536ed1d31f2432806bb8228975a3e"
+  end
+
+  # The latest commit from `denoland/icu`, go to https://github.com/denoland/rusty_v8/tree/v#{rusty_v8_version}/third_party
+  # and check the commit of the `icu` directory
+  resource "icu" do
+    url "https://github.com/denoland/icu/archive/a22a8f24224ddda8b856437d7e8560de1da3f8e1.tar.gz"
+    sha256 "649c1d76e08e3bfb87ebc478bed2a1909e5505aadc98ebe71406c550626b4225"
   end
 
   # To find the version of gn used:
@@ -78,6 +81,9 @@ class Deno < Formula
     resource("rusty_v8").stage buildpath/"../rusty_v8"
     resource("v8").stage do
       cp_r "tools/builtins-pgo", buildpath/"../rusty_v8/v8/tools/builtins-pgo"
+    end
+    resource("icu").stage do
+      cp_r "common", buildpath/"../rusty_v8/third_party/icu/common"
     end
 
     resource("deno_core").stage buildpath/"../deno_core"
@@ -99,11 +105,16 @@ class Deno < Formula
     # env args for building a release build with our python3, ninja and gn
     ENV["PYTHON"] = python3
     ENV["GN"] = buildpath/"gn/out/gn"
-    ENV["NINJA"] = Formula["ninja"].opt_bin/"ninja"
+    ENV["NINJA"] = which("ninja")
     # build rusty_v8 from source
     ENV["V8_FROM_SOURCE"] = "1"
     # Build with llvm and link against system libc++ (no runtime dep)
     ENV["CLANG_BASE_PATH"] = Formula["llvm"].prefix
+
+    # use our clang version, and disable lld because the build assumes the lld
+    # supports features from newer clang versions (>=20)
+    clang_version = Formula["llvm"].version.major
+    ENV["GN_ARGS"] = "clang_version=#{clang_version} use_lld=false"
 
     # Work around an Xcode 15 linker issue which causes linkage against LLVM's
     # libunwind due to it being present in a library search path.

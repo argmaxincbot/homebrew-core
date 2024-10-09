@@ -11,6 +11,7 @@ class Clingo < Formula
   end
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "a0a6499278403ab4c44673bd939ce933ddd113bb94b08a512e36466708b6377f"
     sha256 cellar: :any,                 arm64_sonoma:   "64ed41a472f7e07f81420c75bb13c6da83df9dac3fbe0c76c367669484e9eba5"
     sha256 cellar: :any,                 arm64_ventura:  "29bb65f2229c066ce1cd6621e3ae1d9526832cad125f7ae8ee6e3651418b9569"
     sha256 cellar: :any,                 arm64_monterey: "f2f79a6aa705a0d0f928512778cc70c0690ebe39cfd681652da7bb270ebc9679"
@@ -28,7 +29,6 @@ class Clingo < Formula
 
   depends_on "cmake" => :build
   depends_on "doxygen" => :build
-  depends_on "python-setuptools" => :build
   depends_on "cffi"
   depends_on "lua"
   depends_on "python@3.12"
@@ -64,5 +64,6 @@ class Clingo < Formula
 
   test do
     assert_match "clingo version", shell_output("#{bin}/clingo --version")
+    system python3, "-c", "import clingo"
   end
 end

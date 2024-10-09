@@ -1,22 +1,21 @@
 class CargoMake < Formula
   desc "Rust task runner and build tool"
   homepage "https://github.com/sagiegurari/cargo-make"
-  url "https://github.com/sagiegurari/cargo-make/archive/refs/tags/0.37.13.tar.gz"
-  sha256 "4d2cdf575715f19ccc0c362244f1d2f37709866aa4c147b7d282c047c1ebec31"
+  url "https://github.com/sagiegurari/cargo-make/archive/refs/tags/0.37.21.tar.gz"
+  sha256 "08c3674d6a55015a388b49d3852e81464f4ca544400a37ab7b3752195fc503f4"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "7e0eddb979513cad595e2e822071fa8340b5976b250feb99abe63c57723ecc36"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e2d5b20dd4b876d9833cd23543d9f1cfac31c6edcfe302bba21de4a3b30459bd"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e7e2d2432603b1c8196fcd72413e013040006ff3755714a030ff4376a55c50e7"
-    sha256 cellar: :any_skip_relocation, sonoma:         "eae86a664b44b8c104e66b8720eb4b5d8d003cde8f18eaf61ff839a4d55d4651"
-    sha256 cellar: :any_skip_relocation, ventura:        "9f76e30a2e6c423226ff9cb2be4fdc2d85d5b6b993aa7db9a5700c5d12c0eb32"
-    sha256 cellar: :any_skip_relocation, monterey:       "ed5d2d9c728b3daf4f8a30ca4308887bb18dfc2fb462950ea0bdd1faa6680005"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "9a6ca99412c7fc44839864fdd51aafa3d8df7d34898f9d122b12d012c6863482"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e48fe3c7c121f658f7181815ffd63ab41a3bad28d95b6141945c7201763e4cb1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "eb0d6f9519a07e8bcd2150a83a62ff225748d30b196441aaa81e97decba5c2c4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "0fdc0462ed5d1a58ebc9cffaf323a5f63d6021fc8f050131afb0d128c92e7842"
+    sha256 cellar: :any_skip_relocation, sonoma:        "d626e92d2a98ed61a3f57ab1d76f1238d114f3c3abf9f968bbc2ea4d241cc549"
+    sha256 cellar: :any_skip_relocation, ventura:       "7c287a9a531d3f389fb4fd429276dcc1d929c39f540207aa9cbbc2bc2cb593ad"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6a3f0f615238eadb961a08f213d3c32234d770ad34a9212a74273ca4543083fd"
   end
 
   depends_on "rust" => :build
-  depends_on "rustup-init" => :test
+  depends_on "rustup" => :test
 
   def install
     system "cargo", "install", *std_cargo_args
@@ -25,10 +24,9 @@ class CargoMake < Formula
   test do
     # Show that we can use a different toolchain than the one provided by the `rust` formula.
     # https://github.com/Homebrew/homebrew-core/pull/134074#pullrequestreview-1484979359
-    ENV["RUSTUP_INIT_SKIP_PATH_CHECK"] = "yes"
-    rustup_init = Formula["rustup-init"].bin/"rustup-init"
-    system rustup_init, "-y", "--profile", "minimal", "--default-toolchain", "beta", "--no-modify-path"
-    ENV.prepend_path "PATH", HOMEBREW_CACHE/"cargo_cache/bin"
+    ENV.prepend_path "PATH", Formula["rustup"].bin
+    system "rustup", "default", "beta"
+    system "rustup", "set", "profile", "minimal"
 
     text = "it's working!"
     (testpath/"Makefile.toml").write <<~EOF

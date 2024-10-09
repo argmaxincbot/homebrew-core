@@ -1,21 +1,21 @@
 class GrafanaAgent < Formula
   desc "Exporter for Prometheus Metrics, Loki Logs, and Tempo Traces"
   homepage "https://grafana.com/docs/agent/"
-  url "https://github.com/grafana/agent/archive/refs/tags/v0.41.1.tar.gz"
-  sha256 "3b19965df65502155ad73300571548589d2162f49aeebdc713d9b29595b94c14"
+  url "https://github.com/grafana/agent/archive/refs/tags/v0.43.3.tar.gz"
+  sha256 "99d48af06ac8e2c8c6696508e53a06e1bab4e1dc3bbcd5146e9f0066fef1e9ae"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "648e3edbc70ca1b6a951f2ac1259c9907da9f1f677bd2967821ee202c125aa76"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "df4cf8df8004d8018625257f139e0939a3c902ca94a7004ee5944acafed9c7bf"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "e1f3f688f267bdbfc4cb26a3fcd8c4ac6b5f9e75d6d619ad6ab37ea135036fd6"
-    sha256 cellar: :any_skip_relocation, sonoma:         "7bc2a2027a51280d3529a0f2845ffe9f9cf6b5307ab095422e4bf676173a487f"
-    sha256 cellar: :any_skip_relocation, ventura:        "057e4e0063af4370e8fc59a6e7bc525d9897e77f20c8bdf1ca30ebff39b6a7dd"
-    sha256 cellar: :any_skip_relocation, monterey:       "98e3282f5d2567a475f4e71dcd3c70f16aa8e3ea007c478c6f3bc371d82502f0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e2eeccd57ebbde2c2c01e6445e9d6fbad261d04919da2d310e2e52add96c1c75"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0df50c15aefcf0ef5966448c86bd08deb85084c685de2ad4b2f0dd8cc2f5a018"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "27b23bd0769a183852d016149b1345504265653d08f1c68bbbe0fb6bff8a7997"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "508566ffd9692fdb49c66bff04865eb87d5953da70e5a4eaafa34088c1cf3e7a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7fd2bbd05f143fc7608acc767166f975176da4ce25c47dd8c03f387c761f9ec4"
+    sha256 cellar: :any_skip_relocation, ventura:       "c44eae56d3105734dd889a4e952084b55af19e7c36a6d02068f5a369e165d984"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a64752034facb371210f5da42f490635b21ee9690d19e405dece66f2622d87e4"
   end
 
-  depends_on "go" => :build
+  # use "go" again when https://github.com/grafana/agent/issues/6972 is resolved and released
+  depends_on "go@1.22" => :build
   depends_on "node" => :build
   depends_on "yarn" => :build
 

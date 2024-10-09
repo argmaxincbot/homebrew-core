@@ -1,8 +1,8 @@
 class HapiFhirCli < Formula
   desc "Command-line interface for the HAPI FHIR library"
   homepage "https://hapifhir.io/"
-  url "https://github.com/hapifhir/hapi-fhir/releases/download/v7.2.1/hapi-fhir-7.2.1-cli.zip"
-  sha256 "db23929bd797063d02b7e6ee3cea8db6cbdd98f592cb1a7970e387726aef9857"
+  url "https://github.com/hapifhir/hapi-fhir/releases/download/v7.4.3/hapi-fhir-7.4.3-cli.zip"
+  sha256 "03ad9ccc90609d1d1cea3c9a275f8fa0537dfe042a8ba0d814e6f746e6be2776"
   license "Apache-2.0"
 
   # The "latest" release on GitHub is sometimes for an older major/minor, so we
@@ -16,13 +16,7 @@ class HapiFhirCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "cc329f14a88ef4d84ceba627ff2bc9ab3c9e2a11b0c69bd355d4a8d7d0ad1644"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cc329f14a88ef4d84ceba627ff2bc9ab3c9e2a11b0c69bd355d4a8d7d0ad1644"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cc329f14a88ef4d84ceba627ff2bc9ab3c9e2a11b0c69bd355d4a8d7d0ad1644"
-    sha256 cellar: :any_skip_relocation, sonoma:         "cc329f14a88ef4d84ceba627ff2bc9ab3c9e2a11b0c69bd355d4a8d7d0ad1644"
-    sha256 cellar: :any_skip_relocation, ventura:        "cc329f14a88ef4d84ceba627ff2bc9ab3c9e2a11b0c69bd355d4a8d7d0ad1644"
-    sha256 cellar: :any_skip_relocation, monterey:       "cc329f14a88ef4d84ceba627ff2bc9ab3c9e2a11b0c69bd355d4a8d7d0ad1644"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "881142b88632e6afab408cb36dd1d34e445320037222336aa6e6c11ec2378421"
+    sha256 cellar: :any_skip_relocation, all: "65dcb89ee05498d13b4d1e8bd78a454399357f42a95b4b14855918045b94f398"
   end
 
   depends_on "openjdk"

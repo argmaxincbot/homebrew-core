@@ -9,6 +9,7 @@ class EvernoteBackup < Formula
 
   bottle do
     rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "14bc436a2aca0e93d4d9ee78b9316dec19db2c01ff950d48f176773e3f8d77df"
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "210840b66da829ef385622823ec0331d15d096baf92de2efce1fe6f886d556f2"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "6c6c0cc87507b4e176eb3031c1cde19dcf985106196ebc20b148bdba84545ad4"
     sha256 cellar: :any_skip_relocation, arm64_monterey: "bb64889dd94f7a32784a94169b403c6c4c066dc6f001a98d2900d4c1f5ff695e"
@@ -108,8 +109,9 @@ class EvernoteBackup < Formula
   end
 
   test do
-    output = shell_output("#{bin}/evernote-backup init-db -u test -p test 2>&1", 1)
-    assert_match "Password login disabled", output
+    output = shell_output("#{bin}/evernote-backup init-db -u test -p test --oauth 2>&1", 1)
+    assert_match "Logging in to Evernote...", output
+    assert_match "OAuth requires user input!", output
 
     assert_match version.to_s, shell_output("#{bin}/evernote-backup --version")
   end

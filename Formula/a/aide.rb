@@ -6,6 +6,7 @@ class Aide < Formula
   license "GPL-2.0-or-later"
 
   bottle do
+    sha256 cellar: :any,                 arm64_sequoia:  "366f1aadcab6aaea9eabda7c97ed85cd57c88c14ef22f83f7de5ffb0d4d937a7"
     sha256 cellar: :any,                 arm64_sonoma:   "67de729676b7cef9aaaed2c7b206a7786f6ef9ea9c4afc01b618aff46dcc2b18"
     sha256 cellar: :any,                 arm64_ventura:  "28b109731344ff7448929640721cf9b57b75147dc48552952090adb11e086ab5"
     sha256 cellar: :any,                 arm64_monterey: "50ac76fbb9fdb0ed794ca4def350631b9c297c20635c8609c8efd19b5dd5159c"
@@ -24,6 +25,7 @@ class Aide < Formula
   end
 
   depends_on "pkg-config" => :build
+
   depends_on "libgcrypt"
   depends_on "libgpg-error"
   depends_on "pcre2"
@@ -31,6 +33,7 @@ class Aide < Formula
   uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build
   uses_from_macos "curl"
+  uses_from_macos "zlib"
 
   def install
     # use sdk's strnstr instead
@@ -39,11 +42,9 @@ class Aide < Formula
     system "sh", "./autogen.sh" if build.head?
 
     args = %W[
-      --disable-lfs
       --disable-static
       --with-zlib
       --sysconfdir=#{etc}
-      --prefix=#{prefix}
     ]
 
     args << if OS.mac?
@@ -52,7 +53,7 @@ class Aide < Formula
       "--with-curl=#{Formula["curl"].prefix}"
     end
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args.reject { |s| s["--disable-debug"] }
 
     system "make", "install"
   end
@@ -69,6 +70,6 @@ class Aide < Formula
       database_attrs = sha256
       /etc p+i+u+g+sha256
     EOS
-    system "#{bin}/aide", "--config-check", "-c", "aide.conf"
+    system bin/"aide", "--config-check", "-c", "aide.conf"
   end
 end

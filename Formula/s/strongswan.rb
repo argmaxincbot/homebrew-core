@@ -11,6 +11,7 @@ class Strongswan < Formula
   end
 
   bottle do
+    sha256 arm64_sequoia:  "2d31bce87c8288974edca4a5897ab7d73cdc174597138135e1774bfb5a24bec0"
     sha256 arm64_sonoma:   "5ba10147c3ecf0e90127558b0e71f9b5b5df75c6668d76f911b0aa549f935160"
     sha256 arm64_ventura:  "0fdb596affa3c1c1477487023a78f80ef5335cffa9bfd6301899c382f4c390c2"
     sha256 arm64_monterey: "f6d312b4f5d83e7717c01731dcecaac943579fee5f66e95f4b2afa022a0085eb"
@@ -32,10 +33,10 @@ class Strongswan < Formula
 
   depends_on "openssl@3"
 
+  uses_from_macos "curl"
+
   def install
     args = %W[
-      --disable-dependency-tracking
-      --prefix=#{prefix}
       --sbindir=#{bin}
       --sysconfdir=#{etc}
       --disable-defaults
@@ -69,12 +70,13 @@ class Strongswan < Formula
       --enable-updown
       --enable-x509
       --enable-xauth-generic
+      --enable-curl
     ]
 
     args << "--enable-kernel-pfroute" << "--enable-osx-attr" if OS.mac?
 
     system "./autogen.sh" if build.head?
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make", "install"
   end
 
@@ -85,7 +87,7 @@ class Strongswan < Formula
   end
 
   test do
-    system "#{bin}/ipsec", "--version"
-    system "#{bin}/charon-cmd", "--version"
+    assert_match version.to_s, shell_output("#{bin}/ipsec --version")
+    assert_match version.to_s, shell_output("#{bin}/charon-cmd --version")
   end
 end

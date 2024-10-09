@@ -1,8 +1,4 @@
-require "language/node"
-
 class LandoCli < Formula
-  include Language::Node::Shebang
-
   desc "Cli part of Lando"
   homepage "https://docs.lando.dev/cli"
   url "https://github.com/lando/cli/archive/refs/tags/v3.21.2.tar.gz"
@@ -15,23 +11,23 @@ class LandoCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "cf0b3e960e6648fbafa20d63292b7fd8ac29047cc987d41de56465656b605c20"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "cf0b3e960e6648fbafa20d63292b7fd8ac29047cc987d41de56465656b605c20"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "cf0b3e960e6648fbafa20d63292b7fd8ac29047cc987d41de56465656b605c20"
-    sha256 cellar: :any_skip_relocation, sonoma:         "fe4ed9406dafdaaddf8f1843e64b6d6798b1c200abe3ab66d43ae2b3792d29a1"
-    sha256 cellar: :any_skip_relocation, ventura:        "fe4ed9406dafdaaddf8f1843e64b6d6798b1c200abe3ab66d43ae2b3792d29a1"
-    sha256 cellar: :any_skip_relocation, monterey:       "fe4ed9406dafdaaddf8f1843e64b6d6798b1c200abe3ab66d43ae2b3792d29a1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "646af2fd4cb091ea4a49556b220b4350f0455088b13dfc408b845a7daf3444d0"
+    rebuild 2
+    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "d3a305e43d27240a99f679127bd247afbb401adda932f3d9a78721af40a88bce"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "b9d8a04967096e248ac76dff7fb285bf51ab9315cb8ff0d64e59d2c7140091a8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura:  "b9d8a04967096e248ac76dff7fb285bf51ab9315cb8ff0d64e59d2c7140091a8"
+    sha256 cellar: :any_skip_relocation, arm64_monterey: "b9d8a04967096e248ac76dff7fb285bf51ab9315cb8ff0d64e59d2c7140091a8"
+    sha256 cellar: :any_skip_relocation, sonoma:         "532c6a084e1bef8b5ced5974e881305d28d2a97ee1f888da5d2af5bc9a551f43"
+    sha256 cellar: :any_skip_relocation, ventura:        "532c6a084e1bef8b5ced5974e881305d28d2a97ee1f888da5d2af5bc9a551f43"
+    sha256 cellar: :any_skip_relocation, monterey:       "532c6a084e1bef8b5ced5974e881305d28d2a97ee1f888da5d2af5bc9a551f43"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b9d8a04967096e248ac76dff7fb285bf51ab9315cb8ff0d64e59d2c7140091a8"
   end
 
-  depends_on "node@18"
+  depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
-    # We have to replace the shebang in the main executable from "/usr/bin/env node"
-    rewrite_shebang detected_node_shebang, libexec/"lib/node_modules/@lando/cli/bin/lando"
-    bin.install_symlink Dir["#{libexec}/bin/*"]
-    system "#{bin}/lando", "config", "--channel=none"
+    system "npm", "install", *std_npm_args
+    bin.install libexec.glob("bin/*")
+    bin.env_script_all_files libexec/"bin", LANDO_CHANNEL: "none"
   end
 
   def caveats
@@ -42,7 +38,7 @@ class LandoCli < Formula
   end
 
   test do
-    output = shell_output("#{bin}/lando config --path proxyIp")
-    assert_match "127.0.0.1", output
+    assert_match "none", shell_output("#{bin}/lando config --path channel")
+    assert_match "127.0.0.1", shell_output("#{bin}/lando config --path proxyIp")
   end
 end

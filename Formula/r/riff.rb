@@ -1,18 +1,17 @@
 class Riff < Formula
   desc "Diff filter highlighting which line parts have changed"
   homepage "https://github.com/walles/riff"
-  url "https://github.com/walles/riff/archive/refs/tags/3.2.0.tar.gz"
-  sha256 "e3950b5786fc2953d89dccdec29f1092eeab2f0758bdd582229aab4cf5cb4144"
+  url "https://github.com/walles/riff/archive/refs/tags/3.3.3.tar.gz"
+  sha256 "8bec04631db1f5485fdd8fccc68463ad353aad5bc3e09e072e1d9f0cc774528b"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ebfea5fd615ebd80aba562e43bf9d79da826a935fdb21b18bd755feda9428af7"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "e213f76e5301f29ed49f66e0902519e0db8ae8e523374181f9a81cc63c66d31f"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d3548c66051614ea6bee7bb4ba89a8c9d18ac469941727b7b700926a35607d74"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8ba6b7493b84f230c31cb3b9c79a06c16e11d23cf5f1deb95258ebbbaf4f63c8"
-    sha256 cellar: :any_skip_relocation, ventura:        "a807f01ad19201fd0caa3cbb63bbaa7b627614af443730816fbb8a8262c8f2a9"
-    sha256 cellar: :any_skip_relocation, monterey:       "9ddd23cf6c06c2457ce0d932359717e67f624ef7d25a3cb8233e7e249e558617"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e02d57870f2b0fb0181b6f1ff933856924f5770093e63add60f682dbae1128ec"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d9016eb235055abe6375022c67caa21bb10f09704d7277da4a0ebcff1f4493b9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9dcaef201f69d2406fc9a825368e39b7542e1d0f646353d90da3c000eb12eae9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "333f40fb5d4f432503356fe8e5cf49054263394f28bda6a3a7a8060e94a116a1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1b0fc2cee20c26c2ef5eae7e5ef6198aff0f3f9fb01812dd42a97bae590b2e14"
+    sha256 cellar: :any_skip_relocation, ventura:       "b6815bf13c0c5b567c905f6ea8f702a6d763c7de5092b33cc7ac29cd22692268"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "718ad272cd96dbce4bbfbbecbcfb0cb9683ae4cda78860c1e8e48c3ea0d341fb"
   end
 
   depends_on "rust" => :build

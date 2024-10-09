@@ -3,19 +3,18 @@ class YouGet < Formula
 
   desc "Dumb downloader that scrapes the web"
   homepage "https://you-get.org/"
-  url "https://files.pythonhosted.org/packages/24/e1/6428a1781bb116fa1d61d7173a51c7f2463390a311ea8db2f6c251c4696b/you_get-0.4.1710.tar.gz"
-  sha256 "ecd309e308d3412b970869f6e976d2f8381b1b0888e051aa6c41c9be7e6a3dcc"
+  url "https://files.pythonhosted.org/packages/42/f3/c4bdf49e31ac1c6bc477711a4ec6a276ae0745a3b8fb143c161bf32e8b49/you_get-0.4.1730.tar.gz"
+  sha256 "65457b7b8893f08c082532eb34998dc477f533d32568be3bb34e592bdcb44f88"
   license "MIT"
   head "https://github.com/soimort/you-get.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "0936c0215687f211bf847e57c0090a686412eb604a0630f1efb9e4d36fb29b38"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "7131263466868076f11d8b13b2a2fa00e7fcb7728896b103a91a8a508b200d13"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "5d316dc249ff1128206102615c9038d74ea3b0658fa6660a430bfa461f612f55"
-    sha256 cellar: :any_skip_relocation, sonoma:         "679e88c4c4e10cd4441e6c09ea6a91646057de10362b5802659da7b85b671f75"
-    sha256 cellar: :any_skip_relocation, ventura:        "7082200b4cf6e59a5548b94b76ec61016f8d133302a69a66c13e3ebc1528a2a2"
-    sha256 cellar: :any_skip_relocation, monterey:       "46be605755b6ca9d6b7d12f66fdd9bbfe4a1c375489317af6241a22a87dcfade"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "4465656d3df215d433be695d83a7f734e8fd3da47604b0ddf50c81a58291b64f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7bafc5d5d91a772f38bc134830e6841f222b8cc1d7070d2c2427a4aa6bcfed0a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a52b05849945520bcd8aeff458358127f29fffd583639c4489950b7fd5c25346"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "01568a2dce093060697dcd39cb36609a584d5323a1caa42ca6a546586d0d5076"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5d9babbd967c9beb68d6e08a9fa4f7b4d3a90d61bf1ec4715e1776f00eddedcd"
+    sha256 cellar: :any_skip_relocation, ventura:       "44a775b683865ba5d95cc014b619abb1eac7d3593775a174622ef0a7cb8ae8ba"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "919d3f808e317229b5e32a4eecb1ec539388287d56fd177fe36900c74a9b3dab"
   end
 
   depends_on "python@3.12"
@@ -31,12 +30,6 @@ class YouGet < Formula
     sha256 "1bbbefb67c2e5a57104750bb04b0912200b57b2fa9841be245279e83859cb346"
   end
 
-  # add missing completion files, upstream pr ref, https://github.com/soimort/you-get/pull/3025
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/a2a66d33d00a04307ab87e78c3f81061ecefef0f/you-get/you_get-0.4.1710-missing-file.patch"
-    sha256 "b8b55f43f29986e7ba408135aff48abf091f916526b40ce097eda2db71aa17c7"
-  end
-
   def install
     virtualenv_install_with_resources
     bash_completion.install "contrib/completion/you-get-completion.bash" => "you-get"
@@ -49,8 +42,11 @@ class YouGet < Formula
   end
 
   test do
-    system bin/"you-get", "--info", "https://youtu.be/he2a4xK8ctk"
-
     assert_match version.to_s, shell_output("#{bin}/you-get --version 2>&1")
+
+    # Tests fail with bot detection
+    return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
+
+    system bin/"you-get", "--info", "https://youtu.be/he2a4xK8ctk"
   end
 end

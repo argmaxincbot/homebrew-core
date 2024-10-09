@@ -3,19 +3,19 @@ class Apprise < Formula
 
   desc "Send notifications from the command-line to popular notification services"
   homepage "https://pypi.org/project/apprise/"
-  url "https://files.pythonhosted.org/packages/69/4d/58246222a75eb06c22e3cf5bd2db1a7c07cb9fef6afc919b3f4d1d562a65/apprise-1.8.0.tar.gz"
-  sha256 "e8f58cebfea1a34f569cb4c68809a3175be80ec06f0a2ec473522b92023212c5"
+  url "https://files.pythonhosted.org/packages/92/26/19c26dbf32d31129c50a3568022ae1c9d05c4aac056c0661d9bfea0f7810/apprise-1.9.0.tar.gz"
+  sha256 "b5c93afd6331afe4b63a55d1cea9076e47becb4ba89b562b181c13e25bb0c7d6"
   license "BSD-3-Clause"
-  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "15add4e46e4a00c5a3baa4ff92d19f31c97171a46ef64773e41720e6e22a7410"
-    sha256 cellar: :any,                 arm64_ventura:  "e767b344d1b6a671e6f9fa58eaa21f31a3f83f7d10f1c1c80a2cf35ce625e193"
-    sha256 cellar: :any,                 arm64_monterey: "3ef8cd21c18568018e0da51b37bb48b1bd90d65c25ec0648389ad1d670c4ae6c"
-    sha256 cellar: :any,                 sonoma:         "5bb2171a6e6105d916703910c71a39fd20bdfe1b7d345cf15a5bc3ef183ab1f7"
-    sha256 cellar: :any,                 ventura:        "2cda9322ad0f107523bd31f5bca21ec4243fcc3598b872f610b38046594afe55"
-    sha256 cellar: :any,                 monterey:       "2f666c6e5b90d45f2afcb95de34781216ffe7116bb6d3c24a69aab5d3a1049d2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "190153df23b46b41968752405e131d9a56f0e9050f18b9cd4dfa48ee903dba47"
+    sha256 cellar: :any,                 arm64_sequoia:  "7deaba0616e53070e2a13d6f7bf261edb9a0b8b604e6ab0b7c155e948679e0a5"
+    sha256 cellar: :any,                 arm64_sonoma:   "97e4d28d415cfbb7a5c1abc9b2973810c5645cf8624e80b0db450916ad8d9f71"
+    sha256 cellar: :any,                 arm64_ventura:  "de12f6fd48cb177beddb0ad51b09076b2b766d7886adc63a48bae33b06ed1792"
+    sha256 cellar: :any,                 arm64_monterey: "67638d93bd56e3fe449990851f6bcf8226ab99b9286f9ae66292d1339b188f71"
+    sha256 cellar: :any,                 sonoma:         "18006063fa301b346465d819438db43cabba101a51005c475d5b29128b73c7cf"
+    sha256 cellar: :any,                 ventura:        "2fd0e993d7b19571f3940c9a3eddb38c5316c8413b5271bd124c4c1993c12c77"
+    sha256 cellar: :any,                 monterey:       "4e533696f9c24ef5516bf096f0bf07b7662a6663df660731e1b4f1248394e163"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:   "bb0ec37705f1284204ac4b26a1c211998745a4544d88cd0e02c090d8d1cb36fe"
   end
 
   depends_on "certifi"
@@ -33,13 +33,13 @@ class Apprise < Formula
   end
 
   resource "idna" do
-    url "https://files.pythonhosted.org/packages/21/ed/f86a79a07470cb07819390452f178b3bef1d375f2ec021ecfc709fc7cf07/idna-3.7.tar.gz"
-    sha256 "028ff3aadf0609c1fd278d8ea3089299412a7a8b9bd005dd08b9f8285bcb5cfc"
+    url "https://files.pythonhosted.org/packages/e8/ac/e349c5e6d4543326c6883ee9491e3921e0d07b55fdf3cce184b40d63e72a/idna-3.8.tar.gz"
+    sha256 "d838c2c0ed6fced7693d5e8ab8e734d5f8fda53a039c0164afb0b82e771e3603"
   end
 
   resource "markdown" do
-    url "https://files.pythonhosted.org/packages/22/02/4785861427848cc11e452cc62bb541006a1087cf04a1de83aedd5530b948/Markdown-3.6.tar.gz"
-    sha256 "ed4f41f6daecbeeb96e576ce414c41d2d876daa9a16cb35fa8ed8c2ddfad0224"
+    url "https://files.pythonhosted.org/packages/54/28/3af612670f82f4c056911fbbbb42760255801b3068c48de792d354ff4472/markdown-3.7.tar.gz"
+    sha256 "2ae2471477cfd02dbbf038d5d9bc226d40def84b4fe2986e49b59b6b472bbed2"
   end
 
   resource "oauthlib" do
@@ -48,8 +48,8 @@ class Apprise < Formula
   end
 
   resource "pyyaml" do
-    url "https://files.pythonhosted.org/packages/cd/e5/af35f7ea75cf72f2cd079c95ee16797de7cd71f29ea7c68ae5ce7be1eda0/PyYAML-6.0.1.tar.gz"
-    sha256 "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
+    url "https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz"
+    sha256 "d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e"
   end
 
   resource "requests" do
@@ -73,7 +73,7 @@ class Apprise < Formula
 
   test do
     # Setup a custom notifier that can be passed in as a plugin
-    brewtest_notifier_file = "#{testpath}/brewtest_notifier.py"
+    file = "#{testpath}/brewtest_notifier.py"
     apprise_plugin_definition = <<~EOS
       from apprise.decorators import notify
 
@@ -83,22 +83,14 @@ class Apprise < Formula
         print("{}: {}".format(title, body))
     EOS
 
-    File.write(brewtest_notifier_file, apprise_plugin_definition)
+    File.write(file, apprise_plugin_definition)
 
     charset = Array("A".."Z") + Array("a".."z") + Array(0..9)
-    brewtest_notification_title = charset.sample(32).join
-    brewtest_notification_body = charset.sample(256).join
+    title = charset.sample(32).join
+    body = charset.sample(256).join
 
     # Run the custom notifier and make sure the output matches the expected value
-    assert_match \
-      "#{brewtest_notification_title}: #{brewtest_notification_body}", \
-      shell_output(
-        "#{bin}/apprise" \
-        + " " + %Q(-P "#{brewtest_notifier_file}") \
-        + " " + %Q(-t "#{brewtest_notification_title}") \
-        + " " + %Q(-b "#{brewtest_notification_body}") \
-        + " " + '"brewtest://"' \
-        + " " + "2>&1",
-      )
+    assert_match "#{title}: #{body}",
+      shell_output("#{bin}/apprise -P \"#{file}\" -t \"#{title}\" -b \"#{body}\" \"brewtest://\" 2>&1")
   end
 end

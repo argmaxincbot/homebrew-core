@@ -1,19 +1,18 @@
 class Fb303 < Formula
   desc "Thrift functions for querying information from a service"
   homepage "https://github.com/facebook/fb303"
-  url "https://github.com/facebook/fb303/archive/refs/tags/v2024.07.08.00.tar.gz"
-  sha256 "8eed694dbd54de87cea60634111061d4d7284a4cdf920ec3366516120385290a"
+  url "https://github.com/facebook/fb303/archive/refs/tags/v2024.10.07.00.tar.gz"
+  sha256 "dcd9b86b9326324a572ac31eda6aca63c5976b21095f2733832adb314e1b7085"
   license "Apache-2.0"
   head "https://github.com/facebook/fb303.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "c199f8b3a8f9c458ffea1417e7f2c92cba24efb871b7134bf32d14864c4aac0e"
-    sha256 cellar: :any,                 arm64_ventura:  "1107eb4c6aff820d76850809de74d4d64637b82a16b2de58c34a011317a474a6"
-    sha256 cellar: :any,                 arm64_monterey: "47089bff633d1f44277d53ea2c6b8d517da793eccdc251c0a8d0b2bc5ecc9d68"
-    sha256 cellar: :any,                 sonoma:         "ec27aadb7bd70b5a5bf232e52c49840510f5faaf5ffd239c335effaa8b41cfa3"
-    sha256 cellar: :any,                 ventura:        "3eb1d4063c9bdcb1e9b2b877043cbf8801b00e9e2990a48a918092ae689ead78"
-    sha256 cellar: :any,                 monterey:       "ea0e60ed4984fc613f9e3067e08c6d7df5f7b56f4fd8a50766f31d3273bd9ef5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "e33dd3179b40878f2dec024bf8db79fe9d2a82b8667f1b1f91da56f6e8af09ad"
+    sha256 cellar: :any,                 arm64_sequoia: "74fc74a3ce4f0b4e8bd93108529beb1cd4f364477ce629a66210eacc8301a49a"
+    sha256 cellar: :any,                 arm64_sonoma:  "726cb796802db922e9813f7cac4c5c0ea0817b926db5fbbe6fdf00ff3fb400f3"
+    sha256 cellar: :any,                 arm64_ventura: "21807ff31dcbcc6ac9516456853f92a0951298b6a9bbf00aa1df2c7d3abecb32"
+    sha256 cellar: :any,                 sonoma:        "3772d4926622179f712cf4adf4fc9eabecca0d20f0aabd1a0ee485c5ac85597f"
+    sha256 cellar: :any,                 ventura:       "91145fee399b928a1cf7ba92a2f5d92e3f929117ba112927349f40a700fdcfec"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "21745dbf6545edf4debd0c2345aeb133769f485869a533bbbcdeded2192b02e5"
   end
 
   depends_on "cmake" => :build
@@ -59,7 +58,6 @@ class Fb303 < Formula
                     "-L#{Formula["folly"].opt_lib}", "-lfolly",
                     "-L#{Formula["glog"].opt_lib}", "-lglog",
                     "-L#{Formula["fbthrift"].opt_lib}", "-lthriftprotocol", "-lthriftcpp2",
-                    "-L#{Formula["boost"].opt_lib}", "-lboost_context-mt",
                     "-ldl"
     assert_equal "BaseService", shell_output("./test").strip
   end

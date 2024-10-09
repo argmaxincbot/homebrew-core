@@ -1,30 +1,31 @@
 class OpenjdkAT21 < Formula
   desc "Development kit for the Java programming language"
   homepage "https://openjdk.java.net/"
-  url "https://github.com/openjdk/jdk21u/archive/refs/tags/jdk-21.0.3-ga.tar.gz"
-  sha256 "818e9dee28ae390f2781406d594690fc42bd994d078ad9f8360a4fbca6a3df1f"
+  url "https://github.com/openjdk/jdk21u/archive/refs/tags/jdk-21.0.4-ga.tar.gz"
+  sha256 "9223a0f1db1b7ee0ca480e010d6473a8be72eaae93d883fd31ef9ba6dcc41014"
   license "GPL-2.0-only" => { with: "Classpath-exception-2.0" }
 
   livecheck do
     url :stable
-    regex(/^jdk[._-]v?(21+(?:\.\d+)*)-ga$/i)
+    regex(/^jdk[._-]v?(21(?:\.\d+)*)-ga$/i)
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sonoma:   "aec482cdb96996ba9402067cd88be0299cd887e5b87e4c18b0b2d1deb3ed3106"
-    sha256 cellar: :any, arm64_ventura:  "0956a035050c26af4e25301c2df59627eaf3bfcf354320c90d7905983c3352b0"
-    sha256 cellar: :any, arm64_monterey: "e40e95bb72f9b6d95734118f7919c50e0c2548c5da59af924ffb4c9623cdc45b"
-    sha256 cellar: :any, sonoma:         "a2dcea077166caf52638df5b15364471ea8d77eaef42a597f1588846814bdeea"
-    sha256 cellar: :any, ventura:        "1aaf0f1992b80735642a7748f4601f9118ce5aa42814d1acb53b757bed2ba7e7"
-    sha256 cellar: :any, monterey:       "880517d05b646ad165ff7a8d82e23ab242f1f72240fca01d8746b4e081d52941"
-    sha256               x86_64_linux:   "96aa8a414f7742f0dae62d45b3fe9732efe3ea0395913f8b7f1c5eccf3f994bb"
+    rebuild 1
+    sha256 cellar: :any, arm64_sequoia: "ff9be059a2b547f3cfdddb1b792d685364bc16de5eaa9f5ae8445427406c2c42"
+    sha256 cellar: :any, arm64_sonoma:  "662eb304057aca4c0cc576ae5d8a6c758cca8c74a1b4fccae1c907e230f058e5"
+    sha256 cellar: :any, arm64_ventura: "ba67b3a2342fca6c59979ccb74635c93e5175a403f48c5f45e86ad2c31e3d2a1"
+    sha256 cellar: :any, sonoma:        "fda375d3c9a697bdb4ae19828119c70197df8a66c8016cb77bc964abbbf48f19"
+    sha256 cellar: :any, ventura:       "ef7bda0b95553f2bc976a96737c950a2cecfd44b14543924edde5e1373a4da99"
+    sha256               x86_64_linux:  "6af28eff1edd803ef9893b52897854a9a09c97993133fb5850a8410cc0b67a98"
   end
 
   keg_only :versioned_formula
 
   depends_on "autoconf" => :build
   depends_on "pkg-config" => :build
-  depends_on xcode: :build
+  depends_on xcode: :build # for metal
+  depends_on "freetype"
   depends_on "giflib"
   depends_on "harfbuzz"
   depends_on "jpeg-turbo"
@@ -37,10 +38,22 @@ class OpenjdkAT21 < Formula
   uses_from_macos "zip"
   uses_from_macos "zlib"
 
+  on_macos do
+    if DevelopmentTools.clang_build_version == 1600
+      depends_on "llvm" => :build
+
+      fails_with :clang do
+        cause <<~EOS
+          Error: Unable to initialize main class build.tools.jigsaw.AddPackagesAttribute
+          Caused by: java.lang.ClassFormatError: StackMapTable format error: access beyond the end of attribute
+        EOS
+      end
+    end
+  end
+
   on_linux do
     depends_on "alsa-lib"
     depends_on "fontconfig"
-    depends_on "freetype"
     depends_on "libx11"
     depends_on "libxext"
     depends_on "libxi"
@@ -77,6 +90,12 @@ class OpenjdkAT21 < Formula
   end
 
   def install
+    if DevelopmentTools.clang_build_version == 1600
+      ENV.llvm_clang
+      # Prevent linkage with LLVM libunwind.
+      ENV.remove "HOMEBREW_LIBRARY_PATHS", Formula["llvm"].opt_lib
+    end
+
     boot_jdk = buildpath/"boot-jdk"
     resource("boot-jdk").stage boot_jdk
     boot_jdk /= "Contents/Home" if OS.mac?
@@ -97,6 +116,7 @@ class OpenjdkAT21 < Formula
       --with-version-build=#{revision}
       --without-version-opt
       --without-version-pre
+      --with-freetype=system
       --with-giflib=system
       --with-harfbuzz=system
       --with-lcms=system
@@ -109,8 +129,13 @@ class OpenjdkAT21 < Formula
     args += if OS.mac?
       ldflags << "-headerpad_max_install_names"
 
+      # Allow unbundling `freetype` on macOS
+      inreplace "make/autoconf/lib-freetype.m4", '= "xmacosx"', '= ""'
+
       %W[
         --enable-dtrace
+        --with-freetype-include=#{Formula["freetype"].opt_include}
+        --with-freetype-lib=#{Formula["freetype"].opt_lib}
         --with-sysroot=#{MacOS.sdk_path}
       ]
     else
@@ -118,7 +143,6 @@ class OpenjdkAT21 < Formula
         --with-x=#{HOMEBREW_PREFIX}
         --with-cups=#{HOMEBREW_PREFIX}
         --with-fontconfig=#{HOMEBREW_PREFIX}
-        --with-freetype=system
         --with-stdc++lib=dynamic
       ]
     end
