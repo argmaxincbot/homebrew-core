@@ -1,18 +1,18 @@
 class Fb303 < Formula
   desc "Thrift functions for querying information from a service"
   homepage "https://github.com/facebook/fb303"
-  url "https://github.com/facebook/fb303/archive/refs/tags/v2024.10.07.00.tar.gz"
-  sha256 "dcd9b86b9326324a572ac31eda6aca63c5976b21095f2733832adb314e1b7085"
+  url "https://github.com/facebook/fb303/archive/refs/tags/v2024.10.28.00.tar.gz"
+  sha256 "522f4ba3eb8781c72eeb62896606be72d85753321bbe495903f3b8eed9c19253"
   license "Apache-2.0"
   head "https://github.com/facebook/fb303.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "74fc74a3ce4f0b4e8bd93108529beb1cd4f364477ce629a66210eacc8301a49a"
-    sha256 cellar: :any,                 arm64_sonoma:  "726cb796802db922e9813f7cac4c5c0ea0817b926db5fbbe6fdf00ff3fb400f3"
-    sha256 cellar: :any,                 arm64_ventura: "21807ff31dcbcc6ac9516456853f92a0951298b6a9bbf00aa1df2c7d3abecb32"
-    sha256 cellar: :any,                 sonoma:        "3772d4926622179f712cf4adf4fc9eabecca0d20f0aabd1a0ee485c5ac85597f"
-    sha256 cellar: :any,                 ventura:       "91145fee399b928a1cf7ba92a2f5d92e3f929117ba112927349f40a700fdcfec"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "21745dbf6545edf4debd0c2345aeb133769f485869a533bbbcdeded2192b02e5"
+    sha256 cellar: :any,                 arm64_sequoia: "85bc3324e573bd178e1c12d1e59a0743d035a07d409e4f2a28dfacf9abbc0705"
+    sha256 cellar: :any,                 arm64_sonoma:  "93c483677f171db1e78bb949616e413dd718da85069bc30d7e7cd6b96bb6eb78"
+    sha256 cellar: :any,                 arm64_ventura: "70bfb47b6f0eb062a6d5de2bb4f1cb390b2f902af84d9a142eba1dfe35d0dce2"
+    sha256 cellar: :any,                 sonoma:        "886df4cf31e29bcae2d58bf059f5839c52fc5d74ae42bf4b2f003ca6cd1f20e1"
+    sha256 cellar: :any,                 ventura:       "ccd87482a90b6ca408af175af6a7d4d21598cf632c76f68714bf749776af7db7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "16df85a831a13d682ef61d1f9c244065e2c4a9f19396b28219bf10b2299b99dc"
   end
 
   depends_on "cmake" => :build
@@ -36,7 +36,7 @@ class Fb303 < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "fb303/thrift/gen-cpp2/BaseService.h"
       #include <iostream>
       int main() {
@@ -44,7 +44,7 @@ class Fb303 < Formula
         std::cout << service.getGeneratedName() << std::endl;
         return 0;
       }
-    EOS
+    CPP
 
     if Tab.for_formula(Formula["folly"]).built_as_bottle
       ENV.remove_from_cflags "-march=native"

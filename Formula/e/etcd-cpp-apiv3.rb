@@ -4,15 +4,15 @@ class EtcdCppApiv3 < Formula
   url "https://github.com/etcd-cpp-apiv3/etcd-cpp-apiv3/archive/refs/tags/v0.15.4.tar.gz"
   sha256 "4516ecfa420826088c187efd42dad249367ca94ea6cdfc24e3030c3cf47af7b4"
   license "BSD-3-Clause"
-  revision 14
+  revision 16
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "20f82f903c044f30052624d69290f367cb7248ae3ff900cd73c97cdde5335980"
-    sha256 cellar: :any,                 arm64_sonoma:  "89a4f902089ae743c5f9184688b541eb3d3f26b07913b6005b028acef95e0a26"
-    sha256 cellar: :any,                 arm64_ventura: "f33bd97d8719d53827ec7cce7db75fd73f0099da61d8c13e5ea4fbe12b834afa"
-    sha256 cellar: :any,                 sonoma:        "c65b3c92fedd6054081e76acad4563f760668aeb24045234207826ce681b7d34"
-    sha256 cellar: :any,                 ventura:       "25591125d3f5cc23e6758e50c85fb4561b477c02aa72cd68e28a2c841ff9e854"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2b576c7af75c11d05ae1eb34132d64617b16c2d41dbe43e7c70ce0a25a4be9dd"
+    sha256 cellar: :any,                 arm64_sequoia: "1b76b96cd7d80e7cb2e0ba90b92d60a1bf89d796d29605a871d96c8f8c06b346"
+    sha256 cellar: :any,                 arm64_sonoma:  "1078d19094b4bed5bd5240e17cb44135a734b83af555b3715a491736efb6ebe1"
+    sha256 cellar: :any,                 arm64_ventura: "4910990971259b62ec78f64ee52157abdda1fdd7194adda3e0f899b5ae91037c"
+    sha256 cellar: :any,                 sonoma:        "1323673be616c96ec491f3a5783c1c7b4d46c185d12f1a6ca2bf864b97a30a74"
+    sha256 cellar: :any,                 ventura:       "55c2b4ca0e633f6bbb72449dc273642f5c76524f4bea669304e6e6921da77209"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "85820d60681bb9666dbe24ef55af6c0759cb0ef12eb71df3e2e6a6a9545fb25f"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -50,7 +50,7 @@ class EtcdCppApiv3 < Formula
   test do
     port = free_port
 
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include <iostream>
       #include <etcd/Client.hpp>
 
@@ -60,7 +60,7 @@ class EtcdCppApiv3 < Formula
         auto response = etcd.get("foo").get();
         std::cout << response.value().as_string() << std::endl;
       }
-    EOS
+    CPP
 
     (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)

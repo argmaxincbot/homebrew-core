@@ -9,15 +9,13 @@ class OnlykeyAgent < Formula
   revision 4
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia:  "721db5ab1fa1e95c876e7d8c92aed89fe0d85688072c8710c8f168149a686375"
-    sha256 cellar: :any,                 arm64_sonoma:   "c7cb8403034bb4e162ff467f786eca2907e179adc0ba565b68a50b02d259f23e"
-    sha256 cellar: :any,                 arm64_ventura:  "22a47bfffce9d5a5a0693247ca23391d2a46fd9329ebc2faf3fed820a5dc30c9"
-    sha256 cellar: :any,                 arm64_monterey: "a82d7d8c0addca8a9df7458f0d4d7de2ca0a30e527624b7684fe5302d9544c90"
-    sha256 cellar: :any,                 sonoma:         "3bd3d77be82cb2fe39e9b8bc1bd47f6f2834ab03ff6c34da0f5821adb3075a0f"
-    sha256 cellar: :any,                 ventura:        "eac0d79fe461401b24d4388ca21ac2dae43eec0e8c626bd27f0361fe04990bc5"
-    sha256 cellar: :any,                 monterey:       "2c6153c9e3783c6547433949dd2659376c33f8145a689f6c996c2db6f67f56b8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "be0ded589edf430a6570c175b163a428422ba613da9579eee1c44a830b3e05f7"
+    rebuild 4
+    sha256 cellar: :any,                 arm64_sequoia: "578b3e7585ba22db0a55dc22ab4deafcfb5243299ad83d2cc8b63cd31a44bb31"
+    sha256 cellar: :any,                 arm64_sonoma:  "e10e2d0ca22b5943a613caede355ffc79413e2e20da21080e7e1cb8c8b9ce2a2"
+    sha256 cellar: :any,                 arm64_ventura: "9c07be0a417f0a5a86cc4a7b2c4fe4a6ea83affd679a75a07888f00822cd878f"
+    sha256 cellar: :any,                 sonoma:        "7287d93d7b7a57b57a327c56dea7bda275628d56fd4b5c600f98ba50b31e5238"
+    sha256 cellar: :any,                 ventura:       "d2c35e91101b7a27cb88d5248088a809c8ba50219d648ba90707e330fab23b3c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "64d86873e97fa9e89aa54cbf77ef7ee139696fe68b93ed7664fd1b7c690c659a"
   end
 
   depends_on "pkg-config" => :build
@@ -25,8 +23,9 @@ class OnlykeyAgent < Formula
   depends_on "cryptography"
   depends_on "gnupg"
   depends_on "hidapi"
-  depends_on "libusb"
-  depends_on "python@3.12"
+  depends_on "libsodium" # for pynacl
+  depends_on "libusb" # for pyusb
+  depends_on "python@3.13"
 
   resource "aenum" do
     url "https://files.pythonhosted.org/packages/d0/f8/33e75863394f42e429bb553e05fda7c59763f0fd6848de847a25b3fbccf6/aenum-3.1.15.tar.gz"
@@ -44,8 +43,8 @@ class OnlykeyAgent < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
-    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+    url "https://files.pythonhosted.org/packages/f2/4f/e1808dc01273379acc506d18f1504eb2d299bd4131743b9fc54d7be4df1e/charset_normalizer-3.4.0.tar.gz"
+    sha256 "223217c3d4f82c3ac5e29032b3f1c2eb0fb591b72161f86d93f5719079dae93e"
   end
 
   resource "click" do
@@ -144,8 +143,8 @@ class OnlykeyAgent < Formula
   end
 
   resource "python-daemon" do
-    url "https://files.pythonhosted.org/packages/84/50/97b81327fccbb70eb99f3c95bd05a0c9d7f13fb3f4cfd975885110d1205a/python-daemon-3.0.1.tar.gz"
-    sha256 "6c57452372f7eaff40934a1c03ad1826bf5e793558e87fef49131e6464b4dae5"
+    url "https://files.pythonhosted.org/packages/54/cd/d62884732e5d6ff6906234169d06338d53e37243c60cf73679c8942f9e42/python_daemon-3.1.0.tar.gz"
+    sha256 "fdb621d7e5f46e74b4de1ad6b0fff6e69cd91b4f219de1476190ebdd0f4781df"
   end
 
   resource "pyusb" do
@@ -164,8 +163,8 @@ class OnlykeyAgent < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/b8/f21073fde99492b33ca357876430822e4800cdf522011f18041351dfa74b/setuptools-75.1.0.tar.gz"
-    sha256 "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
+    url "https://files.pythonhosted.org/packages/07/37/b31be7e4b9f13b59cde9dcaeff112d401d49e0dc5b37ed4a9fc8fb12f409/setuptools-75.2.0.tar.gz"
+    sha256 "753bb6ebf1f465a1912e19ed1d41f403a79173a9acf66a42e7e6aec45c3c16ec"
   end
 
   resource "six" do
@@ -194,15 +193,9 @@ class OnlykeyAgent < Formula
   end
 
   def install
-    ENV["HIDAPI_SYSTEM_HIDAPI"] = ENV["HIDAPI_WITH_LIBUSB"] = "1"
-    venv = virtualenv_install_with_resources without: "python-daemon"
-
-    # Workaround breaking change in `setuptools`: https://pagure.io/python-daemon/issue/94
-    resource("python-daemon").stage do
-      inreplace "version.py", "import setuptools.extern.packaging.version", ""
-      inreplace "version.py", "self.validate_version(version)", ""
-      venv.pip_install Pathname.pwd
-    end
+    ENV["HIDAPI_SYSTEM_HIDAPI"] = "1"
+    ENV["SODIUM_INSTALL"] = "system"
+    virtualenv_install_with_resources
   end
 
   test do

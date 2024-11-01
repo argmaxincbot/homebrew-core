@@ -3,8 +3,8 @@ class Emscripten < Formula
   homepage "https://emscripten.org/"
   # To automate fetching the required resource revisions, you can use this helper script:
   #   https://gist.github.com/carlocab/2db1d7245fa0cd3e92e01fe37b164021
-  url "https://github.com/emscripten-core/emscripten/archive/refs/tags/3.1.68.tar.gz"
-  sha256 "cfe270764458fcdba148b0f496abbddaeccf176891aa0096ee7b58696e407c08"
+  url "https://github.com/emscripten-core/emscripten/archive/refs/tags/3.1.70.tar.gz"
+  sha256 "b7c687105e55b7398c8b4cc059427b52fe81a4b159ac7829a689870ae67780bd"
   license all_of: [
     "Apache-2.0", # binaryen
     "Apache-2.0" => { with: "LLVM-exception" }, # llvm
@@ -18,17 +18,18 @@ class Emscripten < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e5cf029f19b88089b0bbf404e75f989a5c18f0b5e63b68a51946d621653da1ad"
-    sha256 cellar: :any,                 arm64_sonoma:  "5790378961eda63057f46b62bbdf680b95e176f24300c0e51ddd62bee5314f22"
-    sha256 cellar: :any,                 arm64_ventura: "23676365fa73dd9103417eda52ed4641e1ea31ac36537b4dddb3711b95240114"
-    sha256 cellar: :any,                 sonoma:        "8fbe008e6d366d86718307c4c0380764134b7c01137376194920453cf99f0687"
-    sha256 cellar: :any,                 ventura:       "6cc661a49b9c1c2dcb132d9f1e0e795f29ee0aa86d5a859ab27c8dc54b37c17b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ecba8b292d88277726b903b8ba55ce646c3a8e82bc712ae29d7104da1fa12582"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "e0d0967fd9746a2b4866622e6e1a603accab12c5113c2bf06c9bdb61d5a3f318"
+    sha256 cellar: :any,                 arm64_sonoma:  "f81c1d6f84a2806042817aa10c4a8037f6dc2304ffe788c2f9f64f47dead2758"
+    sha256 cellar: :any,                 arm64_ventura: "157562e3fe8a69faa47ccbe88e4e6464f5038efc36fd5ccbcd0ee446d5cd7fb8"
+    sha256 cellar: :any,                 sonoma:        "711446bd9f39dd76631ae83263e4f35283dedd4fdea125527dcea1abae89dea1"
+    sha256 cellar: :any,                 ventura:       "8ddfe99bddc8df0ae446df70fd3495d4b272d1ae6aac391367748409c39fbce5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5c06871e41efc59d2d71452437236586d7bee1c8a2efce4d539e650008ff341f"
   end
 
   depends_on "cmake" => :build
   depends_on "node"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "yuicompressor"
 
   uses_from_macos "llvm" => :build
@@ -64,7 +65,7 @@ class Emscripten < Formula
   # Then use the listed binaryen_revision for the revision below.
   resource "binaryen" do
     url "https://github.com/WebAssembly/binaryen.git",
-        revision: "d8c1b0c0ceb4cc4eb59f3f3ab4840636c78e2a44"
+        revision: "dcc70bbfb16c2f8fce29dad94d80d1b78123655f"
   end
 
   # emscripten does not support using the stable version of LLVM.
@@ -72,8 +73,8 @@ class Emscripten < Formula
   # See binaryen resource above for instructions on how to update this.
   # Then use the listed llvm_project_revision for the tarball below.
   resource "llvm" do
-    url "https://github.com/llvm/llvm-project/archive/5cc64bf60bc04b9315de3c679eb753de4d554a8a.tar.gz"
-    sha256 "29468bf46f23fa893ec1332bb70ae24f44897b9865fd4354a9f51ad1c8ff0174"
+    url "https://github.com/llvm/llvm-project/archive/5d07162bba0648f5a5733039a7795eb7e9913863.tar.gz"
+    sha256 "0261815ddff45bfcdb9996623a5a18f1270b5583b58d312f07cbeca6405a621d"
   end
 
   def install
@@ -178,7 +179,7 @@ class Emscripten < Formula
 
     # Add JAVA_HOME to env_script on ARM64 macOS and Linux, so that google-closure-compiler
     # can find OpenJDK
-    emscript_env = { PYTHON: Formula["python@3.12"].opt_bin/"python3.12" }
+    emscript_env = { PYTHON: Formula["python@3.13"].opt_bin/"python3.13" }
     emscript_env.merge! Language::Java.overridable_java_home_env if OS.linux? || Hardware::CPU.arm?
 
     emscripts.each do |emscript|
@@ -219,16 +220,14 @@ class Emscripten < Formula
     # Avoid errors on Linux when other formulae like `sdl12-compat` are installed
     ENV.delete "CPATH"
 
-    ENV["NODE_OPTIONS"] = "--no-experimental-fetch"
-
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       int main()
       {
         printf("Hello World!");
         return 0;
       }
-    EOS
+    C
 
     system bin/"emcc", "test.c", "-o", "test.js", "-s", "NO_EXIT_RUNTIME=0"
     assert_equal "Hello World!", shell_output("node test.js").chomp

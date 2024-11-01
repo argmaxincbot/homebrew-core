@@ -3,8 +3,8 @@ class LlamaCpp < Formula
   homepage "https://github.com/ggerganov/llama.cpp"
   # CMake uses Git to generate version information.
   url "https://github.com/ggerganov/llama.cpp.git",
-      tag:      "b3892",
-      revision: "96b69121033d2b6b951d1b6b1b43f8b4f97dac99"
+      tag:      "b4002",
+      revision: "85679d37f34f66783cc04664a06c405b28e8e035"
   license "MIT"
   head "https://github.com/ggerganov/llama.cpp.git", branch: "master"
 
@@ -14,12 +14,12 @@ class LlamaCpp < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "7832988bb544d8c0dfbf16e693cf69b42e1b0ae4805202e40196854beda2f4e7"
-    sha256 cellar: :any,                 arm64_sonoma:  "30844cd82b7184266744357c60b350f7ac6da828be57987706750fd976adcf6b"
-    sha256 cellar: :any,                 arm64_ventura: "08faa718323079f1e88ea665bd6e87ea8b7f9fd9f6e8844df3cab8092aeb6d81"
-    sha256 cellar: :any,                 sonoma:        "db89ece1e8c3f75a41eb7946e4a305bab46a882781eeb2f71bee1108df6f01fa"
-    sha256 cellar: :any,                 ventura:       "f66a20e447bb85a342ab6377c4643af3adae556f3c16cfdf5b2871d171614b03"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e2f26fd8d79e59715530c2351fbb842c50f63a0fb35c370fbf36a776ebd3f5a4"
+    sha256 cellar: :any,                 arm64_sequoia: "1eb381d6e638f74121abbd32f02f9b245d7e018fd5d71b946b1dfe4a5453af13"
+    sha256 cellar: :any,                 arm64_sonoma:  "c520248c01ff5b1405eeec4b6991e348aa220a3ac166acccb7c9dcb6af1caa63"
+    sha256 cellar: :any,                 arm64_ventura: "4ccdd8a3f58c5d5b67da9b8903447d2afd229c51cc8c29d82dd9776fe253b8a8"
+    sha256 cellar: :any,                 sonoma:        "db89a3d34017da357b61ac9fa285b4afa222bad7ae71007bba405fe7ac5b8463"
+    sha256 cellar: :any,                 ventura:       "16946e58273bda0c4db68dcb9e38397e32698c381ee0833bee6f6bfe4a229838"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "57bd3550edf42c40ae873be3bf899e9ec29cd3771b442c726161513fb5d70415"
   end
 
   depends_on "cmake" => :build
@@ -40,7 +40,7 @@ class LlamaCpp < Formula
       -DGGML_BLAS_VENDOR=#{OS.mac? ? "Apple" : "OpenBLAS"}
       -DGGML_CCACHE=OFF
       -DGGML_LTO=ON
-      -DGGML_METAL=#{OS.mac? ? "ON" : "OFF"}
+      -DGGML_METAL=#{(OS.mac? && !Hardware::CPU.intel?) ? "ON" : "OFF"}
       -DGGML_METAL_EMBED_LIBRARY=#{OS.mac? ? "ON" : "OFF"}
       -DGGML_NATIVE=#{build.bottle? ? "OFF" : "ON"}
       -DLLAMA_ALL_WARNINGS=OFF

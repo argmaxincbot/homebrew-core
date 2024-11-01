@@ -1,21 +1,20 @@
 class Libdpp < Formula
   desc "C++ Discord API Bot Library"
   homepage "https://github.com/brainboxdotcc/DPP"
-  url "https://github.com/brainboxdotcc/DPP/releases/download/v10.0.31/DPP-10.0.31.tar.gz"
-  sha256 "3e392868c0dc3d0f13a00cfa190a925a20bde62bea58fd87d4acf14de11062bf"
+  url "https://github.com/brainboxdotcc/DPP/releases/download/v10.0.34/DPP-10.0.34.tar.gz"
+  sha256 "58eee75e81ac305db0b71a8cd4b821ff3cabcdfa0575e56ba5e4ce543531bd2f"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "caca507c748a87343aa57cd401b3f6a877908a871067150214aaa7886dd3f6b4"
-    sha256 cellar: :any,                 arm64_sonoma:  "02a2eb1a65915b5c94149c61def6885f535d79ef5bfb06bc1c99d15594da4e07"
-    sha256 cellar: :any,                 arm64_ventura: "d34a8ba6bfea8971c54f047f53605c96e2573efe011ff7d73be71eca6e2ef82a"
-    sha256 cellar: :any,                 sonoma:        "6f6367a163706da5ecd97e9bd9a75748f4564b3652b6323638d1aec7ea85e41d"
-    sha256 cellar: :any,                 ventura:       "2c8a3d92988233d81fb220951b0e0bc45b59761af50941cf34225b1beeb65de4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "37a8a895a2484c52498d2e35f151224a5050345fa516abaedf8c368e91550312"
+    sha256 cellar: :any,                 arm64_sequoia: "a075bd776660c37b349ef2e6c86ad37c5813ed9e33648f3fe47888262b2574ff"
+    sha256 cellar: :any,                 arm64_sonoma:  "2bb8f8d74451bd379aad11459903bc3c2a2c9cdb27984693a3806542be615bc1"
+    sha256 cellar: :any,                 arm64_ventura: "aaade5bfb2eaadc80cb5486d6c942d04c2082c1be4190aecf7716f0d6623f28a"
+    sha256 cellar: :any,                 sonoma:        "81ec988d349f7149e529c7bb078e8fe4b4b3ac9a260c36550583227a47ddce2f"
+    sha256 cellar: :any,                 ventura:       "228260124303ed832363531f72a943c496618a99fef085342a0b566c21aa60e7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6ce18c7568f4a581a82a211f6e68d61bf3c63150b59276e61a840827fb97bbb2"
   end
 
   depends_on "cmake" => :build
-  depends_on "libsodium"
   depends_on "openssl@3"
   depends_on "opus"
   depends_on "pkg-config"
@@ -29,7 +28,7 @@ class Libdpp < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <dpp/dpp.h>
 
       int main() {
@@ -50,7 +49,7 @@ class Libdpp < Formula
         }
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", "-L#{lib}", "-I#{include}", "test.cpp", "-o", "test", "-ldpp"
     assert_match "Connection error", shell_output("./test 2>&1", 1)
   end

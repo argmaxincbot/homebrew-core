@@ -1,8 +1,8 @@
 class Cppcheck < Formula
   desc "Static analysis of C and C++ code"
   homepage "https://sourceforge.net/projects/cppcheck/"
-  url "https://github.com/danmar/cppcheck/archive/refs/tags/2.15.0.tar.gz"
-  sha256 "98bcc40ac8062635b492fb096d7815376a176ae26749d6c708083f4637f7c0bb"
+  url "https://github.com/danmar/cppcheck/archive/refs/tags/2.16.0.tar.gz"
+  sha256 "f1a97c8cef5ee9d0abb57e9244549d4fe18d4ecac80cf82e250d1fc5f38b1501"
   license "GPL-3.0-or-later"
   head "https://github.com/danmar/cppcheck.git", branch: "main"
 
@@ -15,25 +15,23 @@ class Cppcheck < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "3ea489375f8c4c924b50ccbe0a87d6483f11cc05eac21c6bf72cb8759587b97f"
-    sha256 arm64_sonoma:   "9f5ec5154d362414f230ad9b94567fc43472e654282b2d9a70a0a33d5153ab36"
-    sha256 arm64_ventura:  "0d3c433850bed501f2c819024ea16065acbec6111ca28141a5afe77704df2945"
-    sha256 arm64_monterey: "3a5d4211496ee5c5980725b239a6a896aaa5053415992764a82711679c23bcaa"
-    sha256 sonoma:         "bdfc1329eed78facd99a182463bc342d7e6a58bf679492a6a19758fac778c63c"
-    sha256 ventura:        "1207bb2fe229239e94c194ee7c7bc8b80ada5e23eebc29145c7ccbb786374e47"
-    sha256 monterey:       "fa7dc521b729821186cf9b6a0b846ed7559c03e27533108edc3447de33a0d393"
-    sha256 x86_64_linux:   "64be07e02d9965a951e708fc8e3463eb9ab7dca8e27c79e58a72e7e67b76e024"
+    sha256 arm64_sequoia: "fb5842051cde656928d4b808ed159e4b25d04496b75f2a792372fa2b3adb0b4b"
+    sha256 arm64_sonoma:  "bb3feb14aae1f7954396b8026c91253ed01809f70ddeba6e5e375e2d577932b0"
+    sha256 arm64_ventura: "7e9c35a1c2d1998d89747a67ee77046fab42688508e5e05e0b5b87b8935ec566"
+    sha256 sonoma:        "efaa934a8536deaac326094c5aad9f401b59983f1b9a7a270986959f3700dea3"
+    sha256 ventura:       "c380212e8b3bedc5d2f1aecbc0c4730042897fb6ca0b2e46c000cbf88ea0b272"
+    sha256 x86_64_linux:  "ffda2b7b66275fecd5f9caf7b4004b9f764c5ad478eed47497d3e4172303f179"
   end
 
   depends_on "cmake" => :build
-  depends_on "python@3.12" => [:build, :test]
+  depends_on "python@3.13" => [:build, :test]
   depends_on "pcre"
   depends_on "tinyxml2"
 
   uses_from_macos "libxml2"
 
   def python3
-    which("python3.12")
+    which("python3.13")
   end
 
   def install

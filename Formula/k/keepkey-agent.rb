@@ -9,19 +9,21 @@ class KeepkeyAgent < Formula
   revision 9
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "8470324d9f2f9cf81333981ee102a94b33623d3da0e92a9c680f74b3272255a3"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "ece4a4d3662aff2a21064d488c8a1cc34429356548fe32fe506fea1ba33e9b4f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "76b077fa1d82acb83e7c964fe51f6e6abea6aa19944a1022edf69c1a7250466b"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "fc56819ae439220eee157b3acb329afbfb6737a63bf3182a9cf20e6675429539"
-    sha256 cellar: :any_skip_relocation, sonoma:         "32e71b81b33e4a100f3513137012ea999512b63d768f0598e6c5ae68743f353e"
-    sha256 cellar: :any_skip_relocation, ventura:        "6baad2e970aeb880d25559f840ee27e5ada149e7c838ec4567871f74c6c1c5e5"
-    sha256 cellar: :any_skip_relocation, monterey:       "9229f0f4e66360850ea943ac9e99713a38d5f3dc1c8fb41db525c7ae3ff46715"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "46fad7560fa4dd066f4a4b68a9d5d8e27d502e69ec662c49cbe158e7489cc693"
+    rebuild 2
+    sha256 cellar: :any,                 arm64_sequoia: "7e90d14fa8b17a73432c81dd5263c8938d838a9c2ca07a6efe92d395ec0afd18"
+    sha256 cellar: :any,                 arm64_sonoma:  "25a71155c8223d39c8771688dca8688cd393dbdd7576d2bf5c5fc422b395e0ce"
+    sha256 cellar: :any,                 arm64_ventura: "bacd017684971a7c487abacccd142604b9e95dbb87feaa33f4df4708b90dcb02"
+    sha256 cellar: :any,                 sonoma:        "3cb946e6ed2147b95a96498286e46cc78789e84e563d8f7b2d28746835e47da8"
+    sha256 cellar: :any,                 ventura:       "1d37cf891ee502ab5651ef1dd2a9abd198424ac0968cc81637101ef17f1f17f8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2d977a585788997b34e907e44f9857618969c795401963147cd53bc9430b09c5"
   end
 
+  depends_on "pkg-config" => :build # for hidapi resource
   depends_on "cryptography"
-  depends_on "libusb"
-  depends_on "python@3.12"
+  depends_on "hidapi"
+  depends_on "libsodium" # for pynacl
+  depends_on "libusb" # for libusb1
+  depends_on "python@3.13"
 
   uses_from_macos "libffi"
 
@@ -61,8 +63,8 @@ class KeepkeyAgent < Formula
   end
 
   resource "libagent" do
-    url "https://files.pythonhosted.org/packages/4e/0f/b48045dd9d12eea5c092aaad4c251443384da700c8d85349fc3c554a2320/libagent-0.14.7.tar.gz"
-    sha256 "8cea67fbe94216f61dbc22fac9d3d749b41b9cfc11393a76b0b0013c204adb98"
+    url "https://files.pythonhosted.org/packages/33/9f/d80eb0568f617d4041fd83b8b301fdb817290503ee4c1546024df916454e/libagent-0.15.0.tar.gz"
+    sha256 "c87caebdb932ed42bcd8a8cbe40ce3589587c71c3513ca79cadf7a040e24b4eb"
   end
 
   resource "libusb1" do
@@ -96,8 +98,8 @@ class KeepkeyAgent < Formula
   end
 
   resource "python-daemon" do
-    url "https://files.pythonhosted.org/packages/84/50/97b81327fccbb70eb99f3c95bd05a0c9d7f13fb3f4cfd975885110d1205a/python-daemon-3.0.1.tar.gz"
-    sha256 "6c57452372f7eaff40934a1c03ad1826bf5e793558e87fef49131e6464b4dae5"
+    url "https://files.pythonhosted.org/packages/54/cd/d62884732e5d6ff6906234169d06338d53e37243c60cf73679c8942f9e42/python_daemon-3.1.0.tar.gz"
+    sha256 "fdb621d7e5f46e74b4de1ad6b0fff6e69cd91b4f219de1476190ebdd0f4781df"
   end
 
   resource "semver" do
@@ -106,8 +108,8 @@ class KeepkeyAgent < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/6a/21/8fd457d5a979109603e0e460c73177c3a9b6b7abcd136d0146156da95895/setuptools-74.0.0.tar.gz"
-    sha256 "a85e96b8be2b906f3e3e789adec6a9323abf79758ecfa3065bd740d81158b11e"
+    url "https://files.pythonhosted.org/packages/07/37/b31be7e4b9f13b59cde9dcaeff112d401d49e0dc5b37ed4a9fc8fb12f409/setuptools-75.2.0.tar.gz"
+    sha256 "753bb6ebf1f465a1912e19ed1d41f403a79173a9acf66a42e7e6aec45c3c16ec"
   end
 
   resource "six" do
@@ -126,16 +128,9 @@ class KeepkeyAgent < Formula
   end
 
   def install
-    # Help gcc to find libusb headers on Linux.
-    ENV.append "CFLAGS", "-I#{Formula["libusb"].opt_include}/libusb-1.0" unless OS.mac?
-
-    venv = virtualenv_install_with_resources without: "python-daemon"
-    # Workaround breaking change in `setuptools`: https://pagure.io/python-daemon/issue/94
-    resource("python-daemon").stage do
-      inreplace "version.py", "import setuptools.extern.packaging.version", ""
-      inreplace "version.py", "self.validate_version(version)", ""
-      venv.pip_install Pathname.pwd
-    end
+    ENV["HIDAPI_SYSTEM_HIDAPI"] = "1"
+    ENV["SODIUM_INSTALL"] = "system"
+    virtualenv_install_with_resources
   end
 
   test do

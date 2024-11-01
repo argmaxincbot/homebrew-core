@@ -4,16 +4,16 @@ class Bear < Formula
   url "https://github.com/rizsotto/Bear/archive/refs/tags/3.1.5.tar.gz"
   sha256 "4ac7b041222dcfc7231c6570d5bd76c39eaeda7a075ee2385b84256e7d659733"
   license "GPL-3.0-or-later"
-  revision 1
+  revision 3
   head "https://github.com/rizsotto/Bear.git", branch: "master"
 
   bottle do
-    sha256 arm64_sequoia: "7ccfb02b43d15505668bdaf0fa7b63fb49c3a9980bfbd791c567e87319e91ae0"
-    sha256 arm64_sonoma:  "838b2e4de8b5257c0aa1bebb7517ed0afd19cdf972352f0ab2b1837c4934cbb4"
-    sha256 arm64_ventura: "0b6b0fe4e63cd36f1e00a5caf7c49214c27ad938e04698583adedd2c4563c6e1"
-    sha256 sonoma:        "941247e91b02abd26a26b9ac42ea9d6cc67254162e413d43c0a880d0486d0f87"
-    sha256 ventura:       "e2bd7cc5eeb11f435af6e4bbecef0029623504b7217146bb55a25abc466f88e6"
-    sha256 x86_64_linux:  "120c76d6e3c728bf9993d43e7656aef61eeb5f12bff9ecede4d23c4baf2d70ff"
+    sha256 arm64_sequoia: "c057ba2bd307d69afeb6ef8b0931fa93f67a6bf7fa60b7ac0eb64ea31c2e20da"
+    sha256 arm64_sonoma:  "40eb873ae7aee68443b02b643c5d18b1fe56d87e8d85c6d2e72618879fcc92c1"
+    sha256 arm64_ventura: "2e90f0eda00ec07b9d53ffc1557b0ac5bb8d79dd3aef0edcf0c84737a83b68b3"
+    sha256 sonoma:        "1351a56c8b15552957ba98fb0b7c3048d68980f7ef890eaeecffc62456a8e0de"
+    sha256 ventura:       "9b0559237fb47ae1f16469370c7d288c735d6e1bf344cbe74b4b3724b6dfb727"
+    sha256 x86_64_linux:  "53ce9f3e2d4019eb7f4e407b39c4900077fba3c2668b6cd3b6c43d561b6f74d1"
   end
 
   depends_on "cmake" => :build
@@ -55,13 +55,13 @@ class Bear < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       int main() {
         printf("hello, world!\\n");
         return 0;
       }
-    EOS
+    C
     system bin/"bear", "--", "clang", "test.c"
     assert_predicate testpath/"compile_commands.json", :exist?
   end

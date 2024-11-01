@@ -1,8 +1,8 @@
 class NewrelicCli < Formula
   desc "Command-line interface for New Relic"
   homepage "https://github.com/newrelic/newrelic-cli"
-  url "https://github.com/newrelic/newrelic-cli/archive/refs/tags/v0.96.0.tar.gz"
-  sha256 "bf62e8cff16232fdd5d1851223e2e866e71145268774942268f9c6a2e7884082"
+  url "https://github.com/newrelic/newrelic-cli/archive/refs/tags/v0.96.3.tar.gz"
+  sha256 "149aa40ab6da7b662d3462d7fcf3693f19c1f28a3d3fb57b09adb1cb4a4d7c9a"
   license "Apache-2.0"
   head "https://github.com/newrelic/newrelic-cli.git", branch: "main"
 
@@ -12,12 +12,12 @@ class NewrelicCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "987f7d0c09d3ef9f0b3ab9bb9b281ae8ccc60496122498f9669291c9ff9bf383"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c805d584da9e1ce3d007447dee9596ac75728bd167d6e1bf3530090f404eff94"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "65e9f9b048cc184678b0f6e8a0df972dde5ab7b87804b9d4e4a92521b57ffd45"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e560d0216da8636b7750620b38f6e7f6db73a719373c2bcb200838c9fd182a52"
-    sha256 cellar: :any_skip_relocation, ventura:       "ead04a7b4ba0b37a48a6df37eaac58e1ea95e1e4f7402c0ae19627815976f686"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a9d7de5f03fc8423e49dcb0f6d8863699b53cfdb3ed6b087998285fbbd2d74de"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9ecbb1bf4418b57c10de86f62fa5d7f8a8a8572b40866f9cd538d1d1fd6ddd14"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c79cae06490e6f271eee4d90439c5ead1fd8b39b9e2eb001929caae4b0391535"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5bb989d75d9ceb793589cf448eed5d48b546276edc020759781c854fbf4d69cf"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c7566c8dcf737ce706003a731c684d813d9a01a8a2bce3f81336eef922d67076"
+    sha256 cellar: :any_skip_relocation, ventura:       "dc4cc2b6193c7bddedda625d9ab875453f2f4b8b0996641430482992cf981527"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "da37e6c3635093f4360fc2bab487653747a4166d6e3493ddcc105ac1e2c064d9"
   end
 
   depends_on "go" => :build

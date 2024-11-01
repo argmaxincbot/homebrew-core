@@ -3,23 +3,23 @@ class MagicWormhole < Formula
 
   desc "Securely transfers data between computers"
   homepage "https://github.com/magic-wormhole/magic-wormhole"
-  url "https://files.pythonhosted.org/packages/1a/55/b82ace1c0c090bc6f629a93f3fb1ed60436731b166de2454d1585532c86f/magic-wormhole-0.16.0.tar.gz"
-  sha256 "14e6c146898dbda7a6d190262623a69419955363e7e434d64aad2d233d6d94c9"
+  url "https://files.pythonhosted.org/packages/1b/a8/32a54e75643206665f569dac6ab19727aefb508b148882f1d05dff003667/magic_wormhole-0.17.0.tar.gz"
+  sha256 "142c7a271684b0b04470792601848f6b0ade0d8bf54fbcb30c6259d75edd9d06"
   license "MIT"
   head "https://github.com/magic-wormhole/magic-wormhole.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "19de0a8a829263e8cd5a4add80f8b9ad93fe317f3b8a45cb1ec90a042ea69747"
-    sha256 cellar: :any,                 arm64_sonoma:  "bb3f09e8cd974dd3f7a092cc3c0e5a112ea629115d287b6023abaab95e10ef0f"
-    sha256 cellar: :any,                 arm64_ventura: "51b42906cc499a3c9eb207f8302c498ce833f298270a8c99e2dbc8792071b100"
-    sha256 cellar: :any,                 sonoma:        "797e256edb2794079c1a21cfaa171322a60c191cc6b8c604d41bf93f98b536b7"
-    sha256 cellar: :any,                 ventura:       "c4150286a171cb246fd956a8a5c4774bbe2a9016a65911643d0048f8297ff10b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2a1b5ed9c387defa7c5f13edfa4435054754f796209ef76b34bc2a68be63dd9d"
+    sha256 cellar: :any,                 arm64_sequoia: "7ba30a7b56dd79d07a5e59ced7ad16371c7699d6a7ba563bffed6f0c1d6ba5d9"
+    sha256 cellar: :any,                 arm64_sonoma:  "0cac7d5305baa972190c80b1a05ef1ed01433db9a9bd33c18b494f0fc0a4eb4e"
+    sha256 cellar: :any,                 arm64_ventura: "16fd3c1dad574b4b8efabc2b24f85439b2061e4877a4e31145d06875144e9c00"
+    sha256 cellar: :any,                 sonoma:        "e260eee9a60b1954419acb1d392e6f0dc663553ab6fcbc040f28c92f129a3023"
+    sha256 cellar: :any,                 ventura:       "6526610beceb090ff78594314b925d1883539e412df6064d9557d5a8ef048ab9"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ade67e503ee0b9c6586e3905d3274db85d94c2850730ccf4940d5a5ae371498f"
   end
 
   depends_on "cryptography"
   depends_on "libsodium"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "libffi"
 
@@ -49,8 +49,8 @@ class MagicWormhole < Formula
   end
 
   resource "humanize" do
-    url "https://files.pythonhosted.org/packages/5d/b1/c8f05d5dc8f64030d8cc71e91307c1daadf6ec0d70bcd6eabdfd9b6f153f/humanize-4.10.0.tar.gz"
-    sha256 "06b6eb0293e4b85e8d385397c5868926820db32b9b654b932f57fa41c23c9978"
+    url "https://files.pythonhosted.org/packages/6a/40/64a912b9330786df25e58127194d4a5a7441f818b400b155e748a270f924/humanize-4.11.0.tar.gz"
+    sha256 "e66f36020a2d5a974c504bd2555cf770621dbdbb6d82f94a6857c0b1ea2608be"
   end
 
   resource "hyperlink" do
@@ -99,8 +99,8 @@ class MagicWormhole < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/b8/f21073fde99492b33ca357876430822e4800cdf522011f18041351dfa74b/setuptools-75.1.0.tar.gz"
-    sha256 "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
+    url "https://files.pythonhosted.org/packages/07/37/b31be7e4b9f13b59cde9dcaeff112d401d49e0dc5b37ed4a9fc8fb12f409/setuptools-75.2.0.tar.gz"
+    sha256 "753bb6ebf1f465a1912e19ed1d41f403a79173a9acf66a42e7e6aec45c3c16ec"
   end
 
   resource "spake2" do
@@ -134,13 +134,13 @@ class MagicWormhole < Formula
   end
 
   resource "zipstream-ng" do
-    url "https://files.pythonhosted.org/packages/74/8c/682c8bb3085d2089e09c0b9393a12721d059dc0009da4e0b6faff6370679/zipstream-ng-1.7.1.tar.gz"
-    sha256 "f92023b9ca578cd7fdd94ec733c65664ecf7ee32493e38cdf8e365a1316e9ffc"
+    url "https://files.pythonhosted.org/packages/ac/16/5d9224baf640214255c34a0a0e9528c8403d2b89e2ba7df9d7cada58beb1/zipstream_ng-1.8.0.tar.gz"
+    sha256 "b7129d2c15d26934b3e1cb22256593b6bdbd03c553c26f4199a5bf05110642bc"
   end
 
   resource "zope-interface" do
-    url "https://files.pythonhosted.org/packages/c8/83/7de03efae7fc9a4ec64301d86e29a324f32fe395022e3a5b1a79e376668e/zope.interface-7.0.3.tar.gz"
-    sha256 "cd2690d4b08ec9eaf47a85914fe513062b20da78d10d6d789a792c0b20307fb1"
+    url "https://files.pythonhosted.org/packages/3c/f5/1079cab32302359cc09bd1dca9656e680601e0e8af9397322ab0fe85f368/zope.interface-7.1.1.tar.gz"
+    sha256 "4284d664ef0ff7b709836d4de7b13d80873dc5faeffc073abdb280058bfac5e3"
   end
 
   def install

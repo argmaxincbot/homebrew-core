@@ -1,9 +1,10 @@
 class R < Formula
   desc "Software environment for statistical computing"
   homepage "https://www.r-project.org/"
-  url "https://cran.r-project.org/src/base/R-4/R-4.4.1.tar.gz"
-  sha256 "b4cb675deaaeb7299d3b265d218cde43f192951ce5b89b7bb1a5148a36b2d94d"
+  url "https://cran.r-project.org/src/base/R-4/R-4.4.2.tar.gz"
+  sha256 "1578cd603e8d866b58743e49d8bf99c569e81079b6a60cf33cdf7bdffeb817ec"
   license "GPL-2.0-or-later"
+  revision 1
 
   livecheck do
     url "https://cran.rstudio.com/banner.shtml"
@@ -11,14 +12,12 @@ class R < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "7f675736071affe0f4ebfdab80e61e2ebd1f7bd2c82140586774230ad4746f72"
-    sha256 arm64_sonoma:   "a9e3b6d8ce9d2606b9f182d30145c530dfdd52803359729465b616f8dcae0847"
-    sha256 arm64_ventura:  "31534a8b13f93bbd484c6392792736ca9fdc91fe6a9e428747e9291fe49b6778"
-    sha256 arm64_monterey: "781dc303ccb6041cbee79a17a1dc3ae5ffbacd59b5d52a04983751256dd68ae4"
-    sha256 sonoma:         "2a65df982cbc7a23f7f69b6853dc402461fc99cb2d31b7771e50a4f3995ab7dc"
-    sha256 ventura:        "3f1da54c8747815a8047de3d393c7957fd3d58b411c6a00b2dab1d64a19be7d9"
-    sha256 monterey:       "8b7216892a5d60604fe4a909c2f096ce2ef78bec581fa00177eb7600451aa159"
-    sha256 x86_64_linux:   "3405da8715d5f8069e3c12842a2a3b2e22d554541a91bcd756802ed0f9cfaa3a"
+    sha256 arm64_sequoia: "bbcafded8e225c815608b0201fbe4197689b0cfb2fe16f69bd575d7917bb2f85"
+    sha256 arm64_sonoma:  "8dd4da0184d471ed617eb5cfd4d09df9e2617c8fa3dd1af7be80e2d91444a4f3"
+    sha256 arm64_ventura: "3ef590558c6dffa340458ddef8214e8d68843718592d0b3bda6968a5a9349373"
+    sha256 sonoma:        "27afd41e4391a0f3c34144ceb69890a820e1f1bd58e410741200b61ae7655484"
+    sha256 ventura:       "72c62120748105ef5301e8ee728043fd1ab7602256eeff95045d67a4a4f9020d"
+    sha256 x86_64_linux:  "796fd551b8d417ca9c4ec02688178d8a89f82e415a10a130a630ffd7c02f8e6f"
   end
 
   depends_on "pkg-config" => :build
@@ -36,7 +35,6 @@ class R < Formula
 
   uses_from_macos "bzip2"
   uses_from_macos "curl"
-  uses_from_macos "icu4c"
   uses_from_macos "libffi", since: :catalina
   uses_from_macos "zlib"
 
@@ -54,6 +52,7 @@ class R < Formula
   on_linux do
     depends_on "glib"
     depends_on "harfbuzz"
+    depends_on "icu4c@76"
     depends_on "libice"
     depends_on "libsm"
     depends_on "libtirpc"
@@ -119,11 +118,9 @@ class R < Formula
       system "make", "install"
     end
 
-    cd "src/nmath/standalone" do
-      system "make"
-      ENV.deparallelize do
-        system "make", "install"
-      end
+    system "make", "-C", "src/nmath/standalone"
+    ENV.deparallelize do
+      system "make", "-C", "src/nmath/standalone", "install"
     end
 
     r_home = lib/"R"
@@ -139,10 +136,9 @@ class R < Formula
     lib.install_symlink Dir[r_home/"lib/*"]
 
     # avoid triggering mandatory rebuilds of r when gcc is upgraded
-    check_replace = OS.mac?
     inreplace lib/"R/etc/Makeconf", Formula["gcc"].prefix.realpath,
                                     Formula["gcc"].opt_prefix,
-                                    check_replace
+                                    audit_result: OS.mac?
   end
 
   def post_install

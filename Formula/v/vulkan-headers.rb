@@ -1,8 +1,8 @@
 class VulkanHeaders < Formula
   desc "Vulkan Header files and API registry"
   homepage "https://github.com/KhronosGroup/Vulkan-Headers"
-  url "https://github.com/KhronosGroup/Vulkan-Headers/archive/refs/tags/v1.3.297.tar.gz"
-  sha256 "1d679e2edc43cb7ad818b81dea960e374f1d6dd082325eb9b4c6113e76263c02"
+  url "https://github.com/KhronosGroup/Vulkan-Headers/archive/refs/tags/v1.3.300.tar.gz"
+  sha256 "9a0542fb2233e39179fcc9aba8b0dd9deee4a19a2d7adb89449144b2e3d80e93"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-Headers.git", branch: "main"
 
@@ -12,7 +12,7 @@ class VulkanHeaders < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "5f02eb7fb93654649fd410a1c984c1d3a7b617fc44cf324a2e5649dd1d519e27"
+    sha256 cellar: :any_skip_relocation, all: "4d04ed5117afb6546fdefa02ce6430d148364aace0cd0e0926415fa6dd41bfb0"
   end
 
   depends_on "cmake" => :build
@@ -23,7 +23,7 @@ class VulkanHeaders < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <vulkan/vulkan_core.h>
 
@@ -31,7 +31,7 @@ class VulkanHeaders < Formula
         printf("vulkan version %d", VK_VERSION_1_0);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-o", "test"
     system "./test"
   end

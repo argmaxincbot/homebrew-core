@@ -1,17 +1,17 @@
 class Mako < Formula
   desc "Production-grade web bundler based on Rust"
   homepage "https://makojs.dev"
-  url "https://registry.npmjs.org/@umijs/mako/-/mako-0.8.14.tgz"
-  sha256 "bcb53740ff9290d59e48e6762d2bb4e1f42cd76f3832d8c6b3edb1e77e22e83b"
+  url "https://registry.npmjs.org/@umijs/mako/-/mako-0.9.3.tgz"
+  sha256 "c7434945803556184f0d09fd919bf0d2baac01fc8a823caf24b363b0b7f66ceb"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "da38c10d40cb6d1bcbcf9bf8372a317cd6e37624ca367b2890c8c16e47232b36"
-    sha256 cellar: :any,                 arm64_sonoma:  "da38c10d40cb6d1bcbcf9bf8372a317cd6e37624ca367b2890c8c16e47232b36"
-    sha256 cellar: :any,                 arm64_ventura: "da38c10d40cb6d1bcbcf9bf8372a317cd6e37624ca367b2890c8c16e47232b36"
-    sha256 cellar: :any,                 sonoma:        "4be1ca5b65c2d9e04732df0d9a158adaa2b0c84ac56006c810a7d676240be22a"
-    sha256 cellar: :any,                 ventura:       "4be1ca5b65c2d9e04732df0d9a158adaa2b0c84ac56006c810a7d676240be22a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "594ffcf0f5f533e5694bdf2c0817083daf490b3681b9c67386d1a85ed2fcefd3"
+    sha256 cellar: :any,                 arm64_sequoia: "29267577a2def1d8a1cd4b597c26fc3b54ba1e3e2b71512bdf10ee43725df8d2"
+    sha256 cellar: :any,                 arm64_sonoma:  "29267577a2def1d8a1cd4b597c26fc3b54ba1e3e2b71512bdf10ee43725df8d2"
+    sha256 cellar: :any,                 arm64_ventura: "29267577a2def1d8a1cd4b597c26fc3b54ba1e3e2b71512bdf10ee43725df8d2"
+    sha256 cellar: :any,                 sonoma:        "0b608d985cca07b5f605e3a429319e8591da057c08b2d739bcacf99ee83f0097"
+    sha256 cellar: :any,                 ventura:       "0b608d985cca07b5f605e3a429319e8591da057c08b2d739bcacf99ee83f0097"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c652a43d25ef6b6a02f50a322306adac914d5f102ac45ea1521a44a28832ec67"
   end
 
   depends_on "node"

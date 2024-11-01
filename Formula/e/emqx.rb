@@ -1,8 +1,8 @@
 class Emqx < Formula
   desc "MQTT broker for IoT"
   homepage "https://www.emqx.io/"
-  url "https://github.com/emqx/emqx/archive/refs/tags/v5.7.2.tar.gz"
-  sha256 "4866630a83bb4d5415f9aa7629b79a1868ad4bcf16948f60d08af1c369250ed7"
+  url "https://github.com/emqx/emqx/archive/refs/tags/v5.8.1.tar.gz"
+  sha256 "ff58eef9dceb65047f172032c552e72bf311b0c667bcde044f972bf2a49f712b"
   license "Apache-2.0"
   head "https://github.com/emqx/emqx.git", branch: "master"
 
@@ -16,17 +16,16 @@ class Emqx < Formula
 
   bottle do
     rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "1e4fcff2f14987bbe1ec516ed98c9ab0e6bb4a188d7081c425debe531c5247ef"
-    sha256 cellar: :any,                 arm64_sonoma:  "3af40e155dc7e6d98eda55705f1cb42def2802621812cd80bae0ddb74d5ead3d"
-    sha256 cellar: :any,                 arm64_ventura: "30f68f9e3363818929b2f030a589571667dc2a9b28262b187386f1f825d79f69"
-    sha256 cellar: :any,                 sonoma:        "e69a0ae0b2855a2b6d2c61469ff001c802f914b6ab2aa03ebafa651265f690db"
-    sha256 cellar: :any,                 ventura:       "5d4a5fa634f02d505101e5d0a75109248779830426e5d085732d6049b87fbca9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fa80edc808b520c4572cf13cc4969008730d8ff028440f325bc75b152ac93c9a"
+    sha256 cellar: :any,                 arm64_sequoia: "068c30053dcc4a9ad268627b50fa84408ea0164100d9aa2a2a925818485ccc99"
+    sha256 cellar: :any,                 arm64_sonoma:  "0d492410e1c49a92a59779ccedcc7cd9c920dd5860769890af0f096060914088"
+    sha256 cellar: :any,                 arm64_ventura: "fe27edc1be88ed5b42d8e61e5eae51e694ba34ae45aade8dee4374f248f492ad"
+    sha256 cellar: :any,                 sonoma:        "ac76d2b8b3f8ce4a701e33f2e066d0e265a51b8811082a20ba1754b7f886736e"
+    sha256 cellar: :any,                 ventura:       "2651c9426643443198ec883d510fd2e1ed8bb9662fffe0e2e20a527393c86ac3"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "260ff9c31a5a75171fcad6c923d2a0634ac4713af8ea19db08ec4774439edc54"
   end
 
   depends_on "autoconf"  => :build
   depends_on "automake"  => :build
-  depends_on "ccache"    => :build
   depends_on "cmake"     => :build
   depends_on "coreutils" => :build
   depends_on "erlang@26" => :build
@@ -34,9 +33,11 @@ class Emqx < Formula
   depends_on "libtool"   => :build
   depends_on "openssl@3"
 
-  uses_from_macos "curl"  => :build
-  uses_from_macos "unzip" => :build
-  uses_from_macos "zip"   => :build
+  uses_from_macos "curl"       => :build
+  uses_from_macos "unzip"      => :build
+  uses_from_macos "zip"        => :build
+  uses_from_macos "cyrus-sasl"
+  uses_from_macos "krb5"
 
   on_linux do
     depends_on "ncurses"
@@ -73,6 +74,10 @@ class Emqx < Formula
         MachO.codesign!(dynlib) if Hardware::CPU.arm?
       end
     end
+  end
+
+  service do
+    run [opt_bin/"emqx", "foreground"]
   end
 
   test do

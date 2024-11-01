@@ -3,29 +3,27 @@ class Aider < Formula
 
   desc "AI pair programming in your terminal"
   homepage "https://aider.chat/"
-  url "https://files.pythonhosted.org/packages/94/61/f78dfd9f9f153cf2cffdc7cf3590c1d4e3bc9a79953dbccc30e7529ae63a/aider_chat-0.59.1.tar.gz"
-  sha256 "5e7ccb8c6b8054563d8c84a20f9d44dafd7f8f2e5fbb68275aa722386f2572f3"
+  url "https://files.pythonhosted.org/packages/6d/5d/7d4b50df03eb2da13f27daa702e2e71e22933d7334f218ba1406324fd988/aider_chat-0.60.1.tar.gz"
+  sha256 "a7459f4ab28f0e9363f101a4c577ded4f2766646ef314713d8876f8543ba85f5"
   license "Apache-2.0"
   head "https://github.com/paul-gauthier/aider.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "77863957bc70d3cac83dade12bfdc0b8ec84a66a86e94300a54d221e208c9387"
-    sha256 cellar: :any,                 arm64_sonoma:  "82046e2a7bc6f751196e32183be855f962fb00dbf7e1f88a05fd72b5af38242b"
-    sha256 cellar: :any,                 arm64_ventura: "5d74cd69104ce3559aad0a8a807aed77d53d4f6ee3b90098d17c95ac19b10a88"
-    sha256 cellar: :any,                 sonoma:        "f04562e9631a5ec8351a7c387d55b3657e83b2c2306f5a782993e0b819f11158"
-    sha256 cellar: :any,                 ventura:       "d05862dae7e3dea423968a2b19d151a8203e644326f2717f023bb0ab72675938"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c46b141231ef2fbd12e67fecf1ee63b906fdf2f5f891cdf1a0d394504717c1fd"
+    sha256 cellar: :any,                 arm64_sequoia: "875241406e544ad0062b58bc49f2cdb6f9ab5110b11ea6ea7c189595bfeead39"
+    sha256 cellar: :any,                 arm64_sonoma:  "334c8efab0580314ea1403ab06588d60747809e0c6540acaabee75758a1d1ee8"
+    sha256 cellar: :any,                 arm64_ventura: "8f2da45d0ffaf3078bbae015955785c081ce263a5e28f4d4f9fcc9d3f9983d55"
+    sha256 cellar: :any,                 sonoma:        "5f725bd84b3d40e21a5bb01793e536e49991be980c5eef8db547339d200cf2d6"
+    sha256 cellar: :any,                 ventura:       "c9d6614610c844a6b3dffb247176346153b7770d65aa657c9dfd311095a4f012"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "483a6fd93beded180488f73066ab7b9178eff1a4f19e960da7b5bc754fdf179e"
   end
 
-  depends_on "cython" => :build # for tree-sitter-languages
-  depends_on "python-setuptools" => :build # for tree-sitter-languages
   depends_on "rust" => :build # for pydantic_core
   depends_on "certifi"
   depends_on "cffi"
   depends_on "libyaml"
   depends_on "numpy"
   depends_on "pillow"
-  depends_on "python@3.12"
+  depends_on "python@3.12" # py3.13 support issue, https://github.com/Aider-AI/aider/issues/1984
   depends_on "scipy"
 
   resource "aiohappyeyeballs" do
@@ -81,6 +79,11 @@ class Aider < Formula
   resource "configargparse" do
     url "https://files.pythonhosted.org/packages/70/8a/73f1008adfad01cb923255b924b1528727b8270e67cb4ef41eabdc7d783e/ConfigArgParse-1.7.tar.gz"
     sha256 "e7067471884de5478c58a511e529f0f9bd1c66bfef1dea90935438d6c23306d1"
+  end
+
+  resource "cython" do
+    url "https://files.pythonhosted.org/packages/84/4d/b720d6000f4ca77f030bd70f12550820f0766b568e43f11af7f7ad9061aa/cython-3.0.11.tar.gz"
+    sha256 "7146dd2af8682b4ca61331851e6aebce9fe5158e75300343f80c07ca80b1faff"
   end
 
   resource "diff-match-patch" do
@@ -343,6 +346,11 @@ class Aider < Formula
     sha256 "d72a210824facfdaf8768cf2d7ca25a042c30320b3020de2fa04640920d4e121"
   end
 
+  resource "setuptools" do
+    url "https://files.pythonhosted.org/packages/27/b8/f21073fde99492b33ca357876430822e4800cdf522011f18041351dfa74b/setuptools-75.1.0.tar.gz"
+    sha256 "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
+  end
+
   resource "smmap" do
     url "https://files.pythonhosted.org/packages/88/04/b5bf6d21dc4041000ccba7eb17dd3055feb237e7ffc2c20d3fae3af62baa/smmap-5.0.1.tar.gz"
     sha256 "dceeb6c0028fdb6734471eb07c0cd2aae706ccaecab45965ee83f11c8d3b1f62"
@@ -419,8 +427,11 @@ class Aider < Formula
     sha256 "bc9eb26f4506fda01b81bcde0ca78103b6e62f991b381fec825435c836edbc29"
   end
 
+  def python3
+    "python3.12"
+  end
+
   def install
-    python3 = "python3.12"
     venv = virtualenv_install_with_resources without: "tree-sitter-languages"
 
     # Requires building languages outside `setup.py`: https://github.com/grantjenks/py-tree-sitter-languages/pull/65

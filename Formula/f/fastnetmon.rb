@@ -4,15 +4,15 @@ class Fastnetmon < Formula
   url "https://github.com/pavel-odintsov/fastnetmon/archive/refs/tags/v1.2.7.tar.gz"
   sha256 "c21fcbf970214dd48ee8aa11e6294e16bea86495085315e7b370a84b316d0af9"
   license "GPL-2.0-only"
-  revision 2
+  revision 4
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e4a12bed1436986dbd2613a0de9c16079edb2078fc6ae1916d79c9bad1545f32"
-    sha256 cellar: :any,                 arm64_sonoma:  "0a7b03aa4587a7938c7d94fd7311042bf73117d00cfe2fb4075b425dd6df20f0"
-    sha256 cellar: :any,                 arm64_ventura: "c7fd7de982e4c400459377296ec83d3891f9378f4df50c2b226b2489217aa8fb"
-    sha256 cellar: :any,                 sonoma:        "e94108dd878b81c61aac0b7abf695e471134675785e59ae509da10fda4ab06ec"
-    sha256 cellar: :any,                 ventura:       "9c02a82b459eb9c5e32b63a50cc2e335506e9a3398772d51e594667fac523bda"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "482b6e7bae80663b33eaa87da4cfe946be4d639128822f1bcb7d575dce2b4978"
+    sha256 cellar: :any,                 arm64_sequoia: "910dabec2a9d34c8d50380a910cdcb22ddb79026d0c9e6dcfd38b51d929d4454"
+    sha256 cellar: :any,                 arm64_sonoma:  "2a82b6291887dd30eb5f2dfb0bde92175bc8f57ab9b333c4083af690919a48d2"
+    sha256 cellar: :any,                 arm64_ventura: "a24872091f523738c660c3b278a1646121a1303bfce09e01560beeb94fdb3e8c"
+    sha256 cellar: :any,                 sonoma:        "ca64375907d25b77e825dfd66b5b8943cedbdc8787f2f40c28ce978a82140c12"
+    sha256 cellar: :any,                 ventura:       "f9931f797f02598c13ac9a572b416e734bc5413f9ae6f43830899d354e7438be"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "86e1f8b4c22d2aa2ffa9158a4536544525b390980853148c463127d919f0f177"
   end
 
   depends_on "cmake" => :build
@@ -34,7 +34,12 @@ class Fastnetmon < Formula
     depends_on "libpcap"
   end
 
-  fails_with gcc: "5"
+  # Fix build failure with gRPC 1.67.
+  # https://github.com/pavel-odintsov/fastnetmon/pull/1023
+  patch do
+    url "https://github.com/pavel-odintsov/fastnetmon/commit/b6cf2e7222c24343b868986e867ddb7adad0bf30.patch?full_index=1"
+    sha256 "3a3f719f7434e52db01a512ed3891cf0e3794d4576323e3c2fd3b31c69fb39be"
+  end
 
   def install
     system "cmake", "-S", "src", "-B", "build",

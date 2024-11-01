@@ -1,20 +1,23 @@
 class Orbiton < Formula
   desc "Fast and config-free text editor and IDE limited by VT100"
   homepage "https://roboticoverlords.org/orbiton/"
-  url "https://github.com/xyproto/orbiton/archive/refs/tags/v2.67.1.tar.gz"
-  sha256 "f5bef0bae5dedf43794d83782c3f3264860a113f7caa2db0abc554132e041fc4"
+  url "https://github.com/xyproto/orbiton/archive/refs/tags/v2.68.1.tar.gz"
+  sha256 "fc881e6d5d7686d98026bcd3b99531a010bd6b787a01fb239b0d766668a2eee3"
   license "BSD-3-Clause"
   head "https://github.com/xyproto/orbiton.git", branch: "main"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "3e5682bf86e752aec5457a2303536e6abe9d1df001761cd34fc1f3619d2d3a78"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "3e5682bf86e752aec5457a2303536e6abe9d1df001761cd34fc1f3619d2d3a78"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "3e5682bf86e752aec5457a2303536e6abe9d1df001761cd34fc1f3619d2d3a78"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "3e5682bf86e752aec5457a2303536e6abe9d1df001761cd34fc1f3619d2d3a78"
-    sha256 cellar: :any_skip_relocation, sonoma:         "02d926296a717bd71287f62b7ed702aef96f93784d7c4a9300576c00bdc4e1b0"
-    sha256 cellar: :any_skip_relocation, ventura:        "02d926296a717bd71287f62b7ed702aef96f93784d7c4a9300576c00bdc4e1b0"
-    sha256 cellar: :any_skip_relocation, monterey:       "02d926296a717bd71287f62b7ed702aef96f93784d7c4a9300576c00bdc4e1b0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "ead304496d1390901b4b20c3d2b0edcff67fff86b2e9dfde0ac4fe61891be4d4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b9afb7b0d7798b0f0985a43ab96e3ba29dd650bbd5c1313d9c6df879697b1446"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b9afb7b0d7798b0f0985a43ab96e3ba29dd650bbd5c1313d9c6df879697b1446"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "b9afb7b0d7798b0f0985a43ab96e3ba29dd650bbd5c1313d9c6df879697b1446"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b10f4fe0fbadfcce36d9022e4a92ab01da8516036d442af869f3774489667527"
+    sha256 cellar: :any_skip_relocation, ventura:       "b10f4fe0fbadfcce36d9022e4a92ab01da8516036d442af869f3774489667527"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b501c07c240528b38b5c7f9f98182c233d072672e3782f68308dbca69d143dfa"
   end
 
   depends_on "go" => :build

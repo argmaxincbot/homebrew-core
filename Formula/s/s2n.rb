@@ -1,8 +1,8 @@
 class S2n < Formula
   desc "Implementation of the TLS/SSL protocols"
   homepage "https://github.com/aws/s2n-tls"
-  url "https://github.com/aws/s2n-tls/archive/refs/tags/v1.5.4.tar.gz"
-  sha256 "fa1fb2aacaefd0a64728f301955a331ec08014db3adbf83c8848db8dc60be532"
+  url "https://github.com/aws/s2n-tls/archive/refs/tags/v1.5.6.tar.gz"
+  sha256 "85602d0ad672cb233052504624dec23b47fc6d324bb82bd6eaff13b8f652dec3"
   license "Apache-2.0"
   head "https://github.com/aws/s2n-tls.git", branch: "main"
 
@@ -12,12 +12,12 @@ class S2n < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "302f0a69dbb2fac2b1667876c3de0893f323adb6d07e23e0736b2c328d21c99a"
-    sha256 cellar: :any,                 arm64_sonoma:  "3ebfdd966e633c15b78374659fa1af6b35fe2c957562d183f9e54fd5d65cefe1"
-    sha256 cellar: :any,                 arm64_ventura: "a7c1867e860c0aca842b206b26b392ff9fa27c00adde7bb1f35cb6d26aa6a7b3"
-    sha256 cellar: :any,                 sonoma:        "a031d1704de57368e8bc76b9fd2d910bdba812a92a950443bae1de860525d81d"
-    sha256 cellar: :any,                 ventura:       "e9d4beb3cde4b5595aa66f43ca143e7d167636a7e0a6e6c6e53b06f77f69a038"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b40921f49ea69b6ffc1ea5c5843b8e696d5a45e11eb216459fa3aa6ebd6e8d5c"
+    sha256 cellar: :any,                 arm64_sequoia: "934853663eb867599419c9364f15910ebfd733f1b0919883debb7df2ac454e86"
+    sha256 cellar: :any,                 arm64_sonoma:  "b63a221a50a1b0eb5efa252b896e4739552294ccaaaef78d0ffc3d97c57e3195"
+    sha256 cellar: :any,                 arm64_ventura: "881cbc527129877b1e4bbad108d381dc0bdf6a7331dfd852333720eda8cbe890"
+    sha256 cellar: :any,                 sonoma:        "b76b958ae455e893ad200829f4d101fd15e33fba9e6b3614968910a12dfcc651"
+    sha256 cellar: :any,                 ventura:       "ac32502365adc6aaf3e23fb83a78fd846baf4b6382089418c39f0d1097965944"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "291bb15a9e04eda5d97d731e0282efbfee96b1a0b9a3140c84879ce2e3013f18"
   end
 
   depends_on "cmake" => :build
@@ -36,14 +36,14 @@ class S2n < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <assert.h>
       #include <s2n.h>
       int main() {
         assert(s2n_init() == 0);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{opt_lib}", "-ls2n", "-o", "test"
     ENV["S2N_DONT_MLOCK"] = "1" if OS.linux?
     system "./test"

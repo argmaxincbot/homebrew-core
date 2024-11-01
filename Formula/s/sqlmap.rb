@@ -3,23 +3,21 @@ class Sqlmap < Formula
 
   desc "Penetration testing for SQL injection and database servers"
   homepage "https://sqlmap.org"
-  url "https://github.com/sqlmapproject/sqlmap/archive/refs/tags/1.8.9.tar.gz"
-  sha256 "3ae9969bec583d21790c5282aa3e586bf8fa822ad5d267afb7ea19db07ac434c"
+  url "https://github.com/sqlmapproject/sqlmap/archive/refs/tags/1.8.10.tar.gz"
+  sha256 "8fee446ae72ecbe3d7ee583e3e77f3d352d3ee4f8e6ff33591a3f431387a10d3"
   license "GPL-2.0-or-later"
   head "https://github.com/sqlmapproject/sqlmap.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "4ff43f4471f18c62e28b93dfc9d9da66cefa3fad83251c3819c5c3a736cdf6f4"
-    sha256 cellar: :any_skip_relocation, sonoma:         "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
-    sha256 cellar: :any_skip_relocation, ventura:        "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
-    sha256 cellar: :any_skip_relocation, monterey:       "79e8fa29f56e9134c35ec67407febdb7e5a369d6699127c448c23f20fbb678a4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "7eb774f28e6e51f3d4e8d5ff1f17c4914a961ed1bf2add2156b53967716eed80"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3d547c9c33f9657bad40118af4eb92430466e4ce6bd9136a48c2a93b809b86c9"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3d547c9c33f9657bad40118af4eb92430466e4ce6bd9136a48c2a93b809b86c9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "3d547c9c33f9657bad40118af4eb92430466e4ce6bd9136a48c2a93b809b86c9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8074f3e89f7bcac08563d544864bdc311a52a75104651dbb89946b3a738f91d1"
+    sha256 cellar: :any_skip_relocation, ventura:       "8074f3e89f7bcac08563d544864bdc311a52a75104651dbb89946b3a738f91d1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "645816c6fd023df7e45da45498150b1b0ebba0fe2236c5619979543776072852"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "sqlite" => :test
 

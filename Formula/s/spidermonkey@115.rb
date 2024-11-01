@@ -1,9 +1,9 @@
 class SpidermonkeyAT115 < Formula
   desc "JavaScript-C Engine"
   homepage "https://spidermonkey.dev"
-  url "https://archive.mozilla.org/pub/firefox/releases/115.16.0esr/source/firefox-115.16.0esr.source.tar.xz"
-  version "115.16.0"
-  sha256 "d67f6611d55cdaa2e4e90a3eba332dcee2f6bf74a7842e928996db62e4aa801f"
+  url "https://archive.mozilla.org/pub/firefox/releases/115.17.0esr/source/firefox-115.17.0esr.source.tar.xz"
+  version "115.17.0"
+  sha256 "80f184a102a743ee75401e86dd86af0be5f1e5ebf07c81119d9ca77422d716c3"
   license "MPL-2.0"
   revision 1
 
@@ -15,12 +15,12 @@ class SpidermonkeyAT115 < Formula
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "01a37f1987fd6ecd9d740c3bf76cc24318127cee609ede63e8d4e3beae5ef304"
-    sha256 cellar: :any, arm64_sonoma:  "a11fb7da26b801fd40491db9c4adf8d87c8c7096a505de91d6647db71a46b014"
-    sha256 cellar: :any, arm64_ventura: "f54a0d602442ee5f3f0dc969e8db0d125d2fdf8579931572c2cfb67569b975d0"
-    sha256 cellar: :any, sonoma:        "f6791099ae1f461cb40cb553f7e7b44adbc3d01fca8214685a079571a8332289"
-    sha256 cellar: :any, ventura:       "81d1d6fd2163d2c85532e1baccf629c29f1c3fe5fda3a2b65eea47ccd2100ecd"
-    sha256               x86_64_linux:  "4f016b01b8ac0f874a5aeccfc20ab1aa4f9e58a5f0efc54dd1ddf5726c1a8b34"
+    sha256 cellar: :any, arm64_sequoia: "3aebca08e0acc92e4ccc247686838664b7f392138f352d2911a4a56784233667"
+    sha256 cellar: :any, arm64_sonoma:  "2138280c5b28d8ae8a5d020ec58dfafb4f5d37ee303510abccc1735529e64b90"
+    sha256 cellar: :any, arm64_ventura: "592fa5ac198f1b18c0c00156d814495da628d23dde64fd7f377819822f9f88b3"
+    sha256 cellar: :any, sonoma:        "ec5329a777657c76f8d2ccd1bdf93d1113d81b30d9f3d647a98252bcc23d481c"
+    sha256 cellar: :any, ventura:       "b7a84a181eb2b6c5bd90afd99bad0af21957e94a03eb986504de601ad9440937"
+    sha256               x86_64_linux:  "752a0b12ed649b4eaf208b3aeb1aeadaf6bb8775d9269eb8e4858159244fee2a"
   end
 
   disable! date: "2025-07-01", because: :versioned_formula
@@ -28,7 +28,7 @@ class SpidermonkeyAT115 < Formula
   depends_on "pkg-config" => :build
   depends_on "python@3.11" => :build # https://bugzilla.mozilla.org/show_bug.cgi?id=1857515
   depends_on "rust" => :build
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "nspr"
   depends_on "readline"
 
@@ -56,6 +56,10 @@ class SpidermonkeyAT115 < Formula
   end
 
   def install
+    # Workaround for ICU 76+
+    # Issue ref: https://bugzilla.mozilla.org/show_bug.cgi?id=1927380
+    inreplace "js/moz.configure", '"icu-i18n >= 73.1"', '"icu-i18n >= 73.1 icu-uc"'
+
     if OS.mac?
       inreplace "build/moz.configure/toolchain.configure" do |s|
         # Help the build script detect ld64 as it expects logs from LD_PRINT_OPTIONS=1 with -Wl,-version

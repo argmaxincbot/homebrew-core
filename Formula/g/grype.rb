@@ -1,18 +1,18 @@
 class Grype < Formula
   desc "Vulnerability scanner for container images and filesystems"
   homepage "https://github.com/anchore/grype"
-  url "https://github.com/anchore/grype/archive/refs/tags/v0.82.0.tar.gz"
-  sha256 "5069d3b865495d1aad6b1436c6b6885b55c6177592028c2bc1a79be36f469702"
+  url "https://github.com/anchore/grype/archive/refs/tags/v0.83.0.tar.gz"
+  sha256 "c6d650b4442d34cdc4be05130372843d197e5a5b83a112fc58f01cb08c3d4757"
   license "Apache-2.0"
   head "https://github.com/anchore/grype.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "168c7f257bc0f0a848e1524e02b5b5fe0c5d391912c892b6e0564caa8a22abe3"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "db1254a5c74a80c7063c9e71e8f700e0039838f28006eae2f9cd4efd87d2f4ed"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "9b139758efee6929162fb560bbd11962458cb5a8811aecff1014df6bd6421449"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e1a8ae61d4df7fafff64e4107d286f6ecb1425522d81caeb9a0def45ee473938"
-    sha256 cellar: :any_skip_relocation, ventura:       "6fe393f70efbe67a9631dfce44be3d17bf5a1615597f65a62e53d20ba8e4191a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "92d855e59c831ff0165bf8b7f099d5406d1f6dd825c0972242155ed514816f04"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "407f2b3cb5a5fe726384894b41b1cd29efa0971a5711c85c111fa2c7d813b7fa"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a3c636a052aa8cffa9b0febe6d55c25e73657d1a70ea0a09b71e6edc1de24ea8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5ede6cfead560e0d67c47f166c4f557b07dbaa60a5a2d211eaa2eca80a2d2fa5"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f7a5da14e282417c5aa4f31e75b49836509898dccd28f2cbeb6e54e034d93c8d"
+    sha256 cellar: :any_skip_relocation, ventura:       "918657c64c71fbeb8e13b58d369def82c2cfd036e9cdaa2c3f13d4f9a2b8009d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0790ce9bc44430d73fcee28757a69dbc9cb0cb67cfd546c22b5a0f028974d05c"
   end
 
   depends_on "go" => :build

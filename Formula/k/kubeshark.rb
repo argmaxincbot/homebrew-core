@@ -1,8 +1,8 @@
 class Kubeshark < Formula
   desc "API Traffic Analyzer providing real-time visibility into Kubernetes network"
   homepage "https://www.kubeshark.co/"
-  url "https://github.com/kubeshark/kubeshark/archive/refs/tags/v52.3.82.tar.gz"
-  sha256 "6a1b0938ba6a5521d0d8a21cadb821a14cb622eb3200b62f12c4cb050cacc263"
+  url "https://github.com/kubeshark/kubeshark/archive/refs/tags/v52.3.87.tar.gz"
+  sha256 "dea9d66e2fff6a55379a6ccb0820c7c3a97848e7ffc14a255460b2403428a16a"
   license "Apache-2.0"
 
   # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
@@ -14,12 +14,12 @@ class Kubeshark < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "573ce9714e39194501b5a9aebe9d9f2caedc3e47c5e528d3a09a88b08b04f6b1"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c4b1575225d97c9c39c18f8e4372ac484b6aab52d2ad449875cfb3c10f26502b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "779809d7641cc384b73b6217591e0aef364520b2312f85a8a0a98d1e5bcd9dff"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9317c082ef7435e31296d98f95695638e7d3d74d6e646e995cad52b1b6b7475c"
-    sha256 cellar: :any_skip_relocation, ventura:       "d735eeed5b9e38dc6b58d08b659a7731f008119007a90e6f81260efe2ee2b470"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6f1d2b00f2ef40104ee17126c84d1ee8fba4c5a7617789e9cb29754cb65864a1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "88f54432e141f4924a6d7d438ecbf5990eda5a18a1cd8ce99be3304423201e97"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4b008f15240df27626e16ff91a41d6e969acec9dba975362d68bd93d58835a8b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "0f3f30f0830e9ab88b4b3d67d6591f3238a4437cbc8167e0c340beea535b526c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ad36de67bd7d5eb00276036a2a4f053c8e1a71e71a9a8d6ddad1b158401038b5"
+    sha256 cellar: :any_skip_relocation, ventura:       "fe49507c64cf2c215ebf56a4395d360c2e8f182afbd277061ab725e081f853ed"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "19e0b6a11ecb99c6526f18c41c080b3ac1370973b6dae0411d71c60cbbc937b7"
   end
 
   depends_on "go" => :build

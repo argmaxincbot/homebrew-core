@@ -4,7 +4,7 @@ class Libxml2 < Formula
   url "https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.4.tar.xz"
   sha256 "65d042e1c8010243e617efb02afda20b85c2160acdbfbcb5b26b80cec6515650"
   license "MIT"
-  revision 1
+  revision 3
 
   # We use a common regex because libxml2 doesn't use GNOME's "even-numbered
   # minor is stable" version scheme.
@@ -14,12 +14,12 @@ class Libxml2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e55be8b308a20960064eda65e61bf119ed063c016c3af3fc512b78a2a7902105"
-    sha256 cellar: :any,                 arm64_sonoma:  "c7723baf8bb27b7207c095099fb98a4e35262922ad0984e4d43e7f8aa1c2ffa0"
-    sha256 cellar: :any,                 arm64_ventura: "022e585d660f17306b4a6aa38ef5c3eef5bcb91fc1911c47e4c5311fc726508d"
-    sha256 cellar: :any,                 sonoma:        "5db978e999a8f3ab0f72380f37318620dec63c9a52b01d49bed01e9a78de3cc2"
-    sha256 cellar: :any,                 ventura:       "0f8e4bb206959e34c7b96afe45e504bc6c4ee8e076253f04487c0c239a19e8d8"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "56efca78252ed7c800f31bb97afc41db3fc5eb4f626de440769c1f846d3e7a98"
+    sha256                               arm64_sequoia: "016dc2a96950af0b748b4e98a46cfa8935e8d43d20a75ba23791c78c037f215a"
+    sha256                               arm64_sonoma:  "b954917a8437c8ff6cb6787736a13680e4185726dd5c45edb6d3b69391191883"
+    sha256                               arm64_ventura: "62e7f160283b1d43ba9117b9cd8d29ea30d93640ff42f3bfd2331476f1fab3f3"
+    sha256                               sonoma:        "39aaefbfe24737fe3399a26fd2248374d4dc1ec87644bf16fdba1b7b5545f5b3"
+    sha256                               ventura:       "b8287a71c78ff3dfa6b84b9ec72e7f95c516712a874fdd231dd449289dc49804"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d7758c59760b0454356e2bc7aa6e2b46d530e6699196c99eaa047c1c8e26f95e"
   end
 
   head do
@@ -35,8 +35,9 @@ class Libxml2 < Formula
 
   depends_on "python@3.11" => [:build, :test]
   depends_on "python@3.12" => [:build, :test]
+  depends_on "python@3.13" => [:build, :test]
   depends_on "pkg-config" => :test
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "readline"
 
   uses_from_macos "zlib"
@@ -93,7 +94,7 @@ class Libxml2 < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libxml/tree.h>
 
       int main()
@@ -104,7 +105,7 @@ class Libxml2 < Formula
         xmlFreeDoc(doc);
         return 0;
       }
-    EOS
+    C
 
     # Test build with xml2-config
     args = shell_output("#{bin}/xml2-config --cflags --libs").split

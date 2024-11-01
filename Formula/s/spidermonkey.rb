@@ -1,9 +1,9 @@
 class Spidermonkey < Formula
   desc "JavaScript-C Engine"
   homepage "https://spidermonkey.dev"
-  url "https://archive.mozilla.org/pub/firefox/releases/128.2.0esr/source/firefox-128.2.0esr.source.tar.xz"
-  version "128.2.0"
-  sha256 "9617a1e547d373fe25c2f5477ba1b2fc482b642dc54adf28d815fc36ed72d0c2"
+  url "https://archive.mozilla.org/pub/firefox/releases/128.4.0esr/source/firefox-128.4.0esr.source.tar.xz"
+  version "128.4.0"
+  sha256 "074014e1c26144e10707b12a271176a4b6b67021e91444b613edae38d188febc"
   license "MPL-2.0"
   revision 1
   head "https://hg.mozilla.org/mozilla-central", using: :hg
@@ -11,24 +11,24 @@ class Spidermonkey < Formula
   # Spidermonkey versions use the same versions as Firefox, so we simply check
   # Firefox ESR release versions.
   livecheck do
-    url "https://www.mozilla.org/en-US/firefox/organizations/notes/"
+    url "https://download.mozilla.org/?product=firefox-esr-latest-ssl"
     strategy :header_match
   end
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "6fe0796eee858a564e69b1177dd570c2a44960d5fc6df5825d34f0ae5104e3ee"
-    sha256 cellar: :any, arm64_sonoma:  "11974635b9e35ccd0edf36f553732fc91e7a8b968603e9be54a09b2a13a21f99"
-    sha256 cellar: :any, arm64_ventura: "b41e468afe95410db6fa3dcec3b506567bd360214870b54b18243f83c8e4e5c8"
-    sha256 cellar: :any, sonoma:        "27799a651b2291ef1b6e15f5c09438c7383616852fa0020edcd0023f92732218"
-    sha256 cellar: :any, ventura:       "2c9b914fd1c12313bc3a1eb5af3788ffd35983e9e7b40f1f7cffbb17d3bf8caf"
-    sha256               x86_64_linux:  "a14155cd533018b60d756bf03f5123450683befe381854d92d18db20c9fcc812"
+    sha256 cellar: :any, arm64_sequoia: "61b7051e96d04b5b6ddacc8ee0800b243b4ea2453bd795c07980958f93f4d174"
+    sha256 cellar: :any, arm64_sonoma:  "88ab4784c34102c8fb93c8915cdcbd1ac7496460ffe84b5a30bea713d29be343"
+    sha256 cellar: :any, arm64_ventura: "ec7e958ab256a5962f4ba60c12b368dc8609d0f156ddf23657bb54612db09287"
+    sha256 cellar: :any, sonoma:        "88c0d75a9e74c2979b9e7afe93d4e615032508fa92c4ebd3b0ca26e2436b9f69"
+    sha256 cellar: :any, ventura:       "be20966c58859beea2f86f730aed999e4adb9222a2ff4350b94952e0adcd8c0e"
+    sha256               x86_64_linux:  "d0664eeb42fb30dceab87318b21513762cc47dda62a91b21e1870421fc08ad81"
   end
 
   depends_on "cbindgen" => :build
   depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "python@3.13" => :build
   depends_on "rust" => :build
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "nspr"
   depends_on "readline"
 
@@ -58,6 +58,10 @@ class Spidermonkey < Formula
   end
 
   def install
+    # Workaround for ICU 76+
+    # Issue ref: https://bugzilla.mozilla.org/show_bug.cgi?id=1927380
+    inreplace "js/moz.configure", '"icu-i18n >= 73.1"', '"icu-i18n >= 73.1 icu-uc"'
+
     ENV.runtime_cpu_detection
 
     if OS.mac?

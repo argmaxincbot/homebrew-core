@@ -3,21 +3,21 @@ class Gcovr < Formula
 
   desc "Reports from gcov test coverage program"
   homepage "https://gcovr.com/"
-  url "https://files.pythonhosted.org/packages/42/19/8a72c830ab7aed71927606c6432f7edded6cd214639dc07f610e8e22496a/gcovr-8.0.tar.gz"
-  sha256 "3d91ef6df6c465bab91a5b12c82c481b0fbe841d64630dcbf76a0faac7e994e8"
+  url "https://files.pythonhosted.org/packages/32/21/7f9967a2d5a37d8f77e793ba4c173d0e1e59195028c997a9947b73b652f4/gcovr-8.2.tar.gz"
+  sha256 "9a1dddd4585d13ec77555db5d6b6a31ee81587ea6fc604ff9fcd232cb0782df5"
   license "BSD-3-Clause"
   head "https://github.com/gcovr/gcovr.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ba754ef407113c1d8d5baee6f1dd3adbbff8a4da169fd90f7b352a23ef9ee5dc"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9bf8c7a1e0ca3dd4bd5796db14daaea934fa6ffb7114ddcaf12468027f8c7138"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "d95468ae84e6782dfaefa1b30fd4423a8f9fb3b306ab70816c0003ae9e16d4a2"
-    sha256 cellar: :any_skip_relocation, sonoma:        "94748f7128a086b0fce3c68c035e349aae49e7c734423e89baf92b3eca818747"
-    sha256 cellar: :any_skip_relocation, ventura:       "aa4124cf5931d6a220d8af2ea3a8d069d55c49f9a6706b19c8cd0acf6be9bac7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ae9187a099a62f0eba97258af69df66ff6c3e333c71600237765a12e40ce142d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2f7f77441e25db28d5cc139e25d0da7ea0b9b2b0c7bbb58993940ab5657fde4b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "06781eb1ecbc23c17eea3c2afae02943ab7426a182a624e7c4646cb5567de0ea"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2a25c3ff943643010a69b455916cd4013d3cdf8cc8f3d5feffd3268fed8acba1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "899ad67d226162abaa2605d48206670ca0fae72cebeb6723296b3040ce510c35"
+    sha256 cellar: :any_skip_relocation, ventura:       "8d862a1fbff7976bcd5b23216d3967b5689a3af5d667fa5b9b2b6fa06481370c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fdae1740841ad220dbbe6daff2479e5e3f0a3988d0777e61d2dbb5eee557d766"
   end
 
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "libxml2", since: :ventura
   uses_from_macos "libxslt"
@@ -38,8 +38,8 @@ class Gcovr < Formula
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/5c/84/3f683b24fcffa08c5b7ef3fb8a845661057dd39c321c1ae16fa37a3eb35b/markupsafe-3.0.0.tar.gz"
-    sha256 "03ff62dea2fef3eadf2f1853bc6332bcb0458d9608b11dfb1cd5aeda1c178ea6"
+    url "https://files.pythonhosted.org/packages/b4/d2/38ff920762f2247c3af5cbbbbc40756f575d9692d381d7c520f45deb9b8f/markupsafe-3.0.1.tar.gz"
+    sha256 "3e683ee4f5d0fa2dde4db77ed8dd8a876686e3fc417655c2ece9a90576905344"
   end
 
   resource "pygments" do

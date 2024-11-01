@@ -1,22 +1,23 @@
 class TmuxSessionizer < Formula
   desc "Tool for opening git repositories as tmux sessions"
   homepage "https://github.com/jrmoulton/tmux-sessionizer/"
-  url "https://github.com/jrmoulton/tmux-sessionizer/archive/refs/tags/v0.4.2.tar.gz"
-  sha256 "0f9369a045ebe181202fcf5f292bbdd836f25b47ca9da1702351a725693631f5"
+  url "https://github.com/jrmoulton/tmux-sessionizer/archive/refs/tags/v0.4.4.tar.gz"
+  sha256 "9dfbe99a3c1fe7f48be0c1ab9056e49f36c4f85d023e24f874254f6791a9894e"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "a03c3a2bfd283dfb14fe55e4c50fafeea446acf0c228d6979b67a05e2642f0b1"
-    sha256 cellar: :any,                 arm64_sonoma:  "3028161e6f942c0b24c1ceb2b1a8d5843b24907cc27ee207f85fe06c9d3bc8e7"
-    sha256 cellar: :any,                 arm64_ventura: "7a603d0a09c2c6b64ea010427559a18651a8fe1e5149feca7dfc996c389f2ad5"
-    sha256 cellar: :any,                 sonoma:        "903e07fd37d645a9f8d092e9af335b5a0341602d329a4e494f91da9c26f9fe18"
-    sha256 cellar: :any,                 ventura:       "34f6b6758df67acd10f91c6d74885d0cc7045a62637bd573e7cc2346af005f63"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bd989d2d8fd9f7cf38648263c92502269c53d2ebdace30ea98017f4da1c2a9d7"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "039011d74739cdc73301f6d8d424311d14f14243bf9112c64d12668f303e94eb"
+    sha256 cellar: :any,                 arm64_sonoma:  "fc7eb901dff1deddfc6cb6bf320b473154d3760459bc80cea477f0cfb95d147a"
+    sha256 cellar: :any,                 arm64_ventura: "f4ce96fc1ad1def2e691bb9941d1b9017e5ff90797149f66bf29054548e6e972"
+    sha256 cellar: :any,                 sonoma:        "7ad5de9590ab6392514dd65e4159bd56f7d8edb6708036a1f422cbf251c83896"
+    sha256 cellar: :any,                 ventura:       "b86f4cebc829f1b7717870caa79f1ee5ff91388bfa09e00f13f4672d55e9d046"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e3f45a9334e24a1c2715a766b4fe387fb3a8ed737c7cf8e5e4837ef2ba27e468"
   end
 
   depends_on "pkg-config" => :build
   depends_on "rust" => :build
-  depends_on "libgit2@1.7"
+  depends_on "libgit2"
   depends_on "libssh2"
   depends_on "openssl@3"
   uses_from_macos "zlib"
@@ -30,6 +31,8 @@ class TmuxSessionizer < Formula
     ENV["LIBSSH2_SYS_USE_PKG_CONFIG"] = "1"
 
     system "cargo", "install", *std_cargo_args
+
+    generate_completions_from_executable(bin/"tms", "--generate", base_name: "tms")
   end
 
   def check_binary_linkage(binary, library)
@@ -45,7 +48,7 @@ class TmuxSessionizer < Formula
     assert_match version.to_s, shell_output("#{bin}/tms --version")
 
     [
-      Formula["libgit2@1.7"].opt_lib/shared_library("libgit2"),
+      Formula["libgit2"].opt_lib/shared_library("libgit2"),
       Formula["libssh2"].opt_lib/shared_library("libssh2"),
       Formula["openssl@3"].opt_lib/shared_library("libssl"),
       Formula["openssl@3"].opt_lib/shared_library("libcrypto"),
