@@ -6,6 +6,9 @@ on:
       - master
     paths:
       - '.github/workflows/*.ya?ml'
+      - 'Formula/a/actionlint.rb'
+      - 'Formula/s/shellcheck.rb'
+      - 'Formula/z/zizmor.rb'
   pull_request:
     paths:
       - '.github/workflows/*.ya?ml'

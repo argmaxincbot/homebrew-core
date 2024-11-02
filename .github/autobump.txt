@@ -854,6 +854,7 @@ fauna-shell
 faust
 favirecon
 fblog
+fcft
 fclones
 fd
 fdk-aac-encoder
@@ -920,6 +921,7 @@ fontconfig
 fontforge
 fonts-encodings
 fonttools
+foot
 fop
 forbidden
 forcecli
@@ -1358,6 +1360,7 @@ jose
 jp2a
 jpeg-turbo
 jpeg-xl
+jprq
 jql
 jr
 jreleaser
@@ -1983,6 +1986,7 @@ node-build
 node-sass
 node@18
 node@20
+node@22
 node_exporter
 nodeenv
 nomino
@@ -1990,6 +1994,7 @@ nopoll
 noseyparker
 notation
 notcurses
+notify
 nox
 npm-check-updates
 npth
@@ -2533,6 +2538,7 @@ sdl2
 seal
 seam
 seaweedfs
+sec
 secp256k1
 securefs
 selene
@@ -2928,6 +2934,7 @@ uriparser
 urlscan
 usb.ids
 usbredir
+usbutils
 userspace-rcu
 util-linux
 util-macros

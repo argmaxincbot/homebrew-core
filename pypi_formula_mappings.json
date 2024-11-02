@@ -35,7 +35,6 @@
     "exclude_packages": ["certifi", "cffi", "pycparser", "pyyaml", "six"]
   },
   "ansible@8": {
-    "exclude_packages": ["certifi", "cryptography"],
     "extra_packages": [
       "apache-libcloud", "boto3", "dnspython", "docker",
       "junos-eznc", "jxmlease", "kerberos", "ntc-templates", "openshift",
@@ -220,8 +219,7 @@
     "exclude_packages": ["certifi"]
   },
   "cryptography": {
-    "exclude_packages": ["cffi", "pycparser"],
-    "extra_packages": ["maturin", "setuptools-rust"]
+    "exclude_packages": ["cffi", "pycparser"]
   },
   "cycode": {
     "exclude_packages": ["certifi"]

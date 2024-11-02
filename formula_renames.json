@@ -139,6 +139,7 @@
   "racket": "minimal-racket",
   "rebar@3": "rebar3",
   "recipes": "gnome-recipes",
+  "repopack": "repomix",
   "resin-cli": "balena-cli",
   "richmd": "rich-cli",
   "root6": "root",

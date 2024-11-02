@@ -11,17 +11,19 @@ class WasiRuntimes < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0f2634f91560a0537344f4c84466e06fad5061c6eaf943136ffc82f2c8e8fa58"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3903b29603e9926d540312e302a5f9c1e0338587c2d9ab71b40a00a00e3c22ce"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "27e597c06a4606f5e189a8aafe97a67d1af2b1efde5a8919a380b8a4423df319"
-    sha256 cellar: :any_skip_relocation, sonoma:        "bedd743473f5afa26709ef42f2c729f9dd7c350930fb5d47b24c2ab575cb95bf"
-    sha256 cellar: :any_skip_relocation, ventura:       "72fb97b1e58463cfa0e40625ce6028be7f4f41c19ad0455af1ad0c31521cf70b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "926a42b854953ac8613d97785241bbc78a2ef4190b0c6680ddcf496a9e4d0d65"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6a416ceb547e428f6fa7ba55c1f955889504dc92ad62ad0c23d3e52c0aca4dff"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "827a14dab71af9ca068ebe22e3e5a8cefb87f3f69f93011d9e9c4feb36d054b2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "10a1a47517183e7b2e92f45dffae7142b261332a2a187c37677690684d69c30a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ada587bb34d56e564ad457584c1e100ae5b505dc16d79e9e22840353106234ff"
+    sha256 cellar: :any_skip_relocation, ventura:       "17bb1834271dbed6588418961a23891cd2682b3f717bb1d82157dbaf87fc4519"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cf2e167df3de25498aca9b287f2880d99a0b20de5e2710166063a8dd4ad5912f"
   end
 
   depends_on "cmake" => :build
   depends_on "lld" => [:build, :test]
   depends_on "wasi-libc" => [:build, :test]
+  depends_on "wasm-component-ld" => [:build, :test]
   depends_on "wasmtime" => :test
   depends_on "llvm"
 
@@ -94,10 +96,6 @@ class WasiRuntimes < Formula
       ln_s pn, target
     end
 
-    # FIXME: the build mistakenly concludes our toolchain doesn't support `-fno-exceptions`
-    #        because we have no `wasm-component-ld`. Remove the line below when
-    #        `wasm-component-ld` is merged.
-    ENV.append_to_cflags "-fno-exceptions"
     target_configuration = Hash.new { |h, k| h[k] = {} }
 
     targets.each do |target|
@@ -207,9 +205,6 @@ class WasiRuntimes < Formula
 
     clang = Formula["llvm"].opt_bin/"clang"
     targets.each do |target|
-      # FIXME: Needs a working `wasm-component-ld`.
-      next if target.include?("wasip2")
-
       system clang, "--target=#{target}", "-v", "test.c", "-o", "test-#{target}"
       assert_equal "the answer is 42", shell_output("wasmtime #{testpath}/test-#{target}")
 

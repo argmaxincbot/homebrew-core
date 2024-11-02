@@ -6,17 +6,17 @@ class PythonFreethreading < Formula
   license "Python-2.0"
 
   livecheck do
-    url "https://www.python.org/ftp/python/"
-    regex(%r{href=.*?v?(\d(?:\.\d+)*)/?["' >]}i)
+    formula "python"
   end
 
   bottle do
-    sha256 arm64_sequoia: "0f9eacb0bec71b324566294066d636a6751cad6ec1ea493c2190561335b40cdd"
-    sha256 arm64_sonoma:  "cb8a80b3a41c4009d517824be20caa6eb9e271094dfff34c61c5a486d3d03c91"
-    sha256 arm64_ventura: "d484dfb4fa51152a1aa9fc5984737e2626b6d29855be58bfc553d75a3e29e001"
-    sha256 sonoma:        "af65642e4704fda3fde02840c5ec241277d027fd86792ac77731797a439fba76"
-    sha256 ventura:       "1900e44a812afbf9fdd70d5f3f27b4653e6348d4d7df729caef07eecf17841d9"
-    sha256 x86_64_linux:  "1ae107bce7c691a26d1718752790269ff290dd07f2626b99c2556305de72c57b"
+    rebuild 2
+    sha256 arm64_sequoia: "32d7f7f0e2656048b58b2ddde7cc64bd1c89ecad3bf055d67ffc54bfd65cd488"
+    sha256 arm64_sonoma:  "f4cbdc28c038b51c8a010483c0c3f8e0a3f268c77821878a2ea3362ecd227a9e"
+    sha256 arm64_ventura: "756128eb32481fdca1d3c5251bf85428aa46829503ecea8265e7bcf11e4ec51b"
+    sha256 sonoma:        "bda3183a044054bb71e716806c25d94409bba2959c9fa8363a8a26dd719e7128"
+    sha256 ventura:       "2eb3d08648994751b0adb9e51ff8279f8084b230fb787db1e3ea80b2f42189a3"
+    sha256 x86_64_linux:  "6daceb67da4ef3b087c9e46f636b42632261380bb971208d6e747c878d835a77"
   end
 
   # setuptools remembers the build flags python is built with and uses them to
@@ -29,6 +29,8 @@ class PythonFreethreading < Formula
   depends_on "sqlite"
   depends_on "xz"
 
+  # not actually used, we just want this installed to ensure there are no conflicts.
+  uses_from_macos "python" => :test
   uses_from_macos "bzip2"
   uses_from_macos "expat"
   uses_from_macos "libedit"
@@ -163,9 +165,6 @@ class PythonFreethreading < Formula
       args << "--with-dbmliborder=bdb"
     end
 
-    # Resolve HOMEBREW_PREFIX in our sysconfig modification.
-    inreplace "Lib/sysconfig/__init__.py", "@@HOMEBREW_PREFIX@@", HOMEBREW_PREFIX, audit_result: false
-
     # Allow python modules to use ctypes.find_library to find homebrew's stuff
     # even if homebrew is not a /usr/local/lib. Try this with:
     # `brew install enchant && pip install pyenchant`
@@ -282,8 +281,11 @@ class PythonFreethreading < Formula
     mv bin/"idle#{version.major_minor}", bin/"idle#{version.major_minor}t"
     mv bin/"pydoc#{version.major_minor}", bin/"pydoc#{version.major_minor}t"
 
-    # Remove python3.13 named executables
-    (bin.children - bin.glob("*#{version.major_minor}t*")).map(&:unlink)
+    # Remove files that conflict with the main python3 formula
+    bin.glob("{idle,pydoc}3").map(&:unlink)
+    [bin, lib, lib/"pkgconfig", include].each do |directory|
+      (directory.glob("*python*") - directory.glob("*#{version.major_minor}t*")).map(&:unlink)
+    end
     rm_r share
   end
 
@@ -334,9 +336,14 @@ class PythonFreethreading < Formula
     mv (site_packages/"bin").children, bin
     rmdir site_packages/"bin"
 
-    rm_r(bin/"pip")
+    rm [bin/"pip", bin/"pip3"]
     mv bin/"wheel", bin/"wheel#{version.major_minor}t"
     mv bin/"pip#{version.major_minor}", bin/"pip#{version.major_minor}t"
+
+    # post_install happens after link
+    (HOMEBREW_PREFIX/"bin").install_symlink (%w[pip wheel].map do |executable|
+      bin/"#{executable}#{version.major_minor}t"
+    end)
 
     # Mark Homebrew python as externally managed: https://peps.python.org/pep-0668/#marking-an-interpreter-as-using-an-external-package-manager
     # Placed after ensurepip since it invokes pip in isolated mode, meaning

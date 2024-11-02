@@ -6,6 +6,14 @@ class Intercept < Formula
   license "AGPL-3.0-only"
   head "https://github.com/xfhg/intercept.git", branch: "master"
 
+  # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
+  # labeled as "pre-release" on GitHub, so it's necessary to use the
+  # `GithubLatest` strategy.
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   bottle do
     sha256 cellar: :any_skip_relocation, arm64_sonoma:   "462d8ea33b9bc231246f675b27aae0410bc3533f7936ddb325825676b7dc6e4b"
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "7b9f713421eb60a9f282382c984910102b4ee038a9696646692a58f95b60deb0"
