@@ -1483,6 +1483,7 @@ kyma-cli
 kyverno
 lacework-cli
 lando-cli
+langgraph-cli
 languagetool
 lanraragi
 lastpass-cli
@@ -2388,9 +2389,11 @@ r
 rabbitmq
 radamsa
 radare2
+rage
 railway
 rakudo-star
 rancher-cli
+ranger
 rapidfuzz-cpp
 ratchet
 rattler-build
@@ -2683,6 +2686,7 @@ srt
 srtp
 ssh-audit
 sshs
+ssldump
 sslh
 sslscan
 ssocr
@@ -2936,6 +2940,7 @@ usb.ids
 usbredir
 usbutils
 userspace-rcu
+utf8cpp
 util-linux
 util-macros
 uutils-coreutils

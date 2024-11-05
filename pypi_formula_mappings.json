@@ -615,7 +615,6 @@
   "pwntools": {
     "exclude_packages": ["capstone", "certifi", "cryptography"]
   },
-  "pydocstyle": "pydocstyle[toml]",
   "pygit2": {
     "exclude_packages": ["cffi", "pycparser"]
   },
@@ -894,6 +893,7 @@
     "exclude_packages": ["certifi"]
   },
   "yt-dlp": {
+    "package_name": "yt-dlp[default]",
     "exclude_packages": ["certifi"]
   },
   "zabbix-cli": {
