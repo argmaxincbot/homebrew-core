@@ -356,6 +356,7 @@ jobs:
                 libxml2|\
                 python@3.12|\
                 systemd|\
+                wayland-protocols|\
                 zlib|\
                 ).rb"
               keep_if_no_match: true

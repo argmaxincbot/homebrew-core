@@ -916,6 +916,7 @@ fn
 fnlfmt
 fnm
 fnt
+fobis
 folderify
 fontconfig
 fontforge
@@ -1840,6 +1841,7 @@ minetest
 minica
 minigraph
 minikube
+minimal-racket
 minipro
 miniserve
 miniupnpc
@@ -2095,6 +2097,9 @@ openjdk@8
 openjpeg
 openjph
 openldap
+openliberty-jakartaee8
+openliberty-microprofile4
+openliberty-webprofile8
 openlibm
 openrct2
 openrtsp
