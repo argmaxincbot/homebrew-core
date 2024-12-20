@@ -3,17 +3,17 @@ class YtDlp < Formula
 
   desc "Feature-rich command-line audio/video downloader"
   homepage "https://github.com/yt-dlp/yt-dlp"
-  url "https://files.pythonhosted.org/packages/52/50/0014e9099a9dc3dec1da086e5eb5f861984a0512738bd3d3b63cedd82cbb/yt_dlp-2024.11.4.tar.gz"
-  sha256 "ed204c1b61bc563e134447766d1ab343173540799e13ebb953e887ce7dcf6865"
+  url "https://files.pythonhosted.org/packages/8a/fd/a05fac6661cc43057a6f804eeeba3f8f893f3f3bb22e071e0c4aa798ccdb/yt_dlp-2024.12.13.tar.gz"
+  sha256 "77e15afb9d460ecb7294a39bb5e39dc9f4e8a65f3a37ef4db58800b94d095511"
   license "Unlicense"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4acfe43461f814a5d9bba8a463c4939275e236fe738b25bd979699315737bba6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "40c8cd41ea167085b4efdfc225f1f2ca2f030387048badee2d962cabfe3d74ce"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "041ded1daf8fc9242615a773b2e05622509e75e0febace448edc6c997d5c0d90"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ab1954b3f23edca21ca595cc2eb0162a0a99905791ea8d84a63180ce0480046f"
-    sha256 cellar: :any_skip_relocation, ventura:       "046174d8b7f0c78f9e33b9db3308f120049ca1902bb80a9eb6de170b93665578"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9a7efda0ae6d91b8e912fd4e351212f1f8318827487819e356fc02d57d9b5e85"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d3ca16c18321a396adee07e5bb4983dc37fb208a05224cf25af38b3f4dc2edea"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "da4ed3b80a1006ed8acaae2b49f576dd853fa6956ca7317364082c88cfc295a0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8080441e839d23a703caca70240cb633396246b4093784191c44b2016cbec3ee"
+    sha256 cellar: :any_skip_relocation, sonoma:        "ff546032db2797ec3e91b59cc603434135b37e78aee9641d367cc5a67954e5a0"
+    sha256 cellar: :any_skip_relocation, ventura:       "6c7fde476d58ca38ab047498d44e78d1e305c7715a353e704b07db1c8e6b9c9d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c2b3de4c0166250f14ffb5135d24a79e601ee479556bb25be79b97855f42bc33"
   end
 
   head do
@@ -65,8 +65,8 @@ class YtDlp < Formula
   end
 
   resource "websockets" do
-    url "https://files.pythonhosted.org/packages/e2/73/9223dbc7be3dcaf2a7bbf756c351ec8da04b1fa573edaf545b95f6b0c7fd/websockets-13.1.tar.gz"
-    sha256 "a3b3366087c1bc0a2795111edcadddb8b3b59509d5db5d7ea3fdd69f954a8878"
+    url "https://files.pythonhosted.org/packages/f4/1b/380b883ce05bb5f45a905b61790319a28958a9ab1e4b6b95ff5464b60ca1/websockets-14.1.tar.gz"
+    sha256 "398b10c77d471c0aab20a845e7a60076b6390bfdaac7a6d2edb0d2c59d75e8d8"
   end
 
   def install

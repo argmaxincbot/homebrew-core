@@ -18,7 +18,7 @@ class Ubertooth < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libbtbb"
   depends_on "libusb"
 
@@ -34,6 +34,6 @@ class Ubertooth < Formula
 
   test do
     # Most ubertooth utilities require an ubertooth device present.
-    system bin/"ubertooth-rx", "-i", "/dev/null"
+    system bin/"ubertooth-rx", "-i", File::NULL
   end
 end

@@ -1,8 +1,8 @@
 class Scarb < Formula
   desc "Cairo package manager"
   homepage "https://docs.swmansion.com/scarb/"
-  url "https://github.com/software-mansion/scarb/archive/refs/tags/v2.8.4.tar.gz"
-  sha256 "2ad8c76f4226f508dc129fe1e4e6120a27b64b141bffe2c4c24d1f4dde2d0a69"
+  url "https://github.com/software-mansion/scarb/archive/refs/tags/v2.9.2.tar.gz"
+  sha256 "8d8f9fcdaaa72a961d170dc3fced8cb61bb463a185debb654648887c26df0956"
   license "MIT"
   head "https://github.com/software-mansion/scarb.git", branch: "main"
 
@@ -12,15 +12,16 @@ class Scarb < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2afa762034ca0c4837adcd4613587c5db30540b6c3db04538cb7548743a4df8e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "222627aa2010abc24797891842034559486876fb52626ef483f73eef791879af"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "701dc123b9f089be94b9f4a26178e8b332e9a35269043cd157600d6a92e66147"
-    sha256 cellar: :any_skip_relocation, sonoma:        "8083e48c330dff6e38fc9f64aa212189e65ffbb00b15daff4a7ac000ad34ab06"
-    sha256 cellar: :any_skip_relocation, ventura:       "e399010676d3d25c34166587fecc054894513b1854c9e1d3bcc2c994e0536a7b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ec9f547b3a9d59d2ee451bd982ad3102c846227cd8d250198ceb7a8d2ed1cd77"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d678b1b4c846e5609f5e5cbbcc61ea0c4d806d36d36f196344e8db9bd42d636a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "afcb3831f4c6c0ccead56d2a3a42c7888cd3d2601303468878961ead9b19b61d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "7de68a58f8399860b8ba9f5e6e5148771c819b1b098ec87bb390f54cf0d33d0b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c3eefb90dd68de76e89e0b15d686ad1a1dca7a5843852c438013a3c548cd5742"
+    sha256 cellar: :any_skip_relocation, ventura:       "8aa066a4ba0569a4eaad4ab85665261f7216ecdfe53315309a812ed5d9a9000e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1eb3e91b7c564b45a83ba1f1845ae939a7be334cd242f9984c3ba88a1188fa45"
   end
 
   depends_on "rust" => :build
+  uses_from_macos "zlib"
 
   def install
     %w[
@@ -28,7 +29,6 @@ class Scarb < Formula
       extensions/scarb-cairo-language-server
       extensions/scarb-cairo-run
       extensions/scarb-cairo-test
-      extensions/scarb-snforge-test-collector
       extensions/scarb-doc
     ].each do |f|
       system "cargo", "install", *std_cargo_args(path: f)
@@ -47,7 +47,6 @@ class Scarb < Formula
     assert_match version.to_s, shell_output("#{bin}/scarb --version")
     assert_match version.to_s, shell_output("#{bin}/scarb cairo-run --version")
     assert_match version.to_s, shell_output("#{bin}/scarb cairo-test --version")
-    assert_match version.to_s, shell_output("#{bin}/scarb snforge-test-collector --version")
     assert_match version.to_s, shell_output("#{bin}/scarb doc --version")
   end
 end

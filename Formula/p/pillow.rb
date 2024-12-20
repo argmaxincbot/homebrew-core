@@ -15,7 +15,7 @@ class Pillow < Formula
     sha256               x86_64_linux:  "e7a618cba484da3cb05fcaec9d300cde908124f17d3d82c1a69dbe54b782fca0"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.12" => [:build, :test]
   depends_on "python@3.13" => [:build, :test]
   depends_on "freetype"
@@ -26,7 +26,6 @@ class Pillow < Formula
   depends_on "libxcb"
   depends_on "little-cms2"
   depends_on "openjpeg"
-  depends_on "tcl-tk"
   depends_on "webp"
 
   uses_from_macos "zlib"
@@ -59,11 +58,11 @@ class Pillow < Formula
   end
 
   test do
-    (testpath/"test.py").write <<~EOS
+    (testpath/"test.py").write <<~PYTHON
       from PIL import Image
       im = Image.open("#{test_fixtures("test.jpg")}")
       print(im.format, im.size, im.mode)
-    EOS
+    PYTHON
 
     pythons.each do |python|
       assert_equal "JPEG (1, 1) RGB", shell_output("#{python} test.py").chomp

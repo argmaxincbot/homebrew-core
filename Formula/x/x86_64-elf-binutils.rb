@@ -21,7 +21,7 @@ class X8664ElfBinutils < Formula
     sha256 x86_64_linux:   "f0ed12582580e7fa52c4a1db664ceeef57c921ba29aa110673ae6aeb7ed3e7cf"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "zstd"
 
   uses_from_macos "zlib"
@@ -45,7 +45,7 @@ class X8664ElfBinutils < Formula
   end
 
   test do
-    (testpath/"test-s.s").write <<~EOS
+    (testpath/"test-s.s").write <<~ASM
       .section .data
       .section .text
       .globl _start
@@ -53,7 +53,7 @@ class X8664ElfBinutils < Formula
           movl $1, %eax
           movl $4, %ebx
           int $0x80
-    EOS
+    ASM
 
     system bin/"x86_64-elf-as", "--64", "-o", "test-s.o", "test-s.s"
     assert_match "file format elf64-x86-64",

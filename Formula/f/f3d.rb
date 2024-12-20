@@ -1,10 +1,9 @@
 class F3d < Formula
   desc "Fast and minimalist 3D viewer"
   homepage "https://f3d-app.github.io/f3d/"
-  url "https://github.com/f3d-app/f3d/archive/refs/tags/v2.5.0.tar.gz"
-  sha256 "d7f6dd7d9e4465c1f44d168c3a38aad24569a25907673180c8791a783e73f02f"
+  url "https://github.com/f3d-app/f3d/archive/refs/tags/v2.5.1.tar.gz"
+  sha256 "55ea01931f90f066df1abc0ae4e9575672e80b83b241f51884224baa8dccac24"
   license "BSD-3-Clause"
-  revision 2
 
   # Upstream creates releases that use a stable tag (e.g., `v1.2.3`) but are
   # labeled as "pre-release" on GitHub before the version is released, so it's
@@ -15,11 +14,11 @@ class F3d < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "1a68d410824cc006cd3cf9680be8a666866a0545aa584315b87c479cd1e97603"
-    sha256 cellar: :any,                 arm64_ventura: "e3146c04da9452ce86f5a3a760b8decc7d860cd82789f1705a9d002e6f79ac90"
-    sha256 cellar: :any,                 sonoma:        "9951f6caaee5baf1acc8af3611f56145323ed2b052bd5fe61f5c1e877e1a0b31"
-    sha256 cellar: :any,                 ventura:       "2af6df34acb758afab52877b765bcfaf423c7a7b98978b9aed3f457a50963262"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e163716cc6d6fab4e93e10e718791b2eb3c653ce0cbbd42d18e07d1eefa3cb89"
+    sha256 cellar: :any,                 arm64_sonoma:  "2ab25b18901e2b7df5dce2b820b5ae55948d481a0e04de56b75bb0af58c02da4"
+    sha256 cellar: :any,                 arm64_ventura: "b73eea70d6adcb0d528ee8f462396316c3a8ecc467d49377b47abf51b97e5ae6"
+    sha256 cellar: :any,                 sonoma:        "b3bd9a4073050f764bf821458c087cff59b2e31ac4a3123ab218f7896219323e"
+    sha256 cellar: :any,                 ventura:       "2d3899865c7dbfe60f4352781c5bbb82381441efc385301cafb09e20f8816df6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f0a533f4beace3c8e5d8cda50da3fea52fbada7f9ae14998788050245f51f307"
   end
 
   depends_on "cmake" => :build
@@ -39,7 +38,7 @@ class F3d < Formula
     depends_on "libaec"
     depends_on "netcdf"
     depends_on "tbb"
-    depends_on "tcl-tk"
+    depends_on "tcl-tk@8"
     depends_on "zstd"
   end
 

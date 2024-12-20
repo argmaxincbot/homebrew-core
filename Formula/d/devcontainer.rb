@@ -22,15 +22,15 @@ class Devcontainer < Formula
   end
 
   test do
-    ENV["DOCKER_HOST"] = "/dev/null"
+    ENV["DOCKER_HOST"] = File::NULL
     # Modified .devcontainer/devcontainer.json from CLI example:
     # https://github.com/devcontainers/cli#try-out-the-cli
-    (testpath/".devcontainer.json").write <<~EOS
+    (testpath/".devcontainer.json").write <<~JSON
       {
         "name": "devcontainer-homebrew-test",
         "image": "mcr.microsoft.com/devcontainers/rust:0-1-bullseye"
       }
-    EOS
+    JSON
     output = shell_output("#{bin}/devcontainer up --workspace-folder .", 1)
     assert_match '{"outcome":"error","message":"', output
   end

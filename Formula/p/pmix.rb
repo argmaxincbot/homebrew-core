@@ -1,9 +1,18 @@
 class Pmix < Formula
   desc "Process Management Interface for HPC environments"
   homepage "https://openpmix.github.io/"
-  url "https://github.com/openpmix/openpmix/releases/download/v5.0.3/pmix-5.0.3.tar.bz2"
-  sha256 "3f779434ed59fc3d63e4f77f170605ac3a80cd40b1f324112214b0efbdc34f13"
   license "BSD-3-Clause"
+
+  stable do
+    url "https://github.com/openpmix/openpmix/releases/download/v5.0.5/pmix-5.0.5.tar.bz2"
+    sha256 "a12e148c8ec4b032593a2c465a762e93c43ad715f3ceb9fbc038525613b0c70d"
+
+    # Fix -flat_namespace being used on Big Sur and later.
+    patch do
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/03cf8088210822aa2c1ab544ed58ea04c897d9c4/libtool/configure-big_sur.diff"
+      sha256 "35acd6aebc19843f1a2b3a63e880baceb0f5278ab1ace661e57a502d9d78c93c"
+    end
+  end
 
   livecheck do
     url :stable
@@ -11,14 +20,12 @@ class Pmix < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "33cec8bbbc0471911bb5a771e4e06dbbbc8c0bd891d4fb8dca8fa8783966fdcf"
-    sha256 arm64_sonoma:   "1bb946832094eaf4ecd78549b1181a43951eb0c2ebf4c23af834263f3a39ff07"
-    sha256 arm64_ventura:  "b82da6ad74dcc27768c9d113e0999eade722e537ca917bfc6861bc68cc301c6e"
-    sha256 arm64_monterey: "5dd890f4c203eb25ed381d774e9a2f545ceffe931d8079a5a6b0315ac23123a0"
-    sha256 sonoma:         "22ea4e40253d3f2cf622ae00a807ac7b51a4a88e88ed733b91a3b8bda7634de3"
-    sha256 ventura:        "1a86b55384410e3e6c5ff8475c2a914edf129353703b3f57bb688585671a99e1"
-    sha256 monterey:       "0a674c9dd2072fe0ffdef3d8ae69eaa82bd7b06df49924080d8ed41f41cae5a8"
-    sha256 x86_64_linux:   "25efde60eb0f20026a88f62786eccb14b14260449fa5405922a3160cc83d3d96"
+    sha256 arm64_sequoia: "aa8d3800fdcc79fad479a431e304d5bda425a0d280ff4b6f122583f2ec25c142"
+    sha256 arm64_sonoma:  "560cd6420113aed6f2d099fcf806cc4d87d3b531a6e2860998f8ae1f4980e615"
+    sha256 arm64_ventura: "db2a331eeb1822b36667ad66f7559ed4185ff665d47492020864d68a8a2c6d77"
+    sha256 sonoma:        "d93a21ec141dab7d214157db3bacbaa5e51d3f6236e462c3c3717f66203f97f1"
+    sha256 ventura:       "62812873f092e08036885e88c93f733cccf727e59993902ed12217aa225b60ea"
+    sha256 x86_64_linux:  "3a5ad6e788077ac5f7113c0d974dfabf8eeacf76181923988f5f7a73d47506d6"
   end
 
   head do

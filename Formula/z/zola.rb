@@ -16,7 +16,7 @@ class Zola < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "9d6138aa7ff35d309d8c8a3c17ab9552bb8b9465427701fc7cf5d869c2c6e940"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "oniguruma" # for onig_sys
 
@@ -33,15 +33,15 @@ class Zola < Formula
 
   test do
     system "yes '' | #{bin}/zola init mysite"
-    (testpath/"mysite/content/blog/_index.md").write <<~EOS
+    (testpath/"mysite/content/blog/_index.md").write <<~MARKDOWN
       +++
       +++
 
       Hi I'm Homebrew.
-    EOS
-    (testpath/"mysite/templates/section.html").write <<~EOS
+    MARKDOWN
+    (testpath/"mysite/templates/section.html").write <<~HTML
       {{ section.content | safe }}
-    EOS
+    HTML
 
     cd testpath/"mysite" do
       system bin/"zola", "build"

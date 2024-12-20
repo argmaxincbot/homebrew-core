@@ -30,7 +30,7 @@ class Libnghttp2 < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   # These used to live in `nghttp2`.
   link_overwrite "include/nghttp2"
@@ -42,8 +42,8 @@ class Libnghttp2 < Formula
   link_overwrite "lib/pkgconfig/libnghttp2.pc"
 
   def install
-    system "autoreconf", "-ivf" if build.head?
-    system "./configure", *std_configure_args, "--enable-lib-only"
+    system "autoreconf", "--force", "--install", "--verbose" if build.head?
+    system "./configure", "--enable-lib-only", *std_configure_args
     system "make", "-C", "lib"
     system "make", "-C", "lib", "install"
   end

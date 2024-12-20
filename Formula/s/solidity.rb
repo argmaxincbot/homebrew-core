@@ -4,6 +4,7 @@ class Solidity < Formula
   url "https://github.com/ethereum/solidity/releases/download/v0.8.28/solidity_0.8.28.tar.gz"
   sha256 "ec756e30f26a5a38d028fd6f401ef0a7f5cfbf4a1ce71f76c2e3e1ffb8730672"
   license all_of: ["GPL-3.0-or-later", "MIT", "BSD-3-Clause", "Apache-2.0", "CC0-1.0"]
+  revision 1
 
   livecheck do
     url :stable
@@ -11,12 +12,12 @@ class Solidity < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "b9c156677e374eaf59be5495bb5e2762af577ff840149e388ec895d28b6f5cf4"
-    sha256 cellar: :any,                 arm64_sonoma:  "5c9ed4e2f11cb81b1802f8f00a12d896eeed78fb3654f32a571b67c021d3753c"
-    sha256 cellar: :any,                 arm64_ventura: "b5282e586af70de0dacfc75cb625226343bfdba1f6335890adecc91a106a6db7"
-    sha256 cellar: :any,                 sonoma:        "2da60a4a743c85bb3e4d885ff96ed9db94df9076c7b565a9ba51304121384db3"
-    sha256 cellar: :any,                 ventura:       "ac152d013a33817d9f0455d1f052a3d297ae4b0cb7070bcdfb6de7877ede2333"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "22896839ea9da3dd776292c755058b6e11fd1adb67fc23cf526addd10452c75b"
+    sha256 cellar: :any,                 arm64_sequoia: "4f389bce0db912513f5e381a4bd139953f2cdfa82308d0a250f81dab088bd18e"
+    sha256 cellar: :any,                 arm64_sonoma:  "8a1fa063bb9410e5257aceabd9c550c446e8906c258b3053367719413540371b"
+    sha256 cellar: :any,                 arm64_ventura: "3a086cdb971d56700ca0d5c73580af511b3789b117de8cd4ff1251db233396de"
+    sha256 cellar: :any,                 sonoma:        "ee728ca80234649a01096bd7f9fdf4bd64a8c70c1e7ad3fd160894bf7d24d112"
+    sha256 cellar: :any,                 ventura:       "0c8159fe43ab0052660fef60240e41996becc36f76bb58fc47ab123931198835"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3f1142deb221472afbdad9b6042fc7967dc692a721b8a3b6d5c5f769279960a5"
   end
 
   depends_on "cmake" => :build
@@ -28,8 +29,6 @@ class Solidity < Formula
 
   conflicts_with "solc-select", because: "both install `solc` binaries"
 
-  fails_with gcc: "5"
-
   # build patch to use system fmt, nlohmann-json, and range-v3, upstream PR ref, https://github.com/ethereum/solidity/pull/15414
   patch do
     url "https://github.com/ethereum/solidity/commit/aa47181eef8fa63a6b4f52bff2c05517c66297a2.patch?full_index=1"
@@ -37,13 +36,19 @@ class Solidity < Formula
   end
 
   def install
-    system "cmake", "-S", ".", "-B", "build", "-DSTRICT_Z3_VERSION=OFF", *std_cmake_args
+    rm_r("deps")
+
+    system "cmake", "-S", ".", "-B", "build",
+                    "-DBoost_USE_STATIC_LIBS=OFF",
+                    "-DSTRICT_Z3_VERSION=OFF",
+                    "-DTESTS=OFF",
+                    *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"hello.sol").write <<~EOS
+    (testpath/"hello.sol").write <<~SOLIDITY
       // SPDX-License-Identifier: GPL-3.0
       pragma solidity ^0.8.0;
       contract HelloWorld {
@@ -51,7 +56,7 @@ class Solidity < Formula
           return "Hello, World!";
         }
       }
-    EOS
+    SOLIDITY
 
     output = shell_output("#{bin}/solc --bin hello.sol")
     assert_match "hello.sol:HelloWorld", output

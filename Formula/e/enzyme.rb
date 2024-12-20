@@ -1,24 +1,22 @@
 class Enzyme < Formula
   desc "High-performance automatic differentiation of LLVM"
   homepage "https://enzyme.mit.edu"
-  url "https://github.com/EnzymeAD/Enzyme/archive/refs/tags/v0.0.163.tar.gz"
-  sha256 "aebc4091fb6a2dd037276a5318047498656a753d34f69b8c58ce87457d0eeaf8"
+  url "https://github.com/EnzymeAD/Enzyme/archive/refs/tags/v0.0.168.tar.gz"
+  sha256 "c2776e411a58569396c713025ff7245a8e57ffc0318cc04422494a0c6dd5d444"
   license "Apache-2.0" => { with: "LLVM-exception" }
   head "https://github.com/EnzymeAD/Enzyme.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "1b13689d0a2b32e475fd9cd5e6c01262e3c6bc509720382e6f6ee276fce5853f"
-    sha256 cellar: :any,                 arm64_sonoma:  "4d3a40bf1efbc0c42c10ab3e1e6d4b7e0c719e7f8f965965f18be904bc101947"
-    sha256 cellar: :any,                 arm64_ventura: "f6dd0f1e8bbdba7651e8367d029041c615c53c216baaddd5f626302367a5a082"
-    sha256 cellar: :any,                 sonoma:        "cf787e6508e679098b8ba15a9286b1fd5f97eb6539868fcdfb146509c6e72339"
-    sha256 cellar: :any,                 ventura:       "3ac8bb5d8176c9ed191b3c83cf3bdde4cfd9364f9b330f7f7dea0225533915a5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "31be3f3d6b7e2641d2f060ed039790b0e0bf04b1ec8a0f7d4b5a0713b7cd6475"
+    sha256 cellar: :any,                 arm64_sequoia: "74369bf4fb207d0ab69f8110dfbae2d73327ec3392272c56371daf25ce9d2e23"
+    sha256 cellar: :any,                 arm64_sonoma:  "509e3afd4dff236917db80923242231560975093cf3b74d7d15916dfae5a6c15"
+    sha256 cellar: :any,                 arm64_ventura: "3ca9d7bcc538baaddb843d2bfcaf1695eecdb4a35dc0441d1c75094fc26fc165"
+    sha256 cellar: :any,                 sonoma:        "d43491b179a96b4cd0c131f22ebb76d7dbf54f1971153c2312e22fe91e73079a"
+    sha256 cellar: :any,                 ventura:       "9d848adc70b4399b3ee827c5574642f500f0c69a765986db4f7e7aa3e2d53f76"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "917ad1199d27d722f6bbe9e2b96887b22bb61a9e464a185c053d055df2a0491d"
   end
 
   depends_on "cmake" => :build
   depends_on "llvm"
-
-  fails_with gcc: "5"
 
   def llvm
     deps.map(&:to_formula).find { |f| f.name.match?(/^llvm(@\d+)?$/) }

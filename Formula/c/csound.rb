@@ -2,7 +2,7 @@ class Csound < Formula
   desc "Sound and music computing system"
   homepage "https://csound.com"
   license "LGPL-2.1-or-later"
-  revision 10
+  revision 11
   head "https://github.com/csound/csound.git", branch: "master"
 
   # Remove `stable` block when patches are no longer needed
@@ -29,12 +29,11 @@ class Csound < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sequoia: "c7b3678be39fa2ada7ebad51325aed51d21b7b5eb523843c4bfe8d95d5dc2ee0"
-    sha256 arm64_sonoma:  "0850bed4c09a449a302d64a0fd2e9276874c71fb0623a8c32d85097b7c31d6fd"
-    sha256 arm64_ventura: "8e12ae6a32c9204a1809e8bc07a8b6b53d5f38351f62a5993374a70b00aadeb8"
-    sha256 sonoma:        "b1e9791dad3293beb6f67eac9f5d616ec6063cb5b22108a71de9dd0ae08ccdc7"
-    sha256 ventura:       "a76a9a9f213cb160632eb024ba95858ff5989e621c95fe7b70b3a280d8df4384"
+    sha256 arm64_sequoia: "61be90827875be2da1ff759baea46c74e0c0ccd7344bc8ab949efe3b05260106"
+    sha256 arm64_sonoma:  "71adfde634382610bffb31c3fbf3aeacf25773de90e06b5158e09b18e4d205e9"
+    sha256 arm64_ventura: "e3b0dfd98b61b7b2d1e575fd3719d915982f0da0232368137412d71d03c0dbea"
+    sha256 sonoma:        "9431a7350d67b3e144136416cdca5162aba4a31ac7149c64c412be297c660c00"
+    sha256 ventura:       "334cd0b0985e049534ab67125b7c173146dff78a7ddd66be4d1b14a8a12d357e"
   end
 
   depends_on "asio" => :build
@@ -73,8 +72,6 @@ class Csound < Formula
   end
 
   conflicts_with "libextractor", because: "both install `extract` binaries"
-
-  fails_with gcc: "5"
 
   resource "ableton-link" do
     url "https://github.com/Ableton/link/archive/refs/tags/Link-3.1.2.tar.gz"
@@ -202,7 +199,7 @@ class Csound < Formula
   end
 
   test do
-    (testpath/"test.orc").write <<~EOS
+    (testpath/"test.orc").write <<~ORC
       0dbfs = 1
       gi_peer link_create
       gi_programHandle faustcompile "process = _;", "--vectorize --loop-variant 1"
@@ -218,12 +215,12 @@ class Csound < Formula
           mp3out a_signal, a_signal, "test.mp3"
           out a_signal
       endin
-    EOS
+    ORC
 
-    (testpath/"test.sco").write <<~EOS
+    (testpath/"test.sco").write <<~SCO
       i 1 0 1
       e
-    EOS
+    SCO
 
     if OS.mac?
       ENV["OPCODE6DIR64"] = frameworks/"CsoundLib64.framework/Resources/Opcodes64"
@@ -240,34 +237,34 @@ class Csound < Formula
     assert_predicate testpath/"test.h5", :exist?
     assert_predicate testpath/"test.mp3", :exist?
 
-    (testpath/"opcode-existence.orc").write <<~EOS
+    (testpath/"opcode-existence.orc").write <<~ORC
       JackoInfo
       instr 1
           i_ websocket 8888, 0
           i_ wiiconnect 1, 1
       endin
-    EOS
+    ORC
     system bin/"csound", "--orc", "--syntax-check-only", "opcode-existence.orc"
 
     if OS.mac?
-      (testpath/"mac-opcode-existence.orc").write <<~EOS
+      (testpath/"mac-opcode-existence.orc").write <<~ORC
         instr 1
             p5gconnect
         endin
-      EOS
+      ORC
       system bin/"csound", "--orc", "--syntax-check-only", "mac-opcode-existence.orc"
     end
 
     system python3, "-c", "import ctcsound"
 
-    (testpath/"test.java").write <<~EOS
+    (testpath/"test.java").write <<~JAVA
       import csnd6.*;
       public class test {
           public static void main(String args[]) {
               csnd6.csoundInitialize(csnd6.CSOUNDINIT_NO_ATEXIT | csnd6.CSOUNDINIT_NO_SIGNAL_HANDLER);
           }
       }
-    EOS
+    JAVA
     system Formula["openjdk"].bin/"javac", "-classpath", "#{libexec}/csnd6.jar", "test.java"
     system Formula["openjdk"].bin/"java", "-classpath", "#{libexec}/csnd6.jar:.",
                                           "-Djava.library.path=#{libexec}", "test"

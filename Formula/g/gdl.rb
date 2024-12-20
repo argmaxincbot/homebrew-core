@@ -20,7 +20,7 @@ class Gdl < Formula
   depends_on "gettext" => :build
   depends_on "gobject-introspection" => :build
   depends_on "intltool" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "cairo"
   depends_on "gdk-pixbuf"
@@ -49,14 +49,9 @@ class Gdl < Formula
   end
 
   def install
-    if OS.linux?
-      ENV.prepend_path "PERL5LIB", Formula["perl-xml-parser"].libexec/"lib/perl5"
-      ENV["INTLTOOL_PERL"] = Formula["perl"].bin/"perl"
-    end
-
     system "./configure", "--disable-silent-rules",
                           "--enable-introspection=yes",
-                          *std_configure_args.reject { |s| s["--disable-debug"] }
+                          *std_configure_args
     system "make", "install"
   end
 
@@ -70,8 +65,8 @@ class Gdl < Formula
       }
     C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs gdl-3.0").chomp.split
-    system ENV.cc, "test.c", *pkg_config_flags, "-o", "test"
+    pkgconf_flags = shell_output("pkgconf --cflags --libs gdl-3.0").chomp.split
+    system ENV.cc, "test.c", *pkgconf_flags, "-o", "test"
     system "./test"
   end
 end

@@ -21,13 +21,11 @@ class Pdf2djvu < Formula
 
   disable! date: "2024-02-01", because: :repo_archived
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "djvulibre"
   depends_on "exiv2"
   depends_on "gettext"
   depends_on "poppler"
-
-  fails_with gcc: "5" # poppler compiles with GCC
 
   def install
     ENV.append "CXXFLAGS", "-std=gnu++17" # poppler uses std::optional

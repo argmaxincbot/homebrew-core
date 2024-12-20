@@ -2,8 +2,8 @@ class AwsSdkCpp < Formula
   desc "AWS SDK for C++"
   homepage "https://github.com/aws/aws-sdk-cpp"
   url "https://github.com/aws/aws-sdk-cpp.git",
-      tag:      "1.11.435",
-      revision: "0e8f2e3315ce6f9bd46a2cad8c379823c950404a"
+      tag:      "1.11.465",
+      revision: "ddc4966ac2d0d26ff6e9bed0ae58d5d90e889fba"
   license "Apache-2.0"
   head "https://github.com/aws/aws-sdk-cpp.git", branch: "main"
 
@@ -12,12 +12,12 @@ class AwsSdkCpp < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "5068b633653b39bf03014e42ba30d4b92016b1243413780fa18b2fd55ba9d6d0"
-    sha256 cellar: :any,                 arm64_sonoma:  "372735ff4b52a1cb2dbef9afa3451d7cb11bbb518b6d3c39fd18663a634d0e22"
-    sha256 cellar: :any,                 arm64_ventura: "94ab578f9c939462908c1dba27c1d55ed7aef52a93221631d3cab1136d96851b"
-    sha256 cellar: :any,                 sonoma:        "f9bb384fbc31fa195dc4d78776b69a178791c3a001eea863232da6b1c670b260"
-    sha256 cellar: :any,                 ventura:       "8903ed4a1a18496622719c59229025110d9e56695648a3612b7b24b3de9e6048"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fd758fd28cd0c9182bd686bd8d3bb0404a478b958112df8f0ccee0bc5fc22942"
+    sha256 cellar: :any,                 arm64_sequoia: "a4b86bd602b051e23fc14fbb67c17b4862306c7c6f0c1a30eab33d3e34395777"
+    sha256 cellar: :any,                 arm64_sonoma:  "456d7ebc701de5774d8e7cf75a5b6f8d6e513f9d7529a84db03f5e87f931d2df"
+    sha256 cellar: :any,                 arm64_ventura: "8dddf72372d27776133962bd2199074ed176da5929c43af6dfbed6bed96a234b"
+    sha256 cellar: :any,                 sonoma:        "d7fc33fd839ad8f93ddf95c8ed496d02bb6f4f6f7c7b1ea9c5a1a6521e83a117"
+    sha256 cellar: :any,                 ventura:       "22e845561444df58fbf87c22851710ee6ae66baf4cf780374679bd06015eedce"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0c4658c46354d0bf3cc92f20b2c23a513b2e870478feceb2a0fd6552df3b478a"
   end
 
   depends_on "cmake" => :build
@@ -30,8 +30,6 @@ class AwsSdkCpp < Formula
   end
 
   conflicts_with "s2n", because: "both install s2n/unstable/crl.h"
-
-  fails_with gcc: "5"
 
   def install
     ENV.append "LDFLAGS", "-Wl,-rpath,#{rpath}"

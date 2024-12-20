@@ -21,7 +21,7 @@ class Dive < Formula
 
   on_linux do
     depends_on "gpgme" => :build
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "device-mapper"
   end
 
@@ -30,11 +30,11 @@ class Dive < Formula
   end
 
   test do
-    (testpath/"Dockerfile").write <<~EOS
+    (testpath/"Dockerfile").write <<~DOCKERFILE
       FROM alpine
       ENV test=homebrew-core
       RUN echo "hello"
-    EOS
+    DOCKERFILE
 
     assert_match "dive #{version}", shell_output("#{bin}/dive version")
     assert_match "Building image", shell_output("CI=true #{bin}/dive build .", 1)

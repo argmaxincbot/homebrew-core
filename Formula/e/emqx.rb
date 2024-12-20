@@ -1,8 +1,8 @@
 class Emqx < Formula
   desc "MQTT broker for IoT"
   homepage "https://www.emqx.io/"
-  url "https://github.com/emqx/emqx/archive/refs/tags/v5.8.1.tar.gz"
-  sha256 "ff58eef9dceb65047f172032c552e72bf311b0c667bcde044f972bf2a49f712b"
+  url "https://github.com/emqx/emqx/archive/refs/tags/v5.8.3.tar.gz"
+  sha256 "4f7ec07d4b14c6f5538b41550992136d87fd8849b41b11316efe4ccb02ebd404"
   license "Apache-2.0"
   head "https://github.com/emqx/emqx.git", branch: "master"
 
@@ -15,13 +15,12 @@ class Emqx < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "068c30053dcc4a9ad268627b50fa84408ea0164100d9aa2a2a925818485ccc99"
-    sha256 cellar: :any,                 arm64_sonoma:  "0d492410e1c49a92a59779ccedcc7cd9c920dd5860769890af0f096060914088"
-    sha256 cellar: :any,                 arm64_ventura: "fe27edc1be88ed5b42d8e61e5eae51e694ba34ae45aade8dee4374f248f492ad"
-    sha256 cellar: :any,                 sonoma:        "ac76d2b8b3f8ce4a701e33f2e066d0e265a51b8811082a20ba1754b7f886736e"
-    sha256 cellar: :any,                 ventura:       "2651c9426643443198ec883d510fd2e1ed8bb9662fffe0e2e20a527393c86ac3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "260ff9c31a5a75171fcad6c923d2a0634ac4713af8ea19db08ec4774439edc54"
+    sha256 cellar: :any,                 arm64_sequoia: "de7ac12bd6862280840b30c461ced61be0347b70eeff865adff1ec81f53d91de"
+    sha256 cellar: :any,                 arm64_sonoma:  "1dc23c7e867eaf2abd7762e34bccc5591a6dacf521cd225bddcb920bcf3bef9a"
+    sha256 cellar: :any,                 arm64_ventura: "73699c96479d6d9ebe6e880381bf84c2fb68008f714c4ec86ce107796fe8567c"
+    sha256 cellar: :any,                 sonoma:        "702618191a78bec821b3943b966e336dc8bbf80452a0c473c035eeba153cddbd"
+    sha256 cellar: :any,                 ventura:       "7b654beed37bf7a0c66b03bcfe934527e2d98d1d812bd71b29717b3e34ae8377"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2dcb61a2b0b9d5ac1c10c8b00c20ae142359edfb4de629e0d61f3ea324bc32f0"
   end
 
   depends_on "autoconf"  => :build

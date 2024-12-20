@@ -32,22 +32,22 @@ class OryHydra < Formula
       -X github.com/ory/hydra/v2/driver/config.Version=v#{version}
       -X github.com/ory/hydra/v2/driver/config.Date=#{time.iso8601}
       -X github.com/ory/hydra/v2/driver/config.Commit=#{Utils.git_head}
-    ].join(" ")
-    system "go", "build", *std_go_args(ldflags:), "-tags", "sqlite", "-o", bin/"hydra"
+    ]
+    system "go", "build", *std_go_args(ldflags:, output: bin/"hydra"), "-tags", "sqlite"
   end
 
   test do
     assert_match version.to_s, shell_output(bin/"hydra version")
 
     admin_port = free_port
-    (testpath/"config.yaml").write <<~EOS
+    (testpath/"config.yaml").write <<~YAML
       dsn: memory
       serve:
         public:
           port: #{free_port}
         admin:
           port: #{admin_port}
-    EOS
+    YAML
 
     fork { exec bin/"hydra", "serve", "all", "--config", "#{testpath}/config.yaml" }
     sleep 20

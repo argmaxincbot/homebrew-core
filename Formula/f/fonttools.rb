@@ -3,19 +3,18 @@ class Fonttools < Formula
 
   desc "Library for manipulating fonts"
   homepage "https://github.com/fonttools/fonttools"
-  url "https://files.pythonhosted.org/packages/11/1d/70b58e342e129f9c0ce030029fb4b2b0670084bbbfe1121d008f6a1e361c/fonttools-4.54.1.tar.gz"
-  sha256 "957f669d4922f92c171ba01bef7f29410668db09f6c02111e22b2bce446f3285"
+  url "https://files.pythonhosted.org/packages/76/61/a300d1574dc381393424047c0396a0e213db212e28361123af9830d71a8d/fonttools-4.55.3.tar.gz"
+  sha256 "3983313c2a04d6cc1fe9251f8fc647754cf49a61dac6cb1e7249ae67afaafc45"
   license "MIT"
   head "https://github.com/fonttools/fonttools.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "27a178d9ea6dd869b03063a53f7340550ebab79ae9f3e2fe3f06df50816f2641"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "02d2714a212dfebaae3bbd325dc5e7b0c8830f7c9e6d7d4d29b41b0f1caf5173"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8be2fdd1ca43645f5b5255d8075cecdc262d67084e479f5f2b893cce6ba78ebd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ae83bfd089b5ee7eda8a32aa58e4ea6a3d75c768ba97a6f295f4e47d144e933a"
-    sha256 cellar: :any_skip_relocation, ventura:       "fffc4004399f8dba361085251781deb797c4daf9e04740f759ddb7dee38e241c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "de8d3e366d9ebc7e321c7b71cb9634f4516a3eef9769f55338fe57a98c59ff65"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d8be8cc3dde82d6c900d6ba0834d1014317f94f94a61d2d99175949b3c002176"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e685bef10a03b3305f8bbdf1c2d267d0d61fa091f6a0872eb739911109c724f2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "bd33a1a54d8b116805e4f3b039230a5089c6725a2a74e445c7a219e60a010f4f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6a09a5a7748cc323211d22945f4abadfcc7c903262e10ba121ad0b2b20721dbb"
+    sha256 cellar: :any_skip_relocation, ventura:       "22870d3feec528c2a0885c5f8e6767af93e57404e5e964276e36f0ab3f665b30"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "966a4fc505820f5a5d8ce84e2f6c5abc00b026625b0eec931dd84172e4cb19ff"
   end
 
   depends_on "python@3.13"
@@ -26,8 +25,8 @@ class Fonttools < Formula
   end
 
   resource "zopfli" do
-    url "https://files.pythonhosted.org/packages/92/d8/71230eb25ede499401a9a39ddf66fab4e4dab149bf75ed2ecea51a662d9e/zopfli-0.2.3.zip"
-    sha256 "dbc9841bedd736041eb5e6982cd92da93bee145745f5422f3795f6f258cdc6ef"
+    url "https://files.pythonhosted.org/packages/5e/7c/a8f6696e694709e2abcbccd27d05ef761e9b6efae217e11d977471555b62/zopfli-0.2.3.post1.tar.gz"
+    sha256 "96484dc0f48be1c5d7ae9f38ed1ce41e3675fd506b27c11a6607f14b49101e99"
   end
 
   def install

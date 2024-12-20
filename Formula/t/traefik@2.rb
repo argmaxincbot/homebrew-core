@@ -1,8 +1,8 @@
 class TraefikAT2 < Formula
   desc "Modern reverse proxy"
   homepage "https://traefik.io/"
-  url "https://github.com/traefik/traefik/releases/download/v2.11.13/traefik-v2.11.13.src.tar.gz"
-  sha256 "8fddbac6b73db67ec0ff9d094c247e28f31fcb8bfdc79e302539367f000a99b9"
+  url "https://github.com/traefik/traefik/releases/download/v2.11.16/traefik-v2.11.16.src.tar.gz"
+  sha256 "d5d27b6669b97749f754f8d251f996ee2551505dc3e79ff8b7bbaed4bd89afae"
   license "MIT"
 
   livecheck do
@@ -11,12 +11,12 @@ class TraefikAT2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fb45dcd3966cbfb8be4670294427621a8106647e0c8471aec65577515e74ceb8"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "39ee3e20708c4a9b2a02d87834783b73c20df01e0de3a8377c7886b04d28f46a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "33cfa5da004108ec5c8d1376a8fd90b4238323f7c8d48dc61aebacf5fd10b65f"
-    sha256 cellar: :any_skip_relocation, sonoma:        "6d16645777e3a6ef5901da3b749038228534791b4a70dbe80840057efbd02c7e"
-    sha256 cellar: :any_skip_relocation, ventura:       "d393617dcc1d3f712d115da3940b384703dccfd6b49fb0ad98a2d9573ed13157"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "490c29e42eae175edc6e9eb3a56353a9825be04d309c5bf8fc5b231b3a3b5572"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "af7ac8d8864d0f98b43a5b16e4c61eb90de8de6df516643430a44259cbf2562c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b138f07b480e41aee12e264cdc0124d3c527cba956ca97089686ce4d6eea4d7f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "03e6c073258466929fdbdbeed024e8ab510893a9e9f03abdeaf47f4e275638df"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cb08b243015bc75530185276d42d6747358f75d12f23f895f2f00e17a228e3f2"
+    sha256 cellar: :any_skip_relocation, ventura:       "e339debed17787353de01aee6ffca6e325e6436835e111916d6d1e71e9a6516d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e6130e2b2e617d3eb3a25e51cb52c283162d2796d5e99ad312f7bcf77b95b30a"
   end
 
   keg_only :versioned_formula

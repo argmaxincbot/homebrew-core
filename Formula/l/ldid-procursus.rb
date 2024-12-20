@@ -28,7 +28,7 @@ class LdidProcursus < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "8277afbe297f7153901815514ad120e29b9ca67b891287c4ee133868d43b84f7"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libplist"
   depends_on "openssl@3"
 
@@ -40,7 +40,7 @@ class LdidProcursus < Formula
   end
 
   test do
-    (testpath/"test.xml").write <<~EOS
+    (testpath/"test.xml").write <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
       <plist version="1.0">
@@ -53,7 +53,7 @@ class LdidProcursus < Formula
       	<true/>
       </dict>
       </plist>
-    EOS
+    XML
     cp test_fixtures("mach/a.out"), testpath
     system bin/"ldid", "-Stest.xml", "a.out"
     assert_match (testpath/"test.xml").read, shell_output("#{bin}/ldid -arch x86_64 -e a.out")

@@ -45,16 +45,16 @@ class Pandocomatic < Formula
   end
 
   test do
-    (testpath/"test.md").write <<~EOS
+    (testpath/"test.md").write <<~MARKDOWN
       # Homebrew
 
       A package manager for humans. Cats should take a look at Tigerbrew.
-    EOS
-    expected_html = <<~EOS
+    MARKDOWN
+    expected_html = <<~HTML
       <h1 id="homebrew">Homebrew</h1>
       <p>A package manager for humans. Cats should take a look at
       Tigerbrew.</p>
-    EOS
+    HTML
     system bin/"pandocomatic", "-i", "test.md", "-o", "test.html"
     assert_equal expected_html, (testpath/"test.html").read
   end

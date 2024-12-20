@@ -1,22 +1,22 @@
 class Neomutt < Formula
   desc "E-mail reader with support for Notmuch, NNTP and much more"
   homepage "https://neomutt.org/"
-  url "https://github.com/neomutt/neomutt/archive/refs/tags/20241002.tar.gz"
-  sha256 "8d5673d9cc4b239adcf4bc718d372c8c85d0b53248ecd628358625c877a53064"
+  url "https://github.com/neomutt/neomutt/archive/refs/tags/20241212.tar.gz"
+  sha256 "6fbdbfd7f4d028276f7f0b1d9fe2bb5ee67161857111824cf392ca1ff27089c8"
   license "GPL-2.0-or-later"
   head "https://github.com/neomutt/neomutt.git", branch: "main"
 
   bottle do
-    sha256 arm64_sequoia: "1f23f328fc319b165c5098e039c8828f292ebda873292a92a2fa1f6d9f480b24"
-    sha256 arm64_sonoma:  "bad6b01c064964d44a25c07f41fe97daebd0eaba1a462b40883b189b153ac6e7"
-    sha256 arm64_ventura: "c8089b9563eeb881c776052b55bfba069e89c181570447ed94916af4b1b7445f"
-    sha256 sonoma:        "6a053929de9b0b88a6e9d9de5572fee3e95e3df8f8449f035a25e22d90d97eed"
-    sha256 ventura:       "d4096559ddf7bc9cb6a6f500d5ec152678a23666a9657b6e94838aa4bf9ea3e1"
-    sha256 x86_64_linux:  "70218512a0db0ac376d5ece31926033733c6c9f310acd4d07ecf236be0b614bd"
+    sha256 arm64_sequoia: "3b545a4bd19317de09f94547633ae1b6cd0ce416cee32314ac30e0d64baf673f"
+    sha256 arm64_sonoma:  "fdf3778f743ae67d9a089abee1f0c65e4b14d94c89b15557dc1ba627aea19e53"
+    sha256 arm64_ventura: "74c6461eac0b8a10d3d50e910b2c79a2100b7c13e5688455faf5b281b4d79002"
+    sha256 sonoma:        "fad18f1641618497c906e887ff48d1477d674f5d406b34cc7ed55a545dde9a80"
+    sha256 ventura:       "bc8705e2dff0b7353532709968d57538570c720c5d2f96fe50a23d06c88c9623"
+    sha256 x86_64_linux:  "c040d19773772b8ef5325053fa3a10e6ad7afbf116d6547a8f0d989118fa8c76"
   end
 
   depends_on "docbook-xsl" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   # The build breaks when it tries to use system `tclsh`.
   depends_on "tcl-tk" => :build
   depends_on "gettext"

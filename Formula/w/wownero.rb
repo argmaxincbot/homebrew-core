@@ -35,9 +35,11 @@ class Wownero < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "d08b8e26383ff1a7b709f65214b0f59505ca308f3b675bff55838c91de33a375"
   end
 
+  disable! date: "2025-05-11", because: "needs to use unmaintained `boost@1.85` and `protobuf@21`"
+
   depends_on "cmake" => :build
   depends_on "miniupnpc" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "boost@1.85"
   depends_on "hidapi"
   depends_on "libsodium"

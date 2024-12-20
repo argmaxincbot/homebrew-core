@@ -26,19 +26,23 @@ class Zile < Formula
   end
 
   depends_on "help2man" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "bdw-gc"
   depends_on "glib"
   depends_on "libgee"
 
   uses_from_macos "ncurses"
 
+  on_macos do
+    depends_on "gettext"
+  end
+
   def install
     # Work around Vala issue https://gitlab.gnome.org/GNOME/vala/-/issues/1408
     # which causes src/eval.vala:87:32: error: incompatible function pointer types passing
     ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
 
-    system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
+    system "./configure", *std_configure_args
     system "make", "install"
   end
 

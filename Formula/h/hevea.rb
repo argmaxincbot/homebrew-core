@@ -37,11 +37,11 @@ class Hevea < Formula
   end
 
   test do
-    (testpath/"test.tex").write <<~EOS
-      \\documentclass{article}
-      \\begin{document}
-      \\end{document}
-    EOS
+    (testpath/"test.tex").write <<~'TEX'
+      \documentclass{article}
+      \begin{document}
+      \end{document}
+    TEX
     system bin/"hevea", "test.tex"
   end
 end

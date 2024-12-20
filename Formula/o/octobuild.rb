@@ -1,26 +1,24 @@
 class Octobuild < Formula
   desc "Compiler cache for Unreal Engine"
   homepage "https://github.com/octobuild/octobuild"
-  url "https://github.com/octobuild/octobuild/archive/refs/tags/1.4.0.tar.gz"
-  sha256 "559fa141ccc7d8b23f4bf063928c7abed24af78c9e87f1d0e240fe120021c2af"
+  url "https://github.com/octobuild/octobuild/archive/refs/tags/1.6.0.tar.gz"
+  sha256 "534215b646adef426810a1b371ecdfd087d432ca7b4262cff493dfedbacf9818"
   license "MIT"
   head "https://github.com/octobuild/octobuild.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "eb50f7ffb941684c8b34a7b29df1cb9adac1c701b1bd3b9e60479179fa9fb109"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "a0648c142ff702b4083fa83e7768f67139afd1f50b026db5745982d03ba896b6"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "ca6205aaf127361fcceed8ddbbd0e5fe02d76fc376718fd7e048ee655db9d7ae"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "7024d305a578287337cc4db25e25532109fc78397daa738c5c4e0448515eca19"
-    sha256 cellar: :any_skip_relocation, sonoma:         "663603d6450c90d42d84e2d3d4c647cbfa15d84b936338e25652e3605e78e091"
-    sha256 cellar: :any_skip_relocation, ventura:        "529aaec3549db4d2613b66432fe6d1b2dfb2808c5e8089f523e62f450066be33"
-    sha256 cellar: :any_skip_relocation, monterey:       "82cc6b3caf14d13b72fcaab9e17b37afb36debbd518cac6af4722b7bdaba4a0e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "57cb08038aa3c666770a7fc13ebb2f9c8a1d816fac5f9b4346b2be540f13925e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7082f0eb5eb0f4ab3b67bcfc60e3411272388b32e81e4d5954e31fc12a01af11"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f5031d60300a4bed4adc3bfaa4367d64a1f30f896c632c62bc651f46fd7e9863"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8b7bc35cb66bd00fc994a4aeabd31bb593adce49a23c806cadafd53843de24bb"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e8601d7641b785f8336ec6643d6671d3edf5dbf0b02c1e146d3c2d595da75cdd"
+    sha256 cellar: :any_skip_relocation, ventura:       "536e3d03ab8af38a5ad474a3e59dc127e40abadf3e4fcc1d457806f01eae1656"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "39e59384699ca25dcb9e6dde849ef81d980b035902c34b7a602974cb3eea6c71"
   end
 
   depends_on "rust" => :build
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "openssl@3"
   end
 

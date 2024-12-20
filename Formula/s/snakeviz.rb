@@ -3,26 +3,25 @@ class Snakeviz < Formula
 
   desc "Web-based viewer for Python profiler output"
   homepage "https://jiffyclub.github.io/snakeviz/"
-  url "https://files.pythonhosted.org/packages/64/9b/3983c41e913676d55e4b3de869aa0561e053ad3505f1fd35181670244b70/snakeviz-2.2.0.tar.gz"
-  sha256 "7bfd00be7ae147eb4a170a471578e1cd3f41f803238958b6b8efcf2c698a6aa9"
+  url "https://files.pythonhosted.org/packages/04/06/82f56563b16d33c2586ac2615a3034a83a4ff1969b84c8d79339e5d07d73/snakeviz-2.2.2.tar.gz"
+  sha256 "08028c6f8e34a032ff14757a38424770abb8662fb2818985aeea0d9bc13a7d83"
   license "BSD-3-Clause"
   revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "188ce42a3ec12499676c82b4eddf04d412f9a7493f50598ce1ef6ddefdcb8a5c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fb6ff65e7ddd81e4b4da2ce4d2f1c4d71d66bf7afd244cb06704463655e39987"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "eebb8d59c3b7484eb42f3d6f4823bb76e60e8a07f30b040f42f57c557a0c1c12"
-    sha256 cellar: :any_skip_relocation, sonoma:        "684df7298ea85611dab2fd8019e643ec554f8ec85cf0c9eef16954d8ed87b1dc"
-    sha256 cellar: :any_skip_relocation, ventura:       "4b9c89717342f4189849008929288963b28e26736c2d35777b8827903a288d76"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8a8b886c75c192f230dfdb4b0b820e353cc24e8272cc66dcfc1d0deba90455b8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "75ce7210b6e64830a317d2dce83ad07010f11970c4d6bccf63cba9c53796113f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6cacabdb1e48108acd4738b7b030d1b240e433783a0a1b6d0e8fc20735e58b8d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "b4fc7432f7e622374f7aedc59312d820952cd8cd14d9f265b88ae206c58c83d2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cc5b7cd5bd74907bac04e6a0316954e197274e18215fd0b66cddc34093818b4c"
+    sha256 cellar: :any_skip_relocation, ventura:       "01cc2b2bae5b4b5f362626d37756efdccf87089f705a55a98841856f7845f485"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2db01dca11b6887cf9428b9d29de8f1637bf380446ec19b1603bcb60773cbb06"
   end
 
   depends_on "python@3.13"
 
   resource "tornado" do
-    url "https://files.pythonhosted.org/packages/ee/66/398ac7167f1c7835406888a386f6d0d26ee5dbf197d8a571300be57662d3/tornado-6.4.1.tar.gz"
-    sha256 "92d3ab53183d8c50f8204a51e6f91d18a15d5ef261e84d452800d4ff6fc504e9"
+    url "https://files.pythonhosted.org/packages/59/45/a0daf161f7d6f36c3ea5fc0c2de619746cc3dd4c76402e9db545bd920f63/tornado-6.4.2.tar.gz"
+    sha256 "92bad5b4746e9879fd7bf1eb21dce4e3fc5128d71601f80005afa39237ad620b"
   end
 
   def install

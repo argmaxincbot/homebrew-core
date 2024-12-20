@@ -30,7 +30,7 @@ class Thrift < Formula
     depends_on "autoconf" => :build
     depends_on "automake" => :build
     depends_on "libtool" => :build
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
   end
 
   depends_on "bison" => :build
@@ -82,11 +82,11 @@ class Thrift < Formula
   end
 
   test do
-    (testpath/"test.thrift").write <<~EOS
+    (testpath/"test.thrift").write <<~THRIFT
       service MultiplicationService {
         i32 multiply(1:i32 x, 2:i32 y),
       }
-    EOS
+    THRIFT
 
     system bin/"thrift", "-r", "--gen", "cpp", "test.thrift"
 

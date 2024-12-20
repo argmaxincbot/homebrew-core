@@ -1,27 +1,24 @@
 class Docfx < Formula
   desc "Tools for building and publishing API documentation for .NET projects"
   homepage "https://dotnet.github.io/docfx/"
-  url "https://github.com/dotnet/docfx/archive/refs/tags/v2.77.0.tar.gz"
-  sha256 "03c13ca2cdb4a476365ef8f5b7f408a6cf6e35f0193c959d7765c03dd4884bfb"
+  url "https://github.com/dotnet/docfx/archive/refs/tags/2.78.2.tar.gz"
+  sha256 "0b0f53532fc887a1b7444d8c45f89d49250b6d26d8a24f8865563c4e916c1621"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "0947f65af0ac5e2be8272cbb1e58ec9bb58c9a360f8914b2a680e3bfdd241e5e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "4a7d1a6e441d983071dd1cb2f1a945ee55cb05cdb6cedd57d29a68c886794490"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "be98269aced336adee7567f5bce4b75316b650595b2ff71d0059a259323b9ce5"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "d6d7c94288c97591bea4b1eb37066663c1e1e3469c506babd95ea42fff52cf6f"
-    sha256 cellar: :any_skip_relocation, sonoma:         "8cbf338809fb49538a7d0776e571ddf58da4815f9bfa643209d5c68259b3d7d9"
-    sha256 cellar: :any_skip_relocation, ventura:        "812bf6ad4c29682b276a1464febff524b0eff3d72482d3e55120613f4b86f3c8"
-    sha256 cellar: :any_skip_relocation, monterey:       "d831a32f78422ac08b69b3458ab9425fb2ec7bf6d201742d927b8656a2ff478b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "c55f049d46aacabdfd83aed28a7834e88c566f7d3f1affbad9de3f19f0e93217"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5bb8a82895b1ddb4721e6270e4f51e9c3e2e8d07f43c369fccb67a7efb6ea213"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e70aa4aa303dc525b97bccce9228e0a26d0268dd3046eae0785b4665812fb928"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "75bf66e4af1da6da77ac5c25007082280340b8a40c142f81f56cb213acc6765f"
+    sha256 cellar: :any_skip_relocation, ventura:       "189b92cafeaf9437f082c044a848830ee569ae69ce4c41843c522eb3608c62b0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0fad1e16707f9965f898ba6f8782aa79d1538ad0b87d48a0f2285703c1ed2ed4"
   end
 
   depends_on "dotnet"
 
   def install
+    ENV["DOTNET_CLI_TELEMETRY_OPTOUT"] = "1"
+
     dotnet = Formula["dotnet"]
-    os = OS.mac? ? "osx" : OS.kernel_name.downcase
-    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
 
     # specify the target framework to only target the currently used version of
     # .NET, otherwise additional frameworks will be added due to this running
@@ -31,8 +28,8 @@ class Docfx < Formula
       --configuration Release
       --framework net#{dotnet.version.major_minor}
       --output #{libexec}
-      --runtime #{os}-#{arch}
       --no-self-contained
+      --use-current-runtime
       -p:Version=#{version}
       -p:TargetFrameworks=net#{dotnet.version.major_minor}
     ]

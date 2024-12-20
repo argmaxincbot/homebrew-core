@@ -1,8 +1,8 @@
 class Logstash < Formula
   desc "Tool for managing events and logs"
   homepage "https://www.elastic.co/products/logstash"
-  url "https://github.com/elastic/logstash/archive/refs/tags/v8.15.3.tar.gz"
-  sha256 "972003690f1935e24e02da373a9f26876381359eaa198cf5a84875cb27b58107"
+  url "https://github.com/elastic/logstash/archive/refs/tags/v8.17.0.tar.gz"
+  sha256 "a8e0bb9bf7c8401ed21e41030427fa4fcd7295796926bd13c4014b7814511947"
   license "Apache-2.0"
   version_scheme 1
   head "https://github.com/elastic/logstash.git", branch: "main"
@@ -13,12 +13,12 @@ class Logstash < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3325494972f7cd47d74a59a1e8e5fd13d348caa83d5b7673843d4b4dbb2d4d51"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "607a4b797bd4d78a92943c42f8a5c24a3ff90f9c09b599f3954fa4d0f065e656"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "15ec056da3046f708f7851e5580b35ec3c62e9d715b4f1b2bb2be5edbcef2736"
-    sha256 cellar: :any,                 sonoma:        "de50b8e5b840179a9f772087a926875f0f2df9d73742a8b6a7274d9f9255e6a1"
-    sha256 cellar: :any,                 ventura:       "e2f68a5443f47dd9234cfa6430104c7c01bad262c66f54715c62b9d35a4b13da"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fe91efda589ec7d163113f9f7107552977cda3be7f80dfac853bcecbf152587c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "856c495b2155b9d496cfc07f408b3f94d381305216da1148c55e1d51008f91c4"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a1196da3d9f07f70b0b96edd6ada5117bb046cb461d7baa4315fce900ccc088c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "3f8996141e4e274bea90988a072aaf8811cf020d238f5fd8b448b14d3610f23e"
+    sha256 cellar: :any,                 sonoma:        "41d6c1d2ae8fce944f18c0bcddbd743900bb0f23946f144970ca47727a8b5cfb"
+    sha256 cellar: :any,                 ventura:       "3c923ed665b34692e129821d638b4150d2c4b0a2c8c92761695aaf6dbd1a9384"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dbf11424302488fe12ba632fc2f560654b3ad3a73db30f9fddd994edc8124520"
   end
 
   depends_on "openjdk@17"
@@ -97,9 +97,9 @@ class Logstash < Formula
     ["jvm.options", "log4j2.properties", "startup.options"].each do |f|
       cp prefix/"libexec/config/#{f}", testpath/"config"
     end
-    (testpath/"config/logstash.yml").write <<~EOS
+    (testpath/"config/logstash.yml").write <<~YAML
       path.queue: #{testpath}/queue
-    EOS
+    YAML
     (testpath/"data").mkpath
     (testpath/"logs").mkpath
     (testpath/"queue").mkpath

@@ -1,37 +1,40 @@
 class Marksman < Formula
   desc "Language Server Protocol for Markdown"
   homepage "https://github.com/artempyanykh/marksman"
-  url "https://github.com/artempyanykh/marksman/archive/refs/tags/2024-10-07.tar.gz"
-  sha256 "4b3c107717344508c8de66efe4a847d31a8f77040908cccfef1f3deec4ffad96"
+  url "https://github.com/artempyanykh/marksman/archive/refs/tags/2024-12-18.tar.gz"
+  sha256 "7392822c196e6bef68fc1cef3a873aac79b27bf95478c2419ea4761651a6a957"
   license "MIT"
   head "https://github.com/artempyanykh/marksman.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d41cd9570edf1216e05c5b1b9c24e53245e5d8f62eff01af041ba9dc13e74130"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "45f594a715a7c80886deb22d7cd75de2abb8742667ece6cd77a6c93b272b4cb1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "a9d3428560916765a1551be5e6c8b3fdb3a4141c686f876220aa06d3e2d3f9e8"
-    sha256 cellar: :any_skip_relocation, sonoma:        "079b494392db99c537d82d5ac970289101ce6cc4522342957c8e001f06ddf4a2"
-    sha256 cellar: :any_skip_relocation, ventura:       "0c03ecf16e58b03c2917fea6285d0781b791948795b12b872a35a6b131cbeb53"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c076fc10cfc0eed8b3cb367ca3736b9483c3af515733ac8125309eead36c15bf"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b9d34d209ff066fc670ef526ef4e1921698345ce643eeeb8e2d5dfff80bffbfc"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "abb4ee028058af4d4f464c83157d3f49783c96f2917fd671bdff11a8dcc3c6bd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "bea0c8d782eb874e6a3f92dc47884e1e71afaba9741a6c705ef5790c5aadae1c"
+    sha256 cellar: :any_skip_relocation, ventura:       "5d4e38cbf29fea160804f0181cd6a000a877aad5b74222a0fc8f4be2aff1b452"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "50abec82ec280c5c3c35c770fe08bceeafc3bb20ba8e474843b15a49272907ff"
   end
 
-  depends_on "dotnet" => :build
+  depends_on "dotnet@8"
 
   uses_from_macos "zlib"
 
   def install
-    bin.mkdir
-
     ENV["DOTNET_CLI_TELEMETRY_OPTOUT"] = "true"
 
-    # by default it uses `git describe` to acquire a version suffix, for details
-    # see the GitHub pull request [1], the resulting version would for example
-    # be `1.0.0-<version>`
-    #
-    # [1]: https://github.com/artempyanykh/marksman/pull/125
-    ENV.deparallelize do
-      system "make", "VERSIONSTRING=#{version}", "DEST=#{bin}", "publishTo"
-    end
+    dotnet = Formula["dotnet@8"]
+    args = %W[
+      --configuration Release
+      --framework net#{dotnet.version.major_minor}
+      --no-self-contained
+      --output #{libexec}
+      --use-current-runtime
+      -p:PublishSingleFile=true
+      -p:DebugType=embedded
+    ]
+    args << "-p:VersionString=#{version}" if build.stable?
+
+    system "dotnet", "publish", "Marksman/Marksman.fsproj", *args
+    (bin/"marksman").write_env_script libexec/"marksman", DOTNET_ROOT: dotnet.opt_libexec
   end
 
   test do

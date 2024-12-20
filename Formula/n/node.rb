@@ -1,10 +1,9 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v23.1.0/node-v23.1.0.tar.xz"
-  sha256 "57cbfd3dd51f9300ea2b8e60a8ed215b1eaa71fbde4c3903a7d31a443a4a4423"
+  url "https://nodejs.org/dist/v23.4.0/node-v23.4.0.tar.xz"
+  sha256 "4bb14bf3faf790bb122a537b05d7bf4006fc51e78761b157ce453b63fa7e3371"
   license "MIT"
-  revision 1
   head "https://github.com/nodejs/node.git", branch: "main"
 
   livecheck do
@@ -13,15 +12,15 @@ class Node < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "23880f5ec9a76db3849a3f37b65536f94c67244f91096aef2e0a7c20c5a53f9c"
-    sha256 arm64_sonoma:  "4933b550c70a22bdf1f3f22eb344db6da5c6881b0a0df8efd87135032700f347"
-    sha256 arm64_ventura: "ea816bfb85d12377f6e140eb307ef093c4b64bc0d3f2db63304838ddfbeb727a"
-    sha256 sonoma:        "6a3605890e590286f117dc94779ea1df756546c92c9f3766eecfe5b95716f05f"
-    sha256 ventura:       "45a8ebd5667cc203abbc45f4cc8e7b651aff64612cc316371cdc36361ed1f359"
-    sha256 x86_64_linux:  "e44cf954f3834ae57ade5d162c9bae349da4be5364a857b4a7d7a4cae3113df4"
+    sha256 arm64_sequoia: "9b717cf19712d3734ad34ee9f699ff9f6f68560ce5a5a3ff9a56295297e85c20"
+    sha256 arm64_sonoma:  "9b5c26a2c1f7d3f54daf61f0274ea3aaee5d76273258304ac73fb67b581a7bc0"
+    sha256 arm64_ventura: "8eb7abd3df22a63e866e8e2e4d60012e770409ee54373df9d7d2d6b88fbb3e64"
+    sha256 sonoma:        "030b9b5db94a21c5d9f9987bf9ba62a7da41ab8691b48c55de1f1f4b34a36e6c"
+    sha256 ventura:       "a2b1d2f27ec3233108c2f670e8227aabc994c11e60b5650c512983745a09ff8b"
+    sha256 x86_64_linux:  "58b49010f20d6acc11386167b19b1f1d0fbaf3d57bc60735a2f8ee5bbbca63e6"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.13" => :build
   depends_on "brotli"
   depends_on "c-ares"
@@ -44,20 +43,11 @@ class Node < Formula
     EOS
   end
 
-  fails_with gcc: "5"
-
   # We track major/minor from upstream Node releases.
   # We will accept *important* npm patch releases when necessary.
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-10.9.0.tgz"
-    sha256 "c12def16fe3efdc80b1e652d60903d807ac4b78b9e7c3e76f633f4b13a32897c"
-  end
-
-  # Apply fix for ICU 76+ from open PR.
-  # PR ref: https://github.com/nodejs/node/pull/55563
-  patch do
-    url "https://github.com/nodejs/node/commit/54299ac3a3d4e4520b8604dce43c2584092ccde2.patch?full_index=1"
-    sha256 "1d047dd275ca615551a6c40c4f766f2d1c9913a3d7aacc5e94039e0fa55aa537"
+    url "https://registry.npmjs.org/npm/-/npm-10.9.2.tgz"
+    sha256 "5cd1e5ab971ea6333f910bc2d50700167c5ef4e66da279b2a3efc874c6b116e4"
   end
 
   def install

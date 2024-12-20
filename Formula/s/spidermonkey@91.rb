@@ -22,7 +22,7 @@ class SpidermonkeyAT91 < Formula
   disable! date: "2024-09-09", because: :unsupported
 
   depends_on "autoconf@2.13" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.9" => :build
   depends_on "rust" => :build
   # Can uncomment after https://github.com/Homebrew/homebrew-core/pull/192986
@@ -35,12 +35,6 @@ class SpidermonkeyAT91 < Formula
   uses_from_macos "llvm" => :build # for llvm-objdump
   uses_from_macos "m4" => :build
   uses_from_macos "zlib"
-
-  # From python/mozbuild/mozbuild/test/configure/test_toolchain_configure.py
-  fails_with :gcc do
-    version "6"
-    cause "Only GCC 7.1 or newer is supported"
-  end
 
   def install
     # Help the build script detect ld64 as it expects logs from LD_PRINT_OPTIONS=1 with -Wl,-version

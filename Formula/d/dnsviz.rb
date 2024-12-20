@@ -18,7 +18,7 @@ class Dnsviz < Formula
   end
 
   depends_on "bind" => [:build, :test]
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "swig" => :build
   depends_on "json-c" => :test
   depends_on "cryptography"
@@ -37,7 +37,7 @@ class Dnsviz < Formula
   end
 
   def install
-    virtualenv_install_with_resources(link_manpages: true)
+    virtualenv_install_with_resources
   end
 
   test do
@@ -50,9 +50,9 @@ class Dnsviz < Formula
       system bin/"dnsviz", "probe", "-d", "0",
         "-r", "example.com-probe-auth.json",
         "-o", "example.com.json"
-      system bin/"dnsviz", "graph", "-r", "example.com.json", "-Thtml", "-o", "/dev/null"
-      system bin/"dnsviz", "grok", "-r", "example.com.json", "-o", "/dev/null"
-      system bin/"dnsviz", "print", "-r", "example.com.json", "-o", "/dev/null"
+      system bin/"dnsviz", "graph", "-r", "example.com.json", "-Thtml", "-o", File::NULL
+      system bin/"dnsviz", "grok", "-r", "example.com.json", "-o", File::NULL
+      system bin/"dnsviz", "print", "-r", "example.com.json", "-o", File::NULL
     end
   end
 end

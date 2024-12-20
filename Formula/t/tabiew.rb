@@ -1,20 +1,22 @@
 class Tabiew < Formula
   desc "TUI to view and query tabular files (CSV,TSV, Parquet, etc.)"
   homepage "https://github.com/shshemi/tabiew"
-  url "https://github.com/shshemi/tabiew/archive/refs/tags/v0.7.0.tar.gz"
-  sha256 "cd425757c0785fd15a95602bcf15f2c77a178a209e672444299123904cdc6617"
+  url "https://github.com/shshemi/tabiew/archive/refs/tags/v0.8.0.tar.gz"
+  sha256 "d8f5a7ab8373d8cb1ca88a8d921f0ce0f44ff34bf5fdbf6afd170594ba28df9a"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "75b76daa68c049a2f8f718ad5b782c3e15d783deb31b9e37d27afb2d04f67c0c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a4ed66e655e73c99ac554769e9f80f35dd76cd40b5e881632a9e374141f128e2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "76205e84f0fea12fd4ae8adf81433c603cf7acd048b2c35b096a0175e1978dc0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "de91468e225837c165bcef8b9bd03c093c2bcee6730caf41067d54979a3139eb"
-    sha256 cellar: :any_skip_relocation, ventura:       "9c842c783af69856fc54cb6d9467297f6ee25343bf9c24dcd6d39f9e03b76403"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "75de8126438c18ab0f62915091cd190a708cddf7941302a5e9424bf669e39044"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f7d069010db1e45626e5030a24e0aa7e1f6ad88c3fab086192c5d57da47af0ba"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4136fff6f3096acf6b88fea482485b1a7345238a55d8951c1dd97ea4326257c1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "f7d07e60d63797143f6605402c3c66643ed16344f777c28004e9b72c05af1244"
+    sha256 cellar: :any_skip_relocation, sonoma:        "12cb5e4e790977e75313bb9f1d5493a2ce295a0d4ba78769e04f7fc1dac3d300"
+    sha256 cellar: :any_skip_relocation, ventura:       "7d3a75f1edeec8a7f0416146d4ee822dc1b16a6c9db782c6175534009bcd95fd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "22dfb6af56911749a9e16ff4e925a0e37cca389402777f3a2f13fb36442c0fa6"
   end
 
   depends_on "rust" => :build
+
+  conflicts_with "watcher", because: "both install `tw` binaries"
 
   def install
     system "cargo", "install", *std_cargo_args
@@ -26,11 +28,11 @@ class Tabiew < Formula
   end
 
   test do
-    (testpath/"test.csv").write <<~EOS
+    (testpath/"test.csv").write <<~CSV
       time,tide,wait
       1,42,"no man"
       7,11,"you think?"
-    EOS
+    CSV
     input, = Open3.popen2 "script -q output.txt"
     input.puts "stty rows 80 cols 130"
     input.puts bin/"tw test.csv"

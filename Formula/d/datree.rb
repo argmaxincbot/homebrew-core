@@ -18,7 +18,7 @@ class Datree < Formula
   end
 
   # project is deprecated per https://github.com/datreeio/datree/pull/964
-  deprecate! date: "2023-12-22", because: :unmaintained
+  disable! date: "2024-12-22", because: :unmaintained
 
   depends_on "go" => :build
 
@@ -29,7 +29,7 @@ class Datree < Formula
   end
 
   test do
-    (testpath/"invalidK8sSchema.yaml").write <<~EOS
+    (testpath/"invalidK8sSchema.yaml").write <<~YAML
       apiversion: v1
       kind: Service
       metadata:
@@ -41,7 +41,7 @@ class Datree < Formula
           - protocol: TCP
             port: 80
             targetPort: 9376
-    EOS
+    YAML
 
     # Set to work in the offline mode
     system bin/"datree", "config", "set", "offline", "local"

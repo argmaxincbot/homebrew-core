@@ -18,7 +18,7 @@ class Scipy < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.12" => [:build, :test]
   depends_on "python@3.13" => [:build, :test]
   depends_on "gcc" # for gfortran
@@ -31,8 +31,6 @@ class Scipy < Formula
   end
 
   cxxstdlib_check :skip
-
-  fails_with gcc: "5"
 
   def pythons
     deps.map(&:to_formula)
@@ -51,10 +49,10 @@ class Scipy < Formula
   end
 
   test do
-    (testpath/"test.py").write <<~EOS
+    (testpath/"test.py").write <<~PYTHON
       from scipy import special
       print(special.exp10(3))
-    EOS
+    PYTHON
     pythons.each do |python3|
       assert_equal "1000.0", shell_output("#{python3} test.py").chomp
     end

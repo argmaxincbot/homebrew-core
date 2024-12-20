@@ -1,6 +1,6 @@
 class Clog < Formula
   desc "Colorized pattern-matching log tail utility"
-  homepage "https://taskwarrior.org/docs/clog/"
+  homepage "https://gothenburgbitfactory.org/clog/docs/"
   url "https://github.com/GothenburgBitFactory/clog/releases/download/v1.3.0/clog-1.3.0.tar.gz"
   sha256 "fed44a8d398790ab0cf426c1b006e7246e20f3fcd56c0ec4132d24b05d5d2018"
   license "MIT"
@@ -51,6 +51,6 @@ class Clog < Formula
     assert_equal "do not suppress", pipe_output("#{bin}/clog --file #{testpath}/.clogrc", "do not suppress").chomp
 
     # Test to ensure that a line that matches the above rule is suppressed
-    assert_equal "", pipe_output("#{bin}/clog --file #{testpath}/.clogrc", "ignore this line").chomp
+    assert_empty pipe_output("#{bin}/clog --file #{testpath}/.clogrc", "ignore this line").chomp
   end
 end

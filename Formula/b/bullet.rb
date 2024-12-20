@@ -18,7 +18,7 @@ class Bullet < Formula
 
   depends_on "cmake" => :build
   depends_on "numpy" => [:build, :test]
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.13" => [:build, :test]
 
   def python3
@@ -103,11 +103,11 @@ class Bullet < Formula
                    "-lLinearMath", cxx_lib, "-o", "test"
     system "./test"
 
-    system python3, "-c", <<~EOS
+    system python3, "-c", <<~PYTHON
       import pybullet
       pybullet.connect(pybullet.DIRECT)
       pybullet.setGravity(0, 0, -10)
       pybullet.disconnect()
-    EOS
+    PYTHON
   end
 end

@@ -20,7 +20,7 @@ class IosWebkitDebugProxy < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libimobiledevice"
   depends_on "libplist"
   depends_on "libusbmuxd"
@@ -38,15 +38,12 @@ class IosWebkitDebugProxy < Formula
     return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
 
     base_port = free_port
-    (testpath/"config.csv").write <<~EOS
+    (testpath/"config.csv").write <<~CSV
       null:#{base_port},:#{base_port + 1}-#{base_port + 101}
-    EOS
+    CSV
 
-    fork do
-      exec "#{bin}/ios_webkit_debug_proxy", "-c", testpath/"config.csv"
-    end
-
-    sleep(2)
+    spawn "#{bin}/ios_webkit_debug_proxy", "-c", testpath/"config.csv"
+    sleep 2
     assert_match "iOS Devices:", shell_output("curl localhost:#{base_port}")
   end
 end

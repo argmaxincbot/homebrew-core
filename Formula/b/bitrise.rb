@@ -1,8 +1,8 @@
 class Bitrise < Formula
   desc "Command-line automation tool"
   homepage "https://github.com/bitrise-io/bitrise"
-  url "https://github.com/bitrise-io/bitrise/archive/refs/tags/2.23.0.tar.gz"
-  sha256 "cd8654156b19c040f66f2a62e9cdd626c13ea816968f1bad3d8aea880f60bec9"
+  url "https://github.com/bitrise-io/bitrise/archive/refs/tags/2.25.0.tar.gz"
+  sha256 "621213c423724b9c33a36fdbdc5f5d956ebde43c27d38fd6f0f693a4022be42b"
   license "MIT"
 
   livecheck do
@@ -11,12 +11,12 @@ class Bitrise < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d81df9e9de13ec5154872091d73371dac2393954816d81eb783f107a16aeb9b2"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d81df9e9de13ec5154872091d73371dac2393954816d81eb783f107a16aeb9b2"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "d81df9e9de13ec5154872091d73371dac2393954816d81eb783f107a16aeb9b2"
-    sha256 cellar: :any_skip_relocation, sonoma:        "768196b5534dc13be9b08271a2d8600f488083af08b00f43669fd07b4093ef6a"
-    sha256 cellar: :any_skip_relocation, ventura:       "768196b5534dc13be9b08271a2d8600f488083af08b00f43669fd07b4093ef6a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "45dbe0baf537619cb3e57cadc80613f07b0c6fe9d5d627cde6eeb6600fee058a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e516ebc63fdfa3832838820c31fafe7f61b7d860e7e65177b12492e23c0286c2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e516ebc63fdfa3832838820c31fafe7f61b7d860e7e65177b12492e23c0286c2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e516ebc63fdfa3832838820c31fafe7f61b7d860e7e65177b12492e23c0286c2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "dff5436ef44a15f6b0c05839ddc42e6b18bd82aa9e576910c62dba84c745466b"
+    sha256 cellar: :any_skip_relocation, ventura:       "dff5436ef44a15f6b0c05839ddc42e6b18bd82aa9e576910c62dba84c745466b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "abb3b2618854f928e330e888d46c02cf19a25f4cf8fac240754f3cc932bf7a3b"
   end
 
   depends_on "go" => :build
@@ -33,7 +33,7 @@ class Bitrise < Formula
   end
 
   test do
-    (testpath/"bitrise.yml").write <<~EOS
+    (testpath/"bitrise.yml").write <<~YAML
       format_version: 1.3.1
       default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
       workflows:
@@ -42,7 +42,7 @@ class Bitrise < Formula
           - script:
               inputs:
               - content: printf 'Test - OK' > brew.test.file
-    EOS
+    YAML
 
     system bin/"bitrise", "setup"
     system bin/"bitrise", "run", "test_wf"

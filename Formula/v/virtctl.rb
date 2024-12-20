@@ -1,8 +1,8 @@
 class Virtctl < Formula
   desc "Allows for using more advanced kubevirt features"
   homepage "https://kubevirt.io/"
-  url "https://github.com/kubevirt/kubevirt/archive/refs/tags/v1.3.1.tar.gz"
-  sha256 "15204eb744175429be2d8f646a5a598a8c743539d3337c61e9b51f57d98cdce9"
+  url "https://github.com/kubevirt/kubevirt/archive/refs/tags/v1.4.0.tar.gz"
+  sha256 "19d6624f4f7268062b38f535a0315674f3e6f37550a4a0af9861b7a146dbe0f1"
   license "Apache-2.0"
   head "https://github.com/kubevirt/kubevirt.git", branch: "main"
 
@@ -15,20 +15,19 @@ class Virtctl < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "f4dbd2788af079eb30fe06031c539daff0a4398484f0ff34a2a78bef6cd2e497"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "2e9112993fdf92f3e543041245c24555e5dbd63ea83dad77b3034fed60e33208"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "2e9112993fdf92f3e543041245c24555e5dbd63ea83dad77b3034fed60e33208"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "2e9112993fdf92f3e543041245c24555e5dbd63ea83dad77b3034fed60e33208"
-    sha256 cellar: :any_skip_relocation, sonoma:         "0dc356a805bf1e2478a1c6abb814b274595112a8f9c1b23628ae41408a5dc03c"
-    sha256 cellar: :any_skip_relocation, ventura:        "0dc356a805bf1e2478a1c6abb814b274595112a8f9c1b23628ae41408a5dc03c"
-    sha256 cellar: :any_skip_relocation, monterey:       "0dc356a805bf1e2478a1c6abb814b274595112a8f9c1b23628ae41408a5dc03c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "285b0ad52e825fc1463df79499b9e6e6466a0dd24d477deaac1b89d2d22ad05a"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "78075b8fd1aa7747b1d357cb14cffe03793e6648942d0684dd2c0931a922355f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "78075b8fd1aa7747b1d357cb14cffe03793e6648942d0684dd2c0931a922355f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "78075b8fd1aa7747b1d357cb14cffe03793e6648942d0684dd2c0931a922355f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a17b30e2c68f899131a9674b291e448c593a5bbe4bfd5700371c298a1d2e7691"
+    sha256 cellar: :any_skip_relocation, ventura:       "a17b30e2c68f899131a9674b291e448c593a5bbe4bfd5700371c298a1d2e7691"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "57f9cf26e82d97a82eaea0d35f85a34fbbfe6959d0c148352ada0bcc88f8485d"
   end
 
   depends_on "go" => :build
 
   def install
-    ldflags = "-X 'kubevirt.io/client-go/version.gitVersion=#{version}'"
+    ldflags = "-s -w -X kubevirt.io/client-go/version.gitVersion=#{version}"
     system "go", "build", *std_go_args(ldflags:), "./cmd/virtctl"
 
     generate_completions_from_executable(bin/"virtctl", "completion")

@@ -1,28 +1,27 @@
 class Gollama < Formula
   desc "Go manage your Ollama models"
   homepage "https://smcleod.net"
-  url "https://github.com/sammcj/gollama/archive/refs/tags/v1.27.17.tar.gz"
-  sha256 "0349b6d68ec26bad53fd8a29bcc1e0d8c8b74e9cb2021c3fb923936bd5c85cc5"
+  url "https://github.com/sammcj/gollama/archive/refs/tags/v1.28.0.tar.gz"
+  sha256 "4bca17edb56e9dcf6d2f8d13657c096da3c117ccf6234726e915c498677050f6"
   license "MIT"
   head "https://github.com/sammcj/gollama.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8ed9d3f7e7aa128fe68a892e9255699a3cc0dd6ffcf77a07bd1f667b63f78d49"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "52cf77810ee4e6f36f9bfc6eaf7c9f1e9bebda364bb4ac846672504f58e78570"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "2e437a052926df104034df6f24e5123249bdd504ebf20d94d5faaa7935921e37"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1221ae7ace17372ade0abb88bbc99e7bd0c4c2d45c7dd0c391ed893ad1e8edd9"
-    sha256 cellar: :any_skip_relocation, ventura:       "12e53e8acd4c691cad22c58eb9d1510c4fa2ca158cb6546ec4f0901191737153"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "13d3a748d22530593a9ea526852d92f47a995edcab844b08208347a895d5b3c0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4cd9b5daac5024cb8a586f87dc9f112e7e8d8112df42b91e070b6bc2d8331163"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6f027c90a985b58c3a49202a179792366ab6fddf63504e5553a1f0df9ac992fa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "36d9f96124076bbbb02941109f5bce2ea9c64a1dbae72fad3d52aa337439c8e0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "765611836ea993448ff21b01031f6e82d98b78719463b4531560a25d6fc05199"
+    sha256 cellar: :any_skip_relocation, ventura:       "0f8e94f62428cfbb10b3f6655e91f6231f782c8459ebb1a4a87def7f9d75bf64"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e717e4970927c7863061184014141d966ca14c9a94156af4bd5b96ee9ea125d2"
   end
 
   depends_on "go" => :build
   depends_on "ollama" => :test
 
   def install
-    ldflags = %W[
-      -s -w
-      -X main.Version=#{version}
-    ]
+    system "go", "mod", "tidy"
+
+    ldflags = "-s -w -X main.Version=#{version}"
     system "go", "build", *std_go_args(ldflags:)
   end
 

@@ -1,8 +1,8 @@
 class JpegTurbo < Formula
   desc "JPEG image codec that aids compression and decompression"
   homepage "https://www.libjpeg-turbo.org/"
-  url "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.4/libjpeg-turbo-3.0.4.tar.gz"
-  sha256 "99130559e7d62e8d695f2c0eaeef912c5828d5b84a0537dcb24c9678c9d5b76b"
+  url "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.0/libjpeg-turbo-3.1.0.tar.gz"
+  sha256 "9564c72b1dfd1d6fe6274c5f95a8d989b59854575d4bbee44ade7bc17aa9bc93"
   license all_of: [
     "IJG", # libjpeg API library and programs
     "Zlib", # libjpeg-turbo SIMD source code
@@ -16,12 +16,12 @@ class JpegTurbo < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "f85cd191b0fce773ae3d3502395ee2d56eec5be7607a95834a13d63d22181d78"
-    sha256 cellar: :any,                 arm64_sonoma:  "e936777455b6cb66819a7db9f4396dfd4d0b8c7b0d700ea28213780b16c2dac1"
-    sha256 cellar: :any,                 arm64_ventura: "95a0c93dc8f316a7235471cf16203aa1efb595c4568294ef854510d3c0050699"
-    sha256 cellar: :any,                 sonoma:        "54fe1e9ac8988d4461fcca02ac0f85b3d534acc0b9b42f6115a0ce423732d877"
-    sha256 cellar: :any,                 ventura:       "0e7ef21719a1106c59fab1f82cbbd20144898fa29c0e74407b9d55ed14feb951"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7eb799fd7e23195d2cb8ef8bf5282518a26f06864cc2d5a9d134a520916291e2"
+    sha256 cellar: :any,                 arm64_sequoia: "c43b108ab9895d7aa1f649d9d3b10da482657eb1216d060577142b805cfe490c"
+    sha256 cellar: :any,                 arm64_sonoma:  "03d179652a6d36ece4f02bbbc091ff6e3bb1d9454ba4e7a160c8d2fbab83b7d6"
+    sha256 cellar: :any,                 arm64_ventura: "a9b6c86773453e3973ce817c15357acd3d16c6d839dd2b4b27b8ecd46efd5ac9"
+    sha256 cellar: :any,                 sonoma:        "71334a8545e4e669f06c88c11e9b0adddce19a797f088dcc3db5d6513d0861bb"
+    sha256 cellar: :any,                 ventura:       "9bd429d9b147fb9f042b70e907c50f5287572282c1f29bb243082c7a13e24ff4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "87e49b8d9e91e96ab8a404ab29746f5705c204001ff745d2aa2c93e55b2798d8"
   end
 
   depends_on "cmake" => :build
@@ -56,6 +56,10 @@ class JpegTurbo < Formula
     system "cmake", "--build", "build"
     system "ctest", "--test-dir", "build", "--rerun-failed", "--output-on-failure", "--parallel", ENV.make_jobs
     system "cmake", "--install", "build"
+
+    # Avoid rebuilding dependents that hard-code the prefix.
+    inreplace [lib/"pkgconfig/libjpeg.pc", lib/"pkgconfig/libturbojpeg.pc"],
+              prefix, opt_prefix
   end
 
   test do

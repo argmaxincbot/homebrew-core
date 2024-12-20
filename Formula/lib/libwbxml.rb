@@ -20,7 +20,7 @@ class Libwbxml < Formula
   depends_on "cmake" => :build
   depends_on "doxygen" => :build
   depends_on "graphviz" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "wget"
 
   uses_from_macos "expat"
@@ -36,13 +36,13 @@ class Libwbxml < Formula
   end
 
   test do
-    (testpath/"input.xml").write <<~EOS
+    (testpath/"input.xml").write <<~XML
       <?xml version="1.0"?>
       <!DOCTYPE sl PUBLIC "-//WAPFORUM//DTD SL 1.0//EN" "http://www.wapforum.org/DTD/sl.dtd">
       <sl href="http://www.xyz.com/ppaid/123/abc.wml"></sl>
-    EOS
+    XML
 
     system bin/"xml2wbxml", "-o", "output.wbxml", "input.xml"
-    assert_predicate testpath/"output.wbxml", :exist?
+    assert_path_exists testpath/"output.wbxml"
   end
 end

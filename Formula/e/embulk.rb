@@ -39,7 +39,7 @@ class Embulk < Formula
     testpath.install resource("jruby-complete")
     jruby = "jruby=file://#{testpath}/jruby-complete-#{resource("jruby-complete").version}.jar"
 
-    (testpath/"config.yml").write <<~EOS
+    (testpath/"config.yml").write <<~YAML
       in:
         type: http
         url: https://formulae.brew.sh/api/analytics/brew-command-run/30d.json
@@ -54,7 +54,7 @@ class Embulk < Formula
             - {name: percent, type: double}
       out:
         type: stdout
-    EOS
+    YAML
 
     ENV["GEM_HOME"] = testpath/"gems"
     system bin/"embulk", "-X", jruby, "gem", "install", "embulk", "--version", version.to_s
@@ -65,7 +65,7 @@ class Embulk < Formula
       +-------------+-----------------------------+--------------+----------------+
       |           1 |                        list |
     EOS
-    assert_match(/1,list,.*\n2,install,.*\n3,info,/, shell_output("#{bin}/embulk -X #{jruby} run config.yml"))
+    assert_match(/1,list,.*\n2,install,.*\n3,services,/, shell_output("#{bin}/embulk -X #{jruby} run config.yml"))
 
     # Recent macOS requires giving Terminal permissions to access files on a
     # network volume in order to use Embulk's basic file input plugin.

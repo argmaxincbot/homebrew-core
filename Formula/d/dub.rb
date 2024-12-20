@@ -29,7 +29,7 @@ class Dub < Formula
   end
 
   depends_on "ldc" => [:build, :test]
-  depends_on "pkg-config"
+  depends_on "pkgconf"
 
   uses_from_macos "curl"
 
@@ -48,16 +48,16 @@ class Dub < Formula
   test do
     assert_match "DUB version #{version}", shell_output("#{bin}/dub --version")
 
-    (testpath/"dub.json").write <<~EOS
+    (testpath/"dub.json").write <<~JSON
       {
         "name": "brewtest",
         "description": "A simple D application"
       }
-    EOS
-    (testpath/"source/app.d").write <<~EOS
+    JSON
+    (testpath/"source/app.d").write <<~D
       import std.stdio;
       void main() { writeln("Hello, world!"); }
-    EOS
+    D
     system bin/"dub", "build", "--compiler=#{Formula["ldc"].opt_bin}/ldc2"
     assert_equal "Hello, world!", shell_output("#{testpath}/brewtest").chomp
   end

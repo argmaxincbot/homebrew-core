@@ -1,24 +1,22 @@
 class Yosys < Formula
   desc "Framework for Verilog RTL synthesis"
   homepage "https://yosyshq.net/yosys/"
-  # pull from git tag to get submodules
-  url "https://github.com/YosysHQ/yosys.git",
-      tag:      "0.47",
-      revision: "647d61dd9212365a3cd44db219660b8f90b95cbd"
+  url "https://github.com/YosysHQ/yosys/releases/download/v0.48/yosys.tar.gz"
+  sha256 "6218549aaadbfa79d43b29dbd01caf4e6ddc37bbeadf148d91c3b79526fd6ba1"
   license "ISC"
   head "https://github.com/YosysHQ/yosys.git", branch: "main"
 
   bottle do
-    sha256 arm64_sequoia: "169b8cf3e39b28571d779a3a02d820d4866257ba33971ec57e5e67a5f4e2aa74"
-    sha256 arm64_sonoma:  "7fe58f97d396b7fad404e52729186177ddcf898476bfcbb5c3345b338d481949"
-    sha256 arm64_ventura: "33bf2da782644eccb342b940646f49e2d911e3501ced2d0057929ecf68bdfda5"
-    sha256 sonoma:        "0059ff08049c4b62f35b19a86812e15f023b78967f71b7a7023f8167d602cb86"
-    sha256 ventura:       "5835a2c9d4cd9231347b1f4010947f22d8a5e02b537eae5a1d8397cf27bc23a5"
-    sha256 x86_64_linux:  "26fede326d695af0d7768ada7874639a7c3193ecbd14bc8a932d6be13ab1c93b"
+    sha256 arm64_sequoia: "2a18c05df11d2c423d8caa1ffc496f8975b887027db3cf98a1864b490098561b"
+    sha256 arm64_sonoma:  "39c2f57ecf6b151897330ca1d78ea14770e83ae56925b7a6a5fc4d2452c08604"
+    sha256 arm64_ventura: "e88c145d08a9b38f86fdfb4bae86c096b2c427605e505bb641726f1c8c4acd16"
+    sha256 sonoma:        "718a90f56d5c5221934ccb1dcd007d800279627aa3015c19d826bdf223128c32"
+    sha256 ventura:       "c62b40829a932e172d6ef92729edb0c54308cafa3dea4b1b54673134886bf28c"
+    sha256 x86_64_linux:  "6d18fbb810e197f5a0c4399c44b590187c9e884cbe3810603e561a082ccf2c03"
   end
 
   depends_on "bison" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "readline"
 
   uses_from_macos "flex"
@@ -27,7 +25,12 @@ class Yosys < Formula
   uses_from_macos "tcl-tk"
   uses_from_macos "zlib"
 
+  on_linux do
+    depends_on "libtommath"
+  end
+
   def install
+    ENV.append "LINKFLAGS", "-L#{Formula["readline"].opt_lib}"
     system "make", "install", "PREFIX=#{prefix}", "PRETTY=0"
   end
 

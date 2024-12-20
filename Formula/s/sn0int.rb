@@ -14,7 +14,7 @@ class Sn0int < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "799345e368ecb3b46e5ce18b62976a75707f78a3e717d33b5524d6af3b3a9819"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "sphinx-doc" => :build
   depends_on "libsodium"
@@ -35,7 +35,7 @@ class Sn0int < Formula
   end
 
   test do
-    (testpath/"true.lua").write <<~EOS
+    (testpath/"true.lua").write <<~LUA
       -- Description: basic selftest
       -- Version: 0.1.0
       -- License: GPL-3.0
@@ -43,7 +43,7 @@ class Sn0int < Formula
       function run()
           -- nothing to do here
       end
-    EOS
+    LUA
     system bin/"sn0int", "run", "-vvxf", testpath/"true.lua"
   end
 end

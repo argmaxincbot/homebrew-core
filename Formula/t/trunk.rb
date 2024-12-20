@@ -1,21 +1,21 @@
 class Trunk < Formula
   desc "Build, bundle & ship your Rust WASM application to the web"
   homepage "https://trunkrs.dev/"
-  url "https://github.com/trunk-rs/trunk/archive/refs/tags/v0.21.3.tar.gz"
-  sha256 "634ff0086304b164b90e9d55699199c90f5b69a7793c8f36aeb4da7fa81bd4d4"
+  url "https://github.com/trunk-rs/trunk/archive/refs/tags/v0.21.5.tar.gz"
+  sha256 "479a26d64458600197a853cd3ad99b247c4d319a07b417c022ea626681867fa0"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/trunk-rs/trunk.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "c05ecf115102091e538d89f83965d6e4028867fdf7cb513e3fa94b0fba7abc56"
-    sha256 cellar: :any,                 arm64_sonoma:  "acea7cd315bb9ff854c4c5322dbd5d8f83e80f5bbda0ba5490422b0a39c1964f"
-    sha256 cellar: :any,                 arm64_ventura: "b380779e4e23b8cefbdd43d89db23601dfdfc19e251d90584bd7e4a3227a269a"
-    sha256 cellar: :any,                 sonoma:        "2c6a9c7f49aace56f0214601ecc45d5fc8154ce18a5993668aa5d8b94e4e17bb"
-    sha256 cellar: :any,                 ventura:       "89b256ac6656b9e2f405176c14a8f3078b45e9878acead27d561abadfe4eab6c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "459b89ff561bb5ecd03eba86edc5982fb632b719cfd0ee56c4e5aa0c327b6076"
+    sha256 cellar: :any,                 arm64_sequoia: "0ae03eb28cd8d07ee2b4396268ca9c23d4ab4dc204363a711366a39db178d30a"
+    sha256 cellar: :any,                 arm64_sonoma:  "56cc319c413865489c7a3cbc5ca15786ce092f4925d9efe0595a9e6780fd492a"
+    sha256 cellar: :any,                 arm64_ventura: "46df1fbee319ee27b4803377163950c811cbd43f5704e61d3152442f6aded3c4"
+    sha256 cellar: :any,                 sonoma:        "f66d5fdb5d2d9b587f9028e355fe01af3a672684a9851f10f59a84ec893e3e25"
+    sha256 cellar: :any,                 ventura:       "5bdfe812119f3ce55ccd8a2a74021c1c952ddf07a7d03eccfdbca4c250632e69"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ceb8524ffc3c2e67f194978028e0ee03de91564e2410c0635597614e5f983ef2"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "openssl@3"
 

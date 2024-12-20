@@ -24,16 +24,16 @@ class Golines < Formula
   end
 
   test do
-    (testpath/"given.go").write <<~EOS
+    (testpath/"given.go").write <<~GO
       package main
 
       var strings = []string{"foo", "bar", "baz"}
-    EOS
-    (testpath/"expected.go").write <<~EOS
+    GO
+    (testpath/"expected.go").write <<~GO
       package main
 
       var strings = []string{\n\t"foo",\n\t"bar",\n\t"baz",\n}
-    EOS
-    assert_equal shell_output("#{bin}/golines --max-len=30 given.go"), (testpath/"expected.go").read
+    GO
+    assert_equal (testpath/"expected.go").read, shell_output("#{bin}/golines --max-len=30 given.go")
   end
 end

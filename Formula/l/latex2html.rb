@@ -30,15 +30,15 @@ class Latex2html < Formula
   end
 
   test do
-    (testpath/"test.tex").write <<~EOS
-      \\documentclass{article}
-      \\usepackage[utf8]{inputenc}
-      \\title{Experimental Setup}
-      \\date{\\today}
-      \\begin{document}
-      \\maketitle
-      \\end{document}
-    EOS
+    (testpath/"test.tex").write <<~'TEX'
+      \documentclass{article}
+      \usepackage[utf8]{inputenc}
+      \title{Experimental Setup}
+      \date{\today}
+      \begin{document}
+      \maketitle
+      \end{document}
+    TEX
     system bin/"latex2html", "test.tex"
     assert_match "Experimental Setup", File.read("test/test.html")
   end

@@ -24,7 +24,7 @@ class Libmypaint < Formula
 
   depends_on "gettext" => :build # for intltool
   depends_on "intltool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "json-c"
 
   uses_from_macos "perl" => :build
@@ -38,8 +38,6 @@ class Libmypaint < Formula
   end
 
   def install
-    ENV.prepend_path "PERL5LIB", Formula["perl-xml-parser"].libexec/"lib/perl5" if OS.linux?
-
     system "./configure", "--disable-introspection",
                           "--without-glib",
                           *std_configure_args

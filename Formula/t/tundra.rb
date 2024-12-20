@@ -39,13 +39,13 @@ class Tundra < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~'EOS'
+    (testpath/"test.c").write <<~'C'
       #include <stdio.h>
       int main() {
         printf("Hello World\n");
         return 0;
       }
-    EOS
+    C
 
     os, cc = if OS.mac?
       ["macosx", "clang"]
@@ -53,7 +53,7 @@ class Tundra < Formula
       ["linux", "gcc"]
     end
 
-    (testpath/"tundra.lua").write <<~EOS
+    (testpath/"tundra.lua").write <<~LUA
       Build {
         Units = function()
           local test = Program {
@@ -70,7 +70,7 @@ class Tundra < Formula
           },
         },
       }
-    EOS
+    LUA
     system bin/"tundra2"
     system "./t2-output/#{os}-#{cc}-debug-default/test"
   end

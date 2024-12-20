@@ -20,14 +20,12 @@ class StoneSoup < Formula
   # e.g. https://github.com/crawl/crawl/issues/1829#issuecomment-799492138
   disable! date: "2024-02-15", because: "uses deprecated `lua@5.1`"
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.11" => :build
   depends_on "pyyaml" => :build
   depends_on "lua@5.1"
   depends_on "pcre"
   depends_on "sqlite"
-
-  fails_with gcc: "5"
 
   def install
     ENV.cxx11

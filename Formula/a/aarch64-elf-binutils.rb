@@ -21,7 +21,7 @@ class Aarch64ElfBinutils < Formula
     sha256 x86_64_linux:   "2b9af0cd8bdfa3f67fd1bb431bef2e3507d379922d4a63864d6be56a257d1082"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "zstd"
 
   uses_from_macos "zlib"
@@ -44,14 +44,14 @@ class Aarch64ElfBinutils < Formula
   end
 
   test do
-    (testpath/"test-s.s").write <<~EOS
+    (testpath/"test-s.s").write <<~ASM
       .section .text
       .globl _start
       _start:
           mov x0, #0
           mov x16, #1
           svc #0x80
-    EOS
+    ASM
     system bin/"aarch64-elf-as", "-o", "test-s.o", "test-s.s"
     assert_match "file format elf64-littleaarch64",
                  shell_output("#{bin}/aarch64-elf-objdump -a test-s.o")

@@ -24,7 +24,7 @@ class DosboxStaging < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "fluid-synth"
   depends_on "glib"
   depends_on "iir1"
@@ -44,8 +44,6 @@ class DosboxStaging < Formula
     depends_on "mesa"
     depends_on "mesa-glu"
   end
-
-  fails_with gcc: "5"
 
   def install
     rm_r(buildpath/"subprojects") # Ensure we don't use vendored dependencies

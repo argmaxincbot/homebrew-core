@@ -27,7 +27,7 @@ class GnustepBase < Formula
   end
 
   depends_on "gnustep-make" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "gmp"
   depends_on "gnutls"
 
@@ -81,12 +81,12 @@ class GnustepBase < Formula
   end
 
   test do
-    (testpath/"test.xml").write <<~EOS
+    (testpath/"test.xml").write <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
       <test>
         <text>I'm an XML document.</text>
       </test>
-    EOS
+    XML
 
     assert_match "Validation failed: no DTD found", shell_output("#{bin}/xmlparse test.xml 2>&1")
   end

@@ -35,18 +35,30 @@ class Perltidy < Formula
   end
 
   test do
-    (testpath/"testfile.pl").write <<~EOS
+    (testpath/"testfile.pl").write <<~PERL
       print "Help Desk -- What Editor do you use?";
       chomp($editor = <STDIN>);
       if ($editor =~ /emacs/i) {
-        print "Why aren't you using vi?\n";
+        print "Why aren't you using vi?";
       } elsif ($editor =~ /vi/i) {
-        print "Why aren't you using emacs?\n";
+        print "Why aren't you using emacs?";
       } else {
-        print "I think that's the problem\n";
+        print "I think that's the problem";
       }
-    EOS
+    PERL
     system bin/"perltidy", testpath/"testfile.pl"
-    assert_predicate testpath/"testfile.pl.tdy", :exist?
+    assert_equal <<~PERL, (testpath/"testfile.pl.tdy").read
+      print "Help Desk -- What Editor do you use?";
+      chomp( $editor = <STDIN> );
+      if ( $editor =~ /emacs/i ) {
+          print "Why aren't you using vi?";
+      }
+      elsif ( $editor =~ /vi/i ) {
+          print "Why aren't you using emacs?";
+      }
+      else {
+          print "I think that's the problem";
+      }
+    PERL
   end
 end

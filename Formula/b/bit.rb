@@ -50,15 +50,12 @@ class Bit < Formula
       terminal_notifier_app = Formula["terminal-notifier"].opt_prefix/"terminal-notifier.app"
       ln_sf terminal_notifier_app.relative_path_from(terminal_notifier_dir), terminal_notifier_dir
     end
-
-    # Replace universal binaries with their native slices.
-    deuniversalize_machos
   end
 
   test do
-    (testpath/"Library/Caches/Bit/config/config.json").write <<~EOS
+    (testpath/"Library/Caches/Bit/config/config.json").write <<~JSON
       { "analytics_reporting": false, "error_reporting": false }
-    EOS
+    JSON
     output = shell_output("#{bin}/bit init --skip-update")
     assert_match "successfully initialized", output
   end

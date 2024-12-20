@@ -6,7 +6,8 @@
     "exclude_packages": ["certifi"]
   },
   "alot": {
-    "exclude_packages": ["notmuch2"]
+    "exclude_packages": ["notmuch2"],
+    "extra_packages": ["standard-mailcap"]
   },
   "animdl": {
     "exclude_packages": ["certifi"]
@@ -15,12 +16,12 @@
     "exclude_packages": ["certifi"]
   },
   "ansible": {
-    "exclude_packages": ["certifi", "cryptography"],
+    "exclude_packages": ["certifi", "cryptography", "gnureadline"],
     "extra_packages": [
       "ansible-pylibssh", "apache-libcloud", "boto3", "dnspython", "docker",
       "junos-eznc", "jxmlease", "kerberos", "ntc-templates", "openshift",
-      "passlib", "pexpect", "proxmoxer", "pysphere3", "python-consul",
-      "python-neutronclient", "pywinrm", "requests-credssp", "shade", "zabbix-api"
+      "passlib", "pexpect", "proxmoxer", "pynetbox", "pysphere3", "python-consul",
+      "python-neutronclient", "pytz", "pywinrm", "requests-credssp", "shade", "zabbix-api"
     ]
   },
   "ansible-lint": {
@@ -43,12 +44,21 @@
     ]
   },
   "ansible@9": {
-    "exclude_packages": ["certifi", "cryptography"],
+    "exclude_packages": ["certifi", "cryptography", "gnureadline"],
     "extra_packages": [
       "ansible-pylibssh", "apache-libcloud", "boto3", "dnspython", "docker",
       "junos-eznc", "jxmlease", "kerberos", "ntc-templates", "openshift",
-      "passlib", "pexpect", "proxmoxer", "pysphere3", "python-consul",
-      "python-neutronclient", "pywinrm", "requests-credssp", "shade", "zabbix-api"
+      "passlib", "pexpect", "proxmoxer", "pynetbox", "pysphere3", "python-consul",
+      "python-neutronclient", "pytz", "pywinrm", "requests-credssp", "shade", "zabbix-api"
+    ]
+  },
+  "ansible@10": {
+    "exclude_packages": ["certifi", "cryptography", "gnureadline"],
+    "extra_packages": [
+      "ansible-pylibssh", "apache-libcloud", "boto3", "dnspython", "docker",
+      "junos-eznc", "jxmlease", "kerberos", "ntc-templates", "openshift",
+      "passlib", "pexpect", "proxmoxer", "pynetbox", "pysphere3", "python-consul",
+      "python-neutronclient", "pytz", "pywinrm", "requests-credssp", "shade", "zabbix-api"
     ]
   },
   "apprise": {
@@ -194,6 +204,9 @@
   "cloudsplaining": {
     "exclude_packages": ["certifi"]
   },
+  "cobo-cli": {
+    "exclude_packages": ["certifi"]
+  },
   "codelimit": {
     "exclude_packages": ["certifi"]
   },
@@ -211,6 +224,10 @@
   },
   "cookiecutter": {
     "exclude_packages": ["certifi"]
+  },
+  "core-lightning": {
+    "package_name": "",
+    "extra_packages": ["mako", "setuptools"]
   },
   "credstash": {
     "exclude_packages": ["cryptography"]
@@ -263,7 +280,7 @@
     "exclude_packages": ["certifi", "cryptography"]
   },
   "duplicity": {
-    "exclude_packages": ["certifi", "cryptography"],
+    "exclude_packages": ["certifi"],
     "extra_packages": ["python-novaclient>18", "stone==3.2.1"]
   },
   "dvc": {
@@ -304,8 +321,9 @@
     "exclude_packages": ["certifi"]
   },
   "fdroidserver": {
-    "exclude_packages": ["certifi", "cryptography", "numpy", "pillow"],
-    "extra_packages": ["androguard==3.3.5", "setuptools"]
+    "package_name": "fdroidserver[optional]",
+    "exclude_packages": ["certifi", "cryptography", "numpy", "pillow", "puremagic"],
+    "extra_packages": ["androguard<4", "python-magic"]
   },
   "flintrock": {
     "exclude_packages": ["cryptography"]
@@ -340,13 +358,17 @@
   "git-review": {
     "exclude_packages": ["certifi"]
   },
+  "glances": {
+    "package_name": "glances[web]",
+    "exclude_packages": ["certifi"]
+  },
   "glib": {
     "package_name": "",
     "extra_packages": ["packaging"]
   },
   "gnuradio": {
     "extra_packages": [
-      "click", "click-plugins", "jsonschema", "lxml", "mako",
+      "click", "jsonschema", "lxml", "mako",
       "packaging", "pygccxml", "pyyaml", "setuptools"
     ]
   },
@@ -380,12 +402,20 @@
   "grokmirror": {
     "exclude_packages": ["certifi"]
   },
+  "gsan": {
+    "exclude_packages": ["cryptography"]
+  },
   "gyb": {
     "package_name": "",
     "exclude_packages": ["certifi"],
     "extra_packages": [
       "google-api-python-client", "google-auth", "google-auth-httplib2", "google-auth-oauthlib", "httplib2"
     ]
+  },
+  "harlequin": {
+    "package_name": "harlequin[mysql,odbc,postgres]",
+    "exclude_packages": ["psycopg-binary", "tree-sitter-languages"],
+    "extra_packages": ["psycopg-c"]
   },
   "hatch": {
     "exclude_packages": ["certifi", "cryptography", "uv"]
@@ -587,7 +617,7 @@
     "exclude_packages": ["certifi"]
   },
   "pferd": {
-    "exclude_packages": ["certifi"]
+    "exclude_packages": ["certifi", "cryptography"]
   },
   "pip-audit": {
     "exclude_packages": ["certifi"]
@@ -666,6 +696,10 @@
     "extra_packages": ["flit-core", "setuptools", "pip", "wheel"]
   },
   "python@3.13": {
+    "package_name": "",
+    "extra_packages": ["flit-core", "setuptools", "pip", "wheel"]
+  },
+  "python-freethreading": {
     "package_name": "",
     "extra_packages": ["flit-core", "setuptools", "pip", "wheel"]
   },
@@ -807,6 +841,9 @@
   "theharvester": {
     "exclude_packages": ["certifi"]
   },
+  "tmt": {
+    "exclude_packages": ["certifi"]
+  },
   "toot": {
     "package_name": "toot[images,richtext]",
     "exclude_packages": ["certifi", "pillow"]
@@ -853,6 +890,7 @@
     "exclude_packages": ["certifi"]
   },
   "virt-manager": {
+    "package_name": "",
     "exclude_packages": ["certifi"],
     "extra_packages": ["requests"]
   },
@@ -867,6 +905,9 @@
   },
   "weasyprint": {
     "exclude_packages": ["pillow"]
+  },
+  "weaviate-cli": {
+    "exclude_packages": ["certifi", "cryptography"]
   },
   "woob": {
     "exclude_packages": ["certifi", "pillow"]

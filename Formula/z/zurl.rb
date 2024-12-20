@@ -21,7 +21,7 @@ class Zurl < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "e03115779822a91ea2c4547dae103f6538beeab596a56251aad671519c1becd8"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "cmake" => :test # for scikit_build_core
   depends_on "cython" => :test # use brew cython as building it in test can cause time out
   depends_on "python@3.13" => :test
@@ -80,15 +80,15 @@ class Zurl < Formula
     venv.pip_install resources.reject { |r| r.name == "pyzmq" }
     venv.pip_install(resource("pyzmq"), build_isolation: false)
 
-    conffile.write <<~EOS
+    conffile.write <<~INI
       [General]
       in_req_spec=ipc://#{ipcfile}
       defpolicy=allow
       timeout=10
-    EOS
+    INI
 
     port = free_port
-    runfile.write <<~EOS
+    runfile.write <<~PYTHON
       import json
       import threading
       from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -126,14 +126,11 @@ class Zurl < Formula
       resp = json.loads(sock.recv()[1:])
       assert('type' not in resp)
       assert(resp['body'] == 'test response\\n')
-    EOS
+    PYTHON
 
-    pid = fork do
-      exec bin/"zurl", "--config=#{conffile}"
-    end
-
+    pid = spawn bin/"zurl", "--config=#{conffile}"
     begin
-      system testpath/"vendor/bin/#{python3}", runfile
+      system testpath/"vendor/bin"/python3, runfile
     ensure
       Process.kill("TERM", pid)
       Process.wait(pid)

@@ -4,16 +4,16 @@ class Garble < Formula
   url "https://github.com/burrowers/garble/archive/refs/tags/v0.13.0.tar.gz"
   sha256 "22a1696ce880b34ca5ff949b6b5a42d4e370502e0b40b59eaa679eae13e45363"
   license "BSD-3-Clause"
-  revision 1
+  revision 3
   head "https://github.com/burrowers/garble.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "66adb20a7487209047ba4a832f3ffa48fbfbd11648576f1e44a36d9bc323b000"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "66adb20a7487209047ba4a832f3ffa48fbfbd11648576f1e44a36d9bc323b000"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "66adb20a7487209047ba4a832f3ffa48fbfbd11648576f1e44a36d9bc323b000"
-    sha256 cellar: :any_skip_relocation, sonoma:        "2b580f40bd6c84a9ad3e1510b991c43d44bd7af9fd8c24a2c09e1baf422f9a9a"
-    sha256 cellar: :any_skip_relocation, ventura:       "2b580f40bd6c84a9ad3e1510b991c43d44bd7af9fd8c24a2c09e1baf422f9a9a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cef9008c232f3d5b648fa4b3450fa02747b77e42ad0d283c231feb94752c6858"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bf422ccd3db2ebdc79667822a8ab1bb7bf71089a806ec9c55f314818d1c4258b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bf422ccd3db2ebdc79667822a8ab1bb7bf71089a806ec9c55f314818d1c4258b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "bf422ccd3db2ebdc79667822a8ab1bb7bf71089a806ec9c55f314818d1c4258b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1f5007592a1c41e28dca0eaa6bfd57d5f5de2dcbf4c9df766548b92144f5383a"
+    sha256 cellar: :any_skip_relocation, ventura:       "1f5007592a1c41e28dca0eaa6bfd57d5f5de2dcbf4c9df766548b92144f5383a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5737f8c15863b2575cf80726e2857f1c9e6439804472f37b1d2d770924ccd045"
   end
 
   depends_on "go" => [:build, :test]
@@ -25,7 +25,7 @@ class Garble < Formula
   end
 
   test do
-    (testpath/"hello.go").write <<~EOS
+    (testpath/"hello.go").write <<~GO
       package main
 
       import "fmt"
@@ -33,7 +33,7 @@ class Garble < Formula
       func main() {
           fmt.Println("Hello World")
       }
-    EOS
+    GO
     system bin/"garble", "-literals", "-tiny", "build", testpath/"hello.go"
     assert_equal "Hello World\n", shell_output("#{testpath}/hello")
 

@@ -15,7 +15,7 @@ class Uwsgi < Formula
     sha256 x86_64_linux:  "837e3580174d833939e92f51d97664d092d0cd4e4f1ad167429f743aaeed865b"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "openssl@3"
   depends_on "pcre2"
   depends_on "python@3.13"
@@ -41,7 +41,7 @@ class Uwsgi < Formula
     ENV.prepend "CFLAGS", "-I#{openssl.opt_include}"
     ENV.prepend "LDFLAGS", "-L#{openssl.opt_lib}"
 
-    (buildpath/"buildconf/brew.ini").write <<~EOS
+    (buildpath/"buildconf/brew.ini").write <<~INI
       [uwsgi]
       ssl = true
       json = yajl
@@ -50,7 +50,7 @@ class Uwsgi < Formula
       inherit = base
       plugin_dir = #{libexec}/uwsgi
       embedded_plugins = null
-    EOS
+    INI
 
     system python3, "uwsgiconfig.py", "--verbose", "--build", "brew"
 
@@ -91,11 +91,11 @@ class Uwsgi < Formula
   end
 
   test do
-    (testpath/"helloworld.py").write <<~EOS
+    (testpath/"helloworld.py").write <<~PYTHON
       def application(env, start_response):
         start_response('200 OK', [('Content-Type','text/html')])
         return [b"Hello World"]
-    EOS
+    PYTHON
 
     port = free_port
 

@@ -22,7 +22,7 @@ class OpencvAT3 < Formula
   disable! date: "2024-01-31", because: :unmaintained
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build
   depends_on "ceres-solver"
   depends_on "eigen"
@@ -38,8 +38,6 @@ class OpencvAT3 < Formula
   depends_on "python@3.12"
   depends_on "tbb"
   depends_on "webp"
-
-  fails_with gcc: "5" # ffmpeg is compiled with GCC
 
   resource "contrib" do
     url "https://github.com/opencv/opencv_contrib/archive/refs/tags/3.4.20.tar.gz"

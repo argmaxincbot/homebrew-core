@@ -1,10 +1,9 @@
 class JpegXl < Formula
   desc "New file format for still image compression"
   homepage "https://jpeg.org/jpegxl/index.html"
-  url "https://github.com/libjxl/libjxl/archive/refs/tags/v0.11.0.tar.gz"
-  sha256 "7ce4ec8bb37a435a73ac18c4c9ff56c2dc6c98892bf3f53a328e3eca42efb9cf"
+  url "https://github.com/libjxl/libjxl/archive/refs/tags/v0.11.1.tar.gz"
+  sha256 "1492dfef8dd6c3036446ac3b340005d92ab92f7d48ee3271b5dac1d36945d3d9"
   license "BSD-3-Clause"
-  revision 1
 
   livecheck do
     url :stable
@@ -12,21 +11,20 @@ class JpegXl < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "a872b8c7a7f18381dc62c164f6e38de1750de1909de14ae2f5cbca72c0da93d6"
-    sha256 cellar: :any,                 arm64_sonoma:  "a5ccfecd1eb7d5997c1aec2e904846031a4c990f175aed3ab4a5a1bdc783a500"
-    sha256 cellar: :any,                 arm64_ventura: "7f176bd80a18add2adb418755b29f1c6165f6e3e2a016c9ab029ccaa67ba959b"
-    sha256 cellar: :any,                 sonoma:        "5d8a0e9b7344952bc35481d52e0cc045f106775fdd0e47c7fcb1bf563b1e398b"
-    sha256 cellar: :any,                 ventura:       "64deb00f3a86e43b905ccf527af915f4d6f0a6d16e39b99c89df45aa698605ae"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "11a5997b6ed08cba8626d3b9df0a03db954c96eb200866b7799d0a2eb269e572"
+    sha256 cellar: :any,                 arm64_sequoia: "e55e2be8d3c75882b0db111e3925b5b2ab937bc28255c73e6d6da370b5d695e2"
+    sha256 cellar: :any,                 arm64_sonoma:  "e16ed22cd8691d3dfa5397b8f1e3ea0bead0d562ec8a114ccb73248cc2149ba8"
+    sha256 cellar: :any,                 arm64_ventura: "9aa6aeaf24e83b836f4c78739b2f92f6ffdb312c4a4713e6195763267f29c6dd"
+    sha256 cellar: :any,                 sonoma:        "366b2602c265d810b87c1475bba10b185e66d54362d770a80f35ef8f556f185f"
+    sha256 cellar: :any,                 ventura:       "50b22e54a36fe7bd74cb058a15d0b2ba7cd1a497ac9a5670050a3ec8f73f081c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8347218162b01146c21087e93462c83290cdb05fc6d1595266785c7d21f7381f"
   end
 
   depends_on "asciidoc" => :build
   depends_on "cmake" => :build
   depends_on "docbook-xsl" => :build
   depends_on "doxygen" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => [:build, :test]
   depends_on "sphinx-doc" => :build
-  depends_on "pkg-config" => :test
   depends_on "brotli"
   depends_on "giflib"
   depends_on "highway"
@@ -40,9 +38,6 @@ class JpegXl < Formula
   uses_from_macos "libxml2" => :build
   uses_from_macos "libxslt" => :build # for xsltproc
   uses_from_macos "python"
-
-  fails_with gcc: "5"
-  fails_with gcc: "6"
 
   # These resources are versioned according to the script supplied with jpeg-xl to download the dependencies:
   # https://github.com/libjxl/libjxl/tree/v#{version}/third_party
@@ -70,11 +65,14 @@ class JpegXl < Formula
                     *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--build", "build", "--target", "install"
+
+    # Avoid rebuilding dependents that hard-code the prefix.
+    inreplace (lib/"pkgconfig").glob("*.pc"), prefix, opt_prefix
   end
 
   test do
     system bin/"cjxl", test_fixtures("test.jpg"), "test.jxl"
-    assert_predicate testpath/"test.jxl", :exist?
+    assert_path_exists testpath/"test.jxl"
 
     (testpath/"jxl_test.c").write <<~C
       #include <jxl/encode.h>
@@ -90,7 +88,7 @@ class JpegXl < Formula
           return EXIT_SUCCESS;
       }
     C
-    jxl_flags = shell_output("pkg-config --cflags --libs libjxl").chomp.split
+    jxl_flags = shell_output("pkgconf --cflags --libs libjxl").chomp.split
     system ENV.cc, "jxl_test.c", *jxl_flags, "-o", "jxl_test"
     system "./jxl_test"
 
@@ -108,7 +106,7 @@ class JpegXl < Formula
           return EXIT_SUCCESS;
       }
     C
-    jxl_threads_flags = shell_output("pkg-config --cflags --libs libjxl_threads").chomp.split
+    jxl_threads_flags = shell_output("pkgconf --cflags --libs libjxl_threads").chomp.split
     system ENV.cc, "jxl_threads_test.c", *jxl_threads_flags, "-o", "jxl_threads_test"
     system "./jxl_threads_test"
   end

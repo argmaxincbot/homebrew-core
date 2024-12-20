@@ -4,18 +4,19 @@ class Pqiv < Formula
   url "https://github.com/phillipberndt/pqiv/archive/refs/tags/2.13.2.tar.gz"
   sha256 "154cbbe0a62be12cee23b0a46a86b2305d8128fd19924308ad5e9d22fa5ad4f7"
   license "GPL-3.0-or-later"
+  revision 2
   head "https://github.com/phillipberndt/pqiv.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "b042df8a068c4fde409474ed443668e1dd0577d3f5c08e7ff802db858e437f60"
-    sha256 cellar: :any,                 arm64_sonoma:  "2bf2a9f1526dc9896f93b19f2fdbb0e8c5454e7c568cb8cd4544d01ce97decec"
-    sha256 cellar: :any,                 arm64_ventura: "299ac27a10711f9356c3441cfd017d347ef186d26b003dfaba20d46aa7b03ffc"
-    sha256 cellar: :any,                 sonoma:        "d2ea4af0a5f3ede0a684deb4fbb2e68e2a25c532d1a3a746ffe2444e1981757e"
-    sha256 cellar: :any,                 ventura:       "74ebcf13821a3001bf8f50de8ed6da662696660066e426ffa79f7fd380954600"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ca7b62e81548299e7eabc1bda872d2c2bd7849a1029b74bd5b3476e97fbb9f17"
+    sha256 cellar: :any,                 arm64_sequoia: "e44986d59fbbfadb05ec2d40c769eb87deac34da0a21291a3ad933dd30af109c"
+    sha256 cellar: :any,                 arm64_sonoma:  "021459c868cb76745936d836395a26210307ad99b7145f4ad365eb18c97fc9a1"
+    sha256 cellar: :any,                 arm64_ventura: "c0d57afe7ac1a17e4e3430fe0e07ebb6edafca503f2725f49ba9942e553f7a77"
+    sha256 cellar: :any,                 sonoma:        "ca0cb5916c301360054b74d1ce2732273fce60f3b03d96b0fb9ca774f6bff32e"
+    sha256 cellar: :any,                 ventura:       "4e7dbe5ea248fd4bd10c0fec39ac71680cab1a019b7501a3d8b3a28a9f9b89ef"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9ad555fc865b2af09114d0e8132435f9b166696bfdc8ed588e26b19cb5531f99"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "cairo"
   depends_on "gdk-pixbuf"

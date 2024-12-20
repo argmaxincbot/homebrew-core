@@ -3,10 +3,10 @@ class Torchvision < Formula
 
   desc "Datasets, transforms, and models for computer vision"
   homepage "https://github.com/pytorch/vision"
-  url "https://github.com/pytorch/vision/archive/refs/tags/v0.19.1.tar.gz"
-  sha256 "083e75c467285595ec3eb3c7aa8493c19e53d7eb42f13046fb56a07c8897e5a8"
+  url "https://github.com/pytorch/vision/archive/refs/tags/v0.20.1.tar.gz"
+  sha256 "7e08c7f56e2c89859310e53d898f72bccc4987cd83e08cfd6303513da15a9e71"
   license "BSD-3-Clause"
-  revision 1
+  revision 3
 
   livecheck do
     url :stable
@@ -14,41 +14,38 @@ class Torchvision < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "9c465c861116f5dbec7b375f48b2fda9ad273632a372f681647ab77157d05401"
-    sha256 cellar: :any,                 arm64_sonoma:  "16506991bd75837ff07807a22a4c15367d3a44d81f8dbb9e412aa46533b46e0f"
-    sha256 cellar: :any,                 arm64_ventura: "163ee42a74b4ab7c0fc3f424e29da87929a36b67c23ae409473be505c0fb8f97"
-    sha256 cellar: :any,                 sonoma:        "569b195c4bde41d5ec1d0c253c38f06b6701ba49b260adf9889626c73b669499"
-    sha256 cellar: :any,                 ventura:       "fdd303661561260dc204dcdfd14f9b6ae617e6b2c6416118e3e33924735cfa55"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2a1090d1598b7a517694b51c14a33b835db4609fe71adfd9af7196719e8c5f07"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "05ad6434595d32adb338a250c188b1c4bdbc9dd6cc002667775a940610d03aaa"
+    sha256 cellar: :any,                 arm64_sonoma:  "bb50c0817c495dda4b4a5a2bf01c8cf01033ea76b24a9e7aa9e9e3bd589f8507"
+    sha256 cellar: :any,                 arm64_ventura: "aea7d5b0c1a146c2ecb2c65eceed96b382775b97a840a496e16c7a65cc050a47"
+    sha256 cellar: :any,                 sonoma:        "e4e2d058603a89e0c8a20ebc53c795265ae785bf513e827091416070c13e4543"
+    sha256 cellar: :any,                 ventura:       "bb1e8f8730e76a7ec674ead6d9140b8053726b7f705916da713426918a489680"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "33991a057cb3b39910bfe3e1edf1e28efe209c6088958aeeb30d3377a6ec01f8"
   end
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
-  depends_on "python@3.12" => [:build, :test]
-  depends_on "abseil"
-  depends_on "certifi"
+  depends_on "python@3.13" => [:build, :test]
   depends_on "jpeg-turbo"
   depends_on "libpng"
   depends_on "numpy"
   depends_on "pillow"
-  depends_on "protobuf"
   depends_on "pytorch"
 
-  on_macos do
-    depends_on "libomp"
-  end
-
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args
+    # Avoid overlinking to `abseil`, `libomp` and `protobuf`
+    args = OS.mac? ? ["-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-dead_strip_dylibs"] : []
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
     jpeg = Formula["jpeg-turbo"]
     inreplace "setup.py",
-      "(jpeg_found, jpeg_conda, jpeg_include, jpeg_lib) = find_library(\"jpeglib\", vision_include)",
-      "(jpeg_found, jpeg_conda, jpeg_include, jpeg_lib) = (True, False, \"#{jpeg.include}\", \"#{jpeg.lib}\")"
+      'jpeg_found, jpeg_include_dir, jpeg_library_dir = find_library(header="jpeglib.h")',
+      "jpeg_found, jpeg_include_dir, jpeg_library_dir = True, '#{jpeg.include}', '#{jpeg.lib}'"
 
-    python3 = "python3.12"
+    python3 = "python3.13"
     venv = virtualenv_create(libexec, python3)
     venv.pip_install resources
 
@@ -100,11 +97,11 @@ class Torchvision < Formula
 
     # test that the `torchvision` Python module is available
     cp test_fixtures("test.png"), "test.png"
-    system libexec/"bin/python", "-c", <<~EOS
+    system libexec/"bin/python", "-c", <<~PYTHON
       import torch
       import torchvision
       t = torchvision.io.read_image("test.png")
       assert isinstance(t, torch.Tensor)
-    EOS
+    PYTHON
   end
 end

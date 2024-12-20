@@ -1,18 +1,18 @@
 class Mdbook < Formula
   desc "Create modern online books from Markdown files"
   homepage "https://rust-lang.github.io/mdBook/"
-  url "https://github.com/rust-lang/mdBook/archive/refs/tags/v0.4.41.tar.gz"
-  sha256 "9a38dbb6c28d5d58c34644074e113b0b80cea89e39bba70a126ee69a2e5f477c"
+  url "https://github.com/rust-lang/mdBook/archive/refs/tags/v0.4.43.tar.gz"
+  sha256 "7213c006d78dafa0d7a893bdb8fd3814bbf4d6794ffb97822038185364b73f77"
   license "MPL-2.0"
   head "https://github.com/rust-lang/mdBook.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7d40690b0930022da1e51d47ccaffa45e81489d9901d3f14a38e03633cb11ef3"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ae9674ac4cf2aa94b596a7ed8bee6ec15f1ee07203c3ef9252fd716289f1447a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "e68d5854802c8c7a26a3154cd3ed844e40167d5ed1ad053c390c75ad12b40d92"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a721e90f3c4a4ec3ad64be333becbe93e88f97350ff05b5636c55661c72e4f4d"
-    sha256 cellar: :any_skip_relocation, ventura:       "e2375e1d82400c13285326418427c8da807365a028681bbc2dcef04fdf192609"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fecaf3da5fccb410185dafe00dfaeba127a318cc182765b500da9ff1ba60cc91"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "82c64a936de94fa3c23ebc97c31b1c318ed55fdf9ac31732b4cf89d4f1bb272c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5bd3e774e47c76c00a8f0379d5a20a64968862f21b6b1b3b97f18d03f460ede8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d8265ffaf0950c8e82fbda6b80e90d13747e99939ed68bfd1d687f09651c2770"
+    sha256 cellar: :any_skip_relocation, sonoma:        "b9399a9b16f24e3cabb65200a20a53a9b0448980441d02310de8fb3b4a062c5a"
+    sha256 cellar: :any_skip_relocation, ventura:       "e29c7ef941e3bf56eba7798c6d0930453f5b6779c9ac50b04095480805588966"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b8a96ddf105f1fec0ce2f5998ff61a679237b33d16e2dd4d1cc1cb8d9eb09e3d"
   end
 
   depends_on "rust" => :build

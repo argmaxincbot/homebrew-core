@@ -20,7 +20,7 @@ class Luaradio < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "7d7cf352a29e4917fb03b64ced6278562518ec30fec3a189f3e75b869f560150"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "fftw"
   depends_on "liquid-dsp"
   depends_on "luajit"
@@ -31,7 +31,7 @@ class Luaradio < Formula
 
   test do
     (testpath/"hello").write("Hello, world!")
-    (testpath/"test.lua").write <<~EOS
+    (testpath/"test.lua").write <<~LUA
       local radio = require('radio')
 
       local PrintBytes = radio.block.factory("PrintBytes")
@@ -52,7 +52,7 @@ class Luaradio < Formula
 
       top:connect(source, sink)
       top:run()
-    EOS
+    LUA
 
     assert_equal "Hello, world!", shell_output("#{bin}/luaradio test.lua")
   end

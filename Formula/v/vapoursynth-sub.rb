@@ -6,7 +6,6 @@ class VapoursynthSub < Formula
   license "MIT"
   revision 1
   version_scheme 1
-
   head "https://github.com/vapoursynth/subtext.git", branch: "master"
 
   bottle do
@@ -22,17 +21,17 @@ class VapoursynthSub < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "ffmpeg"
   depends_on "libass"
   depends_on "vapoursynth"
 
-  fails_with gcc: "5" # ffmpeg is compiled with GCC
-
   def install
-    # Work around Homebrew's keg directory structure by overriding `vapoursynth`
-    # pkg-config libdir to install instead into `vapoursynth-sub` libdir
-    ENV["PKG_CONFIG_VAPOURSYNTH_LIBDIR"] = lib.to_s
+    # Upstream build system wants to install directly into vapoursynth's libdir and does not respect
+    # prefix, but we want it in a Cellar location instead.
+    inreplace "meson.build",
+              "install_dir : join_paths(vapoursynth_dep.get_pkgconfig_variable('libdir'), 'vapoursynth')",
+              "install_dir : '#{lib}/vapoursynth'"
 
     system "meson", "setup", "build", *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"

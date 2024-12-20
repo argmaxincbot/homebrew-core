@@ -2,20 +2,20 @@ class Filebeat < Formula
   desc "File harvester to ship log files to Elasticsearch or Logstash"
   homepage "https://www.elastic.co/products/beats/filebeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v8.15.3",
-      revision: "bbed3ae55602e83f57c62de85b57a3593aa49efa"
+      tag:      "v8.17.0",
+      revision: "092f0eae4d0d343cc3a142f671c2a0428df67840"
   # Outside of the "x-pack" folder, source code in a given file is licensed
   # under the Apache License Version 2.0
   license "Apache-2.0"
   head "https://github.com/elastic/beats.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b79751cafb036a6e40836d35a788d3e9401aef9e95e388011e96f984d18c09e6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "33af33cf02e034a06050c0e0d2beefa48ed2bed144ceea7b27ca23ae077c1cd3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "a02b939ebf5a129ab1cef3342c7cb6146ce52118d5ffc66bc0257478764b1646"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7cbffe0aab79f276e53990a86882dcadd829f2bb97ec018a7e5c6736b2d317d4"
-    sha256 cellar: :any_skip_relocation, ventura:       "8d4df125b1704af1b950bbc2beb756af809a477ef8d7b2970fe43e5d61752803"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8bb3a9f4c6c1ee3097485fffe4a63ee19a255ec62e05f2b7bc5be57d34f64a83"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cd9f5e6e57f8c4f426661f561cf81066f0d4f5ad6e94bbc423cda764ad8357a5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0b21fc1387e030b7a7c41f7fbb7b12b500a1ce4edad7ff721acba1e065cb1f7b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2d147868fa295a7b69c9d5b9326c8e4ab3b1ecb68848a96bebaf9e94ae84c7fd"
+    sha256 cellar: :any_skip_relocation, sonoma:        "dca2ed60bea8f6667cfcb5b042f98f60c168deae43dd0c1d1f88066656fd8342"
+    sha256 cellar: :any_skip_relocation, ventura:       "049dd05f1eb42f2b3a02109a6f79e11f866b8356b21e6e18c6bf90ee63179805"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "831e14ddcc687fd48647a0928c74253e0393fff6ffb90ecaa2555a04bbaa713e"
   end
 
   depends_on "go" => :build
@@ -67,7 +67,7 @@ class Filebeat < Formula
     log_file = testpath/"test.log"
     touch log_file
 
-    (testpath/"filebeat.yml").write <<~EOS
+    (testpath/"filebeat.yml").write <<~YAML
       filebeat:
         inputs:
           -
@@ -77,18 +77,16 @@ class Filebeat < Formula
       output:
         file:
           path: #{testpath}
-    EOS
+    YAML
 
     (testpath/"log").mkpath
     (testpath/"data").mkpath
 
-    fork do
-      exec bin/"filebeat", "-c", "#{testpath}/filebeat.yml",
-           "-path.config", "#{testpath}/filebeat",
-           "-path.home=#{testpath}",
-           "-path.logs", "#{testpath}/log",
-           "-path.data", testpath
-    end
+    pid = spawn bin/"filebeat", "-c", "#{testpath}/filebeat.yml",
+                                "--path.config", "#{testpath}/filebeat",
+                                "--path.home=#{testpath}",
+                                "--path.logs", "#{testpath}/log",
+                                "--path.data", testpath
 
     sleep 1
     log_file.append_lines "foo bar baz"
@@ -96,5 +94,8 @@ class Filebeat < Formula
 
     assert_predicate testpath/"meta.json", :exist?
     assert_predicate testpath/"registry/filebeat", :exist?
+  ensure
+    Process.kill("TERM", pid)
+    Process.wait(pid)
   end
 end

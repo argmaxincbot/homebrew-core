@@ -1,18 +1,18 @@
 class Nickel < Formula
   desc "Better configuration for less"
   homepage "https://github.com/tweag/nickel"
-  url "https://github.com/tweag/nickel/archive/refs/tags/1.8.1.tar.gz"
-  sha256 "85cd1b42fdd41b5ff292631420467b86e94abce5edf80f033a02cc2629b8c766"
+  url "https://github.com/tweag/nickel/archive/refs/tags/1.9.1.tar.gz"
+  sha256 "a775ef5ec0f375fa75f9fbe146f4b5c9bbf8728b39ac73fd0685f32b956e5c99"
   license "MIT"
   head "https://github.com/tweag/nickel.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1d01e228c64ee786f1c2074f1ec4e07684c6cf3adb808ed93f4a78d9b1adf790"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "769c5b5c6ac783519079ac730458e7ed249f341590358b4d1485c7fa85e3ca8a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "00e45a6b8f2f81191871cf9bde82baf13ba9b96423fb1ccd23059d865681f6ec"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f89dc2ca972a95c972724d1aad4cbeb3e28d751063e3c4c36364340b2780cff4"
-    sha256 cellar: :any_skip_relocation, ventura:       "3fd015602b876e04c369ca30c31d3918c9bbc8533a4532ea685c7d30e6d60b35"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7ff2ba9cdebadd6b542413a5e5a0ea6f97a7b79c9a41cef538f67e7d806a1729"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9b3018dddbf9ee4325c87dcd80c63d235ebd926b510a9ba00b87f21687e9b642"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c948c81c8fd52ece904ec2d0bcae6eaeb76a65cb9213e29f3dfa30981a75006c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "bdc8153cdcdd4b774936cb1403d79fa15aa5583bc0b89d872ba4bb166bbd2226"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7c79daf6b1803fbd529494cbaa1a00bc408a7e99f94b25cd39a4d3d5c7c09e02"
+    sha256 cellar: :any_skip_relocation, ventura:       "6a935c5b8d59fb364f31ca1d289b9270438c07813d9d141482e4363d7bb0fb84"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8f135058679495b488b28d749b821fc63b1a283b17c8ab14b92a70f375c09f2d"
   end
 
   depends_on "rust" => :build
@@ -28,9 +28,9 @@ class Nickel < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/nickel --version")
 
-    (testpath/"program.ncl").write <<~EOS
+    (testpath/"program.ncl").write <<~NICKEL
       let s = "world" in "Hello, " ++ s
-    EOS
+    NICKEL
 
     output = shell_output("#{bin}/nickel eval program.ncl")
     assert_match "Hello, world", output

@@ -3,23 +3,21 @@ class LuaLanguageServer < Formula
   homepage "https://github.com/LuaLS/lua-language-server"
   # pull from git tag to get submodules
   url "https://github.com/LuaLS/lua-language-server.git",
-      tag:      "3.12.0",
-      revision: "389496827f20bb6d75a2fb2826099f13e9c18730"
+      tag:      "3.13.4",
+      revision: "108ce76c99bcb9990421edd4453a2ca8e282af95"
   license "MIT"
   head "https://github.com/LuaLS/lua-language-server.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "acc1b0e3c0e2996da3065ec6e4cb15be4e3474bf836ae101c6a92183c49e374c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "d5a0f391ec014a7fcccbf9662913d75ef3fbf102705b1f47b8d08d859c5ae80d"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "005a2c01ff8640c35633bf755acb2822b7e57213c1c20df8f5a6f77b251e0d55"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c3f502a7827e8a35b464a820a90b51b0a315d786d1c284504e0ddc6c67158834"
-    sha256 cellar: :any_skip_relocation, ventura:       "0b7a958c166cbdb856ed8d09f30e4695739a006c858d746800718cfa5a386fe1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "114a608060cceeaa0537c18a429eda09356f4aa554be7c6897b2a13e62cf207b"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "dd1e2d5534d22356d6cb3f051ea0d3144c04dca625a9e59c8f389b3fd7600cf3"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "028cec884349296e84f0f43870e550edf4d007094aa791948176b43a5d34c782"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "17cf5304937bc620ac89da8bf8646602dd90544bd22b314e108dbacd9c0fe7c1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "73f3dcbdb20d70703c63f296120ed0fbaf2cb8f49b3582c96a74bd8f0c32c508"
+    sha256 cellar: :any_skip_relocation, ventura:       "941a776f46bcff1fcd7ec9dc789814f41fdfad2ce0432dadf9ea8df692c72304"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fda4134f49fc8423150c94a3e14a2ee273e2bce89bf7ebc2ec3961c47e387cf2"
   end
 
   depends_on "ninja" => :build
-
-  fails_with gcc: 5 # For C++17
 
   def install
     ENV.cxx11

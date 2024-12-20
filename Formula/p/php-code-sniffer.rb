@@ -1,19 +1,19 @@
 class PhpCodeSniffer < Formula
   desc "Check coding standards in PHP, JavaScript and CSS"
   homepage "https://github.com/PHPCSStandards/PHP_CodeSniffer"
-  url "https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.10.3/phpcs.phar"
-  sha256 "763c61a526ba2e903878cb5060e7aa49ceba56fa652bd21bef0f48bd5e06a4b8"
+  url "https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.11.2/phpcs.phar"
+  sha256 "d51ec0f9b3c5af2ce4bf4a736cb6a50c495e171b1d6d7d5d1964082c08a9bea8"
   license "BSD-3-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "95aaaf9e2d76b23190907aec3d52e3a6832e2ac898ee1a76534da5228f866b14"
+    sha256 cellar: :any_skip_relocation, all: "0a8f50fbca7b6dd6e0b044cdb31a194ca87e3e08680eaa287bf7258b838d3521"
   end
 
   depends_on "php"
 
   resource "phpcbf.phar" do
-    url "https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.10.3/phpcbf.phar"
-    sha256 "e446161933b3710a91bcbb9ca6c3e2115b90abb6a34ce4faab7b50e4c931f059"
+    url "https://github.com/PHPCSStandards/PHP_CodeSniffer/releases/download/3.11.2/phpcbf.phar"
+    sha256 "0d69b83f465a48f753342570e32deec4c7c15c34a7c964ea9ad26c23324bb55e"
   end
 
   def install
@@ -24,7 +24,7 @@ class PhpCodeSniffer < Formula
   end
 
   test do
-    (testpath/"test.php").write <<~EOS
+    (testpath/"test.php").write <<~PHP
       <?php
       /**
       * PHP version 5
@@ -35,7 +35,7 @@ class PhpCodeSniffer < Formula
       * @license   BSD Licence
       * @link      https://brew.sh/
       */
-    EOS
+    PHP
 
     assert_match "FOUND 13 ERRORS", shell_output("#{bin}/phpcs --runtime-set ignore_errors_on_exit true test.php")
     assert_match "13 ERRORS WERE FIXED", shell_output("#{bin}/phpcbf test.php", 1)

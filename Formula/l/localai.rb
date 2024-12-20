@@ -3,17 +3,17 @@ class Localai < Formula
 
   desc "OpenAI alternative"
   homepage "https://localai.io"
-  url "https://github.com/mudler/LocalAI/archive/refs/tags/v2.22.1.tar.gz"
-  sha256 "154c32325bd1edf5fc08fdcd85c337ab6615393e2834c896fb27dbeb13e52322"
+  url "https://github.com/mudler/LocalAI/archive/refs/tags/v2.24.2.tar.gz"
+  sha256 "6dd03d21c4c903890bd2bdc6c18b4a1191b1a79dc296ccbf817d773cdcdb401a"
   license "MIT"
 
   bottle do
-    sha256 arm64_sequoia: "ffdd5911e143ab06159a314cc5789a102939f6697378960c4c2a78fba30d0dbe"
-    sha256 arm64_sonoma:  "19040a814fed943c66858fbfcdef70552fbefc089526acb60cc74c818a42ed88"
-    sha256 arm64_ventura: "5c57dbb1d94222cd2baec49ba0ded1cce004fc4767a1dbaba9a6df02a6b3f493"
-    sha256 sonoma:        "2e8e0b7c31304982aace3ca9d3ebeaabdd2b5721156472505830c57c3038db1d"
-    sha256 ventura:       "3923840bffb0c62e74015a50087048990d3bbfcdf1ccd9a2bda6a61fa6a5b8a5"
-    sha256 x86_64_linux:  "c362c41adf070c84e7feed970f7c619f55a0e87262c9016be945e7ae9ba0104b"
+    sha256 arm64_sequoia: "99415822dc2eea2d5b91b2782ba25ed0fe40fa35d1207418c64806f282e9f27f"
+    sha256 arm64_sonoma:  "342425c0a68851e8591a2577abc459bdfbe675863c568e4333c0b3a1e1cc4408"
+    sha256 arm64_ventura: "9c5e4bef1477bcb92388ba94a06c298ddb7157e9947d97df88bfb635298e4398"
+    sha256 sonoma:        "860eed1a69867f545fcc78d14cfe1d70f4a6c809cbe114f3504cf54a3155c672"
+    sha256 ventura:       "d458baf4fb2261a0727bcf5de266b82ead7269a7297a6e2f0956c3f3660228ae"
+    sha256 x86_64_linux:  "b27ae91f9e9f7a46cee70e912ea4d375bf93e60af046a5d22b08fe2ee21ac50e"
   end
 
   depends_on "abseil" => :build
@@ -30,8 +30,8 @@ class Localai < Formula
   depends_on "wget"
 
   resource "grpcio-tools" do
-    url "https://files.pythonhosted.org/packages/e7/f8/62e15867651b72f6f95313e21d81f5f1c210b69a4cc664aecf52ec4c8a53/grpcio_tools-1.67.0.tar.gz"
-    sha256 "181b3d4e61b83142c182ec366f3079b0023509743986e54c9465ca38cac255f8"
+    url "https://files.pythonhosted.org/packages/2a/2f/d2fc30b79d892050a3c40ef8d17d602f4c6eced066d584621c7bbf195b0e/grpcio_tools-1.68.1.tar.gz"
+    sha256 "2413a17ad16c9c821b36e4a67fc64c37b9e4636ab1c3a07778018801378739ba"
   end
 
   def python3

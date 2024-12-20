@@ -23,13 +23,12 @@ class Uvw < Formula
   end
 
   depends_on "cmake" => [:build, :test]
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
   depends_on "libuv"
 
   def install
     args = %w[
       -DBUILD_UVW_LIBS=ON
-      -DBUILD_TESTING=OFF
       -DBUILD_DOCS=OFF
     ]
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args

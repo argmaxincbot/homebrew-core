@@ -13,6 +13,7 @@ class Mono < Formula
 
   bottle do
     rebuild 2
+    sha256 arm64_sequoia: "ed25bcec51134d7a3c6cf04635d1b378fdb06f7127dd4705e3bf525373700c8c"
     sha256 arm64_sonoma:  "e69f64033ac83adbf465fdc284e5d145f18b0759b0c866177fd65975ccaf58f7"
     sha256 arm64_ventura: "e1b8fc0bfbdc638a220abed1d2fa5b48a7790a5b1668bafb3252b8539b14965d"
     sha256 sonoma:        "bb0d701d0120bffedba03081a169a5cd6b679c5d437163daec0e2d2bf6e61652"
@@ -24,13 +25,27 @@ class Mono < Formula
   depends_on "automake" => :build
   depends_on "cmake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "python@3.13"
 
   uses_from_macos "unzip" => :build
   uses_from_macos "krb5"
   uses_from_macos "zlib"
+
+  on_macos do
+    if DevelopmentTools.clang_build_version == 1600
+      depends_on "llvm" => :build
+
+      fails_with :clang do
+        cause <<~EOS
+          Got a segv while executing native code. This usually indicates
+          a fatal error in the mono runtime or one of the native libraries
+          used by your application.
+        EOS
+      end
+    end
+  end
 
   on_linux do
     depends_on "ca-certificates"
@@ -50,6 +65,8 @@ class Mono < Formula
   link_overwrite "lib/cli"
 
   def install
+    ENV.llvm_clang if DevelopmentTools.clang_build_version == 1600
+
     # Replace hardcoded /usr/share directory. Paths like /usr/share/.mono,
     # /usr/share/.isolatedstorage, and /usr/share/template are referenced in code.
     inreplace_files = %w[
@@ -90,7 +107,7 @@ class Mono < Formula
   test do
     test_str = "Hello Homebrew"
     test_name = "hello.cs"
-    (testpath/test_name).write <<~EOS
+    (testpath/test_name).write <<~CSHARP
       public class Hello1
       {
          public static void Main()
@@ -98,7 +115,7 @@ class Mono < Formula
             System.Console.WriteLine("#{test_str}");
          }
       }
-    EOS
+    CSHARP
     shell_output("#{bin}/mcs #{test_name}")
     output = shell_output("#{bin}/mono hello.exe")
     assert_match test_str, output.strip

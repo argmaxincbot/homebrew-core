@@ -1,21 +1,21 @@
 class StellarCli < Formula
   desc "Stellar command-line tool for interacting with the Stellar network"
   homepage "https://developers.stellar.org"
-  url "https://github.com/stellar/stellar-cli/archive/refs/tags/v21.5.3.tar.gz"
-  sha256 "a30c7b5291558a0924d79924f6add2b5db0514ff67dabd71f5ecbb12a957d928"
+  url "https://github.com/stellar/stellar-cli/archive/refs/tags/v22.1.0.tar.gz"
+  sha256 "6f5303ca1d88e173fb2952b48dd2b88c711bb525b8c2ff5b65f870f08192ccd4"
   license "Apache-2.0"
   head "https://github.com/stellar/stellar-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "00afb8e432b02c40a5fc9eda8e57e2f7ccfcafda50732914247308b1a2352f06"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ddc127ae0fe1a621375fbcd4f2f5f9f27d48544bdc19fe805ab9feca0ea5491a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "048894c60188076ec774c5e6807317322d4108b3372bb74db77b3dde0dc04619"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f2ad54c6c2edbece073f9ee8e192f725d8397ba59ca7d0d7781ae63f20ba6bf1"
-    sha256 cellar: :any_skip_relocation, ventura:       "52d16b202ad79fe8904427ca7f00b712c40f52f6f4b0ed98a6dea580873c417e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "15491afefbac64e5e9794a18a52210f43f432a1f4ff4b05e2af07a224779fffc"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "bd89adce23bd1938b5e827a29a215fdef70735e28ae159067b138ef42c263304"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8884dd1bd6f38eb24b702c1f192edc5e58fb4a4d341a8ea0fbaf57c0133f2a71"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "109348141ab93feb4fb30fa8140e2b52b65e0ed8e6982b5053a6a665c43a7193"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f2734c1426ec3fa7554f00d2efe00ea41e6001d645475b5b1423c1c930fbdc19"
+    sha256 cellar: :any_skip_relocation, ventura:       "1cd8a257fad93ba8d47013392d5ccdb96b81ba9f1fc1fc6778f1ba0989a36e9f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9aaf58cc52e40f52aa7d6ced3a71e7badc36e48da525bfd282a01a64359c8434"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "openssl@3"
 

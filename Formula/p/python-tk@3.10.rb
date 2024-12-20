@@ -1,8 +1,8 @@
 class PythonTkAT310 < Formula
   desc "Python interface to Tcl/Tk"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.10.15/Python-3.10.15.tgz"
-  sha256 "a27864e5ba2a4474f8f6c58ab92ff52767ac8b66f1646923355a53fe3ef15074"
+  url "https://www.python.org/ftp/python/3.10.16/Python-3.10.16.tgz"
+  sha256 "f2e22ed965a93cfeb642378ed6e6cdbc127682664b24123679f3d013fafe9cd0"
   license "Python-2.0"
 
   livecheck do
@@ -10,20 +10,18 @@ class PythonTkAT310 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "b5dbb1ded91e663c20c3de0e5c2785332633095b48e13316369a683cf7c26eb3"
-    sha256 cellar: :any,                 arm64_sonoma:   "48ad8d54f4e0cdf0112d7af29c7ae8477bc636a298464b122016359d7fde5361"
-    sha256 cellar: :any,                 arm64_ventura:  "16db2ba9fc83f08baea56726c3f73fa6ed618b049593c72e5c0caccd68e5588d"
-    sha256 cellar: :any,                 arm64_monterey: "5f11a8483cb9934671522a9f7785f0dab137dc23a86c9af1d292419efcc66c72"
-    sha256 cellar: :any,                 sonoma:         "35e19ce66c25923835b2b3451917f032f1df24131db3addc22b72e61c0c29559"
-    sha256 cellar: :any,                 ventura:        "d3f7f38c344f9be77e906d6ff7209693e19e298bf5d7c53e6a2f6c23be956640"
-    sha256 cellar: :any,                 monterey:       "f7c599e378442e0be4d1ffb392616d8e251a58deeee6be7bb0c1cbb4bd01f5f5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "fbb8a51c62004b176e0a95d51bf3426fcbe88f01f6cb520bd4dc235dbc537b6c"
+    sha256 cellar: :any,                 arm64_sequoia: "68b53352f7459667a68d2e2723e6725ddc959ac29dcad81b81be71a3bd5217b5"
+    sha256 cellar: :any,                 arm64_sonoma:  "af5c33f6acdbca5647aec3d7cd970ef27f886826d65bc9f8ddc12f7e75736133"
+    sha256 cellar: :any,                 arm64_ventura: "f535d3a5b6750eb99547e9009f867beb1382b6c0c8b34c2f15154f8caef50ca4"
+    sha256 cellar: :any,                 sonoma:        "ff419e01411af9b9704180232c998269c6ab33756705301ccd341cd4c5ce5d28"
+    sha256 cellar: :any,                 ventura:       "0cb43e607c7335bffb65a04c72ac2fe7cf371bd7cd240f1c75b4a534088a2baf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "133d60721b40d030951ae481e497ae9fadf515911a18311a245d643239d82212"
   end
 
   keg_only :versioned_formula
 
   depends_on "python@3.10"
-  depends_on "tcl-tk"
+  depends_on "tcl-tk@8"
 
   def python3
     "python3.10"
@@ -31,8 +29,9 @@ class PythonTkAT310 < Formula
 
   def install
     cd "Modules" do
-      tcltk_version = Formula["tcl-tk"].any_installed_version.major_minor
-      (Pathname.pwd/"setup.py").write <<~EOS
+      tcltk = Formula["tcl-tk@8"]
+      tcltk_version = tcltk.any_installed_version.major_minor
+      Pathname("setup.py").write <<~PYTHON
         from setuptools import setup, Extension
 
         setup(name="tkinter",
@@ -41,12 +40,12 @@ class PythonTkAT310 < Formula
               ext_modules = [
                 Extension("_tkinter", ["_tkinter.c", "tkappinit.c"],
                           define_macros=[("WITH_APPINIT", 1)],
-                          include_dirs=["#{Formula["tcl-tk"].opt_include/"tcl-tk"}"],
+                          include_dirs=["#{tcltk.opt_include/"tcl-tk"}"],
                           libraries=["tcl#{tcltk_version}", "tk#{tcltk_version}"],
-                          library_dirs=["#{Formula["tcl-tk"].opt_lib}"])
+                          library_dirs=["#{tcltk.opt_lib}"])
               ]
         )
-      EOS
+      PYTHON
       system python3, "-m", "pip", "install", *std_pip_args(prefix: false), "--target=#{libexec}", "."
       rm_r libexec.glob("*.dist-info")
     end

@@ -1,21 +1,21 @@
 class CargoRelease < Formula
   desc "Cargo subcommand `release`: everything about releasing a rust crate"
   homepage "https://github.com/crate-ci/cargo-release"
-  url "https://github.com/crate-ci/cargo-release/archive/refs/tags/v0.25.12.tar.gz"
-  sha256 "e79c518175db6f71ac8bd30d5f7044e8333d82103cc7dc4e82ffa8bb4d39ed39"
+  url "https://github.com/crate-ci/cargo-release/archive/refs/tags/v0.25.14.tar.gz"
+  sha256 "a53841db3ecff6eb9e290fab13ce2c782eaddc59e2783b730e46b0bd944378c8"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/crate-ci/cargo-release.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "4cbf33589cbbd11a590e5efe22fa0f10b48a3263adaa84aa443fd70d2f995baa"
-    sha256 cellar: :any,                 arm64_sonoma:  "f8c2491ca341052f41e28e4e420abecd90c9a5afb1d29323e50d7b146577a0de"
-    sha256 cellar: :any,                 arm64_ventura: "8bd3e1f9292fdfad9b409c61563473ece47e520bbcaa84a80c5ad276f8da9431"
-    sha256 cellar: :any,                 sonoma:        "c7f4eb8dd8d21adb822b25ad777a7247f7cbdd1b41d394e5d0ab5d2a32dbbb36"
-    sha256 cellar: :any,                 ventura:       "f416e2deed4dcfef063526a5d2382e5f1cef673fbaeff2614f615ebc3b52a953"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b1a46d92a0f6e177d3149a888c3f5ff47c2b2f4d3923c9d3a631caf57bee31f9"
+    sha256 cellar: :any,                 arm64_sequoia: "48f1bdc0d51ffdfc33f2805e2ad45a97cab4b11dc59ff90de95cf66797aa91f4"
+    sha256 cellar: :any,                 arm64_sonoma:  "e7cc9ae4a69330137281390bce8760a0282fa536cebdb8d910988cff7c95781e"
+    sha256 cellar: :any,                 arm64_ventura: "2bf15ee52f15502b26da64d1c238c9f6f177d9e415c0a3be6d4af806ba21e3e9"
+    sha256 cellar: :any,                 sonoma:        "546317c62256b673ff1e84ca654de5744a6a7a35741cb373cf43edbe62ea35f4"
+    sha256 cellar: :any,                 ventura:       "b70299068fa7e9dfe1376a63c369b15ddda21b05432214c484e6ce7f3a5caa2c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3fd5a21d3258a17db345b7c2807a5328cf41d4dc143d2b4bfd10d53c2ef1c29b"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "rustup" => :test
   depends_on "libgit2"

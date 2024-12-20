@@ -1,18 +1,18 @@
 class Tfmigrate < Formula
   desc "Terraform/OpenTofu state migration tool for GitOps"
   homepage "https://github.com/minamijoyo/tfmigrate"
-  url "https://github.com/minamijoyo/tfmigrate/archive/refs/tags/v0.3.25.tar.gz"
-  sha256 "fabdf317d74eb090aad1230b496a9d8d6dac44ba222487b06a52a53224c6322c"
+  url "https://github.com/minamijoyo/tfmigrate/archive/refs/tags/v0.4.1.tar.gz"
+  sha256 "fa7e5b45609c1d60140157a17ac4d5ff311311582f110c8a3d0e9a2cd50ceba6"
   license "MIT"
   head "https://github.com/minamijoyo/tfmigrate.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9d6d3dcb793b410ef9e99b5013e5b81e2d14fced42c7b57ea6f9c57642203501"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9d6d3dcb793b410ef9e99b5013e5b81e2d14fced42c7b57ea6f9c57642203501"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "9d6d3dcb793b410ef9e99b5013e5b81e2d14fced42c7b57ea6f9c57642203501"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c282c78b4c4dd8253aa671cd478cee9564484a729c32352a3715fbc93751b189"
-    sha256 cellar: :any_skip_relocation, ventura:       "c282c78b4c4dd8253aa671cd478cee9564484a729c32352a3715fbc93751b189"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3760f796baa9c589bd22888111460da57700522bd12ab13c8d2cefe6d036345d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2b96b0802ec46007d13a728026cb0be4ddd2b85464bf3e4c3d916fa0d722d5fa"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2b96b0802ec46007d13a728026cb0be4ddd2b85464bf3e4c3d916fa0d722d5fa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "2b96b0802ec46007d13a728026cb0be4ddd2b85464bf3e4c3d916fa0d722d5fa"
+    sha256 cellar: :any_skip_relocation, sonoma:        "10e26bd3919e891455ae96e822fc7b1118f1d828ba58dccf1e55fd5d291e0609"
+    sha256 cellar: :any_skip_relocation, ventura:       "10e26bd3919e891455ae96e822fc7b1118f1d828ba58dccf1e55fd5d291e0609"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b599a38eee3afc7f6aaf23dc67978ad9d9a30fed64b712440b7f7845ae9bd7fb"
   end
 
   depends_on "go" => :build
@@ -25,13 +25,13 @@ class Tfmigrate < Formula
   test do
     ENV["TFMIGRATE_EXEC_PATH"] = "tofu"
 
-    (testpath/"tfmigrate.hcl").write <<~EOS
+    (testpath/"tfmigrate.hcl").write <<~HCL
       migration "state" "brew" {
         actions = [
           "mv aws_security_group.foo aws_security_group.baz",
         ]
       }
-    EOS
+    HCL
     output = shell_output(bin/"tfmigrate plan tfmigrate.hcl 2>&1", 1)
     assert_match "[migrator@.] compute a new state", output
     assert_match "No state file was found!", output

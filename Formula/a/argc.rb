@@ -1,17 +1,17 @@
 class Argc < Formula
   desc "Easily create and use cli based on bash script"
   homepage "https://github.com/sigoden/argc"
-  url "https://github.com/sigoden/argc/archive/refs/tags/v1.21.0.tar.gz"
-  sha256 "fdefde9388a19cc23c21f8261f339203c2fc2a7c9941709550c497a1cb0935d7"
+  url "https://github.com/sigoden/argc/archive/refs/tags/v1.22.0.tar.gz"
+  sha256 "b073e531baad204abf432b53c4f94633c80a791337f141d2daba96fe58d81af8"
   license any_of: ["Apache-2.0", "MIT"]
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "01936b35118b90fec8cf9dde9b39a7ffce5e4f2c3fa5342d4deb1b17ea064be9"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "371dbc627a41dd90cd22ae57335fb6b0d4ef96b930e4b6aa68d961539abdc4e1"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "48e7fadd19bcfb6ead4fb79c2dba92620c62d0ce8be01275efc2fcbceff527ca"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1ed24925e4c6e5de7fee57aeeb304124397102893aafe24f245fb89a5427fa9b"
-    sha256 cellar: :any_skip_relocation, ventura:       "dbd07cabfaaa014fbed24e4f2a9e6a5cbe3b249b54018d97251b562df057b9c5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e4038056ff409ebf860da659a54bdc5868a49a245c60c07baf0fd4cbdc348f25"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "406229470a3119b585dd79be1641eb76728a7798b1c2ac99c9665002ef8991ce"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ab377dc8d4d29efc0e8cc6b31b9dcc68d75eb8675b2874203655d29988f76726"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "d1cb6bcf3f4fc8e1605a0a0168540c1c479e74438fb7ce06042d03c95db13513"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1082016dc1b5cd67f53e9f0f8d229af480589ebee30cfaf39ed60356b4d9a53b"
+    sha256 cellar: :any_skip_relocation, ventura:       "3703333faaf342d97acfbbb967b2c200ef04596e067ed11073d7bdbc82084140"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ca825947ca8c6727d761495478f176069057a41ce6a8cae4a3de3bb279fd73a1"
   end
 
   depends_on "rust" => :build

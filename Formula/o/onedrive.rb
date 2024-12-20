@@ -1,23 +1,23 @@
 class Onedrive < Formula
   desc "Folder synchronization with OneDrive"
   homepage "https://github.com/abraunegg/onedrive"
-  url "https://github.com/abraunegg/onedrive/archive/refs/tags/v2.5.2.tar.gz"
-  sha256 "2abad70160853a25b6784025ef7e7636fcb077b5623c8fe521df9e3aa8089a89"
+  url "https://github.com/abraunegg/onedrive/archive/refs/tags/v2.5.3.tar.gz"
+  sha256 "1b385c4f3d34d703e2ed095575244ea03df4bb41fcc7d0d8fbd6366534f2ca6a"
   license "GPL-3.0-only"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "6ef73138020d8ad3ec1ef788760a86edd63917621d7d3105df682980216e112b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "052165904a9d146ef4b7b8e46b5470b94b98669c9b051bf5ce157d133ec9f0c0"
   end
 
   depends_on "ldc" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "curl"
   depends_on :linux
   depends_on "sqlite"
   depends_on "systemd"
 
   def install
-    system "./configure", *std_configure_args, "--with-systemdsystemunitdir=no"
+    system "./configure", "--with-systemdsystemunitdir=no", *std_configure_args
     system "make", "install"
     bash_completion.install "contrib/completions/complete.bash" => "onedrive"
     zsh_completion.install "contrib/completions/complete.zsh" => "_onedrive"

@@ -35,7 +35,7 @@ class Cubeb < Formula
     depends_on "cmake" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   on_linux do
     depends_on "pulseaudio"
@@ -51,7 +51,7 @@ class Cubeb < Formula
       system "cmake", "--build", "build"
       system "cmake", "--install", "build"
     else
-      system "autoreconf", "--install"
+      system "autoreconf", "--force", "--install", "--verbose"
       system "./configure", "--disable-silent-rules", *std_configure_args
       system "make", "install"
     end

@@ -1,9 +1,12 @@
 class Notmuch < Formula
+  include Language::Python::Shebang
+
   desc "Thread-based email index, search, and tagging"
   homepage "https://notmuchmail.org/"
   url "https://notmuchmail.org/releases/notmuch-0.38.3.tar.xz"
   sha256 "9af46cc80da58b4301ca2baefcc25a40d112d0315507e632c0f3f0f08328d054"
   license "GPL-3.0-or-later"
+  revision 2
   head "https://git.notmuchmail.org/git/notmuch", using: :git, branch: "master"
 
   livecheck do
@@ -12,26 +15,25 @@ class Notmuch < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "26f075815a3971c6e6fd67895e1e9009f2828c08469b3ec2a32fe365db2f0343"
-    sha256 cellar: :any,                 arm64_sonoma:   "dc0c9e64e45666c7b504edd124623723793d558f9b92841318cfb57e1905a2bc"
-    sha256 cellar: :any,                 arm64_ventura:  "5866c39776242b60bdffeae0cd8a8e72f4b436fff63eb3fcf2b33d7be69c32a4"
-    sha256 cellar: :any,                 arm64_monterey: "8040db968c5da6d96e90ccd2c1044f1c8eb0dfd0a6c5edc864f33105d31f4894"
-    sha256 cellar: :any,                 sonoma:         "f1017f9efe6fc4487a494f9838dd6ff4177a351ee914fa9845cd3be72132898d"
-    sha256 cellar: :any,                 ventura:        "2f10a85b0c2155e200abc0a4592f6285aaa8b754b20fb3b4cc90ac25a94731ab"
-    sha256 cellar: :any,                 monterey:       "57d086ced8e109e947cdabbaeb81ef9a50b079630b2b73eda20c912d314bb90f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "a3db984b392cccc361c5ffe324b79ea2e49631c1a468b1ab088bd01162dbcb66"
+    sha256 cellar: :any,                 arm64_sequoia: "0cb5a27f8898383b7c6b5696d605b47466ae80ae73feabf7cc616935dba75571"
+    sha256 cellar: :any,                 arm64_sonoma:  "77f11fdb21b081f7cdf38f0334efd97bf7f208d557278f3391947dd99c4819c6"
+    sha256 cellar: :any,                 arm64_ventura: "7f655d574419dbbe31f22724515dc695e062f2c9020d60dc6069657ec427907e"
+    sha256 cellar: :any,                 sonoma:        "7873f14945e4cabf41579162fa9fa4beea2c00ef315002166f3c26f85432578c"
+    sha256 cellar: :any,                 ventura:       "628cd7d9c59e86410c0d82c47f7c13f0aea37c210c0850eced14e2bf117ab96f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "39562c54f856e2ce82c611ac9fce4d9656c55dc89262091bc047182c3e7338c8"
   end
 
   depends_on "doxygen" => :build
   depends_on "emacs" => :build
   depends_on "libgpg-error" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "sphinx-doc" => :build
 
   depends_on "cffi"
   depends_on "glib"
   depends_on "gmime"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
+  depends_on "sfsexp"
   depends_on "talloc"
   depends_on "xapian"
 
@@ -42,7 +44,7 @@ class Notmuch < Formula
   end
 
   def python3
-    "python3.12"
+    "python3.13"
   end
 
   def install
@@ -58,6 +60,8 @@ class Notmuch < Formula
                             "--without-ruby"
       system "make", "V=1", "install"
     end
+    bin.install "notmuch-git"
+    rewrite_shebang detected_python_shebang, bin/"notmuch-git"
 
     elisp.install Pathname.glob("emacs/*.el")
     bash_completion.install "completion/notmuch-completion.bash"
@@ -72,10 +76,10 @@ class Notmuch < Formula
   end
 
   test do
-    (testpath/".notmuch-config").write <<~EOS
+    (testpath/".notmuch-config").write <<~INI
       [database]
       path=#{testpath}/Mail
-    EOS
+    INI
     (testpath/"Mail").mkpath
     assert_match "0 total", shell_output("#{bin}/notmuch new")
 
@@ -87,5 +91,7 @@ class Notmuch < Formula
       assert str(db.path) == '#{testpath}/Mail', 'Wrong db.path!'
       db.close()
     PYTHON
+    system bin/"notmuch-git", "-C", "#{testpath}/git", "init"
+    assert_predicate testpath/"git", :exist?
   end
 end

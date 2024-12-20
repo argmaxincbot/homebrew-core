@@ -21,8 +21,7 @@ class Yaf < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "b0b09048f7e10ddaa4c419542f5ec672437103d257712a6ea6b43444670db950"
   end
 
-  depends_on "pkg-config" => :build
-  depends_on "gettext"
+  depends_on "pkgconf" => :build
   depends_on "glib"
   depends_on "libfixbuf"
   depends_on "libtool"
@@ -32,6 +31,7 @@ class Yaf < Formula
   uses_from_macos "zlib"
 
   on_macos do
+    depends_on "gettext"
     depends_on "openssl@3"
   end
 
@@ -43,7 +43,7 @@ class Yaf < Formula
 
   test do
     input = test_fixtures("test.pcap")
-    output = `#{bin}/yaf --in #{input} | #{bin}/yafscii`
+    output = pipe_output(bin/"yafscii", shell_output("#{bin}/yaf --in #{input}"))
     expected = "2014-10-02 10:29:06.168 - 10:29:06.169 (0.001 sec) tcp " \
                "192.168.1.115:51613 => 192.168.1.118:80 71487608:98fc8ced " \
                "S/APF:AS/APF (7/453 <-> 5/578) rtt 0 ms"

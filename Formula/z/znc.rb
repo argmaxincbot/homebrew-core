@@ -4,7 +4,7 @@ class Znc < Formula
   url "https://znc.in/releases/znc-1.9.1.tar.gz"
   sha256 "e8a7cf80e19aad510b4e282eaf61b56bc30df88ea2e0f64fadcdd303c4894f3c"
   license "Apache-2.0"
-  revision 2
+  revision 3
 
   livecheck do
     url "https://znc.in/releases/"
@@ -12,17 +12,19 @@ class Znc < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "47a4377429c552b85f0f0d01c4bd626c16b870b25e5c236b3638d7d364b8515f"
-    sha256 arm64_sonoma:  "cd03c571acd62e9278b6a4a516e8eb62e4b6094c3207130b6bae9aa8e15e022b"
-    sha256 arm64_ventura: "8d500898246859202ec756125592c33b07419d7d42e19ec739d3cdb7a87d6339"
-    sha256 sonoma:        "f7d4596fc318adca1268a55c3e0d065999e69dedc7b55f84b89a72cb8fb1ae51"
-    sha256 ventura:       "ab19a326ac21a984ff8e0594239d567d8bbe9c793566040d54d283eefd8c37b4"
-    sha256 x86_64_linux:  "0da654df490b1c2eb22af53ec756b181d5116006b24ecb78451a325812929a14"
+    sha256 arm64_sequoia: "fa46912e004aa7a922c78ebf80bcd9f631c6249d0a0623ac53ee19f6ed442cb3"
+    sha256 arm64_sonoma:  "72e7f439e9be2f133e350eb3a7863631c8c6665dde041faa3e821fccb4a3443e"
+    sha256 arm64_ventura: "4c7ba69f4759a738e23525146f3fc98c5c86711a2bc4bbc73bcef38671ec62a7"
+    sha256 sonoma:        "7c8609060264f3ecf8c0344ba17eb973deb4f6c71d0abe21f3166545d7a38cc2"
+    sha256 ventura:       "10e610e16d4fde7ada8aca30dba893c55ed54289072539373156b364ffb60d24"
+    sha256 x86_64_linux:  "5789bd364614f4e326bb8131c1873ac2077a2474df17ad2ae20917f3db627b86"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "gettext" => :build
+  depends_on "pkgconf" => :build
   depends_on "boost"
+  depends_on "cctz"
   depends_on "icu4c@76"
   depends_on "openssl@3"
   depends_on "python@3.13"
@@ -30,6 +32,8 @@ class Znc < Formula
   uses_from_macos "zlib"
 
   def install
+    rm_r(["third_party/cctz", "third_party/googletest"])
+
     python3 = "python3.13"
     xy = Language::Python.major_minor_version python3
 
@@ -60,6 +64,6 @@ class Znc < Formula
   test do
     mkdir ".znc"
     system bin/"znc", "--makepem"
-    assert_predicate testpath/".znc/znc.pem", :exist?
+    assert_path_exists testpath/".znc/znc.pem"
   end
 end

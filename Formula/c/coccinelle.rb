@@ -2,8 +2,8 @@ class Coccinelle < Formula
   desc "Program matching and transformation engine for C code"
   homepage "https://coccinelle.gitlabpages.inria.fr/website/"
   url "https://github.com/coccinelle/coccinelle.git",
-      tag:      "1.2",
-      revision: "969cb12e9e9b7d4f42c2ff15296fd927f1ba63af"
+      tag:      "1.3.0",
+      revision: "e1906ad639c5eeeba2521639998eafadf989b0ac"
   license "GPL-2.0-only"
   head "https://github.com/coccinelle/coccinelle.git", branch: "master"
 
@@ -13,14 +13,13 @@ class Coccinelle < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "6c1425bca745da7fb5ecf7ccdbe69794c317e8112aabea1b6d27907e3bafb8cf"
-    sha256 arm64_sonoma:   "a36c5cfcdf9bf41142f9475fcc6ceb194241befb2e52649a4c71e53fb2602961"
-    sha256 arm64_ventura:  "1393cf374ce5f991413ab0df0463ba44d40c2d82a4799e859d8b09fbab8ed42f"
-    sha256 arm64_monterey: "ef00df9ef65948e04513d222ffdcad06bfc5b3a7637d4bd0db36de3d08f93678"
-    sha256 sonoma:         "3bc8077e579e1115de4e84adea5d2a41a16ad39852e4dde6f275baea83490353"
-    sha256 ventura:        "52d5a623ec3b372e8701375a04422eada24786d089dbeac052cae7a764cc8298"
-    sha256 monterey:       "0a7f4a693f30a6369413d9a4cb80bde37a5c5216cffbe2b7db75681c425b2987"
-    sha256 x86_64_linux:   "8a3a18a838b16ed3fd2adf8dae3cbecc2ae02018f661a0cb89c6db318ddec137"
+    rebuild 2
+    sha256 arm64_sequoia: "779d42bbb44aae1403be58912eec82d4a2dfda1506f02659a411e22496049cf0"
+    sha256 arm64_sonoma:  "51cb6d4013905449b1a20a622cd95dce5ad64cdc37b6b92eda79ab7b23ed598b"
+    sha256 arm64_ventura: "cd9aeeaa7d72f22a8d9e4e7a211e0c634e045abc7be0ca46dfa5b69b8ae29769"
+    sha256 sonoma:        "cd5a22c0db4ce7dbea0ba1b2c3306527f96b5830cdda41099d559faab14b8ef4"
+    sha256 ventura:       "032e447251705797000b9e3e86afe2a5da3f96ec1d6d26d4492f9cd6336e8e32"
+    sha256 x86_64_linux:  "5a7edb3aa8cd3da9381de308c27b703a4026584f259eeed0257c2cacd560df6d"
   end
 
   depends_on "autoconf" => :build
@@ -28,8 +27,8 @@ class Coccinelle < Formula
   depends_on "hevea" => :build
   depends_on "ocaml-findlib" => :build
   depends_on "opam" => :build
-  depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "pkgconf" => :build
+  depends_on "python@3.13" => :build
   depends_on "ocaml"
   depends_on "pcre"
 
@@ -43,12 +42,12 @@ class Coccinelle < Formula
       system "opam", "init", "--no-setup", "--disable-sandboxing"
       system "opam", "exec", "--", "opam", "install", ".", "--deps-only", "-y", "--no-depexts"
       system "./autogen"
-      system "opam", "exec", "--", "./configure", *std_configure_args,
-                                                  "--disable-silent-rules",
+      system "opam", "exec", "--", "./configure", "--disable-silent-rules",
                                                   "--enable-ocaml",
                                                   "--enable-opt",
                                                   "--without-pdflatex",
-                                                  "--with-bash-completion=#{bash_completion}"
+                                                  "--with-bash-completion=#{bash_completion}",
+                                                  *std_configure_args
       ENV.deparallelize
       system "opam", "exec", "--", "make"
       system "make", "install"
@@ -58,8 +57,7 @@ class Coccinelle < Formula
   end
 
   test do
-    system bin/"spatch", "-sp_file", "#{pkgshare}/simple.cocci",
-                            "#{pkgshare}/simple.c", "-o", "new_simple.c"
+    system bin/"spatch", "-sp_file", "#{pkgshare}/simple.cocci", "#{pkgshare}/simple.c", "-o", "new_simple.c"
     expected = <<~EOS
       int main(int i) {
         f("ca va", 3);
