@@ -1,8 +1,8 @@
 class Apt < Formula
   desc "Advanced Package Tool"
   homepage "https://wiki.debian.org/Apt"
-  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.9.18.tar.xz"
-  sha256 "9903bbbbc89bb6a4687a080a1bf90bb8ba36802ec196b3549a4c1fd0502d1a3a"
+  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.9.22.tar.xz"
+  sha256 "ddc3176a02acc676d20c6f31c0ec94f618bba778fdd9694147b35524645c1546"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,7 +11,7 @@ class Apt < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "78a9cd8b8113c96eccc4a1ec34d2d8b449307ede892bccf548837f2a131ff472"
+    sha256 x86_64_linux: "e6329bd8281e8f4190496665bb381c7401c49da0280f3ca1db8474dcc40c17d7"
   end
 
   keg_only "not linked to prevent conflicts with system apt"
@@ -102,8 +102,8 @@ class Apt < Formula
   end
 
   resource "XS::Parse::Keyword::Builder" do
-    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.47.tar.gz"
-    sha256 "d42fb5a9978e25c4c3f10351291b155d503fe869ccd532910c05e6b93a6b9fad"
+    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.48.tar.gz"
+    sha256 "857a070ba465ab5b89d4d8d36d92358edd66e5e7b4a91584611d85125ac9a9c7"
   end
 
   resource "Syntax::Keyword::Try" do

@@ -1,17 +1,17 @@
 class MarpCli < Formula
   desc "Easily convert Marp Markdown files into static HTML/CSS, PDF, PPT and images"
   homepage "https://github.com/marp-team/marp-cli"
-  url "https://registry.npmjs.org/@marp-team/marp-cli/-/marp-cli-4.0.3.tgz"
-  sha256 "3a13e2bb258dd84b571f852055ecf0a469efafa13386092c20c68f86ec09d702"
+  url "https://registry.npmjs.org/@marp-team/marp-cli/-/marp-cli-4.1.0.tgz"
+  sha256 "4140cc623f9ed6de896115379f80f3d893dd4a2366018cf519a15866722b5833"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "14137d16423c3b864243ea7fb014935ec8643be2439bcb2a495e4e365dba3f16"
-    sha256 cellar: :any,                 arm64_sonoma:  "14137d16423c3b864243ea7fb014935ec8643be2439bcb2a495e4e365dba3f16"
-    sha256 cellar: :any,                 arm64_ventura: "14137d16423c3b864243ea7fb014935ec8643be2439bcb2a495e4e365dba3f16"
-    sha256 cellar: :any,                 sonoma:        "5457f17cc6a1eb5b827893c8fd622b9cb13cd1af4077472f873d07ca18e571ce"
-    sha256 cellar: :any,                 ventura:       "5457f17cc6a1eb5b827893c8fd622b9cb13cd1af4077472f873d07ca18e571ce"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "afeff9e33380997aa9932b7c82588df8dd77342166f99f0999d7730a45cc1caf"
+    sha256 cellar: :any,                 arm64_sequoia: "be38252689afe4f662bc96460899e8a31df76523662167c087652f053d4d2d4b"
+    sha256 cellar: :any,                 arm64_sonoma:  "be38252689afe4f662bc96460899e8a31df76523662167c087652f053d4d2d4b"
+    sha256 cellar: :any,                 arm64_ventura: "be38252689afe4f662bc96460899e8a31df76523662167c087652f053d4d2d4b"
+    sha256 cellar: :any,                 sonoma:        "7f9d56f3be65b779e2e1867f9da7f6cb20fb9b54c3225bf463ab1102c3590500"
+    sha256 cellar: :any,                 ventura:       "7f9d56f3be65b779e2e1867f9da7f6cb20fb9b54c3225bf463ab1102c3590500"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "65731ba5aad064c06c58c700d8b4ca3503fc7fc6ea90bc02ea984612a1a49bc0"
   end
 
   depends_on "node"

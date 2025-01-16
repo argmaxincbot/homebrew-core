@@ -1,18 +1,18 @@
 class Nomino < Formula
   desc "Batch rename utility"
   homepage "https://github.com/yaa110/nomino"
-  url "https://github.com/yaa110/nomino/archive/refs/tags/1.3.7.tar.gz"
-  sha256 "9c19028b9e685976e9196c0c769c3690f0b56ff1f61f4f6a06ab6a32b163a6a0"
+  url "https://github.com/yaa110/nomino/archive/refs/tags/1.5.2.tar.gz"
+  sha256 "728a6a05249210ca1475e686b756af1666597c738763b21de62a8e3428c954e9"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/yaa110/nomino.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1a5ba7ef4602dcd4944b78df2846e8e3a685a62734f501fc4e4af1a9a7cc6270"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "902f9d3471406bbc225d2270112e38da7ddc31b6005ba5e51c0a6a4446a71a75"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "0a927ff74a7687f8a0782ca9df0518cebde1d68b55490ce3f0e49f1c089c8fea"
-    sha256 cellar: :any_skip_relocation, sonoma:        "dfe3be11e90efe67671aa0bcbedda930ec6384b469ed36335e6215cce01ce041"
-    sha256 cellar: :any_skip_relocation, ventura:       "8bbeeed3cf80e42a6722d933434462824520819a2f8a8b5043f1cf0214fefd85"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "38c858accd5a19e9436c4c45bb1bbb93abe639d8561c5302dd0f92bace2a4836"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "15e50bdf1539dab66215af7a847cf01923db7dab0c34fc94074a6f4ca2febc5c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "1cb11eec4e0a4e10defa8bdc424608ed48635c86555cee056f23796022dc4121"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "11f9310b2ec7bcc06970b750e3319274bd5294dcce96210a4ae6643e8d7bc020"
+    sha256 cellar: :any_skip_relocation, sonoma:        "63b00d49999fa6f52720120fc59953f6e5b7a1ac9f3c8acc6120f560d1955058"
+    sha256 cellar: :any_skip_relocation, ventura:       "6983a5d8fd756c903ce530056b8ac5a03dac8d3fcf47b141ff800c0617c3a0e6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "430b701a5ad810f2995ecc4b7365bdb83d56c91dd19e7584a98240f0c0b94ecd"
   end
 
   depends_on "rust" => :build
@@ -26,7 +26,7 @@ class Nomino < Formula
       (testpath/"Homebrew-#{n}.txt").write n.to_s
     end
 
-    system bin/"nomino", "-e", ".*-(\\d+).*", "{}"
+    system bin/"nomino", ".*-(\\d+).*", "{}"
 
     (1..9).each do |n|
       assert_equal n.to_s, (testpath/"#{n}.txt").read

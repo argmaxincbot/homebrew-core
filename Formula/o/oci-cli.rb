@@ -3,18 +3,18 @@ class OciCli < Formula
 
   desc "Oracle Cloud Infrastructure CLI"
   homepage "https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm"
-  url "https://files.pythonhosted.org/packages/5c/a4/ba0302f2c8dae5151d662e0b52dd0727ee7c098931a7f8bbb42fe0084ab4/oci_cli-3.51.0.tar.gz"
-  sha256 "2c63aed7a738e891bf69612409ed5742e03ee06503e1d3399e44a9dee0c636bb"
+  url "https://files.pythonhosted.org/packages/7e/82/2da5d966f4a66d6d84030be314c8f3161de7f33fe350a635d0d0c56f6002/oci_cli-3.51.2.tar.gz"
+  sha256 "a30688ed83bdd6f5f1201f8adf8195578d713cb5f596e5959cdb6152ba58f131"
   license any_of: ["UPL-1.0", "Apache-2.0"]
   head "https://github.com/oracle/oci-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "3e9966ab70878aaf4c75c2617c1d0321643b0f29b341e566eac29e6b5b165cfa"
-    sha256 cellar: :any,                 arm64_sonoma:  "64668b182563d239e0b351ed27a5daea92ef84141eeca24cc9cfe6f79b1754f1"
-    sha256 cellar: :any,                 arm64_ventura: "31227885bb21dc95de6d89b37480c5f5a866fcbbde98c3dafa83ec855aaf0664"
-    sha256 cellar: :any,                 sonoma:        "49395b58aa0631f559edc01b5e3d211ffb8727461252f17d51607721db80d951"
-    sha256 cellar: :any,                 ventura:       "5ab40307122e63d987ebddb0d0699e6e5d699f066ae6fd5fc0adcc302298e544"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "34155e873c74dac94cd65923f81aa931f2594f165765c4e62550cdcbf0c0ae39"
+    sha256 cellar: :any,                 arm64_sequoia: "1b249286f317a74653efe0de7e5b757dce644a422a8d5244e3aeaeba3882219e"
+    sha256 cellar: :any,                 arm64_sonoma:  "3465dcf3bc5d9ffde102fa19df914ad39e91fc2080dd39b5bb8c1ffe36535a97"
+    sha256 cellar: :any,                 arm64_ventura: "098918027df16c11f73e0d5384513a2e0c3246c5bcbe343a367f456f09a0c1a7"
+    sha256 cellar: :any,                 sonoma:        "89c36d93a80d9a82f47b6c7c98f06dc8c3e4605fa4dadb19580a26497b21c8aa"
+    sha256 cellar: :any,                 ventura:       "8a22acb10337f9949f6e59f5e390856fcae00d316bc9b7258c8608912647126c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4a21557d9e0654ff9b51b9fada6727a4f84e139c449598a1ecf37ccc33d54d6e"
   end
 
   depends_on "certifi"
@@ -43,8 +43,8 @@ class OciCli < Formula
   end
 
   resource "oci" do
-    url "https://files.pythonhosted.org/packages/32/50/9c85664e6dcecad685a016da93ffe04ae75219afebbfb82a15b16204460d/oci-2.141.0.tar.gz"
-    sha256 "41fbce1cbabd8810c8267f8fa2a1e591285414b15e11cac2b055db4665042615"
+    url "https://files.pythonhosted.org/packages/8c/56/8b8a642879318684b77270ebed20afbe301d468bfcda59eeed4f297de2c4/oci-2.142.0.tar.gz"
+    sha256 "319b3a478891aa6b2e6c373dc9459254cfdfc2b17e4c084a0ad3e2b9c067f6a3"
   end
 
   resource "prompt-toolkit" do
@@ -105,6 +105,8 @@ class OciCli < Formula
       inreplace "pyproject.toml", 'build-backend = "poetry.masonry.api"', 'build-backend = "poetry.core.masonry.api"'
       venv.pip_install_and_link Pathname.pwd
     end
+
+    generate_completions_from_executable(bin/"oci", shells: [:fish, :zsh], shell_parameter_format: :click)
   end
 
   test do
@@ -112,6 +114,6 @@ class OciCli < Formula
     assert_match version.to_s, version_out
 
     assert_match "Usage: oci [OPTIONS] COMMAND [ARGS]", shell_output("#{bin}/oci --help")
-    assert_match "", shell_output("#{bin}/oci session validate", 1)
+    assert_match "Could not find config file", shell_output("#{bin}/oci session validate 2>&1", 1)
   end
 end

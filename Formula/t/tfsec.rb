@@ -1,8 +1,8 @@
 class Tfsec < Formula
   desc "Static analysis security scanner for your terraform code"
   homepage "https://aquasecurity.github.io/tfsec/latest/"
-  url "https://github.com/aquasecurity/tfsec/archive/refs/tags/v1.28.11.tar.gz"
-  sha256 "9fed7ad6b7098ca0af355cc602b7de9cbaf6b3cff48ff6fa6f22e6a2c0063d4e"
+  url "https://github.com/aquasecurity/tfsec/archive/refs/tags/v1.28.13.tar.gz"
+  sha256 "da61798e226a98e3d13de9d8c3b46d304834098e56422e6481cf58ef17891dd9"
   license "MIT"
   head "https://github.com/aquasecurity/tfsec.git", branch: "master"
 
@@ -12,12 +12,12 @@ class Tfsec < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "29455807b979ba66386fa129b9d0827d10d1d362764934386bbda7ba7ec044c9"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "62e039ed1d8a3d0ef48b10393f94fb4c5b0ccc1379318cb3df596977d8ad0d18"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "e9dfc5b29eff53522c79387494996362c55ce39ed65579418090e8269fd7237b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c392b4ffd680c08337121a69d02a3eeb1bdb8ad645c4533a2f7cb14b5c37574e"
-    sha256 cellar: :any_skip_relocation, ventura:       "4f8b712f23cd0331010a9ae1d302976674f213739faa58220739a4af72b41fe0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "08813a6aa7e03e8f8f2c33688ce63d23944e70b211437134063fe03fc58bad4e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5ba29ee5620cf9caa84d5383b03bdd3652d77bb5d5d75b8e28c9a01dfd6e5863"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e5d8f51adbd6ec93430504d56257f40b996353e180f764fbd083027db1825c9e"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "7e939545e948611f9cb9af0e3c0493807dab898240b9a15123d1f8e355fc7b54"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4b365c01dc9f6149159d6cad32feb0c9d6cbb123b8cfca3554d43713326c6ea8"
+    sha256 cellar: :any_skip_relocation, ventura:       "7982570ec2ca494dae2a1f55d764fdd7216b90ac3797f0b7068fb8861eea6887"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "11d652ef5f0a858dfac179de3e323e82c10d9ce5cef3387756a3c6edfd386525"
   end
 
   depends_on "go" => :build

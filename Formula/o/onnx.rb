@@ -4,28 +4,32 @@ class Onnx < Formula
   url "https://github.com/onnx/onnx/archive/refs/tags/v1.17.0.tar.gz"
   sha256 "8d5e983c36037003615e5a02d36b18fc286541bf52de1a78f6cf9f32005a820e"
   license "Apache-2.0"
+  revision 2
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d2144e03e0a2c5414c3be8990425d71d5734d53edadcb74a6c587e5167bd123e"
-    sha256 cellar: :any,                 arm64_sonoma:  "de643758f6f3dadc80300b4a842aaeed3837092d26422921eb32cbba2d591ecd"
-    sha256 cellar: :any,                 arm64_ventura: "681bff0d190bb8df52d7e84f54d2fa2a1ce819976c1f7403d3f983a46245e20e"
-    sha256 cellar: :any,                 sonoma:        "f34da28859b67f6450d39ac2efdc2952203d8887756a07a0e126ff166002735a"
-    sha256 cellar: :any,                 ventura:       "cd411a76e28823c7d5e4e32db067a58414c9da18fe33fa0591d0a9c895316ba5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bdb60989003bffd5716dc752d9a62fba40dd21a5a4a77089d750c06fbeb7e06f"
+    sha256 cellar: :any,                 arm64_sequoia: "27621e81dea0043f37e36ab536f2ed23971404c526ba79793e157d5979c5e7da"
+    sha256 cellar: :any,                 arm64_sonoma:  "69edc8d74531123bb0b2e011767c435c2c3885754c7e7d8d404ce0d74c4f2254"
+    sha256 cellar: :any,                 arm64_ventura: "659c30029169d73e83576f329bcc763c68d58abce20e8804c49e925e8f32d9e8"
+    sha256 cellar: :any,                 sonoma:        "b7e82d8aa9249584dd31b9ef4ecaf02a3db6b0e21eb02c27cc6e7f52d9b508e2"
+    sha256 cellar: :any,                 ventura:       "420747385c34f1e206621833cda55671498db1e5fb9347dbe1253d5e778e3d0e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "871a22ab93d134215af8e58dd94e1d7e8082ed35b703dc03d5e028722e01cfd3"
   end
 
   depends_on "cmake" => [:build, :test]
-  depends_on "protobuf@21"
+  depends_on "abseil"
+  depends_on "protobuf"
 
   uses_from_macos "python" => :build
 
   def install
-    system "cmake", "-S", ".", "-B", "build",
-                    "-DBUILD_SHARED_LIBS=ON",
-                    "-DCMAKE_INSTALL_RPATH=#{rpath}",
-                    "-DONNX_USE_PROTOBUF_SHARED_LIBS=ON",
-                    "-DPYTHON_EXECUTABLE=#{which("python3")}",
-                    *std_cmake_args
+    args = %W[
+      -DBUILD_SHARED_LIBS=ON
+      -DCMAKE_INSTALL_RPATH=#{rpath}
+      -DONNX_USE_PROTOBUF_SHARED_LIBS=ON
+      -DPYTHON_EXECUTABLE=#{which("python3")}
+    ]
+
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
@@ -86,16 +90,18 @@ class Onnx < Formula
     CPP
 
     (testpath/"CMakeLists.txt").write <<~CMAKE
-      cmake_minimum_required(VERSION 3.5)
+      cmake_minimum_required(VERSION 3.10)
       project(test LANGUAGES CXX)
       find_package(ONNX CONFIG REQUIRED)
       add_executable(test test.cpp)
       target_link_libraries(test ONNX::onnx)
     CMAKE
 
-    args = OS.mac? ? [] : ["-DCMAKE_BUILD_RPATH=#{lib}"]
-    system "cmake", ".", *args
-    system "cmake", "--build", "."
-    system "./test"
+    ENV.delete "CPATH"
+    args = ["-DCMAKE_FIND_PACKAGE_PREFER_CONFIG=ON"]
+    args << "-DCMAKE_BUILD_RPATH=#{lib};#{HOMEBREW_PREFIX}/lib" if OS.linux?
+    system "cmake", "-S", ".", "-B", "build", *args
+    system "cmake", "--build", "build"
+    system "./build/test"
   end
 end

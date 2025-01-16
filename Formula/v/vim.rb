@@ -2,8 +2,8 @@ class Vim < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://www.vim.org/"
   # vim should only be updated every 50 releases on multiples of 50
-  url "https://github.com/vim/vim/archive/refs/tags/v9.1.0950.tar.gz"
-  sha256 "ff31083fdbdde49a1cd6e95ac751f194d75065d79c8d07d138a9c1afe3494b31"
+  url "https://github.com/vim/vim/archive/refs/tags/v9.1.1000.tar.gz"
+  sha256 "c8ccd457bba5563513ab3e2088ad10d62b982682af9a9278686b48202b8c7697"
   license "Vim"
   head "https://github.com/vim/vim.git", branch: "master"
 
@@ -25,12 +25,12 @@ class Vim < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "be08108e8fdd963d1617de413ba3b28db5da7b5bd6040525bfa4523de269200c"
-    sha256 arm64_sonoma:  "587bdb718609ddee4a483acd1d84bff23082cfcd46a93786540676e4edc10aa1"
-    sha256 arm64_ventura: "358d56a4037979287036536fd0446886f28b63d3a468dd65d49cb5b90ee87875"
-    sha256 sonoma:        "1daf5b69c51f0f395a56ce22b1cb4e0d05444f3bdab23c12b08344f6d15320a0"
-    sha256 ventura:       "9ac84567e4962e0eccd1c347bda7e781cfca7046c8f5ff4c2c8bf0164e12bb67"
-    sha256 x86_64_linux:  "e03107956103afe94a9848d6ac135ab2b17162a2a83f22a9fac8532106ce8b32"
+    sha256 arm64_sequoia: "fb296d51ec50693923c5f346e44cd785b3218b1dd180328e5b67c6486a755095"
+    sha256 arm64_sonoma:  "0f5289372c36512b48e08c504a1aa2bd1f72887239526a9033f474eeff776059"
+    sha256 arm64_ventura: "a6384f1440d7f103271af72a850dcdd667f28aa1c2296334337e92633aba580b"
+    sha256 sonoma:        "819bf7bc2cfe42fa1994f8b1824fe735071b5d907e8cc309bcfff99aa605a240"
+    sha256 ventura:       "83315b2c1bba6b6dd6c90c54366762322a208f58b6938591e593a15da5eb1c41"
+    sha256 x86_64_linux:  "6a1c3d16689046c33056563ee6792c784f9a127c2f968e469355dab37acd79f7"
   end
 
   depends_on "gettext"

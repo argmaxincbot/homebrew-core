@@ -2,22 +2,24 @@ class Sfml < Formula
   # Don't update SFML until there's a corresponding CSFML release
   desc "Multi-media library with bindings for multiple languages"
   homepage "https://www.sfml-dev.org/"
-  url "https://www.sfml-dev.org/files/SFML-2.6.2-sources.zip"
-  sha256 "19d6dbd9c901c74441d9888c13cb1399f614fe8993d59062a72cfbceb00fed04"
+  url "https://www.sfml-dev.org/files/SFML-3.0.0-sources.zip"
+  sha256 "8cc41db46b59f07c44ecf21c74a0f956d37735dec9d90ff4522856cb162ba642"
   license "Zlib"
   head "https://github.com/SFML/SFML.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "dad951fee57489386b190487b5618f951d8fc6dac4f4dd52b8a6d4803c431312"
-    sha256 cellar: :any,                 arm64_sonoma:  "1048b1b45f046e04ba0315e2897385975beda5aa9c66c964df3ee934d744b46d"
-    sha256 cellar: :any,                 arm64_ventura: "9c017c1f6caf97f54ecc06b9c86ce65a5e3b70ec6a1d2d61c61ddb0e8b2ae255"
-    sha256 cellar: :any,                 sonoma:        "37ea58ff8e945e950cb4f41c17947ccb09d1f844d2d3b3e2422b3cbefa6d3832"
-    sha256 cellar: :any,                 ventura:       "e60f193727509cc7f80fb52cc4cb7cfff9df3b86fea68d4322dd3d68ccc4cc79"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "266b693f97a6ebffefc662517d1805b2ce00dd6383a9488e4d760d89afc819f5"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "fff37927fb4f670430d85f49261b6154978e0216d55768b7d5a1a5168232d18f"
+    sha256 cellar: :any,                 arm64_sonoma:  "ff020fbbaccb4b711f2fb9eff376c43f6ccd900e3f1e48d20636524aaa67c9b9"
+    sha256 cellar: :any,                 arm64_ventura: "3dfa4ab8f4d7242edb31a6f9e862c1f4322f45fec06fefc992e7c9d1764d6c80"
+    sha256 cellar: :any,                 sonoma:        "b941f80dc54ebbf31d9853ceef9a5c72641e10810f2dbbbf40375d32da1a95cb"
+    sha256 cellar: :any,                 ventura:       "31f1099add9105e6d52e114b60587fb84a4c11c5a2f9e4312d7c5a6336fde916"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2caae5a406d4744b0bf2e718a56b20d0a51e3f936d7343802a6bcd2a552dfc72"
   end
 
   depends_on "cmake" => :build
   depends_on "doxygen" => :build
+  depends_on "pkgconf" => :build
   depends_on "flac"
   depends_on "freetype"
   depends_on "libogg"
@@ -26,6 +28,7 @@ class Sfml < Formula
   on_linux do
     depends_on "libx11"
     depends_on "libxcursor"
+    depends_on "libxi"
     depends_on "libxrandr"
     depends_on "mesa"
     depends_on "mesa-glu"
@@ -44,15 +47,17 @@ class Sfml < Formula
     # headers that were moved there in https://github.com/SFML/SFML/pull/795
     rm_r(Dir["extlibs/*"] - ["extlibs/headers"])
 
-    args = ["-DCMAKE_INSTALL_RPATH=#{lib}",
-            "-DSFML_MISC_INSTALL_PREFIX=#{share}/SFML",
-            "-DSFML_INSTALL_PKGCONFIG_FILES=TRUE",
-            "-DSFML_BUILD_DOC=TRUE"]
+    args = [
+      "-DBUILD_SHARED_LIBS=ON",
+      "-DCMAKE_INSTALL_RPATH=#{rpath}",
+      "-DSFML_INSTALL_PKGCONFIG_FILES=TRUE",
+      "-DSFML_BUILD_DOC=TRUE",
+      "-DSFML_USE_SYSTEM_DEPS=ON",
+    ]
 
-    args << "-DSFML_USE_SYSTEM_DEPS=ON" if OS.linux?
-
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
+    system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
+    system "cmake", "--build", "build", "--target=doc"
     system "cmake", "--install", "build"
   end
 
@@ -64,8 +69,8 @@ class Sfml < Formula
         return 0;
       }
     CPP
-    system ENV.cxx, "-I#{include}/SFML/System", testpath/"test.cpp",
-           "-L#{lib}", "-lsfml-system", "-o", "test"
+    system ENV.cxx, "-I#{include}/SFML/System", "-std=c++17", testpath/"test.cpp",
+                    "-L#{lib}", "-lsfml-system", "-o", "test"
     system "./test"
   end
 end

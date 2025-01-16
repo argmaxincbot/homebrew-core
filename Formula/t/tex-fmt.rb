@@ -1,19 +1,18 @@
 class TexFmt < Formula
   desc "Extremely fast LaTeX formatter written in Rust"
   homepage "https://github.com/WGUNDERWOOD/tex-fmt"
-  url "https://github.com/WGUNDERWOOD/tex-fmt/archive/refs/tags/v0.5.0.tar.gz"
-  sha256 "f7c8444efeaa9ad33914d2d64d92b054854a47ab0a756ed81ca333849892e6da"
+  url "https://github.com/WGUNDERWOOD/tex-fmt/archive/refs/tags/v0.5.2.tar.gz"
+  sha256 "e9dd89236781ea6f781b00d9452a071311cebd175424baea08bc03e8863f314c"
   license "MIT"
   head "https://github.com/WGUNDERWOOD/tex-fmt.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "b45d3d1d7134f2f734c1a8420ca79623e4b56cd6b15ba9f318bd7b0e6656145a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0243c9a251fb99c6dcbde91664b873613a99015e5dbbb49957587bebc59a088a"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "95cd227cc38e4d0b01e3c1697cf3515e088b50d7bbd9b81b32485e2eacb9ee1e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "2d800eb2556b2de09fcf25670a609e7fac9f6e1e0377d8ad9f3f7300796d4546"
-    sha256 cellar: :any_skip_relocation, ventura:       "5c53436c2a1ed16127fabaef44a763d76ba9ed818480c29115a977f76506a2bc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "554e7beb6021f41bc4c08e1674b9a41782e81cda1d0305507c39113006d8e753"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e4d2575c418e61c4bff720eeb19852591a71c8d827acd85ea64f81457ee4ed4b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "116a1f1e0acb70fd2acf1a7fe2d5f167913d41f526e457ba5e1c7ac527c0e5a2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "918d7de84741a919de50c867fa54ff951b8bcbb368711b02e157b1e824a50ffc"
+    sha256 cellar: :any_skip_relocation, sonoma:        "18ecd39663c00d2b38ab774f4fc739bab66bbf01c6d9f63334cbf662938a7f64"
+    sha256 cellar: :any_skip_relocation, ventura:       "577521c80c447d1bbda632e7be5a12eb982a213f764ce63e9169e5ebb30941bd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b8d5037caf528c1142ed982b7423b192bd5bae89c032902cc7629478a66f5084"
   end
 
   depends_on "rust" => :build
@@ -22,6 +21,7 @@ class TexFmt < Formula
     system "cargo", "install", *std_cargo_args
 
     generate_completions_from_executable(bin/"tex-fmt", "--completion")
+    man1.install "man/tex-fmt.1"
   end
 
   test do

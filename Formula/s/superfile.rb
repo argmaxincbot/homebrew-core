@@ -1,17 +1,17 @@
 class Superfile < Formula
   desc "Modern and pretty fancy file manager for the terminal"
   homepage "https://github.com/yorukot/superfile"
-  url "https://github.com/yorukot/superfile/archive/refs/tags/v1.1.6.tar.gz"
-  sha256 "1dc7bf8208d507e7ee3ea883f9ba59f916979526560dd657b07f81d5daa9a20a"
+  url "https://github.com/yorukot/superfile/archive/refs/tags/v1.1.7.1.tar.gz"
+  sha256 "93f130813f15dd232a91424cb1100f0dcac69c02d838014bbc6b6093a81cd369"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7698cf92a6abffb9221eecdc298c4b7e3d8a4dbc30df00450a7e9b7afe9c088c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "648bb599755517b942984fda7fabc0cf244bed72fd7dfd4725a2dcc39a7f7d26"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "044266442c1cfdbd5f708a33a74770e4378d61e690b694b024ccb846dd5c99b5"
-    sha256 cellar: :any_skip_relocation, sonoma:        "524ba80563fe7f3b1f19ddabe992ec4d1a480890e6f46eb1f17e23dcc1833f85"
-    sha256 cellar: :any_skip_relocation, ventura:       "f35383b7a56588a6c2b2a695f81772c9b76e0ef0a42d83cbc94c932f2d607334"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dd9490c4bf1382bd8b72d2575b5de8056f30080afc31b6301ccfb21928a8034f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "35c60e7a5883e5c484ff5d8606c68fb0864c25dab84a8aa4f8ebc6cff101f162"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "616d518bee99bae336d77d43729a80ac190730cf8acf13644fd1abeceaf1079c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c37dccafd15fbc883ddf1c7a2d4af6426a4f7d3132f024df687ca8aa7e123c09"
+    sha256 cellar: :any_skip_relocation, sonoma:        "49d634b9ef8bfb3b1f9bd8ef559b6bdf6398083041f9177e1032ebaaf0cfd2a5"
+    sha256 cellar: :any_skip_relocation, ventura:       "31cd0b7a24cfccf40fd4d2d56e6a102b0699ed8d21db49d0ed5f1239a2946acc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d4a951afe88f29d1e46bd71a938f2257217f0ac73af1c0bbbca83e121ac78bdb"
   end
 
   depends_on "go" => :build

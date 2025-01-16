@@ -1,35 +1,43 @@
 class Prr < Formula
   desc "Mailing list style code reviews for github"
   homepage "https://github.com/danobi/prr"
-  url "https://github.com/danobi/prr/archive/refs/tags/v0.19.0.tar.gz"
-  sha256 "76d101fefe42456d0c18a64e6f57b9d3a84baaecaf1e3a5e94b93657a6773c11"
+  url "https://github.com/danobi/prr/archive/refs/tags/v0.20.0.tar.gz"
+  sha256 "fa25e4690a6976af37738b417b01f1fa0df7448efd631239aadea0399a9e862a"
   license "GPL-2.0-only"
   head "https://github.com/danobi/prr.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "2d51ff33fe7be93b0e1c9d1ec9d5b86792d68c59cf1bd43fb61a8cdf88a4391b"
-    sha256 cellar: :any,                 arm64_sonoma:  "5a217d0b50c1169f3526faf7c04c8d871cb2795097234635de65aab5287d126f"
-    sha256 cellar: :any,                 arm64_ventura: "00fbe685b7669440fd8752c4622a125646196a35ac4fd6b13f5b289e5785b1e8"
-    sha256 cellar: :any,                 sonoma:        "7818bb0712e26930334fb9777ad7cd295092c3f7f3cbd77ffaf0ef0033940877"
-    sha256 cellar: :any,                 ventura:       "d2c4c34d50b30f461ae9ffd77515b750499fafe62b66e0efee1ea2d33a8c78ab"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "867d5a7dee57560d17126ff0892654a8a55e7a26036d17bfedbf0e5bdc1070fb"
+    sha256 cellar: :any,                 arm64_sequoia: "9c765df97668492a4ad84de57bc6e16f81ca4fe743a05cafc06a6e08080ea206"
+    sha256 cellar: :any,                 arm64_sonoma:  "f3933eff7e8c317e2bac08b82a227160a9759f17204427a40691e7d0dc8deb67"
+    sha256 cellar: :any,                 arm64_ventura: "1456631c5e2b4bc0484b46efc28e6dc1f694bd23958497542962ac0b45c2179f"
+    sha256 cellar: :any,                 sonoma:        "20d2cd9a366af2e2de5c4106b57ca1c1a231fc5b8571fc292581eadb2a6a9088"
+    sha256 cellar: :any,                 ventura:       "5abd0b3b9851360119bf5df5a8693cc70b5de849128ec9073c3f914c337fff1a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1667b82bf92db3853a68148bd85723defa29bffbbc7866bc661667910d979249"
   end
 
   depends_on "pkgconf" => :build
   depends_on "rust" => :build
-  depends_on "libgit2@1.7"
+  depends_on "libgit2"
   depends_on "openssl@3"
 
   uses_from_macos "zlib"
 
   def install
+    ENV["LIBGIT2_NO_VENDOR"] = "1"
     # Ensure the declared `openssl@3` dependency will be picked up.
     # https://docs.rs/openssl/latest/openssl/#manual
     ENV["OPENSSL_DIR"] = Formula["openssl@3"].opt_prefix
     ENV["OPENSSL_NO_VENDOR"] = "1"
 
-    ENV["LIBGIT2_NO_VENDOR"] = "1"
+    # Specify GEN_DIR for shell completions and manpage generation
+    ENV["GEN_DIR"] = buildpath
+
     system "cargo", "install", *std_cargo_args
+
+    bash_completion.install "completions/prr.bash" => "prr"
+    fish_completion.install "completions/prr.fish"
+    zsh_completion.install "completions/_prr"
+    man1.install Dir["man/*.1"]
   end
 
   def check_binary_linkage(binary, library)
@@ -44,7 +52,7 @@ class Prr < Formula
     assert_match "Failed to read config", shell_output("#{bin}/prr get Homebrew/homebrew-core/6 2>&1", 1)
 
     [
-      Formula["libgit2@1.7"].opt_lib/shared_library("libgit2"),
+      Formula["libgit2"].opt_lib/shared_library("libgit2"),
       Formula["openssl@3"].opt_lib/shared_library("libssl"),
       Formula["openssl@3"].opt_lib/shared_library("libcrypto"),
     ].each do |library|

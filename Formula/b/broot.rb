@@ -1,18 +1,18 @@
 class Broot < Formula
   desc "New way to see and navigate directory trees"
   homepage "https://dystroy.org/broot/"
-  url "https://github.com/Canop/broot/archive/refs/tags/v1.44.2.tar.gz"
-  sha256 "e1b78354c21680914a07ed4b856257c83ef873b878ef281bd2d1aed7fcba3828"
+  url "https://github.com/Canop/broot/archive/refs/tags/v1.44.6.tar.gz"
+  sha256 "554abc12c8343a0e921f92740e06bf3a86993f71eb78246c9b494293da13b1df"
   license "MIT"
   head "https://github.com/Canop/broot.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8a94de1e614521fab990d17d959bb71d2351311384517c7ad0b5e83ef8e1fd04"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "7b4ba173f2232e82fe75e3d3acd846d89af63e6b5cb7b21f1aec992234bb2f19"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "d68abb5035d1de6302fef8705ea8ff8da8a7604f7e4054469f445dfc00e0edf4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "518d3f8ff6274c925f4df10afd26472c54b6af326f83a2f355467f722e90070a"
-    sha256 cellar: :any_skip_relocation, ventura:       "436906062760a229b4a72c07402029e64c7c6980e8199f229b3c96b7e709d912"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b407acb85b70f6fb9077d67d51ab77c77c537595b7a8fd50e1427c72b45cc6b3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "689b3bb4b6145531dcfe0b0d2d7bb5206da9de775eaaff6611a72bf089ee8373"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "714f513f224fe58704c14545fec65288818c92288f8535779389c734bc446dba"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "020284e80923e0881768b34c8d1a012a358fe833d7bed1494b07fc5255e3ce98"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a86d8a7b04255aca8e690b989ce4f417a0dcca5811b8354dcd422cb2696e0053"
+    sha256 cellar: :any_skip_relocation, ventura:       "d708e233c0ace8adfb6d2f0a748fe18d45b169db2b35f176a3d4fc2de65aa9b4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a96b658660d581b379edb452b7f87796c075048962a17fab15f723830cf5f4f1"
   end
 
   depends_on "rust" => :build
@@ -38,30 +38,28 @@ class Broot < Formula
     fish_completion.install "#{out_dir}/br.fish"
     zsh_completion.install "#{out_dir}/_broot"
     zsh_completion.install "#{out_dir}/_br"
-    # Bash completions are not compatible with Bash 3 so don't use v1 directory.
-    # bash: complete: nosort: invalid option name
-    # Issue ref: https://github.com/clap-rs/clap/issues/5190
-    (share/"bash-completion/completions").install "#{out_dir}/broot.bash" => "broot"
-    (share/"bash-completion/completions").install "#{out_dir}/br.bash" => "br"
+    bash_completion.install "#{out_dir}/broot.bash" => "broot"
+    bash_completion.install "#{out_dir}/br.bash" => "br"
   end
 
   test do
-    return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
-
     output = shell_output("#{bin}/broot --help")
     assert_match "lets you explore file hierarchies with a tree-like view", output
-
     assert_match version.to_s, shell_output("#{bin}/broot --version")
 
     require "pty"
     require "io/console"
-    PTY.spawn(bin/"broot", "-c", ":print_tree", "--color", "no", "--outcmd", testpath/"output.txt",
-                err: :out) do |r, w, pid|
+    PTY.spawn(bin/"broot", "-c", ":print_tree", "--color", "no", "--outcmd", testpath/"output.txt") do |r, w, pid|
       r.winsize = [20, 80] # broot dependency terminal requires width > 2
       w.write "n\r"
-      assert_match "New Configuration files written in", r.read
-      Process.wait(pid)
+      output = ""
+      begin
+        r.each { |line| output += line }
+      rescue Errno::EIO
+        # GNU/Linux raises EIO when read is done on closed pty
+      end
+      assert_match "New Configuration files written in", output
+      assert_predicate Process::Status.wait(pid), :success?
     end
-    assert_equal 0, $CHILD_STATUS.exitstatus
   end
 end

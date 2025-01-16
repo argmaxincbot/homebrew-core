@@ -29,15 +29,12 @@ class PythonAT313 < Formula
   uses_from_macos "expat"
   uses_from_macos "libedit"
   uses_from_macos "libffi", since: :catalina
-  uses_from_macos "libxcrypt"
   uses_from_macos "ncurses"
   uses_from_macos "unzip"
   uses_from_macos "zlib"
 
   on_linux do
     depends_on "berkeley-db@5"
-    depends_on "libnsl"
-    depends_on "libtirpc"
   end
 
   link_overwrite "bin/2to3"
@@ -183,7 +180,7 @@ class PythonAT313 < Formula
 
     # Disabled modules - provided in separate formulae
     args += %w[
-      py_cv_module__tkinter=disabled
+      py_cv_module__tkinter=n/a
     ]
 
     system "./configure", *args

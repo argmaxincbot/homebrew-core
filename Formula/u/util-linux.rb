@@ -1,8 +1,8 @@
 class UtilLinux < Formula
   desc "Collection of Linux utilities"
   homepage "https://github.com/util-linux/util-linux"
-  url "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz"
-  sha256 "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3"
+  url "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.4.tar.xz"
+  sha256 "5c1daf733b04e9859afdc3bd87cc481180ee0f88b5c0946b16fdec931975fb79"
   license all_of: [
     "BSD-3-Clause",
     "BSD-4-Clause-UC",
@@ -24,15 +24,12 @@ class UtilLinux < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sequoia:  "8b634a2c63b8d971fcba7ecf937cfc45a2fe9263b5ce6f01ef1704f58c28547e"
-    sha256 arm64_sonoma:   "ae2f7c6c2a844f8cbd3522f85e51cb929d03a8c9eed9a66d14a81b2632f9dcb4"
-    sha256 arm64_ventura:  "b933894463178a94495ced95268b2d66ccdc0c9e2e408b7fdc4b5a36016f228a"
-    sha256 arm64_monterey: "4b0c25db0dcd8f13e1d881b7ecf5eb80ebd53453b56fd0c096a2745b97c90d42"
-    sha256 sonoma:         "ad20c2beac16f7d241569f93d0edd5b19f0bb2fafd62c227747ea20d9f615892"
-    sha256 ventura:        "0b62fc43806131f0b9f96916b0887ad85ae47db2418386721fc3da6d3f49dec7"
-    sha256 monterey:       "1fed3dce8f5487a95fab00de380f3ff3320a43b94ad9949a102466bb6fbc3bbd"
-    sha256 x86_64_linux:   "773c91eea7c86a3a5a18ae1b43a43c9346b190ccf7640bb811e4cadb77a42874"
+    sha256 arm64_sequoia: "f52b125dc397f644d8c39eaf445f0dba977daaf0c2c36a1cc8f8d5fda7fdc983"
+    sha256 arm64_sonoma:  "a4a808c4f0d83572be37bb87f47c3caf0196e7dc6efda2292eb433f43a95cbde"
+    sha256 arm64_ventura: "5813684b14b36ef9eb21ae44778509a3b5317177d36424e5684f93e6d38dd2ed"
+    sha256 sonoma:        "4e510ac6858c30bf51f48704554f479afa65651e9d70cecead695be3b27bab31"
+    sha256 ventura:       "a3ffdf52748b08c8ac4a59685dad9d61c6bb97eec580b101e5e573412184ca41"
+    sha256 x86_64_linux:  "5472eb4abe7ce0d30ff3548dda8da1edab2adc47b10acac6fc5f467171519616"
   end
 
   keg_only :shadowed_by_macos, "macOS provides the uuid.h header"
@@ -65,7 +62,7 @@ class UtilLinux < Formula
   end
 
   def install
-    args = %w[--disable-silent-rules --disable-asciidoc]
+    args = %W[--disable-silent-rules --disable-asciidoc --with-bashcompletiondir=#{bash_completion}]
 
     if OS.mac?
       # Support very old ncurses used on macOS 13 and earlier
@@ -82,7 +79,6 @@ class UtilLinux < Formula
       args << "--disable-use-tty-group" # Fix chgrp: changing group of 'wall': Operation not permitted
       args << "--disable-kill" # Conflicts with coreutils.
       args << "--without-systemd" # Do not install systemd files
-      args << "--with-bashcompletiondir=#{bash_completion}"
       args << "--disable-chfn-chsh"
       args << "--disable-login"
       args << "--disable-su"
@@ -92,13 +88,8 @@ class UtilLinux < Formula
       args << "--without-python"
     end
 
-    system "./configure", *args, *std_configure_args.reject { |s| s["--disable-debug"] }
+    system "./configure", *args, *std_configure_args
     system "make", "install"
-
-    # install completions only for installed programs
-    Pathname.glob("bash-completion/*") do |prog|
-      bash_completion.install prog if (bin/prog.basename).exist? || (sbin/prog.basename).exist?
-    end
   end
 
   def caveats

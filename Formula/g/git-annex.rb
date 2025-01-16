@@ -1,19 +1,19 @@
 class GitAnnex < Formula
   desc "Manage files with git without checking in file contents"
   homepage "https://git-annex.branchable.com/"
-  url "https://hackage.haskell.org/package/git-annex-10.20241202/git-annex-10.20241202.tar.gz"
-  sha256 "e27518faeda9c4740102d93df2bc788161e408df387072bc3d73c9eec3ade283"
+  url "https://hackage.haskell.org/package/git-annex-10.20250115/git-annex-10.20250115.tar.gz"
+  sha256 "d1c0b27ba44be4a8d615280cd16652fd8cb1d7bd6ec44ba938bea01886d259d4"
   license all_of: ["AGPL-3.0-or-later", "BSD-2-Clause", "BSD-3-Clause",
                    "GPL-2.0-only", "GPL-3.0-or-later", "MIT"]
   head "git://git-annex.branchable.com/", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "a7a69de8dbbbdeb01497ffe9d377211c0115250dca439f454c1c13b6643af768"
-    sha256 cellar: :any,                 arm64_sonoma:  "e6e9e79d3a5d2c80786afe42989b24dfaa72fa13e5b08a2a416b0cdcb65dc169"
-    sha256 cellar: :any,                 arm64_ventura: "d18d1c704e0ef61a80e0d82eaac0ec20994a921034942634c234aa7dfed9bd66"
-    sha256 cellar: :any,                 sonoma:        "8a8164635fb9b09197a78fd455997e8d982e129c4e123830cee4267d9393c22c"
-    sha256 cellar: :any,                 ventura:       "009b6c983e4a2088f2749f1f7ea0978a950931de45e01e05aa6b750a2443c726"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4323eac81cb07ab721296a3230f2d072b563a17dc2168e8853cf1406511c6bf4"
+    sha256 cellar: :any,                 arm64_sequoia: "0d5776c0fb0d8193b6e99b6a7ce2b2e7e90d3a45f1a13d8a4d781d0a39a6ccf3"
+    sha256 cellar: :any,                 arm64_sonoma:  "06ea1127f166d6df56756e4e8d6de96a34c4f61b053fdeb2aacd4c73e55949eb"
+    sha256 cellar: :any,                 arm64_ventura: "67dc9732b712eb582e33669ec096a5a5f8ed524d809fcb0a6cfb3ac2dc924eca"
+    sha256 cellar: :any,                 sonoma:        "cf60527f07dbcf2a8b8ee21aaa9946135a2efe32a89f34b06609adfbc44b27d6"
+    sha256 cellar: :any,                 ventura:       "ba7089a613b7deab09ef54895e37ea07156e3bd37afe354a672907002737e994"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "089aa7235fa114d018d77150a31d48df50f7fec0dc750c82f9e40246efefedab"
   end
 
   depends_on "cabal-install" => :build

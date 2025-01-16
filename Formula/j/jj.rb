@@ -1,19 +1,19 @@
 class Jj < Formula
   desc "Git-compatible distributed version control system"
-  homepage "https://github.com/martinvonz/jj"
-  url "https://github.com/martinvonz/jj/archive/refs/tags/v0.24.0.tar.gz"
-  sha256 "c0e92ec25b7500deec2379a95ab655c6c92021cf4ccb29511fee2377e37b35d6"
+  homepage "https://github.com/jj-vcs/jj"
+  url "https://github.com/jj-vcs/jj/archive/refs/tags/v0.25.0.tar.gz"
+  sha256 "3a99528539e414a3373f24eb46a0f153d4e52f7035bb06df47bd317a19912ea3"
   license "Apache-2.0"
+  revision 2
   head "https://github.com/martinvonz/jj.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "451e4de3460fd317c0abffba2de1fee65cd591b35234ae5f7403e15390377f3f"
-    sha256 cellar: :any,                 arm64_sonoma:  "e7c846f8838bd8b26a669f96828fc21abb989b24ad80d52df258fefee24e8eff"
-    sha256 cellar: :any,                 arm64_ventura: "6e1dc53f17238e3d4e9fc17a3f32ce34e92c326da591d207f61a3e788a413dbb"
-    sha256 cellar: :any,                 sonoma:        "c8fcb58a6cfd101a2bf1dd120e0a730282bdfff72466f0f7269a60a9df9ec048"
-    sha256 cellar: :any,                 ventura:       "9ecd891313a9da864069246d65c963a127a31b8bbcc3785ae436a4ef625f2265"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "de02419686306776565fad7a075e5f2e94cdd905bd729d394fd8400fd4ea2453"
+    sha256 cellar: :any,                 arm64_sequoia: "e3a956a8e62358766302d59d592f6555fe9a97173c1dd9143534172ff6ba0e9f"
+    sha256 cellar: :any,                 arm64_sonoma:  "420d66af2270b1c3c5f6fae781537ebd0dbacd0d61f5cdd8ed6db77ca527989c"
+    sha256 cellar: :any,                 arm64_ventura: "6dc19cc8fbfd30e51b4d17eec7ee08559f01cdb9719128d026e07ba92830d1c6"
+    sha256 cellar: :any,                 sonoma:        "fdba90d9cbfa97802c6650f5007744e40ebbedd9e514688ac7fc5a0db614ea6f"
+    sha256 cellar: :any,                 ventura:       "1ac2997276b2d2b4f39ca0423df4a117736016554ad59e26bb607041f2bd2b59"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1d7cd0534b257658bb96ad207550a7f09e045ac3f4a3fb5e4e3771af49be3416"
   end
 
   depends_on "pkgconf" => :build
@@ -21,6 +21,12 @@ class Jj < Formula
   depends_on "libgit2"
   depends_on "openssl@3"
   uses_from_macos "zlib"
+
+  # patch to use libgit2 1.9, upstream pr ref, https://github.com/jj-vcs/jj/pull/5315
+  patch do
+    url "https://github.com/jj-vcs/jj/commit/b4f936ac302ee835aa274e4dd186b436781d5d2f.patch?full_index=1"
+    sha256 "7b2f84de2c6bbdce9934384af2f7f2d0b7f7116c4726aeef87581010cdf1564e"
+  end
 
   def install
     ENV["LIBGIT2_NO_VENDOR"] = "1"

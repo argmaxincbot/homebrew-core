@@ -1,8 +1,8 @@
 class Ocp < Formula
   desc "UNIX port of the Open Cubic Player"
   homepage "https://stian.cubic.org/project-ocp.php"
-  url "https://stian.cubic.org/ocp/ocp-0.2.109.tar.xz"
-  sha256 "aa043503bd1dfd1433fabe0d5f4bb85bcadc3bae8cc19630a77c89182bce8d90"
+  url "https://stian.cubic.org/ocp/ocp-3.0.1.tar.xz"
+  sha256 "60a03d73883ea9c5dd94253907fc2002aa229e0fc41febb17d7baa341b228db1"
   license "GPL-2.0-or-later"
   head "https://github.com/mywave82/opencubicplayer.git", branch: "master"
 
@@ -12,14 +12,12 @@ class Ocp < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "eab30fc80b948680e2b3b6b90b9ade084237d5f7bd03ec0a470940dae7d5d741"
-    sha256 arm64_sonoma:   "462d8e35f07308e170caa48842075baa49a1cc8f0f7ffb2d14929cf7e9d63e49"
-    sha256 arm64_ventura:  "8680caad7650448489b181ef095e82a20f2a3757b6ed9e546f045ea1eab3b12b"
-    sha256 arm64_monterey: "c522fdc20022948049c46fe8ff99f0d3e6702049c1fa65ed4dd598a3206aab27"
-    sha256 sonoma:         "940a928439f2840880e05cee094e86a9509f5be3cbbb3bf119c3e75178993cc3"
-    sha256 ventura:        "75906ae975ffe405f47d8a06f2d57286022a44c7bd18d734173d4e0e7eee80ae"
-    sha256 monterey:       "26d1ae3d2c0bfb0e267994a1be776301ebe10672c1ba514c47af7b6ef96c2102"
-    sha256 x86_64_linux:   "4cd81c537874b42e0de929447ecc9fe813030cce6a3b1296caf32309233239bb"
+    sha256 arm64_sequoia: "4d4d287a60ac8edc317dffcb07feb6c23bf1cb54007ba45dfdbd3f4470b32059"
+    sha256 arm64_sonoma:  "962b118d6aa52c978601e4e883cb5bcc126c71ea7f79da884fff7586f4cd36f4"
+    sha256 arm64_ventura: "8047661b61d3c6108da0f3afa9a1f378c514e6dae83aecdbc39770bddd2533c7"
+    sha256 sonoma:        "29f04bc146add83b8a79e4e429de670ca2b3b05aedf5ace9153ff01c9f9d7a8e"
+    sha256 ventura:       "c490c649231ce92725e67f5ca97acc59649f157403f89fb7e3e721d0efc64226"
+    sha256 x86_64_linux:  "82469d6356888ba79497060ddf9c1cc7223a84e555aacf9116c7724b8af03feb"
   end
 
   depends_on "pkgconf" => :build
@@ -57,8 +55,6 @@ class Ocp < Formula
   end
 
   def install
-    ENV.deparallelize
-
     # Required for SDL2
     resource("unifont").stage do |r|
       cd "font/precompiled" do
@@ -78,12 +74,16 @@ class Ocp < Formula
       --with-unifontdir-otf=#{share}
     ]
 
+    # We do not use *std_configure_args here since
+    # `--prefix` is the only recognized option we pass
     system "./configure", *args
     system "make"
     system "make", "install"
   end
 
   test do
-    system bin/"ocp", "--help"
+    assert_match version.to_s, shell_output("#{bin}/ocp --help 2>&1")
+
+    assert_path_exists testpath/".config/ocp/ocp.ini"
   end
 end

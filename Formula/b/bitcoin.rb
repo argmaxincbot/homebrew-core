@@ -1,8 +1,8 @@
 class Bitcoin < Formula
   desc "Decentralized, peer to peer payment network"
   homepage "https://bitcoincore.org/"
-  url "https://bitcoincore.org/bin/bitcoin-core-28.0/bitcoin-28.0.tar.gz"
-  sha256 "700ae2d1e204602eb07f2779a6e6669893bc96c0dca290593f80ff8e102ff37f"
+  url "https://bitcoincore.org/bin/bitcoin-core-28.1/bitcoin-28.1.tar.gz"
+  sha256 "c5ae2dd041c7f9d9b7c722490ba5a9d624f7e9a089c67090615e1ba4ad0883ba"
   license all_of: [
     "MIT",
     "BSD-3-Clause", # src/crc32c, src/leveldb
@@ -17,12 +17,12 @@ class Bitcoin < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "9827fe39470644c9e18c2e29a9cc50517d755ab23600dfc15fc73a4c436090df"
-    sha256 cellar: :any,                 arm64_sonoma:  "dadd606914dc46493f9c71f3b12975186f91d15cc139cb3f9630baa4f9207420"
-    sha256 cellar: :any,                 arm64_ventura: "c21b31a816054f9bb708a30d19b7168c4287a1262723d194925ec6550c7152bd"
-    sha256 cellar: :any,                 sonoma:        "0e2895408874d922a18a81df8bbaa65aa67215c8445d6ae7ce856613f18ffd1d"
-    sha256 cellar: :any,                 ventura:       "68e8ddb21ef1fe0a67e2e72f4b5b5f0092304e501deb2aa7ad98ba9850ea5774"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "082c20a351f23b99cb778ae5b643d3ba7d02feeca0cd9adc8474e350fd9c649a"
+    sha256 cellar: :any,                 arm64_sequoia: "3b8dd7b2f87fdd035a1a43fb33d815ca5d1b579051f39be65abdea52207787e4"
+    sha256 cellar: :any,                 arm64_sonoma:  "a194275ef4a83ec4ba833598c7e5ae6b90aaee12e3e48141563d4d5c3db58f7c"
+    sha256 cellar: :any,                 arm64_ventura: "6b7ae606988258139e4b8d97d662758d10c4c93c34cc3d05242f274c971cd387"
+    sha256 cellar: :any,                 sonoma:        "448277b6d5eea93cf8fed2417f752034f720b851cb5eae337863646af75bd78b"
+    sha256 cellar: :any,                 ventura:       "3f3dd8b5c72068db2277535f3c449a9338a2079b398376aeebc3963ba78c6f1c"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a5bf3062a9b43ad8e522cf102e21496973249ca5dedada6620e659bec5dc1ae5"
   end
 
   depends_on "autoconf" => :build

@@ -5,28 +5,27 @@ class ApacheArrow < Formula
   mirror "https://archive.apache.org/dist/arrow/arrow-18.1.0/apache-arrow-18.1.0.tar.gz"
   sha256 "2dc8da5f8796afe213ecc5e5aba85bb82d91520eff3cf315784a52d0fa61d7fc"
   license "Apache-2.0"
-  revision 3
+  revision 6
   head "https://github.com/apache/arrow.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "892bff92c42091e16cdaa76f7e6f5571c6d1b89b9521f694db6b5ba302faf682"
-    sha256 cellar: :any,                 arm64_sonoma:  "a4300783c32382e311eb2e3b251b8cc43deb4b9b7598e7ef3482331c008c6dbb"
-    sha256 cellar: :any,                 arm64_ventura: "af7207ee300b716d318d0e2cdddc3b1f9689cc5e5962bb069a5f320cc26b1e9b"
-    sha256 cellar: :any,                 sonoma:        "b1b97e2adb0739d64af495afbc80696d8d66ce791b86d4c537b61150ce6261f6"
-    sha256 cellar: :any,                 ventura:       "4479964bd7a0086571993634326835d8fc246590723a69b157e9ca15de4b1700"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "12ef8ad25e5606df4647c9c66d40d98ea29155c0b63499d923b4250dc95810fb"
+    sha256 cellar: :any,                 arm64_sequoia: "839c246eae02896257c3ea5e21814e70dbd68f2616e08672cc901c8df2fb5128"
+    sha256 cellar: :any,                 arm64_sonoma:  "91907f0fe9d62eb0d4bab3bb64997aec4774fb71998007516953b6f8376f740b"
+    sha256 cellar: :any,                 arm64_ventura: "8a82c7da56b9041a92264337db3c1f99da7b5ebb84856c0d44842e3d61d226ce"
+    sha256 cellar: :any,                 sonoma:        "5ef8cc307319af3054406c48db5c9ba06d4c50d9bcfa0ca185a6d802e14edf6b"
+    sha256 cellar: :any,                 ventura:       "4c040f0723b9eb2cdb1fd5c9c773407fbaa7b1926d350d8fea669be86372ec3b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "82c50ad1238be66720786e2de996522e191a1c5939843d1c9b0d6f5f56cd92dd"
   end
 
   depends_on "boost" => :build
   depends_on "cmake" => :build
   depends_on "gflags" => :build
-  depends_on "ninja" => :build
   depends_on "rapidjson" => :build
   depends_on "xsimd" => :build
   depends_on "abseil"
+  depends_on "aws-crt-cpp"
   depends_on "aws-sdk-cpp"
   depends_on "brotli"
-  depends_on "c-ares"
   depends_on "grpc"
   depends_on "llvm"
   depends_on "lz4"
@@ -79,10 +78,16 @@ class ApacheArrow < Formula
       -DARROW_WITH_UTF8PROC=ON
       -DARROW_INSTALL_NAME_RPATH=OFF
       -DPARQUET_BUILD_EXECUTABLES=ON
-      -GNinja
     ]
-
     args << "-DARROW_MIMALLOC=ON" unless Hardware::CPU.arm?
+    # Reduce overlinking. Can remove on Linux if GCC 11 issue is fixed
+    args << "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,#{OS.mac? ? "-dead_strip_dylibs" : "--as-needed"}"
+    # ARROW_SIMD_LEVEL sets the minimum required SIMD. Since this defaults to
+    # SSE4.2 on x86_64, we need to reduce level to match oldest supported CPU.
+    # Ref: https://arrow.apache.org/docs/cpp/env_vars.html#envvar-ARROW_USER_SIMD_LEVEL
+    if build.bottle? && Hardware::CPU.intel? && (!OS.mac? || !MacOS.version.requires_sse42?)
+      args << "-DARROW_SIMD_LEVEL=NONE"
+    end
 
     system "cmake", "-S", "cpp", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"

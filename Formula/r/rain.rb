@@ -1,17 +1,17 @@
 class Rain < Formula
   desc "Command-line tool for working with AWS CloudFormation"
   homepage "https://github.com/aws-cloudformation/rain"
-  url "https://github.com/aws-cloudformation/rain/archive/refs/tags/v1.20.2.tar.gz"
-  sha256 "b899bc4dcf05b6254fad411e87d8eec6dc4681b84d89f48ba789b5833266ec99"
+  url "https://github.com/aws-cloudformation/rain/archive/refs/tags/v1.21.0.tar.gz"
+  sha256 "1bf031347ff0e3f51b16575639c6e6fc64fd2e7979a4f7678bfeb313fb5a2c7a"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c6f23e9b078bf0ca35c57852524f4e331e1822053cbeacf7736d874199a84a42"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "894452f9469ca9d28716fc249c51711d4ade5834cc136306eb7b76d92b797272"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "d0a7c73392d539c94877d13061279a10659ee1e065d8c4039919869ab2294255"
-    sha256 cellar: :any_skip_relocation, sonoma:        "a81e40b7b8637d15ba03c1a2188bab55ae9acae96f1ee22712f902d98d7024b6"
-    sha256 cellar: :any_skip_relocation, ventura:       "5ed1a26a42c7d8f1da8b49d48e4accfd24ca7f93930ab4e51bee9031ddb35469"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "42f5e0ae9f61118f8c37350ee154e55273852dd9a9be5f7fe0f00a03835ac7cb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "75acc4f49b6ffd9cb2beb71374fa9afcdd531875d147fadd13c8f3dba42817d8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "811c510bb2bc86a8d8c7e729cab3b7da5ad4ff191b2aa8d7e8769c8c6cdea622"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a95c83c2664bc8046b77e43612858f9560c4289230622d124b083bf5aa5a72ce"
+    sha256 cellar: :any_skip_relocation, sonoma:        "76c9c20a14ec63368f60f940ea16daf36b6d52db1122f306eb135b53b9571ee1"
+    sha256 cellar: :any_skip_relocation, ventura:       "9f02635eb635bb31584dc95e57a414769819ce614b38d860096b19d78feb54be"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e907aeb5e64982f6f0435d75dc9cb531aa187a3c03a452ec36d75a778e73363e"
   end
 
   depends_on "go" => :build
@@ -19,8 +19,8 @@ class Rain < Formula
   def install
     system "go", "build", *std_go_args(ldflags: "-s -w"), "./cmd/rain"
 
-    bash_completion.install "docs/bash_completion.sh"
-    zsh_completion.install "docs/zsh_completion.sh"
+    bash_completion.install "docs/bash_completion.sh" => "rain"
+    zsh_completion.install "docs/zsh_completion.sh" => "_rain"
   end
 
   def caveats
@@ -31,11 +31,11 @@ class Rain < Formula
   end
 
   test do
-    (testpath/"test.template").write <<~EOS
+    (testpath/"test.yaml").write <<~YAML
       Resources:
         Bucket:
           Type: AWS::S3::Bucket
-    EOS
-    assert_equal "test.template: formatted OK", shell_output("#{bin}/rain fmt -v test.template").strip
+    YAML
+    assert_equal "test.yaml: formatted OK", shell_output("#{bin}/rain fmt -v test.yaml").strip
   end
 end

@@ -7,12 +7,6 @@ class Vlmcsd < Formula
   license "LGPL-2.1-or-later"
   head "https://github.com/Wind4/vlmcsd.git", branch: "master"
 
-  livecheck do
-    url :stable
-    regex(/([^"' >]+)/i)
-    strategy :github_latest
-  end
-
   bottle do
     rebuild 2
     sha256 cellar: :any_skip_relocation, arm64_sequoia:  "42bed0ef59c540a54cc77bf71002b8229414ed077be0bceecd568fe37b33a4be"
@@ -28,6 +22,8 @@ class Vlmcsd < Formula
     sha256 cellar: :any_skip_relocation, mojave:         "d2b0cccd86ab053118aebc1885b362130b7c7e0f73f3b60c768e4907532254cb"
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "8bacd07ef0cda2ea4ad4c5d7274b97bf8b067b69fd4412d20272b0d1c8828d1c"
   end
+
+  deprecate! date: "2024-12-31", because: :repo_archived
 
   uses_from_macos "llvm" => :build
 

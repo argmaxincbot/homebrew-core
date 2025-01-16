@@ -1,4 +1,7 @@
 {
+  "acronym": {
+    "exclude_packages": ["numpy"]
+  },
   "aider": {
     "exclude_packages": ["certifi", "cffi", "numpy", "pillow", "scipy"]
   },
@@ -26,14 +29,6 @@
   },
   "ansible-lint": {
     "exclude_packages": ["cryptography"]
-  },
-  "ansible@7": {
-    "extra_packages": [
-      "docker", "python-neutronclient", "shade", "pywinrm", "kerberos", "boto3", "apache-libcloud", "passlib",
-      "zabbix-api", "junos-eznc", "jxmlease", "dnspython", "pysphere3", "python-consul", "requests-credssp",
-      "openshift", "pexpect", "ntc-templates", "proxmoxer"
-    ],
-    "exclude_packages": ["certifi", "cffi", "pycparser", "pyyaml", "six"]
   },
   "ansible@8": {
     "extra_packages": [
@@ -285,7 +280,7 @@
   },
   "dvc": {
     "package_name": "dvc[all]",
-    "exclude_packages": ["certifi", "cryptography", "numpy"]
+    "exclude_packages": ["certifi", "cryptography", "numpy", "pygit2"]
   },
   "dxpy": {
     "exclude_packages": ["cryptography", "certifi"]
@@ -433,6 +428,9 @@
   "huggingface-cli": {
     "exclude_packages": ["certifi"]
   },
+  "icloudpd": {
+    "exclude_packages": ["certifi"]
+  },
   "iconsur": {
     "package_name": "",
     "extra_packages": ["pyobjc-core", "pyobjc-framework-cocoa"]
@@ -454,8 +452,7 @@
     "extra_packages": ["requests"]
   },
   "jenkins-job-builder": {
-    "exclude_packages": ["certifi"],
-    "extra_packages": ["setuptools"]
+    "exclude_packages": ["certifi"]
   },
   "jinja2-cli": "jinja2-cli[yaml,toml,xml]",
   "jrnl": {
@@ -489,6 +486,9 @@
   },
   "linode-cli": {
     "exclude_packages": ["certifi"]
+  },
+  "literate-git": {
+    "exclude_packages": ["pygit2"]
   },
   "liquidctl": {
     "exclude_packages": ["pillow"]
@@ -786,6 +786,9 @@
   "shodan": {
     "exclude_packages": ["certifi"]
   },
+  "showcert": {
+    "exclude_packages": ["certifi", "cryptography"]
+  },
   "shub": {
     "exclude_packages": ["certifi"]
   },
@@ -807,7 +810,8 @@
     "exclude_packages": ["certifi"]
   },
   "snapcraft": {
-    "extra_packages": ["catkin-pkg"]
+    "exclude_packages": ["certifi", "cryptography", "pygit2"],
+    "extra_packages": ["catkin-pkg", "jeepney", "pylxd", "secretstorage"]
   },
   "sphinx-doc": {
     "exclude_packages": ["certifi"],
@@ -821,6 +825,9 @@
   },
   "streamlink": {
     "exclude_packages": ["certifi"]
+  },
+  "streamrip": {
+    "exclude_packages": ["certifi", "pillow"]
   },
   "subliminal": {
     "exclude_packages": ["certifi"]

@@ -1,22 +1,21 @@
 class I2pd < Formula
   desc "Full-featured C++ implementation of I2P client"
   homepage "https://i2pd.website/"
-  # TODO: Switch to latest `boost` dependency on next release
-  url "https://github.com/PurpleI2P/i2pd/archive/refs/tags/2.54.0.tar.gz"
-  sha256 "5c3f703417bb5f3e5dda642d39c5d30593a5dcf69d5a5ecfe82d5e8a7d454aaf"
+  url "https://github.com/PurpleI2P/i2pd/archive/refs/tags/2.55.0.tar.gz"
+  sha256 "f5792a1c0499143c716663e90bfb105aaa7ec47d1c4550b5f90ebfc25da00c6c"
   license "BSD-3-Clause"
   revision 1
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "03f7ef0703446cf80a96042dab3beb16f488642a68a236f159c52749cb7c2a2e"
-    sha256 cellar: :any,                 arm64_sonoma:  "43d3909f37585ead0fe2e69e60fe1a42e0a1790a5cdb30e63255d439affd0256"
-    sha256 cellar: :any,                 arm64_ventura: "878bf408b2fc44736d556b5c72138271a250ff8eaf5031375527adb4e1c5682c"
-    sha256 cellar: :any,                 sonoma:        "023abd273cf210515299f43a9dfaeff5162701766879a76c26d2f04f82abbd7d"
-    sha256 cellar: :any,                 ventura:       "e1b5269fb55c0a7c4546242372cd237d6a871823d6b20963701df023b7e0300c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "961729ac5256811419308cc208914789d309882ade25423df57bb77228d379aa"
+    sha256 cellar: :any,                 arm64_sequoia: "bedb396fecb27939e03ecb75dd319d6a044684d48a8f82c6207fcbfb9152178e"
+    sha256 cellar: :any,                 arm64_sonoma:  "4f389b2602c0f19e0fffe658bbb6fbfa629f0d6433e47dfa171189990bfca1cd"
+    sha256 cellar: :any,                 arm64_ventura: "e2a56100608d855f3faf070c81e0fda796b932f6389d53967e3b4e9ff2ba9a16"
+    sha256 cellar: :any,                 sonoma:        "e22ba89ca2bc7802a0748abfc37496bea830173b13790489f198aaef06653321"
+    sha256 cellar: :any,                 ventura:       "3d8c4d99e64ab6c2384a722c4fdde1cb38cefc89e184971bbf49fb5406e3b578"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d5c85d194614531c9825616f5d31ef7025e51a817bcca55b2d1e04153bc0fa50"
   end
 
-  depends_on "boost@1.85"
+  depends_on "boost"
   depends_on "miniupnpc"
   depends_on "openssl@3"
 
@@ -69,7 +68,7 @@ class I2pd < Formula
     pidfile = testpath/"i2pd.pid"
     system bin/"i2pd", "--datadir=#{testpath}", "--pidfile=#{pidfile}", "--daemon"
     sleep 5
-    assert_predicate testpath/"router.keys", :exist?, "Failed to start i2pd"
+    assert_path_exists testpath/"router.keys", "Failed to start i2pd"
     pid = pidfile.read.chomp.to_i
     Process.kill "TERM", pid
   end

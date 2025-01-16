@@ -1,18 +1,18 @@
 class Slackdump < Formula
   desc "Export Slack data without admin privileges"
   homepage "https://github.com/rusq/slackdump"
-  url "https://github.com/rusq/slackdump/archive/refs/tags/v2.6.0.tar.gz"
-  sha256 "794866c8c72c89a4f5cab3917c4ed4eba00928841e17e6082213eb9a4ffe7df0"
+  url "https://github.com/rusq/slackdump/archive/refs/tags/v3.0.2.tar.gz"
+  sha256 "f47eae0ec4d377d13f0feca449d1177fb655e182b736383c4c806ee97af28125"
   license "GPL-3.0-only"
   head "https://github.com/rusq/slackdump.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9bffd112bc0726b9b5496a7a75f807be85ebb1c221c096ec14464ba08c984388"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9bffd112bc0726b9b5496a7a75f807be85ebb1c221c096ec14464ba08c984388"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "9bffd112bc0726b9b5496a7a75f807be85ebb1c221c096ec14464ba08c984388"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e5d75f6440152103e83f240ac04ccbcd512371c21dbb7aa869b74bd20a27363e"
-    sha256 cellar: :any_skip_relocation, ventura:       "e5d75f6440152103e83f240ac04ccbcd512371c21dbb7aa869b74bd20a27363e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fdc3593e8dd9f95fb20e6f7444d512082bfe12326cd33352f27213e8d44ba9af"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5176fb9a957f27e8b24ec689d345f958341263b8f5d44450337b47a50e1150ee"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5176fb9a957f27e8b24ec689d345f958341263b8f5d44450337b47a50e1150ee"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "5176fb9a957f27e8b24ec689d345f958341263b8f5d44450337b47a50e1150ee"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5322eefe45e42d23339b216ea87e874e997353afa81222fe6df1224a7024d0c4"
+    sha256 cellar: :any_skip_relocation, ventura:       "5322eefe45e42d23339b216ea87e874e997353afa81222fe6df1224a7024d0c4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f1013b21e098353406f1918dad105358b903ccfc0ee4b481ea0315769d0e6cf9"
   end
 
   depends_on "go" => :build
@@ -28,8 +28,9 @@ class Slackdump < Formula
   end
 
   test do
-    assert_match version.to_s, shell_output(bin/"slackdump -V")
+    assert_match version.to_s, shell_output("#{bin}/slackdump version")
 
-    assert_match "You have been logged out.", shell_output(bin/"slackdump -auth-reset 2>&1")
+    output = shell_output("#{bin}/slackdump workspace list 2>&1", 9)
+    assert_match "ERROR 009 (User Error): no authenticated workspaces", output
   end
 end

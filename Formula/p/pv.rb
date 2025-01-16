@@ -1,8 +1,8 @@
 class Pv < Formula
   desc "Monitor data's progress through a pipe"
   homepage "https://www.ivarch.com/programs/pv.shtml"
-  url "https://www.ivarch.com/programs/sources/pv-1.9.24.tar.gz"
-  sha256 "1066ad83737cd2eb872b23c6a3c32f24c1af92c73deacb70cfb302001974a18a"
+  url "https://www.ivarch.com/programs/sources/pv-1.9.27.tar.gz"
+  sha256 "253659dc86569363f065f5e881e135a0c9594b987f34a19b104c7414a2d2c479"
   license "Artistic-2.0"
 
   livecheck do
@@ -11,19 +11,25 @@ class Pv < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2437040e5e0c4e04b9cae8afe7de0d2cde34c42c9097bd6eb231ffa811e8bdfa"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "df37d261b701946a58dd8260caaeacef84e725b4be580ffc5b2b622268268320"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "00792266783bbef4b6c77e3f05a2e1ed01c182530c3d87153ff203be4c0b1157"
-    sha256 cellar: :any_skip_relocation, sonoma:        "269d144cbadb98063d9ecf3806d727709d696151d78a9efbde0080a874dbf4eb"
-    sha256 cellar: :any_skip_relocation, ventura:       "15787a4a4af9495064f96ea43c866209f4433763b42e30343d32093c2ee43964"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b94bec3d0befce2e7f0f0e96edb8239e6b5e8ac8c66d8cab6400601b5e822a78"
+    sha256 arm64_sequoia: "f0e0ecbb8f82b3279333c5bede070adb35efeb0f8120aee0565fe14c0335a26a"
+    sha256 arm64_sonoma:  "eecbd790ff38b8221bf62a75f77b54a2bdcd8f2ef1fbfc3d6b45b3536ef3ab24"
+    sha256 arm64_ventura: "ac7990fb6593e41cf7b245400b79f5a4cd54ce67ff5c90419fcb7d1b6669b20f"
+    sha256 sonoma:        "b1154ad4be04f1436867c61db0dc82043037e2d5226e3453a0398cd3af4d1172"
+    sha256 ventura:       "f244d11a89253241d51cd2d1f7a177113549d4cc4e13791021bcbd289cd1023b"
+    sha256 x86_64_linux:  "b252505ed78cc76415bcb5d1da98a1708923c717740bf7b3ebba71833ce75813"
+  end
+
+  uses_from_macos "ncurses"
+
+  on_macos do
+    depends_on "gettext"
   end
 
   def install
     # Fix compile with newer Clang
     ENV.append_to_cflags "-Wno-implicit-function-declaration" if DevelopmentTools.clang_build_version >= 1403
 
-    system "./configure", "--prefix=#{prefix}", "--mandir=#{man}", "--disable-nls"
+    system "./configure", "--mandir=#{man}", *std_configure_args
     system "make", "install"
   end
 

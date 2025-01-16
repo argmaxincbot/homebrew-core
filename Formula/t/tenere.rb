@@ -4,20 +4,31 @@ class Tenere < Formula
   url "https://github.com/pythops/tenere/archive/refs/tags/v0.11.2.tar.gz"
   sha256 "865c9b041faf935545dbb9753b33a8ff09bf4bfd8917d25ca93f5dc0c0cac114"
   license "GPL-3.0-or-later"
+  revision 1
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0cfe044f70a14a46fbcc13fd9567b1d376a1081829dc4ab41e7d26772da2c4a7"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fd39545ed71c5c4bc73698cb55f8c686e770100e36c6843f4c73a9659aa6516b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "3ccc493d54b1090b493158af6816e5e2ea88d5ee7bb96aa07106f45bd2f31c69"
-    sha256 cellar: :any_skip_relocation, sonoma:        "853a57352491e3bed077f2a9f49b41750eb55737993a91d181dbb7cbe5d617e2"
-    sha256 cellar: :any_skip_relocation, ventura:       "db5cf107adb337ca8ae33f16b77be78413fca5eef6bf9a32fe4bfb74943cea1b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0eaf02aea5d55524a747a79e3ea5b88a467a491e31acb86a7a9630680cc9b498"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "27ab0ab6d18b6c5e4d0e7edad7c2543d158804ec027a5604158419416b876a60"
+    sha256 cellar: :any,                 arm64_sonoma:  "0960f90c6ae608d04793ddb91503109803974b8f3590006655b1d39c411eea59"
+    sha256 cellar: :any,                 arm64_ventura: "aa38fea42e6d5ff2a657d1abbea38712522561bb44a236f0bf2021e4538425fb"
+    sha256 cellar: :any,                 sonoma:        "34cfde676da9db9d63b7d9e153ec5e8da89da08fc49ac53fc0ee99c6034fa9d4"
+    sha256 cellar: :any,                 ventura:       "d928aa81de543a995db52ee06343ea3eeda83027e95e83b392caa9058d40e232"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "670e6af5f665d27ba5c502aa245ee64175d561c63af071fa7988129c10d25e2f"
   end
 
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
+  depends_on "oniguruma"
+
   uses_from_macos "zlib"
 
   def install
+    # TODO: ENV["LIBGIT2_NO_VENDOR"] = "1"
+    libgit2_version = File.read("Cargo.lock")[/name = "libgit2-sys"\nversion = "(.+)\+(.+)"/, 2]
+    odie "Unbundled libgit2 as now using #{libgit2_version}!" if Version.new(libgit2_version) >= "1.8"
+
+    ENV["RUSTONIG_SYSTEM_LIBONIG"] = "1"
+
     system "cargo", "install", *std_cargo_args
   end
 

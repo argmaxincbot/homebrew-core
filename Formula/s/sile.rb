@@ -1,18 +1,17 @@
 class Sile < Formula
   desc "Modern typesetting system inspired by TeX"
   homepage "https://sile-typesetter.org"
-  url "https://github.com/sile-typesetter/sile/releases/download/v0.15.5/sile-0.15.5.tar.zst"
-  sha256 "d20137b02d16302d287670fd285ad28ac3b8d3af916460aa6bc8cbff9321b9f9"
+  url "https://github.com/sile-typesetter/sile/releases/download/v0.15.9/sile-0.15.9.tar.zst"
+  sha256 "fbda59503b333d82661601db647d1a2ad67aa8b7098e1ef78c6d8216844ac567"
   license "MIT"
-  revision 3
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "840aacf2bbfbac9fd5fc325774bf97b5b8f856744ac4d586b21818e2739409c6"
-    sha256 cellar: :any,                 arm64_sonoma:  "b7ac10480de2c0788764c7372734a9e02784020250fc8fe05c4e9b849798dc96"
-    sha256 cellar: :any,                 arm64_ventura: "cee961523e14bdac28e8a56a32d78024cb733be124e47e681bc31ba5de252309"
-    sha256 cellar: :any,                 sonoma:        "cdfeaa079d829bcf98022e8069a5c9e92ab87145198e90e8369015d48be92454"
-    sha256 cellar: :any,                 ventura:       "7b228b9043c17e02d80b3d361fe0b2d0f5d2f45ddea0e0ddcdfc5877a2af7812"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dbd247ab127cc9f68e3f25e4404974e1ec87e074af1210fb19240bde79dd4ff1"
+    sha256 cellar: :any,                 arm64_sequoia: "9bdd2cd36903daa4b456bff978de83e2053867b0c187e5b163920fac341f7f25"
+    sha256 cellar: :any,                 arm64_sonoma:  "ce23e8b0ef5eb85d0c56e51223391ddfc3dcaeb5c271f97ee407537c455535e8"
+    sha256 cellar: :any,                 arm64_ventura: "e0b404b8ed9e486e26ad6d23e612bbb1a3c1cdf2cad2eb01f0e342194fc9d8e1"
+    sha256 cellar: :any,                 sonoma:        "22e42228910cf28c6369830370ad692651d4ee1c18e94c38272aca96cc6653e1"
+    sha256 cellar: :any,                 ventura:       "575b248e7130192e728a1191be84a9f7960d110f81026c4eefa321dd38975893"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e99d6d665c1caeed954d772dee426485bbb13c5225cd2b6a97071ae8eb16f2f9"
   end
 
   head do
@@ -45,8 +44,8 @@ class Sile < Formula
   end
 
   resource "compat53" do
-    url "https://luarocks.org/manifests/lunarmodules/compat53-0.12-1.rockspec"
-    sha256 "880cdad8d1789a0756f2023d2c98f36d94e6d2c1cc507190b4f9883420435746"
+    url "https://luarocks.org/manifests/lunarmodules/compat53-0.14.3-1.rockspec"
+    sha256 "16218188112c20e9afa9e9057f753d29d7affb10fe3fb2ac74cab17c6de9a030"
   end
 
   resource "linenoise" do
@@ -110,8 +109,8 @@ class Sile < Formula
 
   # depends on luafilesystem
   resource "penlight" do
-    url "https://luarocks.org/manifests/tieske/penlight-1.13.1-1.src.rock"
-    sha256 "fa028f7057cad49cdb84acdd9fe362f090734329ceca8cc6abb2d95d43b91835"
+    url "https://luarocks.org/manifests/tieske/penlight-1.14.0-2.src.rock"
+    sha256 "f36affa14fb43e208a59f2e96d214f774b957bcd05d9c07ec52b39eac7f4a05d"
   end
 
   # depends on penlight
@@ -133,8 +132,8 @@ class Sile < Formula
   end
 
   resource "luautf8" do
-    url "https://luarocks.org/manifests/xavier-wang/luautf8-0.1.5-2.src.rock"
-    sha256 "68bd8e3c3e20f98fceb9e20d5a7a50168202c22eb45b87eff3247a0608f465ae"
+    url "https://luarocks.org/manifests/xavier-wang/luautf8-0.1.6-1.src.rock"
+    sha256 "37901bc127c4afe9f611bba58af7b12eda6599fc270e1706e2f767807dfacd82"
   end
 
   resource "vstruct" do
@@ -143,10 +142,6 @@ class Sile < Formula
   end
 
   def install
-    # Workaround for ICU 76+.
-    # Issue ref: https://github.com/sile-typesetter/sile/issues/2152
-    inreplace "configure", '"icu-uc icu-io"', '"icu-uc icu-i18n icu-io"' if build.stable?
-
     lua = Formula["luajit"]
     luaversion = "5.1"
     luapath = libexec/"vendor"
@@ -182,7 +177,6 @@ class Sile < Formula
       r.stage do
         rock = Pathname.pwd.children(false).first
         unpack_dir = Utils.safe_popen_read("luarocks", "unpack", rock).split("\n")[-2]
-
         spec = "#{r.name}-#{r.version}.rockspec"
         cd(unpack_dir) { system "luarocks", "make", *luarocks_args, spec }
       end
@@ -191,8 +185,11 @@ class Sile < Formula
     configure_args = %w[
       FCMATCH=true
       --disable-silent-rules
-      --with-system-luarocks
+      --disable-static
+      --disable-embeded-resources
       --with-system-lua-sources
+      --with-system-luarocks
+      --with-vendored-luarocks-dir=#{luapath}
     ]
 
     system "./bootstrap.sh" if build.head?

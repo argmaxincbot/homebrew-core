@@ -6,11 +6,6 @@ class Elektra < Formula
   license "BSD-3-Clause"
   head "https://github.com/ElektraInitiative/libelektra.git", branch: "master"
 
-  livecheck do
-    url "https://www.libelektra.org/ftp/elektra/releases/"
-    regex(/href=.*?elektra[._-]v?(\d+(?:\.\d+)+)\.t/i)
-  end
-
   bottle do
     sha256 arm64_sequoia:  "b9880fd25ffb5e345973fbb4390edcce5c0fec8f438f417f771c14b118ac79a2"
     sha256 arm64_sonoma:   "145f4e7335c44640cb1b89fc077451ab1f0667d00fc9622d19754c8d7fda6fd0"
@@ -23,6 +18,8 @@ class Elektra < Formula
     sha256 big_sur:        "840c731a3c0afc0b417a8886f24ef3a9bb20c5ae27571a3bb9df382c29358faf"
     sha256 x86_64_linux:   "19c2348d85346bf54e1858e38c256a0c3fc5b53663118dd4a6080f37ab4610f3"
   end
+
+  deprecate! date: "2025-01-10", because: :repo_archived
 
   depends_on "cmake" => :build
   depends_on "doxygen" => :build

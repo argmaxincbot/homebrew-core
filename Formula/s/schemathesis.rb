@@ -3,17 +3,17 @@ class Schemathesis < Formula
 
   desc "Testing tool for web applications with specs"
   homepage "https://schemathesis.readthedocs.io/"
-  url "https://files.pythonhosted.org/packages/d4/4f/1c03394fdd4428743ffb1701fcbc7427811ec8b52dfe1bc2f69f68fced0f/schemathesis-3.39.1.tar.gz"
-  sha256 "4840c3d1cf4bf1a2def90a81dd17930919495420339b9e97f1e5558a6fcb01d7"
+  url "https://files.pythonhosted.org/packages/5e/99/4fd58180c805abf467061d8e1a3f5c547ce7ca0c07bbb3618b9fa71b6be2/schemathesis-3.39.6.tar.gz"
+  sha256 "c78da7e0ce725dc2ae757f6db9afee02b08e26e50bfcc64f56752c36c67328b7"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "371a6ac2dc3f696bed6424269792c0a12244cddc031f616fb65029bd939168c0"
-    sha256 cellar: :any,                 arm64_sonoma:  "dad0cfbf276e2154a25ef4de2f110903de6aba86943ac97823401437da4f27ec"
-    sha256 cellar: :any,                 arm64_ventura: "1097ba944ea72f83b8e617d6de79870c1116613ea593476d842421834eb09717"
-    sha256 cellar: :any,                 sonoma:        "9c57624474320079509880179e3d2be3fe254cb9fcc08b76a710fb2d05cdc1e5"
-    sha256 cellar: :any,                 ventura:       "d21920aa207a6a24e7ee8fb345068e9ff040e496072e5a05471724b5fc48d659"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "084bbbbac5fd1702ba7abdada2708b45dd0ea8926603d700237ef620c731b4bc"
+    sha256 cellar: :any,                 arm64_sequoia: "43aa5ba68fd17f75352067883f4ea3e6bc018092a96c538dae679ffc938f977a"
+    sha256 cellar: :any,                 arm64_sonoma:  "14486cb28b44e571795428d311706d47a77eaf71c34fc1963cf7c67b42637c34"
+    sha256 cellar: :any,                 arm64_ventura: "bda7f50db77e2907b3cdb17ea9368823f7b530dc232c5090d50493c151e42f65"
+    sha256 cellar: :any,                 sonoma:        "e5272b57f4f6af5950b223c212551e2b24c3e1633555f9c0b6bbe9cb6afa2114"
+    sha256 cellar: :any,                 ventura:       "35a75729d075afb350a06a5fa53550faea76f54efde7205c61df27e8a2ff7bc6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c3c660ba8b277bbe58828cf12ee8193b88569720f46d63749b1cd19eb9e6aa17"
   end
 
   depends_on "rust" => :build # for rpds-py
@@ -24,8 +24,8 @@ class Schemathesis < Formula
   conflicts_with "st", because: "both install `st` binaries"
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/f6/40/318e58f669b1a9e00f5c4453910682e2d9dd594334539c7b7817dabb765f/anyio-4.7.0.tar.gz"
-    sha256 "2f834749c602966b7d456a7567cafcb309f96482b5081d14ac93ccd457f9dd48"
+    url "https://files.pythonhosted.org/packages/a3/73/199a98fc2dae33535d6b8e8e6ec01f8c1d76c9adb096c6b7d64823038cde/anyio-4.8.0.tar.gz"
+    sha256 "1d9fe889df5212298c0c0723fa20479d1b94883a2df44bd3897aa91083316f7a"
   end
 
   resource "arrow" do
@@ -44,13 +44,13 @@ class Schemathesis < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/f2/4f/e1808dc01273379acc506d18f1504eb2d299bd4131743b9fc54d7be4df1e/charset_normalizer-3.4.0.tar.gz"
-    sha256 "223217c3d4f82c3ac5e29032b3f1c2eb0fb591b72161f86d93f5719079dae93e"
+    url "https://files.pythonhosted.org/packages/16/b0/572805e227f01586461c80e0fd25d65a2115599cc9dad142fee4b747c357/charset_normalizer-3.4.1.tar.gz"
+    sha256 "44251f18cd68a75b56585dd00dae26183e102cd5e0f9f1466e6df5da2ed64ea3"
   end
 
   resource "click" do
-    url "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz"
-    sha256 "ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"
+    url "https://files.pythonhosted.org/packages/b9/2e/0090cbf739cee7d23781ad4b89a9894a41538e4fcf4c31dcdd705b78eb8b/click-8.1.8.tar.gz"
+    sha256 "ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a"
   end
 
   resource "colorama" do
@@ -89,8 +89,8 @@ class Schemathesis < Formula
   end
 
   resource "hypothesis" do
-    url "https://files.pythonhosted.org/packages/5a/21/c4c755ad5763f4c882a855b9966ac019c2314e5578b5f5eb39d9fe9fe64d/hypothesis-6.122.3.tar.gz"
-    sha256 "f4c927ce0ec739fa6266e4572949d0b54e24a14601a2bc5fec8f78e16af57918"
+    url "https://files.pythonhosted.org/packages/2d/c9/277ddd48f69d6d78a0638bb241642767ea3dd92a691446df4f68edc1d018/hypothesis-6.123.15.tar.gz"
+    sha256 "b9c55b8fa778ed115434c718d74d73e36ee0f4fca38839195ac8c61f0f9b0f2c"
   end
 
   resource "hypothesis-graphql" do
@@ -174,8 +174,8 @@ class Schemathesis < Formula
   end
 
   resource "pytest-subtests" do
-    url "https://files.pythonhosted.org/packages/67/fe/e691d2f4ce061a475f488cad1ef58431556affea323dde5c764fd7515a70/pytest_subtests-0.13.1.tar.gz"
-    sha256 "989e38f0f1c01bc7c6b2e04db7d9fd859db35d77c2c1a430c831a70cbf3fde2d"
+    url "https://files.pythonhosted.org/packages/c0/4c/ba9eab21a2250c2d46c06c0e3cd316850fde9a90da0ac8d0202f074c6817/pytest_subtests-0.14.1.tar.gz"
+    sha256 "350c00adc36c3aff676a66135c81aed9e2182e15f6c3ec8721366918bbbf7580"
   end
 
   resource "python-dateutil" do
@@ -229,8 +229,8 @@ class Schemathesis < Formula
   end
 
   resource "starlette" do
-    url "https://files.pythonhosted.org/packages/3e/ae/0c98794b248370ce30f71018d0f39889f1d90c73a631e68e2f47e5efda2f/starlette-0.42.0.tar.gz"
-    sha256 "91f1fbd612f3e3d821a8a5f46bf381afe2a9722a7b8bbde1c07fb83384c2882a"
+    url "https://files.pythonhosted.org/packages/90/4f/e1c9f4ec3dae67a94c9285ed275355d5f7cf0f3a5c34538c8ae5412af550/starlette-0.45.2.tar.gz"
+    sha256 "bba1831d15ae5212b22feab2f218bab6ed3cd0fc2dc1d4442443bb1ee52260e0"
   end
 
   resource "starlette-testclient" do
@@ -259,8 +259,8 @@ class Schemathesis < Formula
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/ed/63/22ba4ebfe7430b76388e7cd448d5478814d3032121827c12a2cc287e2260/urllib3-2.2.3.tar.gz"
-    sha256 "e7d814a81dad81e6caf2ec9fdedb284ecc9c73076b62654547cc64ccdcae26e9"
+    url "https://files.pythonhosted.org/packages/aa/63/e53da845320b757bf29ef6a9062f5c669fe997973f966045cb019c3f4b66/urllib3-2.3.0.tar.gz"
+    sha256 "f8c5449b3cf0861679ce7e0503c7b44b5ec981bec0d1d3795a07f1ba96f0204d"
   end
 
   resource "webcolors" do
@@ -280,6 +280,8 @@ class Schemathesis < Formula
 
   def install
     virtualenv_install_with_resources
+
+    generate_completions_from_executable(bin/"st", shells: [:fish, :zsh], shell_parameter_format: :click)
   end
 
   test do

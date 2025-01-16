@@ -1,20 +1,18 @@
 class Fmt < Formula
   desc "Open-source formatting library for C++"
   homepage "https://fmt.dev/"
-  url "https://github.com/fmtlib/fmt/releases/download/11.0.2/fmt-11.0.2.zip"
-  sha256 "40fc58bebcf38c759e11a7bd8fdc163507d2423ef5058bba7f26280c5b9c5465"
+  url "https://github.com/fmtlib/fmt/releases/download/11.1.2/fmt-11.1.2.zip"
+  sha256 "ef54df1d4ba28519e31bf179f6a4fb5851d684c328ca051ce5da1b52bf8b1641"
   license "MIT"
   head "https://github.com/fmtlib/fmt.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "0960a214392fc344670c2fae5a698799c910743d437c0119756cab9c5395bbd2"
-    sha256 cellar: :any,                 arm64_sonoma:   "244d2f9285c080d0dbef74e2741082754a82d13bf0c1da25130dbbc82d648162"
-    sha256 cellar: :any,                 arm64_ventura:  "13febc98177289f86421181ee4eed45b8d47f88ae4ceb573c4106af2db355bf7"
-    sha256 cellar: :any,                 arm64_monterey: "cfdbcf9079cfe3ec3148408799bdf73f1f8a8ec55e85576ba6884383a756423d"
-    sha256 cellar: :any,                 sonoma:         "3cfdbc8234181a472bfaa81699f68745c741a3f12d394da25926a8c11f2fbc20"
-    sha256 cellar: :any,                 ventura:        "9c1f360c5996c6bc94ce7fd06871fc02016207ae671c4649a28cc163ef8b057b"
-    sha256 cellar: :any,                 monterey:       "656e4cdeba06ddc3b4f7e3b375177217595e4f23f26177f77bb486d117e6fe0d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "63f0d3d18a30bdce1b31b873722c5cb369f8ad7dda2c4e9b258d489a5bc9102e"
+    sha256 cellar: :any,                 arm64_sequoia: "34b5e506a3a4b204fc5b7bfeed88a68c21636a03fb9fe18f335bee6530fd6ba3"
+    sha256 cellar: :any,                 arm64_sonoma:  "1046ef8370d738db0b1b31844068e04f6ba2e37f8f2971fd66317db20683a08a"
+    sha256 cellar: :any,                 arm64_ventura: "c937ca512d3659428d16171b116a93b77356958b67963ca2444c1d932f35095d"
+    sha256 cellar: :any,                 sonoma:        "7c665fc73469d4322a4f2739b84ca45feba1eb46adeca2ad507b772358ef8a41"
+    sha256 cellar: :any,                 ventura:       "9155a09ab31fb52c3b4c963c6177ed1f6035896e8d584cb873a9f463fcb21e07"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b8be2c52165bba3b7bde1e1c0fa2ccfbad1f76299434da9e29f8857d9e00ee55"
   end
 
   depends_on "cmake" => :build

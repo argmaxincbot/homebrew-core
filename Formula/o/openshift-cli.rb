@@ -1,7 +1,7 @@
 class OpenshiftCli < Formula
   desc "OpenShift command-line interface tools"
   homepage "https://www.openshift.com/"
-  url "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.17.9/openshift-client-src.tar.gz"
+  url "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.17.11/openshift-client-src.tar.gz"
   # This project employs synchronized versioning so the sha256 may not change on version bumps
   sha256 "0695fcf3e514f6dcc5b86222ed067942f5e604ce27eff15a12f4a9713481a051"
   license "Apache-2.0"
@@ -13,12 +13,12 @@ class OpenshiftCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1213ac711eea9b5ec3b5b1f4159d58ce88126e8ed4af2653e3ad828a7d5b5ad4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8216d30a5d722dc823b072cdb41880cf72f048e6634eff1deece38860d605b01"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8655853dcd9e3edfc6dbc312bf2c0c05fcf40ef0c82f87349f3544f923fd9e56"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ef298b9da1005621f2bdb06b4b2aed2be6bf9ed4d538b4197fddd14687a92acc"
-    sha256 cellar: :any_skip_relocation, ventura:       "8e77813bce091fec617d864e4d0a7570600c3633597e4d1fb8ca4366f1722f6c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c582dbddfe6f4cfdf4133ad6f502bc75f8d8d307e63743fa5d83ede7c4f3b42d"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "da050d39c8ec3d0b6f9fd1b71538a5428ba4f830fa861c763e1f8979021f87bf"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "2c02eb41e2a1513d1b62e13db0a675e816eee55390c0389c8f491ba73a3951c2"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "e0af3b7765bb26c3936d55b9d60d2421916ba0367ba28154cc9d3d55c6338064"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5a7da8ddc9504a353593fb69085f85be8ec05911e6c42976bd6ab7f420458552"
+    sha256 cellar: :any_skip_relocation, ventura:       "de6ee407256be468c5fbe3834731724553c52f60fbbb1025d605c83adc28c522"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eff8fe421cb1fa5fb8c2c49200dbe415f5a3da65b3758b88668de5bd9fac7795"
   end
 
   depends_on "go" => :build
@@ -34,7 +34,7 @@ class OpenshiftCli < Formula
 
     system "make", "cross-build-#{os}-#{arch}", "OS_GIT_VERSION=#{version}", "SOURCE_GIT_COMMIT=#{revision}", "SHELL=/bin/bash"
     bin.install "_output/bin/#{os}_#{arch}/oc"
-    generate_completions_from_executable(bin/"oc", "completion", base_name: "oc")
+    generate_completions_from_executable(bin/"oc", "completion")
   end
 
   test do

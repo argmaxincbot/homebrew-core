@@ -5,6 +5,7 @@ class Go < Formula
   mirror "https://fossies.org/linux/misc/go1.23.4.src.tar.gz"
   sha256 "ad345ac421e90814293a9699cca19dd5238251c3f687980bbcae28495b263531"
   license "BSD-3-Clause"
+  revision 1
   head "https://go.googlesource.com/go.git", branch: "master"
 
   livecheck do
@@ -21,12 +22,12 @@ class Go < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "5a84bce32e529be0472734e5789883471df559105afa2a92498631c75032d86c"
-    sha256 arm64_sonoma:  "5a84bce32e529be0472734e5789883471df559105afa2a92498631c75032d86c"
-    sha256 arm64_ventura: "5a84bce32e529be0472734e5789883471df559105afa2a92498631c75032d86c"
-    sha256 sonoma:        "7edf89af80b910df2599cb12402f356276ff266f2c2c56072214706ddbade724"
-    sha256 ventura:       "7edf89af80b910df2599cb12402f356276ff266f2c2c56072214706ddbade724"
-    sha256 x86_64_linux:  "90eb5bd4696656becce3fcffb7ab69a1d4333d41ac6f458a64c5dd1651922857"
+    sha256 arm64_sequoia: "cf5710a74df36981bf8dda6ce6c32373e294234f686d117c4778ef4d9edc52b0"
+    sha256 arm64_sonoma:  "cf5710a74df36981bf8dda6ce6c32373e294234f686d117c4778ef4d9edc52b0"
+    sha256 arm64_ventura: "cf5710a74df36981bf8dda6ce6c32373e294234f686d117c4778ef4d9edc52b0"
+    sha256 sonoma:        "01f4245c3c9b634c4e61014d648b64d25d7f03728227bea40e25d381ce8be119"
+    sha256 ventura:       "01f4245c3c9b634c4e61014d648b64d25d7f03728227bea40e25d381ce8be119"
+    sha256 x86_64_linux:  "13be2cc9eb9e7792a205709e92905a6f69e5b79b41898c41a0cf0ceabcb3a4d0"
   end
 
   # Don't update this unless this version cannot bootstrap the new version.
@@ -63,8 +64,6 @@ class Go < Formula
   end
 
   def install
-    inreplace "go.env", /^GOTOOLCHAIN=.*$/, "GOTOOLCHAIN=local"
-
     (buildpath/"gobootstrap").install resource("gobootstrap")
     ENV["GOROOT_BOOTSTRAP"] = buildpath/"gobootstrap"
 
@@ -87,17 +86,7 @@ class Go < Formula
     rm_r(libexec/"src/runtime/pprof/testdata")
   end
 
-  def caveats
-    <<~EOS
-      Homebrew's Go toolchain is configured with
-        GOTOOLCHAIN=local
-      per Homebrew policy on tools that update themselves.
-    EOS
-  end
-
   test do
-    assert_equal "local", shell_output("#{bin}/go env GOTOOLCHAIN").strip
-
     (testpath/"hello.go").write <<~GO
       package main
 

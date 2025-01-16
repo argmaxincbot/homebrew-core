@@ -6,8 +6,14 @@ class Asdf < Formula
   license "MIT"
   head "https://github.com/asdf-vm/asdf.git", branch: "master"
 
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "1e938bf6752dc1494717a8354a3cd295b7b747202d23573a6a74a10bb0bfe3d4"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, all: "a94dd362ce5c3a818f4fa56607eac3c616a3c1191e9f41480093bda2dc308af4"
   end
 
   depends_on "autoconf"
@@ -20,7 +26,7 @@ class Asdf < Formula
   depends_on "unixodbc"
 
   def install
-    bash_completion.install "completions/asdf.bash"
+    bash_completion.install "completions/asdf.bash" => "asdf"
     fish_completion.install "completions/asdf.fish"
     zsh_completion.install "completions/_asdf"
     libexec.install Dir["*"]

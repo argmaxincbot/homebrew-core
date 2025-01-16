@@ -1,18 +1,18 @@
 class Parlay < Formula
   desc "Enrich SBOMs with data from third party services"
   homepage "https://github.com/snyk/parlay"
-  url "https://github.com/snyk/parlay/archive/refs/tags/v0.6.4.tar.gz"
-  sha256 "b378e31a7f7ba7ac8373febf26e8d4796e724a1ab57844d928906ff3e25858f4"
+  url "https://github.com/snyk/parlay/archive/refs/tags/v0.7.0.tar.gz"
+  sha256 "ce6fe2050f1a04357c5efdd35ee62a9626aa61978d6b5153b281ad868e9b6e3c"
   license "Apache-2.0"
   head "https://github.com/snyk/parlay.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "412eb05356a186c28db0b8eabf85237eae42a52879d13d7ac4ac7543e1e485e4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "412eb05356a186c28db0b8eabf85237eae42a52879d13d7ac4ac7543e1e485e4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "412eb05356a186c28db0b8eabf85237eae42a52879d13d7ac4ac7543e1e485e4"
-    sha256 cellar: :any_skip_relocation, sonoma:        "42e5d0385abe716181c905367121ad2f163c4c4122f894c0ec66784713a365e5"
-    sha256 cellar: :any_skip_relocation, ventura:       "42e5d0385abe716181c905367121ad2f163c4c4122f894c0ec66784713a365e5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "77b459d62aa512a32cb99f6e0f7eace1b8cf1d6ab187f54a641840507d6584eb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9500bdf0d7d002f14516ed724c1fafb1455c4eca2ea29acce67bfc05744c9f8f"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9500bdf0d7d002f14516ed724c1fafb1455c4eca2ea29acce67bfc05744c9f8f"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "9500bdf0d7d002f14516ed724c1fafb1455c4eca2ea29acce67bfc05744c9f8f"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6a31b8e96a35dde70feb12cc350d8b9cf896b190f8960e95ec99d5421a887341"
+    sha256 cellar: :any_skip_relocation, ventura:       "6a31b8e96a35dde70feb12cc350d8b9cf896b190f8960e95ec99d5421a887341"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ffbc99d7d2c246b4ee5bfc0b0391f995c7692b72ce55edd67a818b975c58476e"
   end
 
   depends_on "go" => :build

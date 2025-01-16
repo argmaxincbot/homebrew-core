@@ -1,28 +1,19 @@
 class Asak < Formula
   desc "Cross-platform audio recording/playback CLI tool with TUI"
   homepage "https://github.com/chaosprint/asak"
+  url "https://github.com/chaosprint/asak/archive/refs/tags/v0.3.5.tar.gz"
+  sha256 "da90a31924a6ac7ed06fa54d5060290535afdfe1a6fc3e69ad1ed5bc82757e92"
   license "MIT"
-  revision 1
   head "https://github.com/chaosprint/asak.git", branch: "main"
 
-  stable do
-    url "https://github.com/chaosprint/asak/archive/refs/tags/v0.3.3.tar.gz"
-    sha256 "e5c7da28f29e4e1e45aa57db4c4ab94278d59bd3bdb717ede7d04f04b1f7ed36"
-
-    # patch to add man pages and shell completions support, upstream pr ref, https://github.com/chaosprint/asak/pull/18
-    patch do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/f833fa6c7880376cb5ffe90f4d154368be04517e/asak/0.3.3-clap-update.patch"
-      sha256 "04e7172fd4ca7a643849077fcb6bd4baefadaa54231c06503e1946ec8ebcd811"
-    end
-  end
-
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "3ed8ad6aff3db12016ca1f7f2f0242ff2373eebf52707125a67c326d0416a79b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0bd72ff2e29d2a12e2e7a3970c55505329d0cee01d76418baba55b3ea3a6e0de"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "5b2a5bfba37fd35fdafc19cc8f7cf44fc1d1d764dadf912ad7b0011154556670"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7f555b3fcbaf3125eef3d2dc3ce942777c3982f526b1d5f96bb7d049c23033c3"
-    sha256 cellar: :any_skip_relocation, ventura:       "1906d3fffa8236bdf4d41c625fb9273cb61bcb6a23987818294e86003a65d45f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b773ec9f9d8c4f69c29b99a2543d9b1be34029e475438b6236916d2fd8f885b3"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "79e247315c14b0a29016ba9856f673d877229af3a7aa4755cc9887ea110b2b20"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "01a324c75ba86d32ba07a3184d83921bf05824aaf2c327a5e6c423498969f1c4"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "feb576b39f6c74a6876b14a0fa28f5560e1dad477831965465f44a68d465ed5e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4755f43dda07d16847f7a153ea3c6832c0b6de12c4ebf0dfa53d52bc5e48bfee"
+    sha256 cellar: :any_skip_relocation, ventura:       "2d605e4e59e4c111c890547a42f9634fe4781b4b025cd2e8a61f645fafec0d4e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1a7dc3b8e3729bc5d1d9cd7e35a701187334e6da2f80e02eece663b1d4ec6c9d"
   end
 
   depends_on "pkgconf" => :build

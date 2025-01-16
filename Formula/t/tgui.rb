@@ -1,9 +1,10 @@
 class Tgui < Formula
   desc "GUI library for use with sfml"
   homepage "https://tgui.eu"
-  url "https://github.com/texus/TGUI/archive/refs/tags/v1.6.1.tar.gz"
-  sha256 "c9ee4dd9107a107bc818368691c607ab812fd8cf18d02effbe8a1413edea657f"
+  url "https://github.com/texus/TGUI/archive/refs/tags/v1.7.0.tar.gz"
+  sha256 "7d40359770e2f8e534a57332c99fd56c72cf79a8b59642676e01394fe05cb1fa"
   license "Zlib"
+  revision 1
 
   livecheck do
     url :stable
@@ -11,12 +12,13 @@ class Tgui < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "ae653005a2c508f41fa97008f383ffb57b4ed00345975cda0fee9152201ae697"
-    sha256 cellar: :any,                 arm64_sonoma:  "34c23d4a04975e6e8d01935219e0d4b86bf2eab913c7a1441b820717dab7ae62"
-    sha256 cellar: :any,                 arm64_ventura: "22a69983852c4622aac5b2f668c02bae2f0f5ed9feff1a58876d0c56faac78c8"
-    sha256 cellar: :any,                 sonoma:        "8a5abc027243e1e23838c4df10c22d0758efc1b335689922160dea25886390c3"
-    sha256 cellar: :any,                 ventura:       "94f9406476600fcce70df6a413de54ecd2bee522bc6f8fca454b72540606e12f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0c7863208e769e1080430365bd3993b2f2da5bd62176d308df8547f3f94024b0"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "080aa369e3989af0d6356474269a0fbf23a87dca6004225a830b3d1ed35fd0d7"
+    sha256 cellar: :any,                 arm64_sonoma:  "220cd61b22a0bc34084d3a0e0e3b37ee0e8e7b4cefe0c9cd2a3b6477d22b52eb"
+    sha256 cellar: :any,                 arm64_ventura: "0ac91f25c61424cbac1b04aaea23a0180dbc0b2e276695271479e0af17323ac6"
+    sha256 cellar: :any,                 sonoma:        "7f092bf4268f8503af9673cab2ebfaf3e36178dc4c630b06da9201eeaec9f551"
+    sha256 cellar: :any,                 ventura:       "c92b6d820ea57fd04dad69efbd9d4a7a082cd8c0ae0e0a389e72540e6be2a667"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "29d9dfeb5710e057b851722005b8caf9752b04904115bde7044f51a8881bb706"
   end
 
   depends_on "cmake" => :build
@@ -44,15 +46,25 @@ class Tgui < Formula
       #include <TGUI/Backend/SFML-Graphics.hpp>
       int main()
       {
-        sf::Text text;
-        text.setString("Hello World");
+        sf::RenderWindow window{sf::VideoMode{{800, 600}}, "TGUI example (SFML-Graphics)"};
+        tgui::Gui gui{window};
+        if (!window.isOpen())
+          return 1;
+        const auto event = window.pollEvent();
+        window.close();
         return 0;
       }
     CPP
-    system ENV.cxx, "test.cpp", "-std=c++17", "-I#{include}",
+
+    system ENV.cxx, "test.cpp", "-std=c++17", "-I#{include}", "-I#{Formula["sfml"].opt_include}",
       "-L#{lib}", "-L#{Formula["sfml"].opt_lib}",
       "-ltgui", "-lsfml-graphics", "-lsfml-system", "-lsfml-window",
       "-o", "test"
-    system "./test"
+
+    if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]
+      assert_match "Failed to open X11 display", shell_output("./test 2>&1", 134)
+    else
+      system "./test"
+    end
   end
 end

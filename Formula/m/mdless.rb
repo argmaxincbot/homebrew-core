@@ -1,27 +1,21 @@
 class Mdless < Formula
   desc "Provides a formatted and highlighted view of Markdown files in Terminal"
   homepage "https://github.com/ttscoff/mdless"
-  url "https://github.com/ttscoff/mdless/archive/refs/tags/2.1.51.tar.gz"
-  sha256 "fedd185416a7c4c88c824f48f13da843d0535f0dded13ead0b6cae7bf174da5d"
+  url "https://github.com/ttscoff/mdless/archive/refs/tags/2.1.56.tar.gz"
+  sha256 "9ff7e6b32c719407ee13f7f6f85eabc5589edca159d6cf666cd31f95ebd223f9"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "0dc52539af0c30d353cde6eb4966a2a3cd78888136d449cf727c8224150e5490"
-    sha256 cellar: :any,                 arm64_sonoma:  "494ba6d56e4b5f6322e3b221ee0b7324f097354ff6825bae614862a3747c8ab5"
-    sha256 cellar: :any,                 arm64_ventura: "00c4f86d2efa11b59ea2b406a1868cae4c717bf45f9fba3df90db3438e42192e"
-    sha256 cellar: :any,                 sonoma:        "e45b5ed6f214617c19f6cd4e16cfbc73ada99c841251d5193b05b6beac1f3036"
-    sha256 cellar: :any,                 ventura:       "8ffaf68d1afbabf8688fa92e1dc2f461a468a7909e10796b6e2d9b46da7b6a9c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "31ad4305b64dc4aad627f776ca684626b3b4104277270b50ecfe14e6eb02ec47"
+    sha256 cellar: :any,                 arm64_sequoia: "10d4d3857e093cb31582d0845688eb80b6e446ecbaba64335683d90c23272906"
+    sha256 cellar: :any,                 arm64_sonoma:  "f747ed68b967bb69fe225e8083f67d836880377f10ac2bc1629e03fcec66de8d"
+    sha256 cellar: :any,                 arm64_ventura: "ca06a7d9949eede27ac20240ffe82ec97b681655dc7113c46a3957df8520d7cd"
+    sha256 cellar: :any,                 sonoma:        "e4792beb1c6c7d26c39aa5e66129f98bc7a51200877778a0798ac30fa3c0f2c3"
+    sha256 cellar: :any,                 ventura:       "52e9034713bc44d11fe034a0c4a4c5fe15c9d9ecb63725c59a0f0e8e18f6225b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0f348d375c91e45152a2c044d46060805ec0e721f496d3480e5be67180f06001"
   end
 
   # Requires Ruby >= 2.7
   depends_on "ruby"
-
-  # version patch, upstream pr ref, https://github.com/ttscoff/mdless/pull/103
-  patch do
-    url "https://github.com/ttscoff/mdless/commit/3462d11f8c8dc5936cdae573a6ce9a2837ceaba6.patch?full_index=1"
-    sha256 "f8da80dcc221cbf125841aee49da31912b1f3f82208a3fd99c0906e0c930863c"
-  end
 
   def install
     ENV["GEM_HOME"] = libexec

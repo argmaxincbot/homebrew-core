@@ -1,19 +1,37 @@
 class Repomix < Formula
   desc "Pack repository contents into a single AI-friendly file"
   homepage "https://github.com/yamadashy/repomix"
-  url "https://registry.npmjs.org/repomix/-/repomix-0.2.1.tgz"
-  sha256 "9fd247249747d94215925ad7a58fc29df56ba3adb018e0c5213ba5e38819dde1"
+  url "https://registry.npmjs.org/repomix/-/repomix-0.2.20.tgz"
+  sha256 "b5a2e5454c7de25470d1cdf3ce54da1ecc23a9abe823d3ceacba7f205ce1c585"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "4e98557fe499a1152cf9a9993c3043cd5c90812b8a7741a25d8927bb4cd7b206"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "002f2dd076541382d831c79b134cd59e27e063d49b8b07375e59ffdaf50ad8a6"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "002f2dd076541382d831c79b134cd59e27e063d49b8b07375e59ffdaf50ad8a6"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "002f2dd076541382d831c79b134cd59e27e063d49b8b07375e59ffdaf50ad8a6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f1dd7048416b69c85e3a8ec703f863e20265091fd2e0daf9ea2cf6b9c8318352"
+    sha256 cellar: :any_skip_relocation, ventura:       "f1dd7048416b69c85e3a8ec703f863e20265091fd2e0daf9ea2cf6b9c8318352"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c0f20990cdf8357dc2c446ec6f0506c3c7a11057becf60625e60d512851519c9"
   end
 
   depends_on "node"
 
+  on_linux do
+    depends_on "xsel"
+  end
+
   def install
     system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
+
+    clipboardy_fallbacks_dir = libexec/"lib/node_modules/#{name}/node_modules/clipboardy/fallbacks"
+    rm_r(clipboardy_fallbacks_dir) # remove pre-built binaries
+    if OS.linux?
+      linux_dir = clipboardy_fallbacks_dir/"linux"
+      linux_dir.mkpath
+      # Replace the vendored pre-built xsel with one we build ourselves
+      ln_sf (Formula["xsel"].opt_bin/"xsel").relative_path_from(linux_dir), linux_dir
+    end
   end
 
   test do
@@ -24,20 +42,6 @@ class Repomix < Formula
 
     output = shell_output("#{bin}/repomix #{testpath}/test_repo")
     assert_match "Packing completed successfully!", output
-    assert_match <<~EOS, (testpath/"repomix-output.txt").read
-      ================================================================
-      Repository Structure
-      ================================================================
-      test_file.txt
-
-      ================================================================
-      Repository Files
-      ================================================================
-
-      ================
-      File: test_file.txt
-      ================
-      Test content
-    EOS
+    assert_match "This file is a merged representation of the entire codebase", (testpath/"repomix-output.txt").read
   end
 end
